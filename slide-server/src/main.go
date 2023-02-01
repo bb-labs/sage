@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -16,12 +18,26 @@ func main() {
 	// Create the server
 	router := gin.Default()
 
+	// Logger
+	logger := log.Default()
+
 	// Initialize the db
-	db, _ := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	fmt.Println("Mongo URI: ", os.Getenv("MONGO_URI"))
+	fmt.Println("Mongo DB: ", os.Getenv("MONGO_DB_NAME"))
+
+	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+
+	if err != nil {
+		logger.Fatalf("err: %v", err)
+	}
+
 	ctx, cancelFn := context.WithTimeout(context.Background(), 10*time.Second)
 
 	// Connect to the db
-	db.Connect(ctx)
+	err = db.Connect(ctx)
+	if err != nil {
+		logger.Fatalf("err: %v", err)
+	}
 
 	// Cleanup any errors
 	defer func() {

@@ -8,9 +8,7 @@ extension CLLocationCoordinate2D {
 class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     let httpClient = HttpClient()
     let locationManager = CLLocationManager()
-    
     var coordinate: CLLocationCoordinate2D?
-    @Published var address: String?
 
     override init() {
         super.init()
@@ -31,10 +29,10 @@ class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         if let coordinate = locations.first?.coordinate {
             self.coordinate = coordinate
             Task {
-                let addressRequest = GoogleMapsAddress.Request(latlng: coordinate.toString())
-                let addressResponse = try await self.httpClient.fetch(addressRequest) as! GoogleMapsAddress.Response
+                let slideLocationPush = SlideLocationPush.Request(userId: "truman", coordinate: coordinate.toString())
+                let slideLocationResponse = try await self.httpClient.fetch(slideLocationPush) as! SlideLocationPush.Response
                 
-                print(addressResponse.result!.formattedAddress)
+                print(slideLocationResponse.result!)
 //                let place = try await self.googleMapsApi.fetch(GoogleMapsPlace(input: address.result!))
 //                print(place.result)
 //                let place = try await self.googleMapsApi.fetch(GoogleMapsPlace(address))

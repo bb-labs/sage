@@ -25,3 +25,6 @@ services:
       - ./slide-server:/usr/src/server
     ports:
       - 3000:3000
+
+networks:
+  slide:

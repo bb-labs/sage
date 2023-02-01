@@ -2,13 +2,18 @@
 import Foundation
 
 struct GoogleMapsAddress {
+    struct Address: Codable {
+        let types: [String]
+        let formattedAddress: String
+    }
+    
     struct Response: ApiResponse {
-        typealias T = GoogleMapsEntities.Address
+        typealias T = Address
         
         let status: String
         let results: [T]
         
-        var result: GoogleMapsEntities.Address? {
+        var result: Address? {
             return self.results.first
         }
     }

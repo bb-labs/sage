@@ -8,10 +8,6 @@ struct SlideView: View {
     
     var body: some View {
         VStack {
-            if let address = locationModel.address {
-                Text(address)
-            }
-
             LocationButton {
                 locationModel.requestLocation()
             }

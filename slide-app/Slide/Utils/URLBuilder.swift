@@ -15,9 +15,12 @@ struct URLBuilder {
     var url: URL {
         var components = URLComponents(string: self.baseUrl)!
         
-        components.queryItems = self.queryParams.reduce(into: []) { params, param in
-            params.append(URLQueryItem(name: param.key, value: param.value))
+        if !self.queryParams.isEmpty {
+            components.queryItems = self.queryParams.reduce(into: []) { params, param in
+                params.append(URLQueryItem(name: param.key, value: param.value))
+            }
         }
+        
 
         return components.url!
     }
