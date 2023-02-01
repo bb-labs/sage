@@ -12,3 +12,16 @@ services:
       - ./slide-db:/home/mongodb
       - ./slide-db/data:/data/db
       - ./slide-db/scripts:/docker-entrypoint-initdb.d
+  server:
+    container_name: slide_server
+    depends_on:
+      - db
+    env_file:
+      - ./slide-server/.env.dev
+    build:
+      context: ./slide-server
+      dockerfile: Dockerfile
+    volumes:
+      - ./slide-server:/usr/src/server
+    ports:
+      - 3000:3000
