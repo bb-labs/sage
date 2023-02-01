@@ -3,9 +3,14 @@ import Foundation
 import CoreLocation
 
 struct SlideLocationPush {
+    struct Location: Encodable {
+        let type = "Point"
+        let coordinates: String
+    }
+    
     struct Request: ApiRequest, Encodable {
         let userId: String
-        let coordinate: String
+        let location: Location
         
         var urlRequest: URLRequest {
             var urlRequest = URLRequest(url: URLBuilder(baseUrl: "http://10.0.0.40:3000/locate").url)

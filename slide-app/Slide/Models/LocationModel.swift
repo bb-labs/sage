@@ -2,7 +2,7 @@
 import CoreLocation
 
 extension CLLocationCoordinate2D {
-    func toString() -> String { "\(self.latitude),\(self.longitude)" }
+    func toString() -> String { "\(self.longitude),\(self.latitude)" }
 }
 
 class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -29,7 +29,11 @@ class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         if let coordinate = locations.first?.coordinate {
             self.coordinate = coordinate
             Task {
-                let slideLocationPush = SlideLocationPush.Request(userId: "truman", coordinate: coordinate.toString())
+                let slideLocationPush = SlideLocationPush.Request(
+                    userId: "truman",
+                    location: SlideLocationPush.Location(coordinates: coordinate.toString())
+                )
+                
                 let slideLocationResponse = try await self.httpClient.fetch(slideLocationPush) as! SlideLocationPush.Response
                 
                 print(slideLocationResponse.result!)
