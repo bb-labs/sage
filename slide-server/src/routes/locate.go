@@ -5,28 +5,19 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/i-r-l/slide/src/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type LocationRequest struct {
-	UserId   string   `json:"userId"`
-	Location Location `json:"location"`
-}
-
-type Location struct {
-	LocationType string `json:"type"`
-	Coordinates  []int  `json:"coordinates"`
-}
-
 func HandleLocation(db *mongo.Client) func(*gin.Context) {
 	return func(ctx *gin.Context) {
-		var userLocation LocationRequest
+		var userLocation types.LocationUpdateRequest
 
 		ctx.BindJSON(&userLocation)
 
-		filter := bson.D{{Key: "userId", Value: userLocation.UserId}}
+		filter := bson.D{{Key: "userId", Value: userLocation.User.Token.AccessToken}}
 		update := bson.D{{Key: "$set", Value: userLocation}}
 		options := options.Update().SetUpsert(true)
 
