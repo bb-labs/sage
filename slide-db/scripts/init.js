@@ -9,7 +9,7 @@ db.runCommand({
 });
 
 // Seed users
-db.users.batchInsert([
+const users = [
   {
     location: { type: "Point", coordinates: [-104.976990, 39.721515] },
     video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -52,4 +52,8 @@ db.users.batchInsert([
     rating: 15,
     is_online: false,
   },
-])
+]
+
+users.forEach(user => db.users.insert(user))
+
+
