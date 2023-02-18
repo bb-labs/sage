@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct SlideApp: App {
+    let cameraModel = CameraModel()
     let locationModel = LocationModel()
 
     var body: some Scene {
         WindowGroup {
-            SlideView(locationModel: locationModel)
+            SlideView(cameraModel: cameraModel, locationModel: locationModel)
         }
     }
 }

@@ -4,13 +4,10 @@ import CoreData
 import CoreLocationUI
 
 struct SlideView: View {
+    @ObservedObject var cameraModel: CameraModel
     @ObservedObject var locationModel: LocationModel
     
     var body: some View {
-        VStack {
-            LocationButton {
-                locationModel.requestLocation()
-            }
-        }
+        CameraView(cameraModel: cameraModel)
     }
 }

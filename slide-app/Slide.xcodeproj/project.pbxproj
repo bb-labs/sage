@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */; };
+		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
+		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
+		8B54698229A16BF600648205 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54698129A16BF600648205 /* CameraModel.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
 		8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1935229778E2E00EC5967 /* SlideUITests.swift */; };
@@ -42,6 +45,9 @@
 		8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLocationPush.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsPlace.swift; sourceTree = "<group>"; };
+		8B54697B29A16A6D00648205 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureButton.swift; sourceTree = "<group>"; };
+		8B54698129A16BF600648205 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
 		8BB1933429778E2D00EC5967 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
@@ -89,6 +95,23 @@
 				8B308177297921BA002056A1 /* GoogleMapsAddress.swift */,
 			);
 			path = GoogleMaps;
+			sourceTree = "<group>";
+		};
+		8B54697D29A16AC600648205 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8B54697B29A16A6D00648205 /* CameraView.swift */,
+				8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		8B54698029A16BEA00648205 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8B54698129A16BF600648205 /* CameraModel.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		8BB1932629778E2D00EC5967 = {
@@ -143,6 +166,7 @@
 		8BB1936129778ED000EC5967 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B54698029A16BEA00648205 /* Camera */,
 				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
 			);
 			path = Models;
@@ -151,6 +175,7 @@
 		8BB1936229778ED300EC5967 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8B54697D29A16AC600648205 /* Camera */,
 				8BB1933429778E2D00EC5967 /* SlideView.swift */,
 			);
 			path = Views;
@@ -322,8 +347,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC8360D2980B8D600FEE6E1 /* URLBuilder.swift in Sources */,
+				8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */,
+				8B54698229A16BF600648205 /* CameraModel.swift in Sources */,
 				8BC836142980CC5500FEE6E1 /* Client.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
+				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
 				8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */,
 				8BC8360B2980B8C800FEE6E1 /* GoogleMapsPlace.swift in Sources */,
@@ -490,9 +518,11 @@
 				DEVELOPMENT_TEAM = NLVNJY4FVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "WYD needs access to your camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Always and When";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -523,9 +553,11 @@
 				DEVELOPMENT_TEAM = NLVNJY4FVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "WYD needs access to your camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Always and When";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
