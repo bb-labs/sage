@@ -14,7 +14,9 @@ struct SlideApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SlideView(cameraModel: cameraModel, locationModel: locationModel)
+            SlideView()
+                .environmentObject(cameraModel)
+                .environmentObject(locationModel)
         }
     }
 }

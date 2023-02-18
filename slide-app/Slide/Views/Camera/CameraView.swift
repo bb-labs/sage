@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct CameraView: View {
-    @ObservedObject var cameraModel: CameraModel
+    @EnvironmentObject var cameraModel: CameraModel
     
     var body: some View {
         ZStack {
             
-            Color
-                .black
+            CameraLiveView()
                 .ignoresSafeArea(.all, edges: .all)
             
             VStack {
