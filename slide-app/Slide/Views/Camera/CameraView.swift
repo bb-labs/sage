@@ -20,9 +20,7 @@ struct CameraView: View {
                 Spacer()
                 
                 HStack {
-                    CameraCaptureButton() {
-                        print("whoa")
-                    }
+                    CameraCaptureButton()
                 }
             }
         }.onAppear {
