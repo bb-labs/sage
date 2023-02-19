@@ -14,7 +14,7 @@ struct CameraCaptureButton: View {
     @State var scale = 1.0
     @State var alreadyTapped = false
     
-    let time = 5.0
+    let time = 3.0
     let size = 60.0
     let spring = 0.4
     let padding = 10.0
@@ -27,7 +27,6 @@ struct CameraCaptureButton: View {
                 .background(Color.blue)
                 .mask(Circle())
                 .foregroundColor(.white)
-                .frame(width: size, height: size)
                 .scaleEffect(scale)
             
             Circle()
@@ -38,14 +37,14 @@ struct CameraCaptureButton: View {
         }
         .padding(padding)
         .onTapGesture {
-            if alreadyTapped { return }
-            
-            alreadyTapped = true
+            if fill > 0 { return }
             
             cameraModel.startRecording()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + time) {
                 cameraModel.stopRecording()
+                fill = 0.0
+                scale = 1
             }
 
             withAnimation(.linear(duration: time)) {

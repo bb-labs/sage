@@ -43,14 +43,21 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else { return }
         let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice)
-        session.addInput(videoDeviceInput!)
         
         guard let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
         let audioDeviceInput = try? AVCaptureDeviceInput(device: audioDevice)
-        session.addInput(audioDeviceInput!)
         
+        session.addInput(videoDeviceInput!)
+        session.addInput(audioDeviceInput!)
         session.addOutput(output)
+                
         session.commitConfiguration()
+    }
+    
+    func erase() {
+        captureView = nil
+        captureViewLooper = nil
+        captureURL = nil
     }
     
     
@@ -62,7 +69,7 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
     }
     
     func stopRecording() {
-          output.stopRecording()
+        output.stopRecording()
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -70,8 +77,6 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
             print(error.localizedDescription)
             return
         }
-        
-        print(outputFileURL)
         
         captureURL = outputFileURL
     }

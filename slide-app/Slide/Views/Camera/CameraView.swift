@@ -1,9 +1,3 @@
-//
-//  CameraView.swift
-//  Slide
-//
-//  Created by Truman Purnell on 2/18/23.
-//
 
 import SwiftUI
 
@@ -26,6 +20,9 @@ struct CameraView: View {
             if let url = cameraModel.captureURL {
                 CameraCaptureView(url: url)
                     .ignoresSafeArea(.all, edges: .all)
+                    .overlay(alignment: .topLeading) {
+                        CameraCaptureSettingsView()
+                    }
             }
         }
         .onAppear {
