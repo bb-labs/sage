@@ -1,9 +1,3 @@
-//
-//  CameraModel.swift
-//  Slide
-//
-//  Created by Truman Purnell on 2/18/23.
-//
 
 import Foundation
 import AVFoundation
@@ -79,5 +73,16 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         }
         
         captureURL = outputFileURL
+    }
+    
+    func getVideoData() -> (String, Data?) {
+        if let url = captureURL {
+            return (
+                url.lastPathComponent,
+                try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped)
+            )
+        }
+        
+        return ("", nil)
     }
 }

@@ -14,6 +14,9 @@
 		8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469BF29A1848A00648205 /* CameraCaptureView.swift */; };
 		8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C129A1855400648205 /* CameraLiveView.swift */; };
 		8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */; };
+		8B5469C829A1EA8000648205 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C729A1EA8000648205 /* UserModel.swift */; };
+		8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C929A1EB3B00648205 /* SlidePresignData.swift */; };
+		8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
 		8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1935229778E2E00EC5967 /* SlideUITests.swift */; };
@@ -54,6 +57,9 @@
 		8B5469BF29A1848A00648205 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
 		8B5469C129A1855400648205 /* CameraLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLiveView.swift; sourceTree = "<group>"; };
 		8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureSettingsView.swift; sourceTree = "<group>"; };
+		8B5469C729A1EA8000648205 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		8B5469C929A1EB3B00648205 /* SlidePresignData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignData.swift; sourceTree = "<group>"; };
+		8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignUrl.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
 		8BB1933429778E2D00EC5967 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
@@ -123,6 +129,22 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		8B5469C529A1E94000648205 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		8B5469C629A1EA7800648205 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8B5469C729A1EA8000648205 /* UserModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		8BB1932629778E2D00EC5967 = {
 			isa = PBXGroup;
 			children = (
@@ -175,8 +197,9 @@
 		8BB1936129778ED000EC5967 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B5469C629A1EA7800648205 /* User */,
+				8B5469C529A1E94000648205 /* Location */,
 				8B54698029A16BEA00648205 /* Camera */,
-				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,6 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */,
+				8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */,
+				8B5469C929A1EB3B00648205 /* SlidePresignData.swift */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -364,10 +389,13 @@
 				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
 				8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */,
+				8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */,
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
 				8BC8360B2980B8C800FEE6E1 /* GoogleMapsPlace.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsAddress.swift in Sources */,
+				8B5469C829A1EA8000648205 /* UserModel.swift in Sources */,
+				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

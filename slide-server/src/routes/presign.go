@@ -91,6 +91,10 @@ func HandlePresign(client *s3.PresignClient) func(*gin.Context) {
 			log.Printf("Couldn't get a presigned request for %v. error: %v\n", os.Getenv("S3_BUCKET_NAME"), err)
 		}
 
-		ctx.String(http.StatusOK, request.URL)
+		ctx.JSON(http.StatusOK, map[string]string{
+			"status": http.StatusText(200),
+			"url":    request.URL,
+			"method": request.Method,
+		})
 	}
 }

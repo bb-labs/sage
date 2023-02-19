@@ -11,8 +11,6 @@ struct CameraView: View {
             
             VStack {
                 Spacer()
-                
-                
                 CameraCaptureButton()
             }
         }
@@ -20,7 +18,7 @@ struct CameraView: View {
             if let url = cameraModel.captureURL {
                 CameraCaptureView(url: url)
                     .ignoresSafeArea(.all, edges: .all)
-                    .overlay(alignment: .topLeading) {
+                    .overlay(alignment: .bottom) {
                         CameraCaptureSettingsView()
                     }
             }

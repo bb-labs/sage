@@ -9,15 +9,31 @@ import SwiftUI
 
 struct CameraCaptureSettingsView: View {
     @EnvironmentObject var cameraModel: CameraModel
+    @EnvironmentObject var userModel: UserModel
     
     var body: some View {
-        Button { cameraModel.erase() } label: {
-            Image(systemName: "trash.fill")
-                .frame(width: 40, height: 40)
-                .background(Color.blue)
-                .mask(Circle())
-                .foregroundColor(.white)
-                .padding(.leading)
-        }
+        HStack {
+            Button { cameraModel.erase() } label: {
+                Image(systemName: "trash.fill")
+                    .frame(width: 40, height: 40)
+                    .background(Color.blue)
+                    .mask(Circle())
+                    .foregroundColor(.white)
+                    .padding(.leading)
+            }
+            Spacer()
+            Button {
+                let (name, data) = cameraModel.getVideoData()
+                userModel.uploadProfileVideo(fileName: name, video: data!)
+            } label: {
+                Image(systemName: "paperplane.fill")
+                    .frame(width: 40, height: 40)
+                    .background(Color.blue)
+                    .mask(Circle())
+                    .foregroundColor(.white)
+                    .padding(.trailing)
+            }
+        }.padding()
+        
     }
 }
