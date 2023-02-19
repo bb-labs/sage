@@ -7,17 +7,15 @@ struct CameraCaptureView: UIViewRepresentable {
     @EnvironmentObject var cameraModel: CameraModel
 
     var url: URL
-    var size: CGSize
     
     func makeUIView(context: Context) -> some UIView {
-        let view = UIView()
+        let view = UIView(frame: UIScreen.main.bounds)
         
-        print(url)
         let playerItem = AVPlayerItem(url: url)
         let player = AVQueuePlayer(items: [playerItem])
     
         cameraModel.captureView = AVPlayerLayer(player: player)
-        cameraModel.captureView.frame.size = size
+        cameraModel.captureView.frame = view.frame
         cameraModel.captureView.videoGravity = .resizeAspectFill
         cameraModel.captureViewLooper = AVPlayerLooper(player: player, templateItem: playerItem)
         

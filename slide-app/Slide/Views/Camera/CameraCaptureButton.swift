@@ -53,7 +53,7 @@ struct CameraCaptureButton: View {
             }
             
             withAnimation(.spring(response: spring)) {
-                scale = 1.25
+                scale = 1.35
             }
         }
     }
