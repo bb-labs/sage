@@ -19,8 +19,6 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
     @Published var captureView: AVPlayerLayer!
     @Published var captureViewLooper: AVPlayerLooper!
     @Published var captureURL: URL?
-    @Published var showCapture = false
-    @Published var isCapturing = false
     
     
     func requestPermissions() {
@@ -57,7 +55,6 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
     
     
     func startRecording(){
-        isCapturing = true
         output.startRecording(
             to: URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(UUID().uuidString).mov"),
             recordingDelegate: self
@@ -65,7 +62,6 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
     }
     
     func stopRecording() {
-          isCapturing = false
           output.stopRecording()
     }
     
@@ -74,6 +70,8 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
             print(error.localizedDescription)
             return
         }
+        
+        print(outputFileURL)
         
         captureURL = outputFileURL
     }
