@@ -12,6 +12,8 @@ struct SlideApp: App {
     let userModel = UserModel()
     let cameraModel = CameraModel()
     let locationModel = LocationModel()
+    let authModel = AuthModel()
+    let introModel = IntroModel()
     
     var body: some Scene {
         WindowGroup {
@@ -19,6 +21,8 @@ struct SlideApp: App {
                 .environmentObject(cameraModel)
                 .environmentObject(locationModel)
                 .environmentObject(userModel)
+                .environmentObject(authModel)
+                .environmentObject(introModel)
         }
     }
 }
