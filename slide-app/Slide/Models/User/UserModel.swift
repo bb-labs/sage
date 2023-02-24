@@ -15,6 +15,5 @@ class UserModel: ObservableObject {
             
             print(presignDataResponse)
         }
-        
     }
 }

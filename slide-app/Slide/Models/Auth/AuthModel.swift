@@ -4,7 +4,6 @@ import AVFoundation
 import AuthenticationServices
 
 class AuthModel: NSObject, ObservableObject {
-    let provider = ASAuthorizationAppleIDProvider()
     @Published var credentials: ASAuthorizationAppleIDCredential?
     
     override init() {
@@ -19,6 +18,14 @@ class AuthModel: NSObject, ObservableObject {
                 self.credentials = credentials
             }
         }
+    }
+    
+    func getCredentialsDict() -> [String:String] {
+        return [
+            "user": self.credentials!.user,
+            "token": String(decoding: self.credentials!.identityToken!, as: UTF8.self),
+            "code": String(decoding: self.credentials!.authorizationCode!, as: UTF8.self),
+        ]
     }
     
     func requestScopes(_ request: ASAuthorizationAppleIDRequest){

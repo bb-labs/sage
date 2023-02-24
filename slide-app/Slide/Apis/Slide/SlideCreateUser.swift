@@ -2,25 +2,23 @@
 import Foundation
 import CoreLocation
 
-struct SlideLocationPush {
-    struct Location: Encodable {
-        let type = "Point"
-        let coordinates: String
+struct SlideCreateUser {
+    struct User: Encodable {
+        
     }
     
     struct Request: ApiRequest, Encodable {
-        let userId: String
-        let location: Location
+        let user: User
         let credentialsDict: [String:String]
         
         var urlRequest: URLRequest {
             var urlRequest = URLRequest(url: URLBuilder(
-                baseUrl: "http://10.0.0.40:3000/locate",
+                baseUrl: "http://10.0.0.40:3000/user",
                 queryParams: credentialsDict
             ).url)
             
             urlRequest.httpMethod = "POST"
-            urlRequest.httpBody = try? JSONEncoder().encode(self)
+            
             
             return urlRequest
         }
@@ -33,12 +31,14 @@ struct SlideLocationPush {
     }
     
     struct Response: ApiResponse {
-        typealias T = String
+        typealias T = Response
         
         let status: String
+        let url: String
+        let method: String
         
         var result: T? {
-            return self.status
+            return self
         }
     }
 }

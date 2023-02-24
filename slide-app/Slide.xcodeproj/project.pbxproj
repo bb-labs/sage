@@ -14,6 +14,7 @@
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
 		8B14943529A860C5001497FE /* lonely_monkey.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B14943429A860C5001497FE /* lonely_monkey.mp4 */; };
 		8B14943829A87C61001497FE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943729A87C61001497FE /* KeyChain.swift */; };
+		8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943929A8932A001497FE /* SlideCreateUser.swift */; };
 		8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */; };
 		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
 		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
@@ -63,6 +64,7 @@
 		8B14943129A85D31001497FE /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		8B14943429A860C5001497FE /* lonely_monkey.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lonely_monkey.mp4; sourceTree = SOURCE_ROOT; };
 		8B14943729A87C61001497FE /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		8B14943929A8932A001497FE /* SlideCreateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCreateUser.swift; sourceTree = "<group>"; };
 		8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLocationPush.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsPlace.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */,
+				8B14943929A8932A001497FE /* SlideCreateUser.swift */,
 				8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */,
 				8B5469C929A1EB3B00648205 /* SlidePresignData.swift */,
 			);
@@ -465,6 +468,7 @@
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsAddress.swift in Sources */,
 				8B5469C829A1EA8000648205 /* UserModel.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
+				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */,
 			);

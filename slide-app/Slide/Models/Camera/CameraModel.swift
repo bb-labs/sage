@@ -24,10 +24,12 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         if self.permissions[mediaType]! { return }
         
         AVCaptureDevice.requestAccess(for: mediaType) { status in
-            self.permissions[mediaType] = status
-            
-            if self.permissions.values.allSatisfy({ $0 }) {
-                self.setup()
+            DispatchQueue.main.async {
+                self.permissions[mediaType] = status
+                
+                if self.permissions.values.allSatisfy({ $0 }) {
+                    self.setup()
+                }
             }
         }
     }

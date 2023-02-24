@@ -24,27 +24,20 @@ class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func requestLocation() {
         self.locationManager.requestLocation()
     }
+    
+    func publishLocation() async {
+        let slideLocationPush = SlideLocationPush.Request(
+            userId: "truman",
+            location: SlideLocationPush.Location(coordinates: self.coordinate!.toString()),
+            credentialsDict: [:]
+        )
+        
+        let slideLocationResponse = try? await self.httpClient.fetch(slideLocationPush) as? SlideLocationPush.Response
+    }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let coordinate = locations.first?.coordinate {
             self.coordinate = coordinate
-            Task {
-                let slideLocationPush = SlideLocationPush.Request(
-                    userId: "truman",
-                    location: SlideLocationPush.Location(coordinates: coordinate.toString())
-                )
-                
-                let slideLocationResponse = try await self.httpClient.fetch(slideLocationPush) as! SlideLocationPush.Response
-                
-                print(slideLocationResponse.result!)
-//                let place = try await self.googleMapsApi.fetch(GoogleMapsPlace(input: address.result!))
-//                print(place.result)
-//                let place = try await self.googleMapsApi.fetch(GoogleMapsPlace(address))
-                
-                await MainActor.run {
-//                    self.place = place
-                }
-            }
         }
     }
     
