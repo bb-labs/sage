@@ -2,7 +2,13 @@
 import SwiftUI
 
 struct SlideView: View {
+    @EnvironmentObject var authModel: AuthModel
+    
     var body: some View {
-        AuthView()
+        if authModel.credentials != nil {
+            CameraView()
+        } else {
+            AuthView()
+        }
     }
 }

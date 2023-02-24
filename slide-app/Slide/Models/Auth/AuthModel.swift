@@ -5,15 +5,19 @@ import AuthenticationServices
 
 class AuthModel: NSObject, ObservableObject {
     let provider = ASAuthorizationAppleIDProvider()
-    var credentials: ASAuthorizationAppleIDCredential?
+    @Published var credentials: ASAuthorizationAppleIDCredential?
     
     override init() {
         super.init()
         
-        let credentialsDataRestored = KeyChain.retrieve(key: "credentials")
+        self.clearKeychain()
         
-        if let credentials = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ASAuthorizationAppleIDCredential.self, from: credentialsDataRestored!) {
-            self.credentials = credentials
+        guard let credentialsDataRestored = KeyChain.retrieve(key: "credentials") else { return }
+        
+        DispatchQueue.main.async {
+            if let credentials = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ASAuthorizationAppleIDCredential.self, from: credentialsDataRestored) {
+                self.credentials = credentials
+            }
         }
     }
     
@@ -21,8 +25,16 @@ class AuthModel: NSObject, ObservableObject {
         request.requestedScopes = [.fullName, .email]
     }
     
+    func clearKeychain() {
+        let secItemClasses = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
+        for itemClass in secItemClasses {
+            let spec: NSDictionary = [kSecClass: itemClass]
+            SecItemDelete(spec)
+        }
+    }
     
-    func onCompletion(_ authResult: Result<ASAuthorization, Error>) {
+    
+    func onSignUpComplete(_ authResult: Result<ASAuthorization, Error>) {
         switch authResult {
         case .success(let authResults):
             self.credentials = authResults.credential as? ASAuthorizationAppleIDCredential

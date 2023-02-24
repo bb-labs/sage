@@ -18,7 +18,7 @@ struct AuthView: View {
                     .padding(.trailing)
                 
                 
-                SignInWithAppleButton(.continue, onRequest: authModel.requestScopes, onCompletion: authModel.onCompletion)
+                SignInWithAppleButton(.continue, onRequest: authModel.requestScopes, onCompletion: authModel.onSignUpComplete)
                     .frame(width: 300, height: 45)
                     .cornerRadius(50)
                     .padding()
