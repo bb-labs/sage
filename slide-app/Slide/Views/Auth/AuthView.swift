@@ -2,8 +2,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct AuthView: View {
-    @Environment(\.scenePhase) var scenePhase
-    @EnvironmentObject var introModel: IntroModel
+    @EnvironmentObject var authModel: AuthModel
     
     var body: some View {
         ZStack {
@@ -19,20 +18,11 @@ struct AuthView: View {
                     .padding(.trailing)
                 
                 
-                SignInWithAppleButton(.continue) { request in
-                    request.requestedScopes = [.fullName, .email]
-                } onCompletion: { result in
-                    switch result {
-                    case .success(let authResults):
-                        print("Authorisation successful \(authResults)")
-                    case .failure(let error):
-                        print("Authorisation failed: \(error.localizedDescription)")
-                    }
-                }
-                .frame(width: 300, height: 45)
-                .cornerRadius(50)
-                .padding()
-                .signInWithAppleButtonStyle(.white)
+                SignInWithAppleButton(.continue, onRequest: authModel.requestScopes, onCompletion: authModel.onCompletion)
+                    .frame(width: 300, height: 45)
+                    .cornerRadius(50)
+                    .padding()
+                    .signInWithAppleButtonStyle(.white)
             }
         }
     }

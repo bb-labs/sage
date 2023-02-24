@@ -13,6 +13,7 @@
 		8B14942F29A85C6C001497FE /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* AuthModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
 		8B14943529A860C5001497FE /* lonely_monkey.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B14943429A860C5001497FE /* lonely_monkey.mp4 */; };
+		8B14943829A87C61001497FE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943729A87C61001497FE /* KeyChain.swift */; };
 		8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */; };
 		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
 		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
@@ -61,6 +62,7 @@
 		8B14942E29A85C6C001497FE /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		8B14943129A85D31001497FE /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		8B14943429A860C5001497FE /* lonely_monkey.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lonely_monkey.mp4; sourceTree = SOURCE_ROOT; };
+		8B14943729A87C61001497FE /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLocationPush.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsPlace.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				8BC836022980B46300FEE6E1 /* URLBuilder.swift */,
+				8B14943729A87C61001497FE /* KeyChain.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				8B54698229A16BF600648205 /* CameraModel.swift in Sources */,
 				8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */,
 				8B14943229A85D31001497FE /* IntroModel.swift in Sources */,
+				8B14943829A87C61001497FE /* KeyChain.swift in Sources */,
 				8BC836142980CC5500FEE6E1 /* Client.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
 				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
