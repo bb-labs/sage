@@ -2,10 +2,10 @@
 import SwiftUI
 
 struct SlideView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var userModel: UserModel
     
     var body: some View {
-        if authModel.credentials != nil {
+        if userModel.credentials != nil {
             CameraView()
         } else {
             AuthView()

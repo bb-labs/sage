@@ -1,11 +1,10 @@
-
 import Foundation
 
 struct GoogleMapsPlace{
     struct OpeningHours: Codable {
         let openNow: String
     }
-    
+
     struct Place: Codable {
         let name: String
         let rating: String
@@ -16,13 +15,13 @@ struct GoogleMapsPlace{
         let input: String
         var inputtype: String = "textquery"
         
-        var urlRequest: URLRequest {
-            var urlRequest = URLRequest(url: URLBuilder(baseUrl: "https://maps.googleapis.com/maps/api/place/findplacefromtext/json")
+        func build(with credentials: Credentials?) -> URLRequest {
+            let urlBuilder = URLBuilder(baseUrl: "https://maps.googleapis.com/maps/api/place/findplacefromtext/json", queryParams: credentials)
                 .addQueryParam(key: "input", value: "99 S Broadway Suite 115, Denver, CO 80209")
                 .addQueryParam(key: "inputtype", value: self.inputtype)
                 .addQueryParam(key: "fields", value: "name,rating")
-                .addQueryParam(key: "key", value: "AIzaSyAruGKwktB8dk7N5-MD4BVVeOqhuaSxcU8")
-                .url)
+            
+            var urlRequest = URLRequest(url: urlBuilder.url)
             
             urlRequest.httpMethod = "GET"
             

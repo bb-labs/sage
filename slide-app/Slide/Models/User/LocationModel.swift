@@ -6,7 +6,6 @@ extension CLLocationCoordinate2D {
 }
 
 class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    let httpClient = HttpClient()
     let locationManager = CLLocationManager()
     var coordinate: CLLocationCoordinate2D?
 
@@ -25,16 +24,6 @@ class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.locationManager.requestLocation()
     }
     
-    func publishLocation() async {
-        let slideLocationPush = SlideLocationPush.Request(
-            userId: "truman",
-            location: SlideLocationPush.Location(coordinates: self.coordinate!.toString()),
-            credentialsDict: [:]
-        )
-        
-        let slideLocationResponse = try? await self.httpClient.fetch(slideLocationPush) as? SlideLocationPush.Response
-    }
-
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let coordinate = locations.first?.coordinate {
             self.coordinate = coordinate

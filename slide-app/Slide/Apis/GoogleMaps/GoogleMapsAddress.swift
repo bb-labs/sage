@@ -1,4 +1,3 @@
-
 import Foundation
 
 struct GoogleMapsAddress {
@@ -7,27 +6,16 @@ struct GoogleMapsAddress {
         let formattedAddress: String
     }
     
-    struct Response: ApiResponse {
-        typealias T = Address
-        
-        let status: String
-        let results: [T]
-        
-        var result: Address? {
-            return self.results.first
-        }
-    }
-
     struct Request: ApiRequest {
         let latlng: String
         var resultType: String?
         var locationType: String?
         
-        var urlRequest: URLRequest {
-            var urlRequest = URLRequest(url: URLBuilder(baseUrl: "https://maps.googleapis.com/maps/api/geocode/json")
+        func build(with credentials: Credentials?) -> URLRequest {
+            let urlBuilder = URLBuilder(baseUrl: "https://maps.googleapis.com/maps/api/geocode/json", queryParams: credentials)
                 .addQueryParam(key: "latlng", value: self.latlng)
-                .addQueryParam(key: "key", value: "AIzaSyAruGKwktB8dk7N5-MD4BVVeOqhuaSxcU8")
-                .url)
+
+            var urlRequest = URLRequest(url: urlBuilder.url)
             
             urlRequest.httpMethod = "GET"
             
@@ -38,6 +26,17 @@ struct GoogleMapsAddress {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
+        }
+    }
+    
+    struct Response: ApiResponse {
+        typealias T = Address
+        
+        let status: String
+        let results: [T]
+        
+        var result: Address? {
+            return self.results.first
         }
     }
 }

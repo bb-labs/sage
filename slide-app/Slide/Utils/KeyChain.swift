@@ -30,5 +30,13 @@ class KeyChain {
             return nil
         }
     }
+    
+    class func clearKeychain() {
+        let secItemClasses = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
+        for itemClass in secItemClasses {
+            let spec: NSDictionary = [kSecClass: itemClass]
+            SecItemDelete(spec)
+        }
+    }
 }
 

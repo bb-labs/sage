@@ -2,7 +2,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct AuthView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var userModel: UserModel
     
     var body: some View {
         ZStack {
@@ -18,7 +18,7 @@ struct AuthView: View {
                     .padding(.trailing)
                 
                 
-                SignInWithAppleButton(.continue, onRequest: authModel.requestScopes, onCompletion: authModel.onSignUpComplete)
+                SignInWithAppleButton(.continue, onRequest: userModel.requestScopes, onCompletion: userModel.onSignUpComplete)
                     .frame(width: 300, height: 45)
                     .cornerRadius(50)
                     .padding()

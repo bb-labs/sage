@@ -1,17 +1,17 @@
-
 import Foundation
 import CoreLocation
 
 struct SlidePresignUrl {
-    struct Request: ApiRequest, Encodable {
+    struct Request: ApiRequest {
         let action: String
         let fileName: String
         
-        var urlRequest: URLRequest {
-            var urlRequest = URLRequest(url: URLBuilder(
-                baseUrl: "http://10.0.0.40:3000/presign",
-                queryParams: ["action": action, "key": fileName]
-            ).url)
+        func build(with credentials: Credentials?) -> URLRequest {
+            let urlBulder = URLBuilder(baseUrl: "http://10.0.0.40:3000/presign", queryParams: credentials)
+                .addQueryParam(key: "action", value: action)
+                .addQueryParam(key: "key", value: fileName)
+            
+            var urlRequest = URLRequest(url: urlBulder.url)
             
             urlRequest.httpMethod = "GET"
             

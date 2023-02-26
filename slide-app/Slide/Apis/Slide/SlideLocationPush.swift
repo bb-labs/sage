@@ -1,4 +1,3 @@
-
 import Foundation
 import CoreLocation
 
@@ -7,17 +6,17 @@ struct SlideLocationPush {
         let type = "Point"
         let coordinates: String
     }
-    
+
     struct Request: ApiRequest, Encodable {
-        let userId: String
         let location: Location
-        let credentialsDict: [String:String]
-        
-        var urlRequest: URLRequest {
-            var urlRequest = URLRequest(url: URLBuilder(
+                
+        func build(with credentials: Credentials?) -> URLRequest {
+            let urlBuilder = URLBuilder(
                 baseUrl: "http://10.0.0.40:3000/locate",
-                queryParams: credentialsDict
-            ).url)
+                queryParams: credentials
+            )
+            
+            var urlRequest = URLRequest(url: urlBuilder.url)
             
             urlRequest.httpMethod = "POST"
             urlRequest.httpBody = try? JSONEncoder().encode(self)

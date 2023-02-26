@@ -24,7 +24,9 @@ struct CameraCaptureSettingsView: View {
             Spacer()
             Button {
                 let (name, data) = cameraModel.getVideoData()
-                userModel.uploadProfileVideo(fileName: name, video: data!)
+                Task {
+                    try await userModel.uploadProfileVideo(fileName: name, video: data!)
+                }
             } label: {
                 Image(systemName: "paperplane.fill")
                     .frame(width: 40, height: 40)

@@ -1,9 +1,3 @@
-//
-//  SlideApp.swift
-//  Slide
-//
-//  Created by Truman Purnell on 1/17/23.
-//
 
 import SwiftUI
 
@@ -12,7 +6,6 @@ struct SlideApp: App {
     let userModel = UserModel()
     let cameraModel = CameraModel()
     let locationModel = LocationModel()
-    let authModel = AuthModel()
     let introModel = IntroModel()
     
     var body: some Scene {
@@ -21,7 +14,6 @@ struct SlideApp: App {
                 .environmentObject(cameraModel)
                 .environmentObject(locationModel)
                 .environmentObject(userModel)
-                .environmentObject(authModel)
                 .environmentObject(introModel)
         }
     }

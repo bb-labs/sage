@@ -1,4 +1,3 @@
-
 import Foundation
 import CoreLocation
 
@@ -8,8 +7,10 @@ struct SlidePresignData {
         let url: String
         let method: String
         
-        var urlRequest: URLRequest {
-            var urlRequest = URLRequest(url: URLBuilder(baseUrl: url).url)
+        func build(with credentials: Credentials?) -> URLRequest {
+            let urlBuilder = URLBuilder(baseUrl: url, queryParams: credentials)
+            
+            var urlRequest = URLRequest(url: urlBuilder.url)
             
             urlRequest.httpMethod = method
             
