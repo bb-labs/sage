@@ -9,6 +9,9 @@ up: down
 down:
 	docker compose down --remove-orphans
 
+logs:
+	docker compose logs -f
+
 clean:
 	rm -rf slide-db/data
 	docker container rm -f $(docker ps -a -q) 2>/dev/null || true

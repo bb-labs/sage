@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
+	"github.com/i-r-l/slide/src/middleware"
 	"github.com/i-r-l/slide/src/routes"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -53,7 +54,11 @@ func main() {
 		cancelFn()
 	}()
 
+	// Auth middleware
+	router.Use(middleware.Authenticate())
+
 	// Grab the auth URL for a particular integration
+	router.POST("/user", routes.HandleCreateUser(db))
 	router.POST("/locate", routes.HandleLocation(db))
 	router.GET("/presign", routes.HandlePresign(presignClient))
 

@@ -22,7 +22,7 @@ services:
       context: ./slide-server
       dockerfile: Dockerfile
     volumes:
-      - ./slide-server:/usr/src/server
+      - ./slide-server:/usr/src/slide-server
       - ~/.aws:/root/.aws
     ports:
       - 3000:3000

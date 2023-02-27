@@ -3,12 +3,12 @@ import CoreLocation
 
 struct SlideCreateUser {
     struct User: Encodable {
-        
+        let id: String
+        let email: String?
     }
     
     struct Request: ApiRequest, Encodable {
         let user: User
-        var authorization: [String:String]
         
         func build(with credentials: Credentials?) -> URLRequest {
             let urlBuilder = URLBuilder(
@@ -19,6 +19,7 @@ struct SlideCreateUser {
             var urlRequest = URLRequest(url: urlBuilder.url)
             
             urlRequest.httpMethod = "POST"
+            urlRequest.httpBody = try? JSONEncoder().encode(self)
             
             return urlRequest
         }
