@@ -6,12 +6,16 @@ type Token struct {
 }
 
 type User struct {
-	Location          Location `json:"location"`
-	Token             Token    `json:"token"`
-	VideoUrl          string   `json:"video_url"`
-	IdentificationUrl string   `json:"id_url"`
-	Name              string   `json:"name"`
-	Rating            float64  `json:"rating"`
-	Age               int      `json:"age"`
-	IsOnline          bool     `json:"is_online"`
+	Location Location `json:"location"`
+	Id       string   `json:"id"`
+	Email    string   `json:"email"`
+	VideoUrl string   `json:"video_url"`
+	Name     string   `json:"name"`
+	Rating   float64  `json:"rating"`
+	Birthday int      `json:"age"`
+	IsOnline bool     `json:"is_online"`
+}
+
+type UserCreateRequest struct {
+	User User `json:"user"`
 }

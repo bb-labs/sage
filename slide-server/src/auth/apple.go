@@ -6,6 +6,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -130,6 +131,36 @@ func RefreshToken(code string) (RefreshResponse, error) {
 	urlValues.Set("grant_type", "authorization_code")
 
 	println(urlValues.Encode())
+
+	request, _ := http.NewRequest("POST", "https://appleid.apple.com/auth/token", strings.NewReader(urlValues.Encode()))
+	request.Header.Add("content-type", "application/x-www-form-urlencoded")
+	request.Header.Add("accept", "application/json")
+	request.Header.Add("user-agent", "wyd-app")
+
+	response, err := http.DefaultClient.Do(request)
+
+	if err != nil {
+		return RefreshResponse{}, err
+	}
+
+	var refresh RefreshResponse
+	json.NewDecoder(response.Body).Decode(&refresh)
+
+	return refresh, nil
+}
+
+func RefreshIdentity(refresh_token string) (RefreshResponse, error) {
+	secret, _ := GenerateClientSecret()
+
+	logger := log.Default()
+
+	urlValues := url.Values{}
+	urlValues.Set("client_secret", secret)
+	urlValues.Set("refresh_token", refresh_token)
+	urlValues.Set("grant_type", "refresh_token")
+	urlValues.Set("client_id", os.Getenv("CLIENT_ID"))
+
+	logger.Println(urlValues.Encode())
 
 	request, _ := http.NewRequest("POST", "https://appleid.apple.com/auth/token", strings.NewReader(urlValues.Encode()))
 	request.Header.Add("content-type", "application/x-www-form-urlencoded")

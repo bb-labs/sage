@@ -17,7 +17,7 @@ func HandleLocation(db *mongo.Client) func(*gin.Context) {
 
 		ctx.BindJSON(&userLocation)
 
-		filter := bson.D{{Key: "userId", Value: userLocation.User.Token.AccessToken}}
+		filter := bson.D{{Key: "userId", Value: userLocation.User.Id}}
 		update := bson.D{{Key: "$set", Value: userLocation}}
 		options := options.Update().SetUpsert(true)
 

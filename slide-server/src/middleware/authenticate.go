@@ -1,47 +1,58 @@
 package middleware
 
 import (
-	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/i-r-l/slide/src/auth"
 )
 
-func Authenticate() gin.HandlerFunc {
+func HandleAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		logger := log.Default()
-
-		// refreshToken := ctx.Query("refresh_token")
-		// identityToken := ctx.Query("identity_token")
+		refreshToken := ctx.Query("refresh_token")
+		identityToken := ctx.Query("identity_token")
 		authorizationCode := ctx.Query("authorization_code")
 
-		refreshResponse, _ := auth.RefreshToken(authorizationCode)
+		if authorizationCode != "" {
+			refreshResponse, err := auth.RefreshToken(authorizationCode)
 
-		logger.Println("refreshResponse.IdToken: ", refreshResponse.IdToken)
-		logger.Println("refreshResponse.RefreshToken: ", refreshResponse.RefreshToken)
+			if err != nil {
+				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+				return
+			}
 
-		// idIsValid, _ := auth.VerifyIdToken(identityToken)
+			ctx.Set("refresh_token", refreshResponse.RefreshToken)
+			ctx.Set("identity_token", refreshResponse.IdToken)
+			ctx.Next()
+		}
 
-		// // Token is valid, move along
-		// if idIsValid {
-		// 	ctx.Next()
-		// 	return
-		// }
+		idIsValid, err := auth.VerifyIdToken(identityToken)
 
-		// // Maybe the token is expired, but they have a refresh token
-		// if refreshToken != "" {
-		// 	refreshResponse, err := auth.RefreshToken(authorizationCode)
+		// Token is valid, move along
+		if idIsValid {
+			ctx.Next()
+			return
+		}
 
-		// 	if err != nil {
-		// 		logger.Println("refresh response err: ", err)
-		// 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
-		// 		return
-		// 	}
+		// Maybe the token is expired, but they have a refresh token
+		if refreshToken != "" {
+			refreshResponse, err := auth.RefreshIdentity(refreshToken)
 
-		// 	ctx.Set("refresh", refreshResponse)
-		// 	ctx.Next()
-		// 	return
-		// }
+			if err != nil {
+				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+				return
+			}
 
+			ctx.Set("refresh_token", refreshResponse.RefreshToken)
+			ctx.Set("identity_token", refreshResponse.IdToken)
+			ctx.Next()
+			return
+		}
+
+		// Token is invalid, sorry buddy
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
 	}
 }

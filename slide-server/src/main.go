@@ -55,7 +55,7 @@ func main() {
 	}()
 
 	// Auth middleware
-	router.Use(middleware.Authenticate())
+	router.Use(middleware.HandleAuth())
 
 	// Grab the auth URL for a particular integration
 	router.POST("/user", routes.HandleCreateUser(db))
