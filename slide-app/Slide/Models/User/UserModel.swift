@@ -54,6 +54,7 @@ class UserModel: NSObject, ObservableObject {
             let createUserRequest = SlideCreateUser.Request(user: user)
             
             Task {
+                print("Popping off")
                 let createUserResponse = try await self.client!.fetch(createUserRequest) as! SlideCreateUser.Response
                 print(createUserResponse)
             }

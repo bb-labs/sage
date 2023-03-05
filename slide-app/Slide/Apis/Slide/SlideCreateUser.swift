@@ -34,9 +34,8 @@ struct SlideCreateUser {
     struct Response: ApiResponse {
         typealias T = Response
         
-        let status: String
-        let url: String
-        let method: String
+        let identityToken: String
+        let refreshToken: String
         
         var result: T? {
             return self

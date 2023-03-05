@@ -1,7 +1,6 @@
 package types
 
 type LocationUpdateRequest struct {
-	User     User     `json:"user"`
 	Location Location `json:"location"`
 }
 
