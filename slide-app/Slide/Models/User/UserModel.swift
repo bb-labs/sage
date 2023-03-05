@@ -10,8 +10,8 @@ extension ASAuthorizationAppleIDCredential {
     func getCredentials() -> Credentials {
         return [
             "user": self.user,
-            "token": String(decoding: self.identityToken!, as: UTF8.self),
-            "code": String(decoding: self.authorizationCode!, as: UTF8.self),
+            "identity_token": String(decoding: self.identityToken!, as: UTF8.self),
+            "authorization_code": String(decoding: self.authorizationCode!, as: UTF8.self),
         ]
     }
 }

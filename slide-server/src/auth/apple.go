@@ -1,13 +1,16 @@
-package utils
+package auth
 
 import (
 	"crypto/x509"
+	"encoding/json"
 	"encoding/pem"
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/lestrrat-go/jwx/v2/jwa"
@@ -15,6 +18,13 @@ import (
 	"github.com/lestrrat-go/jwx/v2/jws"
 	"github.com/lestrrat-go/jwx/v2/jwt"
 )
+
+type RefreshResponse struct {
+	AccessToken  string `json:"access_token"`
+	IdToken      string `json:"id_token"`
+	TokenType    string `json:"bearer"`
+	RefreshToken string `json:"refresh_token"`
+}
 
 func VerifyIdToken(token string) (bool, error) {
 	// Get Apple public key set
@@ -54,16 +64,10 @@ func VerifyIdToken(token string) (bool, error) {
 		return false, err
 	}
 
-	// Verify the token has not been tampered with
-	if verifiedToken.Audience()[0] != os.Getenv("CLIENT_ID") {
-		return false, nil
-	}
-
-	if verifiedToken.Issuer() != "https://appleid.apple.com" {
-		return false, nil
-	}
-
-	if time.Now().After(verifiedToken.Expiration()) {
+	// Verify the token is valid
+	if verifiedToken.Audience()[0] != os.Getenv("CLIENT_ID") ||
+		verifiedToken.Issuer() != "https://appleid.apple.com" ||
+		time.Now().After(verifiedToken.Expiration()) {
 		return false, nil
 	}
 
@@ -114,4 +118,32 @@ func GenerateClientSecret() (string, error) {
 	}
 
 	return string(signedToken), nil
+}
+
+func RefreshToken(code string) (RefreshResponse, error) {
+	secret, _ := GenerateClientSecret()
+
+	urlValues := url.Values{}
+	urlValues.Set("code", code)
+	urlValues.Set("client_secret", secret)
+	urlValues.Set("client_id", os.Getenv("CLIENT_ID"))
+	urlValues.Set("grant_type", "authorization_code")
+
+	println(urlValues.Encode())
+
+	request, _ := http.NewRequest("POST", "https://appleid.apple.com/auth/token", strings.NewReader(urlValues.Encode()))
+	request.Header.Add("content-type", "application/x-www-form-urlencoded")
+	request.Header.Add("accept", "application/json")
+	request.Header.Add("user-agent", "wyd-app")
+
+	response, err := http.DefaultClient.Do(request)
+
+	if err != nil {
+		return RefreshResponse{}, err
+	}
+
+	var refresh RefreshResponse
+	json.NewDecoder(response.Body).Decode(&refresh)
+
+	return refresh, nil
 }
