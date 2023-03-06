@@ -45,25 +45,26 @@ class AuthModel {
             
             self.client.credentials = self.apple
             
-            let user = SlideCreateUser.User(
-                id: appleCredentials.user,
-                email: appleCredentials.email
-            )
-            
-            let createUserRequest = SlideCreateUser.Request(user: user)
-            
             Task {
+                let user = SlideCreateUser.User(
+                    id: appleCredentials.user,
+                    email: appleCredentials.email
+                )
+                
+                let createUserRequest = SlideCreateUser.Request(user: user)
                 let createUserResponse = try await self.client.fetch(createUserRequest) as! SlideCreateUser.Response
                 
-                // Only use auth code on first request to get refresh_token
+                // Only use auth code on first request to get refresh_token, then repopulate credentials
                 self.apple!.identityToken = createUserResponse.identityToken
                 self.apple!.refreshToken = createUserResponse.refreshToken
                 self.apple!.authorizationCode = nil
+                
+                // And reassociate with client
                 self.client.credentials = self.apple
+                
+                // Store the credentials in the keychain
+                KeyChain.store(key: "apple", data: self.apple)
             }
-            
-            
-            KeyChain.store(key: "apple", data: self.app)
             
         case .failure(let error):
             print("Authorisation failed: \(error.localizedDescription)")
