@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 struct SlidePresignData {
-    struct Request: ApiRequest, Encodable {
+    struct Request: APIRequest, Encodable {
         let body: Data?
         let url: String
         let method: String
@@ -21,7 +21,7 @@ struct SlidePresignData {
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             if(payload.isEmpty) {
                 return Response(status: 200)
             }
@@ -32,14 +32,8 @@ struct SlidePresignData {
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = Int
-        
+    struct Response: APIResponse {
         let status: Int
-        
-        var result: T? {
-            return status
-        }
     }
 }
 

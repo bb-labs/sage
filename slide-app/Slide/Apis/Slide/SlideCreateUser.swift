@@ -7,7 +7,7 @@ struct SlideCreateUser {
         let email: String?
     }
     
-    struct Request: ApiRequest, Encodable {
+    struct Request: APIRequest, Encodable {
         let user: User
         
         func build(with credentials: Credentials?) -> URLRequest {
@@ -24,22 +24,16 @@ struct SlideCreateUser {
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = Response
-        
-        let identityToken: String
-        let refreshToken: String
-        
-        var result: T? {
-            return self
-        }
+    struct Response: APIResponse {
+        var refreshToken: String
+        var identityToken: String
     }
 }
 

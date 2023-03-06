@@ -3,12 +3,7 @@ import Foundation
 
 struct URLBuilder {
     let baseUrl: String
-    var queryParams: [String:String]
-    
-    init(baseUrl: String, queryParams: [String:String]?){
-        self.baseUrl = baseUrl
-        self.queryParams = queryParams != nil ? queryParams! : [:]
-    }
+    var queryParams: Codable?
     
     func addQueryParam(key: String, value: String) -> URLBuilder {
         var newQueryParams = self.queryParams

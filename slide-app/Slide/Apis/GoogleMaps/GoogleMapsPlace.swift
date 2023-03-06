@@ -11,7 +11,7 @@ struct GoogleMapsPlace{
         let openingHours: OpeningHours
     }
     
-    struct Request: ApiRequest {
+    struct Request: APIRequest {
         let input: String
         var inputtype: String = "textquery"
         
@@ -28,22 +28,16 @@ struct GoogleMapsPlace{
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = Place
-        
+    struct Response: APIResponse {
         let status: String
-        let candidates: [T]
-        
-        var result: T? {
-            return self.candidates.first
-        }
+        let candidates: [Place]
     }
 }
 

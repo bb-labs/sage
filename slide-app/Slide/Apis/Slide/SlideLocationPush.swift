@@ -7,7 +7,7 @@ struct SlideLocationPush {
         let coordinates: String
     }
 
-    struct Request: ApiRequest, Encodable {
+    struct Request: APIRequest, Encodable {
         let location: Location
                 
         func build(with credentials: Credentials?) -> URLRequest {
@@ -24,21 +24,15 @@ struct SlideLocationPush {
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = String
-        
+    struct Response: APIResponse {
         let status: String
-        
-        var result: T? {
-            return self.status
-        }
     }
 }
 

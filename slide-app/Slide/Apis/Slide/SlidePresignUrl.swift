@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 struct SlidePresignUrl {
-    struct Request: ApiRequest {
+    struct Request: APIRequest {
         let action: String
         let fileName: String
         
@@ -18,23 +18,17 @@ struct SlidePresignUrl {
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = Response
-        
+    struct Response: APIResponse {
         let status: String
         let url: String
         let method: String
-        
-        var result: T? {
-            return self
-        }
     }
 }
 

@@ -6,7 +6,7 @@ struct GoogleMapsAddress {
         let formattedAddress: String
     }
     
-    struct Request: ApiRequest {
+    struct Request: APIRequest {
         let latlng: String
         var resultType: String?
         var locationType: String?
@@ -22,22 +22,16 @@ struct GoogleMapsAddress {
             return urlRequest
         }
         
-        func unpack(_ payload: Data) throws -> any ApiResponse {
+        func unpack(_ payload: Data) throws -> any APIResponse {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(Response.self, from: payload)
         }
     }
     
-    struct Response: ApiResponse {
-        typealias T = Address
-        
+    struct Response: APIResponse {
         let status: String
-        let results: [T]
-        
-        var result: Address? {
-            return self.results.first
-        }
+        let results: [Address]
     }
 }
 
