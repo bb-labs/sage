@@ -14,7 +14,7 @@
 		8B14943529A860C5001497FE /* lonely_monkey.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B14943429A860C5001497FE /* lonely_monkey.mp4 */; };
 		8B14943829A87C61001497FE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943729A87C61001497FE /* KeyChain.swift */; };
 		8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943929A8932A001497FE /* SlideCreateUser.swift */; };
-		8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */; };
+		8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */; };
 		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
 		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
 		8B54698229A16BF600648205 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54698129A16BF600648205 /* CameraModel.swift */; };
@@ -23,15 +23,13 @@
 		8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */; };
 		8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C929A1EB3B00648205 /* SlidePresignData.swift */; };
 		8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */; };
-		8BA879AC29B54C2500B3FEBD /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA879AB29B54C2500B3FEBD /* JSON.swift */; };
 		8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
 		8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1935229778E2E00EC5967 /* SlideUITests.swift */; };
 		8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */; };
-		8BC8360B2980B8C800FEE6E1 /* GoogleMapsPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3081792979226D002056A1 /* GoogleMapsPlace.swift */; };
-		8BC8360C2980B8C800FEE6E1 /* GoogleMapsAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B308177297921BA002056A1 /* GoogleMapsAddress.swift */; };
-		8BC8360D2980B8D600FEE6E1 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836022980B46300FEE6E1 /* URLBuilder.swift */; };
+		8BC8360B2980B8C800FEE6E1 /* GoogleMapsLookupPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */; };
+		8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */; };
 		8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933229778E2D00EC5967 /* SlideApp.swift */; };
 		8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933429778E2D00EC5967 /* SlideView.swift */; };
 		8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836042980B59500FEE6E1 /* LocationModel.swift */; };
@@ -64,9 +62,9 @@
 		8B14943429A860C5001497FE /* lonely_monkey.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lonely_monkey.mp4; sourceTree = SOURCE_ROOT; };
 		8B14943729A87C61001497FE /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		8B14943929A8932A001497FE /* SlideCreateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCreateUser.swift; sourceTree = "<group>"; };
-		8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLocationPush.swift; sourceTree = "<group>"; };
-		8B308177297921BA002056A1 /* GoogleMapsAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsAddress.swift; sourceTree = "<group>"; };
-		8B3081792979226D002056A1 /* GoogleMapsPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsPlace.swift; sourceTree = "<group>"; };
+		8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpdateLocation.swift; sourceTree = "<group>"; };
+		8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsResolveAddress.swift; sourceTree = "<group>"; };
+		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
 		8B54697B29A16A6D00648205 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureButton.swift; sourceTree = "<group>"; };
 		8B54698129A16BF600648205 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 		8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureSettingsView.swift; sourceTree = "<group>"; };
 		8B5469C929A1EB3B00648205 /* SlidePresignData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignData.swift; sourceTree = "<group>"; };
 		8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignUrl.swift; sourceTree = "<group>"; };
-		8BA879AB29B54C2500B3FEBD /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
@@ -87,7 +84,6 @@
 		8BB1934E29778E2E00EC5967 /* SlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1935229778E2E00EC5967 /* SlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITests.swift; sourceTree = "<group>"; };
 		8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8BC836022980B46300FEE6E1 /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		8BC836042980B59500FEE6E1 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		8BC836132980CC5500FEE6E1 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,8 +157,8 @@
 		8B308175297921A0002056A1 /* GoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				8B3081792979226D002056A1 /* GoogleMapsPlace.swift */,
-				8B308177297921BA002056A1 /* GoogleMapsAddress.swift */,
+				8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */,
+				8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */,
 			);
 			path = GoogleMaps;
 			sourceTree = "<group>";
@@ -273,9 +269,7 @@
 		8BB19366297792CB00EC5967 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8BC836022980B46300FEE6E1 /* URLBuilder.swift */,
 				8B14943729A87C61001497FE /* KeyChain.swift */,
-				8BA879AB29B54C2500B3FEBD /* JSON.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -293,7 +287,7 @@
 		8BC836122980CC1A00FEE6E1 /* Slide */ = {
 			isa = PBXGroup;
 			children = (
-				8B275AA0298A3A9300E89EF1 /* SlideLocationPush.swift */,
+				8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */,
 				8B14943929A8932A001497FE /* SlideCreateUser.swift */,
 				8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */,
 				8B5469C929A1EB3B00648205 /* SlidePresignData.swift */,
@@ -431,7 +425,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BC8360D2980B8D600FEE6E1 /* URLBuilder.swift in Sources */,
 				8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */,
 				8B54698229A16BF600648205 /* CameraModel.swift in Sources */,
 				8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */,
@@ -445,16 +438,15 @@
 				8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */,
 				8B14942F29A85C6C001497FE /* UserModel.swift in Sources */,
 				8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */,
-				8BA879AC29B54C2500B3FEBD /* JSON.swift in Sources */,
 				8B14942C29A85AA5001497FE /* IntroView.swift in Sources */,
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
-				8BC8360B2980B8C800FEE6E1 /* GoogleMapsPlace.swift in Sources */,
-				8BC8360C2980B8C800FEE6E1 /* GoogleMapsAddress.swift in Sources */,
+				8BC8360B2980B8C800FEE6E1 /* GoogleMapsLookupPlace.swift in Sources */,
+				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
-				8B275AA1298A3A9300E89EF1 /* SlideLocationPush.swift in Sources */,
+				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

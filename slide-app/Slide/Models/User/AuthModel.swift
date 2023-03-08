@@ -4,12 +4,30 @@ import AuthenticationServices
 
 protocol Credentials: Codable {}
 
+extension Credentials {
+    var data: Data {
+        guard let data = try? JSONEncoder().encode(self) else { return Data() }
+        
+        return data
+    }
+    
+    var dict: [String:String] {
+        guard let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return [:] }
+        
+        return dict as! [String:String]
+    }
+    
+    var queryParams: [URLQueryItem] {
+        self.dict.reduce(into: []) { params, param in
+            params.append(URLQueryItem(name: param.key, value: param.value))
+        }
+    }
+}
+
 struct AppleCredentials: Credentials {
     let user: String
-    
+    var refreshToken: String
     var identityToken: String
-    var refreshToken: String?
-    var authorizationCode: String?
 }
 
 struct GoogleCredentials: Credentials {
@@ -31,41 +49,32 @@ class AuthModel {
         request.requestedScopes = [.fullName, .email]
     }
     
-    
     func onAppleSignUpComplete(_ authResult: Result<ASAuthorization, Error>) {
         switch authResult {
         case .success(let authResults):
             let appleCredentials = authResults.credential as! ASAuthorizationAppleIDCredential
-           
-            self.apple = AppleCredentials(
-                user: appleCredentials.user,
-                identityToken: String(decoding: appleCredentials.identityToken!, as: UTF8.self),
-                authorizationCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
-            )
-            
-            self.client.credentials = self.apple
             
             Task {
-                let user = SlideCreateUser.User(
+                // Create user account
+                let createUserRequest = SlideCreateUser(
                     id: appleCredentials.user,
-                    email: appleCredentials.email
+                    email: appleCredentials.email,
+                    authorizationCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
                 )
                 
-                let createUserRequest = SlideCreateUser.Request(user: user)
-                let createUserResponse = try await self.client.fetch(createUserRequest) as! SlideCreateUser.Response
+                let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
                 
-                // Only use auth code on first request to get refresh_token, then repopulate credentials
-                self.apple!.identityToken = createUserResponse.identityToken
-                self.apple!.refreshToken = createUserResponse.refreshToken
-                self.apple!.authorizationCode = nil
+                // Store the credentials and associate with the client
+                self.apple = AppleCredentials(
+                    user: appleCredentials.user,
+                    refreshToken: createUserResponse.refreshToken,
+                    identityToken: createUserResponse.identityToken
+                )
                 
-                // And reassociate with client
                 self.client.credentials = self.apple
                 
-                // Store the credentials in the keychain
-                KeyChain.store(key: "apple", data: self.apple)
+                _ = KeyChain.store(key: "apple", data: self.apple!.data)
             }
-            
         case .failure(let error):
             print("Authorisation failed: \(error.localizedDescription)")
         }

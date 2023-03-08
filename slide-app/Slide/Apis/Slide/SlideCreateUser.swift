@@ -1,40 +1,32 @@
 import Foundation
 import CoreLocation
 
-struct SlideCreateUser {
-    struct User: Encodable {
-        let id: String
-        let email: String?
+struct SlideCreateUser: APICall {
+    struct User: Codable {
+        var id: String
+        var email: String?
     }
     
-    struct Request: APIRequest, Encodable {
-        let user: User
-        
-        func build(with credentials: Credentials?) -> URLRequest {
-            let urlBuilder = URLBuilder(
-                baseUrl: "http://10.0.0.40:3000/user",
-                queryParams: credentials
-            )
-            
-            var urlRequest = URLRequest(url: urlBuilder.url)
-            
-            urlRequest.httpMethod = "POST"
-            urlRequest.httpBody = try? JSONEncoder().encode(self)
-            
-            return urlRequest
-        }
-        
-        func unpack(_ payload: Data) throws -> any APIResponse {
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode(Response.self, from: payload)
-        }
+    struct Request: Codable {
+        var user: User
+        var authorizationCode: String
     }
     
-    struct Response: APIResponse {
-        var refreshToken: String
-        var identityToken: String
+    struct Response: Codable {
+        let refreshToken: String
+        let identityToken: String
     }
+    
+    init(id: String, email: String?, authorizationCode: String) {
+        self.request = Request(
+            user: User(id: id, email: email),
+            authorizationCode: authorizationCode
+        )
+    }
+    
+    var url = "http://10.0.0.40:3000/user"
+    var request: Request
+    var method = APIMethod.POST
 }
 
 

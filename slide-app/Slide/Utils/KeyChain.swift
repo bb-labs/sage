@@ -2,7 +2,7 @@ import Security
 import Foundation
 
 class KeyChain {
-    class func store(key: String, data: Data) -> OSStatus? {
+    class func store(key: String, data: Data) -> OSStatus {
         let query = [
             kSecClass as String       : kSecClassGenericPassword as String,
             kSecAttrAccount as String : key,

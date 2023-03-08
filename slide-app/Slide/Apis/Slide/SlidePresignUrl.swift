@@ -1,34 +1,30 @@
 import Foundation
 import CoreLocation
 
-struct SlidePresignUrl {
-    struct Request: APIRequest {
-        let action: String
+struct SlidePresignUrl: APICall {
+    struct Request: Codable {
+        let action: APIMethod
         let fileName: String
-        
-        func build(with credentials: Credentials?) -> URLRequest {
-            let urlBulder = URLBuilder(baseUrl: "http://10.0.0.40:3000/presign", queryParams: credentials)
-                .addQueryParam(key: "action", value: action)
-                .addQueryParam(key: "key", value: fileName)
-            
-            var urlRequest = URLRequest(url: urlBulder.url)
-            
-            urlRequest.httpMethod = "GET"
-            
-            return urlRequest
-        }
-        
-        func unpack(_ payload: Data) throws -> any APIResponse {
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode(Response.self, from: payload)
-        }
     }
     
-    struct Response: APIResponse {
+    struct Response: Codable {
         let status: String
         let url: String
-        let method: String
+        let method: APIMethod
+    }
+    
+    init(action: APIMethod, fileName: String) {
+        self.request = Request(action: action, fileName: fileName)
+    }
+    
+    var url = "http://10.0.0.40:3000/presign"
+    var method = APIMethod.GET
+    var request: Request
+    var queryParams: [URLQueryItem] {
+        return [
+            URLQueryItem(name: "key", value: request.fileName),
+            URLQueryItem(name: "action", value: request.action.rawValue),
+        ]
     }
 }
 

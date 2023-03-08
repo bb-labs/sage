@@ -8,22 +8,19 @@ class UserModel: NSObject, ObservableObject {
     let location = LocationModel()
     
     func uploadProfileVideo(fileName: String, video: Data) async throws {
-        let presignUrlRequest = SlidePresignUrl.Request(action: "PUT", fileName: fileName)
-        let presignUrlResponse = try await self.auth.client.fetch(presignUrlRequest) as! SlidePresignUrl.Response
+        let presignUrlRequest = SlidePresignUrl(action: APIMethod.PUT, fileName: fileName)
+        let presignUrlResponse: SlidePresignUrl.Response = try await self.auth.client.fetch(presignUrlRequest)
         
-        let presignDataRequest = SlidePresignData.Request(
-            body: video, url: presignUrlResponse.url, method: presignUrlResponse.method)
-        
-        let presignDataResponse = try await self.auth.client.fetch(presignDataRequest) as! SlidePresignData.Response
+        let presignDataRequest = SlidePresignData(body: video, url: presignUrlResponse.url, method: presignUrlResponse.method)
+        let presignDataResponse: SlidePresignData.Response = try await self.auth.client.fetch(presignDataRequest)
         
         print(presignDataResponse)
     }
     
     func publishLocation(_ coordinates: String) async throws {
-        let location = SlideLocationPush.Location(coordinates: coordinates)
-        let slideLocationPush = SlideLocationPush.Request(location: location)
-        let slideLocationResponse = try await self.auth.client.fetch(slideLocationPush) as! SlideLocationPush.Response
+        let slideUpdateLocationRequest = SlideUpdateLocation(coordinates)
+        let slideUpdateLocationResponse: SlideUpdateLocation.Response = try await self.auth.client.fetch(slideUpdateLocationRequest)
         
-        print(slideLocationResponse)
+        print(slideUpdateLocationResponse)
     }
 }
