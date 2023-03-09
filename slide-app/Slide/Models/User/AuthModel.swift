@@ -34,10 +34,12 @@ struct GoogleCredentials: Credentials {
     var key = "AIzaSyAruGKwktB8dk7N5-MD4BVVeOqhuaSxcU8"
 }
 
-class AuthModel {
+class AuthModel: ObservableObject {
     var client = HttpClient()
     
-    var apple: AppleCredentials?
+    @Published var apple: AppleCredentials?
+    
+    var loggedIn: Bool { self.apple != nil }
     
     init() {
         KeyChain.clearKeychain()
@@ -65,15 +67,17 @@ class AuthModel {
                 let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
                 
                 // Store the credentials and associate with the client
-                self.apple = AppleCredentials(
-                    user: appleCredentials.user,
-                    refreshToken: createUserResponse.refreshToken,
-                    identityToken: createUserResponse.identityToken
-                )
-                
-                self.client.credentials = self.apple
-                
-                _ = KeyChain.store(key: "apple", data: self.apple!.data)
+                DispatchQueue.main.async {
+                    self.apple = AppleCredentials(
+                        user: appleCredentials.user,
+                        refreshToken: createUserResponse.refreshToken,
+                        identityToken: createUserResponse.identityToken
+                    )
+                    
+                    self.client.credentials = self.apple
+                    
+                    _ = KeyChain.store(key: "apple", data: self.apple!.data)
+                }
             }
         case .failure(let error):
             print("Authorisation failed: \(error.localizedDescription)")

@@ -24,6 +24,8 @@ func HandleAuth() gin.HandlerFunc {
 			ctx.Set("refresh_token", refreshResponse.RefreshToken)
 			ctx.Set("identity_token", refreshResponse.IdToken)
 			ctx.Next()
+
+			return
 		}
 
 		idIsValid, err := auth.VerifyIdToken(identityToken)

@@ -9,7 +9,6 @@ struct SlideCreateUser: APICall {
     
     struct Request: Codable {
         var user: User
-        var authorizationCode: String
     }
     
     struct Response: Codable {
@@ -18,15 +17,18 @@ struct SlideCreateUser: APICall {
     }
     
     init(id: String, email: String?, authorizationCode: String) {
-        self.request = Request(
-            user: User(id: id, email: email),
-            authorizationCode: authorizationCode
-        )
+        self.request = Request(user: User(id: id, email: email))
+        self.authorizationCode = authorizationCode
     }
+    
+    var authorizationCode: String
     
     var url = "http://10.0.0.40:3000/user"
     var request: Request
     var method = APIMethod.POST
+    var queryParams: [URLQueryItem] {
+        return [URLQueryItem(name: "authorization_code", value: authorizationCode)]
+    }
 }
 
 

@@ -1,11 +1,19 @@
 
 import Foundation
 import AVFoundation
+import Combine
 
-
-class UserModel: NSObject, ObservableObject {
-    let auth = AuthModel()
+class UserModel: ObservableObject {
+    @Published var auth = AuthModel()
     let location = LocationModel()
+    
+    var anyCancellable: AnyCancellable? = nil
+    
+    init() {
+        anyCancellable = auth.objectWillChange.sink { [weak self] (_) in
+            self?.objectWillChange.send()
+        }
+    }
     
     func uploadProfileVideo(fileName: String, video: Data) async throws {
         let presignUrlRequest = SlidePresignUrl(action: APIMethod.PUT, fileName: fileName)

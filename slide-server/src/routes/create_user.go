@@ -24,14 +24,13 @@ func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 		refresh_token, _ := ctx.Get("refresh_token")
 		identity_token, _ := ctx.Get("identity_token")
 
-		logger.Println(refresh_token)
-		logger.Println(identity_token)
+		logger.Println("refresh_token: ", refresh_token)
+		logger.Println("identity_token: ", identity_token)
 
 		ctx.JSON(http.StatusOK, gin.H{
 			"identity_token": identity_token,
 			"refresh_token":  refresh_token,
 		})
-
 	}
 
 }
