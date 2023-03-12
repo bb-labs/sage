@@ -35,6 +35,9 @@
 		8BC836142980CC5500FEE6E1 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836132980CC5500FEE6E1 /* Client.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BEF0B1D29BDBF06009EFCD2 /* sage_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF0B1C29BDBF06009EFCD2 /* sage_logo.png */; };
+		8BEF0B1F29BDC26C009EFCD2 /* aurora-borealis.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF0B1E29BDC26C009EFCD2 /* aurora-borealis.mp4 */; };
+		8BEF0B2129BDD1D2009EFCD2 /* couple.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF0B2029BDD1D2009EFCD2 /* couple.mp4 */; };
+		8BEF0B2329BDD264009EFCD2 /* love.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF0B2229BDD264009EFCD2 /* love.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 		8BC836132980CC5500FEE6E1 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BEF0B1C29BDBF06009EFCD2 /* sage_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sage_logo.png; sourceTree = "<group>"; };
+		8BEF0B1E29BDC26C009EFCD2 /* aurora-borealis.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "aurora-borealis.mp4"; sourceTree = "<group>"; };
+		8BEF0B2029BDD1D2009EFCD2 /* couple.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = couple.mp4; sourceTree = "<group>"; };
+		8BEF0B2229BDD264009EFCD2 /* love.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = love.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +195,9 @@
 		8BB1932629778E2D00EC5967 = {
 			isa = PBXGroup;
 			children = (
+				8BEF0B1E29BDC26C009EFCD2 /* aurora-borealis.mp4 */,
+				8BEF0B2029BDD1D2009EFCD2 /* couple.mp4 */,
+				8BEF0B2229BDD264009EFCD2 /* love.mp4 */,
 				8BEF0B1C29BDBF06009EFCD2 /* sage_logo.png */,
 				8BB1933129778E2D00EC5967 /* Slide */,
 				8BB1934729778E2E00EC5967 /* SlideTests */,
@@ -403,6 +412,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BEF0B1D29BDBF06009EFCD2 /* sage_logo.png in Resources */,
+				8BEF0B1F29BDC26C009EFCD2 /* aurora-borealis.mp4 in Resources */,
+				8BEF0B2329BDD264009EFCD2 /* love.mp4 in Resources */,
+				8BEF0B2129BDD1D2009EFCD2 /* couple.mp4 in Resources */,
 				8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

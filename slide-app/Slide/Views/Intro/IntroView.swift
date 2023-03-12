@@ -9,7 +9,7 @@ struct IntroView: UIViewRepresentable {
     func makeUIView(context: Context) -> some UIView {
         let view = UIView(frame: UIScreen.main.bounds)
         
-        if let fileURL = Bundle.main.url(forResource: "lonely_monkey", withExtension: "mp4") {
+        if let fileURL = Bundle.main.url(forResource: "love", withExtension: "mp4") {
             let playerItem = AVPlayerItem(url: fileURL)
             let player = AVQueuePlayer(items: [playerItem])
         
