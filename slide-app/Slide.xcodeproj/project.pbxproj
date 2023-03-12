@@ -34,6 +34,8 @@
 		8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933429778E2D00EC5967 /* SlideView.swift */; };
 		8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836042980B59500FEE6E1 /* LocationModel.swift */; };
 		8BC836142980CC5500FEE6E1 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836132980CC5500FEE6E1 /* Client.swift */; };
+		8BE4DA6429BD25DD00A3051D /* ghost_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6329BD25DD00A3051D /* ghost_logo.png */; };
+		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,8 @@
 		8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8BC836042980B59500FEE6E1 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		8BC836132980CC5500FEE6E1 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		8BE4DA6329BD25DD00A3051D /* ghost_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghost_logo.png; sourceTree = "<group>"; };
+		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				8B14942B29A85AA5001497FE /* IntroView.swift */,
+				8BE4DA6529BD263200A3051D /* SplashView.swift */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 		8BB1933129778E2D00EC5967 /* Slide */ = {
 			isa = PBXGroup;
 			children = (
+				8BE4DA6329BD25DD00A3051D /* ghost_logo.png */,
 				8B14943429A860C5001497FE /* lonely_monkey.mp4 */,
 				8B14942129A84F6D001497FE /* Slide.entitlements */,
 				8BB1936D2977BF3300EC5967 /* Apis */,
@@ -400,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B14943529A860C5001497FE /* lonely_monkey.mp4 in Resources */,
+				8BE4DA6429BD25DD00A3051D /* ghost_logo.png in Resources */,
 				8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,6 +449,7 @@
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
 				8BC8360B2980B8C800FEE6E1 /* GoogleMapsLookupPlace.swift in Sources */,
+				8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,

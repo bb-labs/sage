@@ -19,7 +19,7 @@ class UserModel: ObservableObject {
         let presignUrlRequest = SlidePresignUrl(action: APIMethod.PUT, fileName: fileName)
         let presignUrlResponse: SlidePresignUrl.Response = try await self.auth.client.fetch(presignUrlRequest)
         
-        let presignDataRequest = SlidePresignData(body: video, url: presignUrlResponse.url, method: presignUrlResponse.method)
+        let presignDataRequest = SlidePresignData(body: video, meta: presignUrlResponse)
         let presignDataResponse: SlidePresignData.Response = try await self.auth.client.fetch(presignDataRequest)
         
         print(presignDataResponse)
