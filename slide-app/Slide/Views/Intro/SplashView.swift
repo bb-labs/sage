@@ -2,7 +2,6 @@
 import Foundation
 import SwiftUI
 
-
 struct SplashView<Content: View>: View {
     @State var size = 0.8
     @State var opacity = 0.4
@@ -15,7 +14,7 @@ struct SplashView<Content: View>: View {
             content
         } else {
             ZStack {
-                Color("Background").ignoresSafeArea()
+                Color(.white).ignoresSafeArea()
                 
                 VStack {
                     Image("AppLogo")

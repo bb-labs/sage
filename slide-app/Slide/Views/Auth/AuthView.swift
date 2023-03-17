@@ -13,6 +13,7 @@ struct AuthView: View {
                 Spacer()
                 
                 Text("By tapping 'Continue', you agree to our Terms of Service. Learn how we process your data in our Privacy Policy.")
+                    .foregroundColor(.black)
                     .font(.caption)
                     .padding(.leading)
                     .padding(.trailing)
