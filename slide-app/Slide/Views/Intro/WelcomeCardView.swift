@@ -2,8 +2,14 @@
 import SwiftUI
 
 struct WelcomeCardView: View {
-    @Binding var card: WelcomeCard
+    @EnvironmentObject var userModel: UserModel
     
+    @Binding var card: WelcomeCard
+
+    @State var scale = 1.0
+    @State var spring = 0.4
+
+
     var size: CGSize
     var last: Bool
 
@@ -26,15 +32,20 @@ struct WelcomeCardView: View {
             Spacer()
             
             if last {
-                Text("Let's Go")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.vertical)
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        Capsule()
-                            .fill(Color(.systemGreen))
-                    }.padding(.horizontal, 50)
+                Button(action: {
+                    userModel.createProfile()
+                }) {
+                    Text("Let's Go")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            Capsule()
+                                .fill(Color(.systemBlue))
+                        }
+                        .padding(.horizontal, 50)
+                }
             }
             
             Spacer()

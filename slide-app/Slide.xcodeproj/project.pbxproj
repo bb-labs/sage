@@ -25,6 +25,8 @@
 		8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 8B2FDB1E29C4169000C18123 /* Lottie */; };
 		8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2229C417BF00C18123 /* LottieView.swift */; };
 		8B2FDB2529C427E300C18123 /* selfie.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2429C427E300C18123 /* selfie.json */; };
+		8B2FDB2929C4365F00C18123 /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2829C4365F00C18123 /* CreateProfileView.swift */; };
+		8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2B29C437B400C18123 /* ProfileModel.swift */; };
 		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
 		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
 		8B54698229A16BF600648205 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54698129A16BF600648205 /* CameraModel.swift */; };
@@ -83,6 +85,8 @@
 		8B2FDB1929C415EA00C18123 /* ghost.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ghost.json; sourceTree = "<group>"; };
 		8B2FDB2229C417BF00C18123 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8B2FDB2429C427E300C18123 /* selfie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = selfie.json; sourceTree = "<group>"; };
+		8B2FDB2829C4365F00C18123 /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
+		8B2FDB2B29C437B400C18123 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsResolveAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
 		8B54697B29A16A6D00648205 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
 				8B14942E29A85C6C001497FE /* UserModel.swift */,
 				8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */,
+				8B2FDB2B29C437B400C18123 /* ProfileModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -192,6 +197,14 @@
 				8B2FDAF729C3F9B300C18123 /* logo.png */,
 			);
 			path = Brand;
+			sourceTree = "<group>";
+		};
+		8B2FDB2629C4363600C18123 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8B2FDB2829C4365F00C18123 /* CreateProfileView.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		8B308175297921A0002056A1 /* GoogleMaps */ = {
@@ -286,6 +299,7 @@
 		8BB1936229778ED300EC5967 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8B2FDB2629C4363600C18123 /* User */,
 				8B2FDAF629C3F34B00C18123 /* Intro */,
 				8B14943329A85D49001497FE /* Auth */,
 				8B54697D29A16AC600648205 /* Camera */,
@@ -492,12 +506,14 @@
 				8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */,
 				8B2FDB1329C4125C00C18123 /* WelcomeCardView.swift in Sources */,
 				8B14942C29A85AA5001497FE /* AuthBackgroundView.swift in Sources */,
+				8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */,
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
 				8BC8360B2980B8C800FEE6E1 /* GoogleMapsLookupPlace.swift in Sources */,
 				8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
+				8B2FDB2929C4365F00C18123 /* CreateProfileView.swift in Sources */,
 				8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,

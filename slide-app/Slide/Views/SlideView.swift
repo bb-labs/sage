@@ -6,7 +6,9 @@ struct SlideView: View {
     
     var body: some View {
         SplashView {
-            if userModel.auth.loggedIn {
+            if userModel.profile != nil {
+                CreateProfileView()
+            } else if userModel.auth.loggedIn {
                 WelcomeView()
             } else {
                 AuthView()

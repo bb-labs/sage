@@ -6,7 +6,8 @@ import SwiftUI
 
 class UserModel: ObservableObject {
     @Published var auth = AuthModel()
-    let location = LocationModel()
+    @Published var profile: ProfileModel?
+    @Published var location = LocationModel()
     
     var anyCancellable: AnyCancellable? = nil
     
@@ -14,6 +15,14 @@ class UserModel: ObservableObject {
         anyCancellable = auth.objectWillChange.sink { [weak self] (_) in
             withAnimation(.easeIn(duration: 1)) {
                 self?.objectWillChange.send()
+            }
+        }
+    }
+    
+    func createProfile() {
+        DispatchQueue.main.async {
+            withAnimation(.linear(duration: 1)) {
+                self.profile = ProfileModel()
             }
         }
     }

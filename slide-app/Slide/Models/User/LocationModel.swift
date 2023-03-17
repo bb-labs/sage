@@ -1,6 +1,11 @@
 
 import CoreLocation
 
+struct Location: Codable {
+    var type = "Point"
+    var coordinates: String
+}
+
 extension CLLocationCoordinate2D {
     func toString() -> String { "\(self.longitude),\(self.latitude)" }
 }

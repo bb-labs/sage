@@ -31,7 +31,7 @@ struct SplashView<Content: View>: View {
                 }
             }.onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    withAnimation(.easeIn(duration: 2)) {
+                    withAnimation(.easeIn(duration: 1)) {
                         self.isComplete.toggle()
                     }
                 }
