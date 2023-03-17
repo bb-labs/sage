@@ -5,6 +5,12 @@ struct SlideView: View {
     @EnvironmentObject var userModel: UserModel
     
     var body: some View {
-        WelcomeView()
+        SplashView {
+            if userModel.auth.loggedIn {
+                WelcomeView()
+            } else {
+                AuthView()
+            }
+        }
     }
 }

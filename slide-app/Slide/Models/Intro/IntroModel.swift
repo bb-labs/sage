@@ -21,7 +21,7 @@ class IntroModel: NSObject, ObservableObject {
             id: 0,
             title: "Authentic Experience",
             description: "Ditch the elaborate profile, the fabricated images and that blurb you spent an hour and a half writing. Upload a video of yourself every 24 hours. That's it!",
-            gif: .init(name: "authentic", bundle: .main)
+            gif: .init(name: "selfie", bundle: .main)
         ),
         .init(
             id: 1,

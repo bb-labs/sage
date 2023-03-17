@@ -5,6 +5,8 @@ import SwiftUI
 
 struct WelcomeView: View {
     @EnvironmentObject var introModel: IntroModel
+    @EnvironmentObject var userModel: UserModel
+
     @State private var pageIndex = 0
 
     let dotAppearance = UIPageControl.appearance()

@@ -2,6 +2,7 @@
 import Foundation
 import AVFoundation
 import Combine
+import SwiftUI
 
 class UserModel: ObservableObject {
     @Published var auth = AuthModel()
@@ -11,7 +12,9 @@ class UserModel: ObservableObject {
     
     init() {
         anyCancellable = auth.objectWillChange.sink { [weak self] (_) in
-            self?.objectWillChange.send()
+            withAnimation(.easeIn(duration: 1)) {
+                self?.objectWillChange.send()
+            }
         }
     }
     
