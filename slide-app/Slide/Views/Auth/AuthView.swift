@@ -12,20 +12,18 @@ struct AuthView: View {
             VStack {
                 Spacer()
                 
-                Text("By tapping 'Continue', you agree to our Terms of Service. Learn how we process your data in our Privacy Policy.")
-                    .foregroundColor(.black)
-                    .font(.caption)
-                    .padding(.leading)
-                    .padding(.trailing)
-                
-                
                 SignInWithAppleButton(.continue,
                                       onRequest: userModel.auth.requestAppleScopes,
                                       onCompletion: userModel.auth.onAppleSignUpComplete)
                     .frame(width: 300, height: 45)
                     .cornerRadius(50)
-                    .padding()
                     .signInWithAppleButtonStyle(.white)
+                
+                HStack {
+                    Text("Terms of Service").underline()
+                    Text("Privacy Policy").underline()
+                }
+                .font(.caption2)
             }
         }
     }

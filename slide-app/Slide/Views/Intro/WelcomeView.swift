@@ -17,7 +17,12 @@ struct WelcomeView: View {
             
             TabView(selection: $pageIndex) {
                 ForEach($introModel.cards) { $card in
-                    WelcomeCardView(card: $card, size: size).tag(card.id)
+                    WelcomeCardView(
+                        card: $card,
+                        size: size,
+                        last: card == introModel.cards.last
+                    )
+                    .tag(card.id)
                 }
             }
             .animation(.easeInOut, value: pageIndex)
