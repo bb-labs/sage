@@ -14,8 +14,8 @@ struct WelcomeCardView: View {
     var last: Bool
 
     var body: some View {
-        VStack(spacing: 25) {
-            LottieView(card: $card)
+        VStack(spacing: 15) {
+            LottieView(gif: $card.gif)
                 .frame(height: size.width)
                 .onAppear {
                     card.gif.play()
@@ -42,7 +42,7 @@ struct WelcomeCardView: View {
                         .frame(maxWidth: .infinity)
                         .background {
                             Capsule()
-                                .fill(Color(.systemBlue))
+                                .fill(Color("Main"))
                         }
                         .padding(.horizontal, 50)
                 }
