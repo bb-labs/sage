@@ -15,15 +15,15 @@ struct CameraView: View {
                 CameraCaptureButton()
             }
         }
-        .overlay {
-            if let url = cameraModel.captureURL {
-                CameraCaptureView(url: url)
-                    .ignoresSafeArea(.all, edges: .all)
-                    .overlay(alignment: .bottom) {
-                        CameraCaptureSettingsView()
-                    }
-            }
-        }
+//        .overlay {
+//            if let url = cameraModel.captureURL {
+//                CameraCaptureView(url: url)
+//                    .ignoresSafeArea(.all, edges: .all)
+//                    .overlay(alignment: .bottom) {
+//                        CameraCaptureSettingsView()
+//                    }
+//            }
+//        }
         .onAppear {
             cameraModel.requestPermissions()
         }

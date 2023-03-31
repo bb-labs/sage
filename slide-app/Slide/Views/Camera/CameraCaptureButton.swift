@@ -39,13 +39,10 @@ struct CameraCaptureButton: View {
             isComplete = false
             isAnimating = false
             
-//            cameraModel.stopRecording()
+            cameraModel.stopRecording()
         } onPressingChanged: { isPressing in
             if isPressing {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-
-                
-//                cameraModel.startRecording()
+                cameraModel.startRecording()
                 
                 withAnimation(.spring(response: 0.5)) {
                     scale = 1.5
@@ -55,7 +52,7 @@ struct CameraCaptureButton: View {
                     isAnimating = true
                 }
             } else if !isComplete {
-//                cameraModel.stopRecording()
+                cameraModel.stopRecording()
                 
                 withAnimation(.easeInOut) {
                     isAnimating = false
