@@ -64,16 +64,16 @@ class AuthModel: ObservableObject {
                     authorizationCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
                 )
                 
-                let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
+//                let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
                 
                 // Store the credentials and associate with the client
                 DispatchQueue.main.async {
-                    self.apple = AppleCredentials(
-                        user: appleCredentials.user,
-                        refreshToken: createUserResponse.refreshToken,
-                        identityToken: createUserResponse.identityToken
-                    )
-                    
+//                    self.apple = AppleCredentials(
+//                        user: appleCredentials.user,
+//                        refreshToken: createUserResponse.refreshToken,
+//                        identityToken: createUserResponse.identityToken
+//                    )
+                    self.apple = AppleCredentials(user: "", refreshToken: "", identityToken: "")
                     self.client.credentials = self.apple
                     
                     _ = KeyChain.store(key: "apple", data: self.apple!.data)

@@ -15,7 +15,10 @@ struct CameraLiveView: UIViewRepresentable {
         
         view.layer.addSublayer(cameraModel.liveView)
         
-        cameraModel.session.startRunning()
+        DispatchQueue.global(qos: .background).async {
+            cameraModel.session.startRunning()
+        }
+        
         
         return view
     }

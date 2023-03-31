@@ -3,16 +3,17 @@ import Foundation
 import AVFoundation
 
 class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
+    @Published var captureURL: URL?
     @Published var session = AVCaptureSession()
     @Published var output = AVCaptureMovieFileOutput()
     
+    var audioInput: AVCaptureDeviceInput!
+    
+    var liveView: AVCaptureVideoPreviewLayer!
+    var captureView: AVPlayerLayer!
+    var captureViewLooper: AVPlayerLooper!
     var permissions = [AVMediaType.audio: false, AVMediaType.video: false]
-    
-    @Published var liveView: AVCaptureVideoPreviewLayer!
-    
-    @Published var captureView: AVPlayerLayer!
-    @Published var captureViewLooper: AVPlayerLooper!
-    @Published var captureURL: URL?
+
     
     
     func requestPermissions() {
@@ -41,12 +42,12 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice)
         
         guard let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
-        let audioDeviceInput = try? AVCaptureDeviceInput(device: audioDevice)
+        self.audioInput = try? AVCaptureDeviceInput(device: audioDevice)
         
         session.addInput(videoDeviceInput!)
-        session.addInput(audioDeviceInput!)
+        session.addInput(self.audioInput!)
         session.addOutput(output)
-                
+        
         session.commitConfiguration()
     }
     

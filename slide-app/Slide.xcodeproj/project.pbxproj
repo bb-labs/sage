@@ -298,7 +298,6 @@
 				8B2FDB2629C4363600C18123 /* User */,
 				8B2FDAF629C3F34B00C18123 /* Intro */,
 				8B54697D29A16AC600648205 /* Camera */,
-				8BB1933429778E2D00EC5967 /* SlideView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +308,7 @@
 				8B2FDB1529C4140400C18123 /* Brand */,
 				8B2FDB1429C413EB00C18123 /* Animations */,
 				8BB1933229778E2D00EC5967 /* SlideApp.swift */,
+				8BB1933429778E2D00EC5967 /* SlideView.swift */,
 				8BB1933629778E2E00EC5967 /* Assets.xcassets */,
 				8BB1933D29778E2E00EC5967 /* Slide.xcdatamodeld */,
 			);
@@ -683,7 +683,6 @@
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -721,7 +720,6 @@
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
