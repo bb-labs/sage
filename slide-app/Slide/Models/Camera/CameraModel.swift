@@ -1,19 +1,22 @@
 
 import Foundation
 import AVFoundation
+import SwiftUI
 
 class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
     @Published var captureURL: URL?
     @Published var session = AVCaptureSession()
     @Published var output = AVCaptureMovieFileOutput()
     
-    var audioInput: AVCaptureDeviceInput!
-    
     var liveView: AVCaptureVideoPreviewLayer!
     var captureView: AVPlayerLayer!
     var captureViewLooper: AVPlayerLooper!
     var permissions = [AVMediaType.audio: false, AVMediaType.video: false]
 
+    // Camera view settings
+    var recordTime = 3.0
+    @Published var isRecording = false
+    @Published var isRecordingComplete = false
     
     
     func requestPermissions() {
@@ -41,11 +44,12 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else { return }
         let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice)
         
-        guard let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
-        self.audioInput = try? AVCaptureDeviceInput(device: audioDevice)
+        //        guard let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
+        //        let audioDeviceInput = try? AVCaptureDeviceInput(device: audioDevice)
+        //        session.addInput(audioDeviceInput!)
         
         session.addInput(videoDeviceInput!)
-        session.addInput(self.audioInput!)
+
         session.addOutput(output)
         
         session.commitConfiguration()
@@ -75,7 +79,13 @@ class CameraModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDeleg
             return
         }
         
-        captureURL = outputFileURL
+        if output.recordedDuration.seconds < recordTime {
+            return
+        }
+        
+        withAnimation(.easeInOut(duration: 1.0)) {
+            captureURL = outputFileURL
+        }
     }
     
     func getVideoData() -> (String, Data?) {

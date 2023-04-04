@@ -58,7 +58,7 @@ class AuthModel: ObservableObject {
             
             Task {
                 // Create user account
-                let createUserRequest = SlideCreateUser(
+                let _ = SlideCreateUser(
                     id: appleCredentials.user,
                     email: appleCredentials.email,
                     authorizationCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)

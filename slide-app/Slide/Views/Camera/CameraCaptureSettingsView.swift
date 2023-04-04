@@ -13,12 +13,13 @@ struct CameraCaptureSettingsView: View {
     
     var body: some View {
         HStack {
-            Button { cameraModel.erase() } label: {
-                Image(systemName: "trash.fill")
-                    .frame(width: 40, height: 40)
-                    .background(Color.blue)
-                    .mask(Circle())
-                    .foregroundColor(.white)
+            Button {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    cameraModel.erase()
+                }
+            } label: {
+                Text("👎")
+                    .font(.system(size: 60))
                     .padding(.leading)
             }
             Spacer()
@@ -28,11 +29,8 @@ struct CameraCaptureSettingsView: View {
                     try await userModel.uploadProfileVideo(fileName: name, video: data!)
                 }
             } label: {
-                Image(systemName: "paperplane.fill")
-                    .frame(width: 40, height: 40)
-                    .background(Color.blue)
-                    .mask(Circle())
-                    .foregroundColor(.white)
+                Text("👍")
+                    .font(.system(size: 60))
                     .padding(.trailing)
             }
         }.padding()
