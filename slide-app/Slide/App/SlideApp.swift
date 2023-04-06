@@ -7,7 +7,6 @@ struct SlideApp: App {
     let introModel = IntroModel()
     let cameraModel = CameraModel()
     
-    
     var body: some Scene {
         WindowGroup {
             SlideView()

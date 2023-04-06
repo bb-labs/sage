@@ -1,12 +1,10 @@
 
 import SwiftUI
 
-struct PreferencesSelectionView: View {
+struct ProfileInputView<Content: View>: View {
     var heading: String
-    var multiSelect = false
-    @Binding var selections: [String:Bool]
     @Binding var pageIndex: Int
-    
+    @ViewBuilder var ContentView: Content
     
     var body: some View {
         GeometryReader { geometry in
@@ -22,7 +20,7 @@ struct PreferencesSelectionView: View {
                 
                 Spacer()
                 
-                SelectButtonsView(size: size, multiSelect: multiSelect, selections: $selections)
+                ContentView
                 
                 Spacer()
                 
@@ -35,7 +33,9 @@ struct PreferencesSelectionView: View {
                 Spacer()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .simultaneousGesture(DragGesture())
     }
 }
-
 
