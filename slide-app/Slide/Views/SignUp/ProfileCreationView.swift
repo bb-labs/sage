@@ -32,6 +32,10 @@ struct CreateProfileView: View {
                 ProfileInputView(heading: "Looking To Meet..", pageIndex: $pageIndex) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $interestedIn)
                 }.tag(2)
+                
+                ProfileInputView(heading: "I'm Free For Dates..", pageIndex: $pageIndex, sticky: .top) {
+                    ScheduleView(size: size)
+                }.tag(3)
             }
             .tabViewStyle(PageTabViewStyle())
         }

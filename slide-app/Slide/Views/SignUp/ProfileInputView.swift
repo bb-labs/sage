@@ -4,6 +4,7 @@ import SwiftUI
 struct ProfileInputView<Content: View>: View {
     var heading: String
     @Binding var pageIndex: Int
+    var sticky: SwiftUI.Edge.Set = .Element()
     @ViewBuilder var ContentView: Content
     
     var body: some View {
@@ -18,7 +19,9 @@ struct ProfileInputView<Content: View>: View {
                     .padding(.top, size.height * 0.1)
                     .multilineTextAlignment(.center)
                 
-                Spacer()
+                if !sticky.contains(.top) {
+                    Spacer()
+                }
                 
                 ContentView
                 
