@@ -1,18 +1,20 @@
-
 import Foundation
 
-class ProfileModel: ObservableObject {
+class ProfileModel: NSObject, ObservableObject {
     enum Gender: String, Codable {
         case MALE = "M"
-        case FEMALE = "F"
+        case FEMALE = "W"
         case PERSON = "P"
     }
+    
 
     var video: Data?
     var name: String?
     var gender: Gender?
-    var seeking: Gender?
+    var seeking: [Gender]?
     var locationRadius: Int?
     var birthday: Int?
     var location: Location?
 }
+
+

@@ -32,19 +32,8 @@ struct WelcomeCardView: View {
             Spacer()
             
             if last {
-                Button(action: {
-                    userModel.createProfile()
-                }) {
-                    Text("Let's Go")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.vertical)
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            Capsule()
-                                .fill(Color("Main"))
-                        }
-                        .padding(.horizontal, 50)
+                Button(action: {}) {
+                    TextButtonView(size: size, text: "Let's Go")
                 }
             }
             

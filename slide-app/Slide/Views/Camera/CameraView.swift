@@ -3,16 +3,38 @@ import SwiftUI
 
 struct CameraView: View {
     @EnvironmentObject var cameraModel: CameraModel
+    @EnvironmentObject var userModel: UserModel
+    
+    @State var showingExplanations = true
     
     var body: some View {
         ZStack {
             CameraLiveView()
                 .ignoresSafeArea(.all, edges: .all)
+                .opacity(showingExplanations ? 0.5 : 1)
+                .background(showingExplanations ? .black : .clear)
+                .overlay {
+                    if showingExplanations {
+                        CameraExplanationView()
+                    }
+                }
+                .gesture(DragGesture().onEnded { _ in
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        self.showingExplanations = false
+                    }
+                })
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        self.showingExplanations = false
+                    }
+                }
             
-            VStack {
-                Spacer()
-                
-                CameraCaptureButton()
+            if !showingExplanations {
+                VStack {
+                    Spacer()
+                    
+                    CameraCaptureButton()
+                }
             }
         }
         .overlay {

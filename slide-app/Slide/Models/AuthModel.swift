@@ -26,6 +26,8 @@ extension Credentials {
 
 struct AppleCredentials: Credentials {
     let user: String
+    let email: String
+    var isSigningUp: Bool
     var refreshToken: String
     var identityToken: String
 }
@@ -37,9 +39,7 @@ struct GoogleCredentials: Credentials {
 class AuthModel: ObservableObject {
     var client = HttpClient()
     
-    @Published var apple: AppleCredentials?
-    
-    var loggedIn: Bool { self.apple != nil }
+    var apple: AppleCredentials?
     
     init() {
         KeyChain.clearKeychain()
@@ -66,14 +66,15 @@ class AuthModel: ObservableObject {
                 
 //                let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
                 
-                // Store the credentials and associate with the client
+//                Store the credentials and associate with the client
+                
                 DispatchQueue.main.async {
 //                    self.apple = AppleCredentials(
 //                        user: appleCredentials.user,
 //                        refreshToken: createUserResponse.refreshToken,
 //                        identityToken: createUserResponse.identityToken
 //                    )
-                    self.apple = AppleCredentials(user: "", refreshToken: "", identityToken: "")
+                    self.apple = AppleCredentials(user: "", email: "", isSigningUp: true, refreshToken: "", identityToken: "")
                     self.client.credentials = self.apple
                     
                     _ = KeyChain.store(key: "apple", data: self.apple!.data)
