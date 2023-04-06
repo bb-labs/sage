@@ -33,7 +33,7 @@ struct CreateProfileView: View {
                     SelectOptionsView(size: size, multiSelect: true, selections: $interestedIn)
                 }.tag(2)
                 
-                ProfileInputView(heading: "I'm Free For Dates..", pageIndex: $pageIndex, sticky: .top) {
+                ProfileInputView(heading: "I'm Free For Dates..", pageIndex: $pageIndex) {
                     ScheduleView(size: size)
                 }.tag(3)
             }

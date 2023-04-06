@@ -4,7 +4,7 @@ import SwiftUI
 struct ProfileInputView<Content: View>: View {
     var heading: String
     @Binding var pageIndex: Int
-    var sticky: SwiftUI.Edge.Set = .Element()
+    var spacers = true
     @ViewBuilder var ContentView: Content
     
     var body: some View {
@@ -19,13 +19,15 @@ struct ProfileInputView<Content: View>: View {
                     .padding(.top, size.height * 0.1)
                     .multilineTextAlignment(.center)
                 
-                if !sticky.contains(.top) {
+                if spacers {
                     Spacer()
                 }
                 
                 ContentView
                 
-                Spacer()
+                if spacers {
+                    Spacer()
+                }
                 
                 if pageIndex <= 0 {
                     NextButtonView(pageIndex: $pageIndex, size: size)
@@ -33,7 +35,9 @@ struct ProfileInputView<Content: View>: View {
                     DoubleChevronView(pageIndex: $pageIndex)
                 }
                 
-                Spacer()
+                if spacers {
+                    Spacer()
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
