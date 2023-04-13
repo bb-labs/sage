@@ -2,8 +2,8 @@
 import SwiftUI
 
 struct ProfileInputView<Content: View>: View {
-    var heading: String
     @Binding var pageIndex: Int
+    var heading: String
     var spacers = true
     var errorMessage: String
     var validate: () -> Bool

@@ -36,10 +36,10 @@ struct CreateProfileView: View {
             let size = $0.size
             TabView(selection: $pageIndex) {
                 ProfileInputView(
-                    heading: "What's your birthday?",
                     pageIndex: $pageIndex,
+                    heading: "What's your birthday?",
                     errorMessage: "You must be 18 to sign up!",
-                    validate: { birthDate < minimumAge}) {
+                    validate: { birthDate < minimumAge }) {
                     DatePicker("Birthday", selection: $birthDate, displayedComponents: .date)
                         .datePickerStyle(.wheel)
                         .frame(width: size.width * 0.8)
@@ -48,24 +48,24 @@ struct CreateProfileView: View {
                 
                 
                 ProfileInputView(
-                    heading: "How do you identify?",
                     pageIndex: $pageIndex,
+                    heading: "How would you like to be identified?",
                     errorMessage: "Please let us know how you identify!",
                     validate: { identifyAs.values.contains { $0 } }) {
                     SelectOptionsView(size: size, selections: $identifyAs)
                 }.tag(1)
                 
                 ProfileInputView(
-                    heading: "Who are you looking to meet?",
                     pageIndex: $pageIndex,
+                    heading: "Who are you looking to connect with?",
                     errorMessage: "Let us know who you are interested in meeting!",
                     validate: { interestedIn.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $interestedIn)
                 }.tag(2)
                 
                 ProfileInputView(
-                    heading: "When are you free for dates?",
                     pageIndex: $pageIndex,
+                    heading: "When are you free for dates?",
                     errorMessage: "Tell us when you're free!",
                     validate: { scheduleFree.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $scheduleFree, ordering: [
