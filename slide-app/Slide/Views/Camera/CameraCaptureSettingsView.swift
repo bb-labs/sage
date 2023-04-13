@@ -14,6 +14,8 @@ struct CameraCaptureSettingsView: View {
     var body: some View {
         HStack {
             Button {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     cameraModel.erase()
                 }
@@ -22,8 +24,12 @@ struct CameraCaptureSettingsView: View {
                     .font(.system(size: 60))
                     .padding(.leading)
             }
+            
             Spacer()
+            
             Button {
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                
                 let (name, data) = cameraModel.getVideoData()
                 Task {
                     try await userModel.uploadProfileVideo(fileName: name, video: data!)

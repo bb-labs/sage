@@ -44,8 +44,7 @@ struct CreateProfileView: View {
                         .datePickerStyle(.wheel)
                         .frame(width: size.width * 0.8)
                         .accentColor(Color("Main"))
-                }
-                .tag(0)
+                }.tag(0)
                 
                 
                 ProfileInputView(
@@ -76,8 +75,15 @@ struct CreateProfileView: View {
                         ProfileModel.MeetingTime.EVENING.rawValue
                     ])
                 }.tag(3)
+                
+                CameraView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(Rectangle())
+                    .simultaneousGesture(DragGesture())
+                    .tag(4)
             }
-            .tabViewStyle(PageTabViewStyle())
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .ignoresSafeArea(.all, edges: .all)
         }
     }
 }
