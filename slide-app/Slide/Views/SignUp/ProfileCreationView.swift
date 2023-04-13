@@ -39,7 +39,7 @@ struct CreateProfileView: View {
                     heading: "What's your birthday?",
                     pageIndex: $pageIndex,
                     errorMessage: "You must be 18 to sign up!",
-                    validate: { return birthDate < minimumAge}) {
+                    validate: { birthDate < minimumAge}) {
                     DatePicker("Birthday", selection: $birthDate, displayedComponents: .date)
                         .datePickerStyle(.wheel)
                         .frame(width: size.width * 0.8)
@@ -51,7 +51,7 @@ struct CreateProfileView: View {
                     heading: "How do you identify?",
                     pageIndex: $pageIndex,
                     errorMessage: "Please let us know how you identify!",
-                    validate: { return identifyAs.values.contains { $0 } }) {
+                    validate: { identifyAs.values.contains { $0 } }) {
                     SelectOptionsView(size: size, selections: $identifyAs)
                 }.tag(1)
                 
@@ -59,7 +59,7 @@ struct CreateProfileView: View {
                     heading: "Who are you looking to meet?",
                     pageIndex: $pageIndex,
                     errorMessage: "Let us know who you are interested in meeting!",
-                    validate: { return interestedIn.values.contains { $0 } }) {
+                    validate: { interestedIn.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $interestedIn)
                 }.tag(2)
                 
@@ -67,7 +67,7 @@ struct CreateProfileView: View {
                     heading: "When are you free for dates?",
                     pageIndex: $pageIndex,
                     errorMessage: "Tell us when you're free!",
-                    validate: { return scheduleFree.values.contains { $0 } }) {
+                    validate: { scheduleFree.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $scheduleFree, ordering: [
                         ProfileModel.MeetingTime.MORNING.rawValue,
                         ProfileModel.MeetingTime.EARLY_AFTERNOON.rawValue,

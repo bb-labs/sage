@@ -1,9 +1,3 @@
-//
-//  CameraView.swift
-//  Slide
-//
-//  Created by Truman Purnell on 2/18/23.
-//
 
 import SwiftUI
 
