@@ -25,7 +25,7 @@ struct ProfileInputView<Content: View>: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: size.width * 0.8)
                 
-                Spacer(minLength: size.height * 0.1)
+                Spacer(minLength: size.height * 0.15)
                 
                 ContentView
                 

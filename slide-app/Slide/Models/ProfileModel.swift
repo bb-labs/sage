@@ -17,14 +17,20 @@ class ProfileModel: NSObject, ObservableObject {
         case EVENING = "6PM - 10PM"
     }
     
-
+    enum LocationRadius: String, Codable {
+        case NEIGHBORHOOD = "My Neighborhood"
+        case CITY = "My City"
+        case METRO = "My Metro"
+        case WORLD = "The World!"
+    }
+    
     var video: Data?
     var name: String?
     var gender: Gender?
     var seeking: [Gender]?
-    var locationRadius: Int?
     var birthday: Int?
     var location: Location?
+    var locationRadius: Int?
     var schedule: [MeetingTime]?
 }
 

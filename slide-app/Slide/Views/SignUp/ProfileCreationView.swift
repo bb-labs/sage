@@ -30,6 +30,13 @@ struct CreateProfileView: View {
         ProfileModel.MeetingTime.EVENING.rawValue: false
     ]
     
+    @State var locationRadius = [
+        ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue: false,
+        ProfileModel.LocationRadius.CITY.rawValue: false,
+        ProfileModel.LocationRadius.METRO.rawValue: false,
+        ProfileModel.LocationRadius.WORLD.rawValue: false
+    ]
+    
 
     var body: some View {
         GeometryReader {
@@ -57,7 +64,7 @@ struct CreateProfileView: View {
                 
                 ProfileInputView(
                     pageIndex: $pageIndex,
-                    heading: "Who are you looking to connect with?",
+                    heading: "Who would you like to connect with?",
                     errorMessage: "Let us know who you are interested in meeting!",
                     validate: { interestedIn.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $interestedIn)
@@ -76,11 +83,24 @@ struct CreateProfileView: View {
                     ])
                 }.tag(3)
                 
+                ProfileInputView(
+                    pageIndex: $pageIndex,
+                    heading: "How far would you travel for a date?",
+                    errorMessage: "Help us understand your willingness to travel!",
+                    validate: { scheduleFree.values.contains { $0 } }) {
+                    SelectOptionsView(size: size, multiSelect: false, selections: $locationRadius, ordering: [
+                        ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue,
+                        ProfileModel.LocationRadius.CITY.rawValue,
+                        ProfileModel.LocationRadius.METRO.rawValue,
+                        ProfileModel.LocationRadius.WORLD.rawValue,
+                    ])
+                }.tag(4)
+                
                 CameraView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
                     .simultaneousGesture(DragGesture())
-                    .tag(4)
+                    .tag(5)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .ignoresSafeArea(.all, edges: .all)
