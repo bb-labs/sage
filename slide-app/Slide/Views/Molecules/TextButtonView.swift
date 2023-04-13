@@ -4,6 +4,7 @@ import SwiftUI
 struct TextButtonView: View {
     var size: CGSize
     var text: String
+    var disabled = false
     
     var body: some View {
         Text(text)
@@ -13,7 +14,7 @@ struct TextButtonView: View {
             .padding()
             .background {
                 Capsule()
-                    .fill(Color("Main"))
+                    .fill(disabled ? .gray : Color("Main"))
             }
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ChevronView: View {
     var direction: String
+    var disabled = false
     
     var body: some View {
         Image(systemName: "chevron.\(direction)")
@@ -12,7 +13,7 @@ struct ChevronView: View {
             .frame(width: 55, height: 55)
             .background {
                 RoundedRectangle(cornerRadius: 30, style: .circular)
-                    .fill(Color("Main"))
+                    .fill(disabled ? .gray : Color("Main"))
             }
     }
 }

@@ -6,9 +6,17 @@ struct SelectOptionsView: View {
     var size: CGSize
     var multiSelect = false
     @Binding var selections: [String:Bool]
+    var ordering: [String] = []
+    
     
     var body: some View {
-        ForEach(Array(selections.keys).sorted(by: >), id: \.self) { selection in
+        ForEach(Array(selections.keys).sorted {
+            if ordering.isEmpty {
+                return $0 > $1
+            }
+            
+            return ordering.firstIndex(of: $0)! < ordering.firstIndex(of: $1)!
+        }, id: \.self) { selection in
             Button(action: {
                 UIImpactFeedbackGenerator(style: .soft).impactOccurred()
                 

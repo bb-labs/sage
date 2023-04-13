@@ -3,6 +3,7 @@ import SwiftUI
 
 struct DoubleChevronView: View {
     @Binding var pageIndex: Int
+    var disabled = false
     
     var body: some View {
         HStack(spacing: 0) {
@@ -15,7 +16,8 @@ struct DoubleChevronView: View {
                 }
             } label: {
                 ChevronView(direction: "left")
-            }.frame(maxWidth: .infinity)
+            }
+            .frame(maxWidth: .infinity)
             
             Button {
                 UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
@@ -23,8 +25,10 @@ struct DoubleChevronView: View {
                     pageIndex += 1
                 }
             } label: {
-                ChevronView(direction: "right")
-            }.frame(maxWidth: .infinity)
+                ChevronView(direction: "right", disabled: disabled)
+            }
+            .frame(maxWidth: .infinity)
+            .disabled(disabled)
             
             Spacer()
         }

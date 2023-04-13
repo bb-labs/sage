@@ -5,6 +5,7 @@ import SwiftUI
 struct NextButtonView: View {
     @Binding var pageIndex: Int
     var size: CGSize
+    var disabled = false
     
     
     var body: some View {
@@ -15,8 +16,10 @@ struct NextButtonView: View {
                 pageIndex += 1
             }
         } label: {
-            TextButtonView(size: size, text: "Next")
-        }.frame(maxWidth: .infinity)
+            TextButtonView(size: size, text: "Next", disabled: disabled)
+        }
+        .frame(maxWidth: .infinity)
+        .disabled(disabled)
     }
 }
 

@@ -14,7 +14,7 @@ struct DayLocationKey: PreferenceKey {
     }
 }
 
-struct ScheduleView: View {
+struct PremiumScheduleView: View {
     var size: CGSize
     
     @State var selectedDay = "Mon" {
