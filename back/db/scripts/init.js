@@ -48,5 +48,3 @@ const users = [
 ]
 
 users.forEach(user => db.users.insert(user))
-
-

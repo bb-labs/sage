@@ -1,4 +1,4 @@
-module github.com/i-r-l/slide
+module github.com/i-r-l/sage/app
 
 go 1.18
 

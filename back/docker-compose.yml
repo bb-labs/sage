@@ -1,31 +1,43 @@
 services:
-  db:
-    container_name: slide_db
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: slide
-    ports:
-      - 27017:27017
-    volumes:
-      - ./slide-db:/home/mongodb
-      - ./slide-db/data:/data/db
-      - ./slide-db/scripts:/docker-entrypoint-initdb.d
-  server:
-    container_name: slide_server
-    depends_on:
-      - db
+  # db:
+  #   container_name: sage_db
+  #   image: mongo:latest
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+  #     MONGO_INITDB_DATABASE: sage
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - ./db:/home/mongodb
+  #     - ./db/data:/data/db
+  #     - ./db/scripts:/docker-entrypoint-initdb.d
+  # app:
+  #   container_name: sage_app
+  #   depends_on:
+  #     - db
+  #   env_file:
+  #     - ./app/.env.dev
+  #   build:
+  #     context: ./app
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./app:/usr/src/app
+  #     - ~/.aws:/root/.aws
+  #   ports:
+  #     - 3000:3000
+  wss:
+    container_name: sage_wss
     env_file:
-      - ./slide-server/.env.dev
+      - ./wss/.env.dev
     build:
-      context: ./slide-server
+      context: ./wss
       dockerfile: Dockerfile
     volumes:
-      - ./slide-server:/usr/src/slide-server
+      - ./wss:/usr/src/wss
       - ~/.aws:/root/.aws
     ports:
-      - 3000:3000
+      - 3001:3001
 
 networks:
-  slide:
+  sage:
