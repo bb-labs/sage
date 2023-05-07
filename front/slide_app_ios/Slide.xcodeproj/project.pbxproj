@@ -28,7 +28,6 @@
 		8B530E6629EFD2E50031D7DE /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6529EFD2E50031D7DE /* WebRTCClient.swift */; };
 		8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 8B530E6829EFD46F0031D7DE /* WebRTC */; };
 		8B530E6B29EFD5B30031D7DE /* WebRTCSignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6A29EFD5B30031D7DE /* WebRTCSignalingClient.swift */; };
-		8B530E6E29EFD61A0031D7DE /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6D29EFD61A0031D7DE /* WebSocketProvider.swift */; };
 		8B530E7029EFD68B0031D7DE /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6F29EFD68B0031D7DE /* WebSocket.swift */; };
 		8B530E7229EFD6C90031D7DE /* WebRTCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E7129EFD6C90031D7DE /* WebRTCMessage.swift */; };
 		8B530E7429EFD6F90031D7DE /* WebRTCSessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E7329EFD6F90031D7DE /* WebRTCSessionDescription.swift */; };
@@ -59,7 +58,7 @@
 		8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933229778E2D00EC5967 /* SlideApp.swift */; };
 		8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933429778E2D00EC5967 /* SlideView.swift */; };
 		8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836042980B59500FEE6E1 /* LocationModel.swift */; };
-		8BC836142980CC5500FEE6E1 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836132980CC5500FEE6E1 /* Client.swift */; };
+		8BC836142980CC5500FEE6E1 /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836132980CC5500FEE6E1 /* Http.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
 /* End PBXBuildFile section */
@@ -104,7 +103,6 @@
 		8B39CEFE29CD9E0F00DB250E /* swaying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swaying.json; sourceTree = "<group>"; };
 		8B530E6529EFD2E50031D7DE /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		8B530E6A29EFD5B30031D7DE /* WebRTCSignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalingClient.swift; sourceTree = "<group>"; };
-		8B530E6D29EFD61A0031D7DE /* WebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
 		8B530E6F29EFD68B0031D7DE /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		8B530E7129EFD6C90031D7DE /* WebRTCMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMessage.swift; sourceTree = "<group>"; };
 		8B530E7329EFD6F90031D7DE /* WebRTCSessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSessionDescription.swift; sourceTree = "<group>"; };
@@ -137,7 +135,7 @@
 		8BB1935229778E2E00EC5967 /* SlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITests.swift; sourceTree = "<group>"; };
 		8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8BC836042980B59500FEE6E1 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
-		8BC836132980CC5500FEE6E1 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		8BC836132980CC5500FEE6E1 /* Http.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,13 +223,13 @@
 			path = WebRTC;
 			sourceTree = "<group>";
 		};
-		8B530E6C29EFD6030031D7DE /* WebSocket */ = {
+		8B530E6C29EFD6030031D7DE /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				8B530E6D29EFD61A0031D7DE /* WebSocketProvider.swift */,
+				8BC836132980CC5500FEE6E1 /* Http.swift */,
 				8B530E6F29EFD68B0031D7DE /* WebSocket.swift */,
 			);
-			path = WebSocket;
+			path = Clients;
 			sourceTree = "<group>";
 		};
 		8B54697D29A16AC600648205 /* Camera */ = {
@@ -250,11 +248,10 @@
 		8B8848B529FEF752001D6571 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8B530E6C29EFD6030031D7DE /* WebSocket */,
+				8B530E6C29EFD6030031D7DE /* Clients */,
 				8B530E6329EFD1190031D7DE /* WebRTC */,
 				8BC836122980CC1A00FEE6E1 /* Slide */,
 				8B308175297921A0002056A1 /* GoogleMaps */,
-				8BC836132980CC5500FEE6E1 /* Client.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -535,7 +532,7 @@
 				8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */,
 				8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */,
 				8B14943829A87C61001497FE /* KeyChain.swift in Sources */,
-				8BC836142980CC5500FEE6E1 /* Client.swift in Sources */,
+				8BC836142980CC5500FEE6E1 /* Http.swift in Sources */,
 				8B530E7029EFD68B0031D7DE /* WebSocket.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
 				8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */,
@@ -557,7 +554,6 @@
 				8B530E6B29EFD5B30031D7DE /* WebRTCSignalingClient.swift in Sources */,
 				8B530E7629EFD7170031D7DE /* WebRTCStates.swift in Sources */,
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
-				8B530E6E29EFD61A0031D7DE /* WebSocketProvider.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B530E7829EFD73B0031D7DE /* WebRTCIceCandidate.swift in Sources */,
 				8B530E6629EFD2E50031D7DE /* WebRTCClient.swift in Sources */,
