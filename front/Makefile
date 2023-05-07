@@ -1,7 +1,5 @@
 .PHONY: up
 
-rootdir = $(realpath .)
-
 # Dev
 up:
-	osascript $(rootdir)/front/slide-app-ios/build.js
+	osascript slide_app_ios/build.js

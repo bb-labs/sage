@@ -6,7 +6,7 @@
 
 # Dev
 up: down 
-	docker compose up --build
+	docker compose up --build --detach
 
 down:
 	docker compose down --remove-orphans
