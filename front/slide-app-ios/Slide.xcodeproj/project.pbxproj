@@ -247,6 +247,18 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		8B8848B529FEF752001D6571 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8B530E6C29EFD6030031D7DE /* WebSocket */,
+				8B530E6329EFD1190031D7DE /* WebRTC */,
+				8BC836122980CC1A00FEE6E1 /* Slide */,
+				8B308175297921A0002056A1 /* GoogleMaps */,
+				8BC836132980CC5500FEE6E1 /* Client.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		8B89FDFE29DE89740051F0D5 /* Molecules */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				8B14942129A84F6D001497FE /* Slide.entitlements */,
-				8BB1936D2977BF3300EC5967 /* Apis */,
+				8B8848B529FEF752001D6571 /* Network */,
 				8BB19366297792CB00EC5967 /* Utils */,
 				8BB1936329778EE100EC5967 /* App */,
 				8BB1936229778ED300EC5967 /* Views */,
@@ -352,18 +364,6 @@
 				8B14943729A87C61001497FE /* KeyChain.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		8BB1936D2977BF3300EC5967 /* Apis */ = {
-			isa = PBXGroup;
-			children = (
-				8B530E6C29EFD6030031D7DE /* WebSocket */,
-				8B530E6329EFD1190031D7DE /* WebRTC */,
-				8BC836122980CC1A00FEE6E1 /* Slide */,
-				8B308175297921A0002056A1 /* GoogleMaps */,
-				8BC836132980CC5500FEE6E1 /* Client.swift */,
-			);
-			path = Apis;
 			sourceTree = "<group>";
 		};
 		8BC836122980CC1A00FEE6E1 /* Slide */ = {

@@ -34,7 +34,7 @@ struct CreateProfileView: View {
         ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue: false,
         ProfileModel.LocationRadius.CITY.rawValue: false,
         ProfileModel.LocationRadius.METRO.rawValue: false,
-        ProfileModel.LocationRadius.WORLD.rawValue: false
+        ProfileModel.LocationRadius.STATE.rawValue: false
     ]
     
 
@@ -92,7 +92,7 @@ struct CreateProfileView: View {
                         ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue,
                         ProfileModel.LocationRadius.CITY.rawValue,
                         ProfileModel.LocationRadius.METRO.rawValue,
-                        ProfileModel.LocationRadius.WORLD.rawValue,
+                        ProfileModel.LocationRadius.STATE.rawValue
                     ])
                 }.tag(4)
                 

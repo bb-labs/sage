@@ -21,7 +21,7 @@ class ProfileModel: NSObject, ObservableObject {
         case NEIGHBORHOOD = "My Neighborhood"
         case CITY = "My City"
         case METRO = "My Metro"
-        case WORLD = "The World!"
+        case STATE = "My State"
     }
     
     var video: Data?

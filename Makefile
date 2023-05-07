@@ -2,6 +2,8 @@
 .PHONY: down
 .PHONY: clean
 
+rootdir = $(realpath .)
+
 # Dev
 up: down 
 	docker compose up --build --detach
@@ -18,3 +20,5 @@ clean:
 	for i in ` docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' slide_default 2>/dev/null || true`; do docker network disconnect -f slide_default $i; done;
 	docker system prune -af --volumes
 
+ios:
+	osascript $(rootdir)/front/slide-app-ios/build.js
