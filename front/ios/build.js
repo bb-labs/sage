@@ -13,5 +13,7 @@ function run() {
                 buildResult.buildLog().endsWith("Build succeeded\n"))
                 break;
         }
+
+        delay(3)
     });
 }

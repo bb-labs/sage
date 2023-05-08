@@ -6,5 +6,8 @@ struct SlideView: View {
     
     var body: some View {
         CameraVideoChatView()
+            .onAppear {
+                cameraModel.requestPermissions()
+            }
     }
 }

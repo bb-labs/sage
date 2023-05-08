@@ -9,10 +9,10 @@ struct CameraVideoChatView: View {
         CameraLiveView()
             .ignoresSafeArea(.all, edges: .all)
         
-        Button {
-            
-        } label: {
-            "Hi!!"
+        Button("OFFER") {
+            self.webRTCModel.offer { sdp in
+                self.webRTCModel.signalingClient.send(sdp: sdp)
+            }
         }
     }
 }
