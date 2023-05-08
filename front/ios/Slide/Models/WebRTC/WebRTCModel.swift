@@ -2,7 +2,7 @@
 import Foundation
 import WebRTC
 
-class WebRTCModel: NSObject {
+class WebRTCModel: NSObject, ObservableObject {
     let streamId = "sage-stream"
     
     public static let peerFactory: RTCPeerConnectionFactory = {
@@ -12,7 +12,7 @@ class WebRTCModel: NSObject {
         return RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
     }()
     
-    public let signalingClient = WebRTCSignalingClient(url: URL(string: "ws://localhost:3000")!)
+    public let signalingClient = WebRTCSignalingClient(url: URL(string: "ws://10.0.0.40:3001/session")!)
     
     public let peerConnection: RTCPeerConnection
     public let rtcAudioSession =  RTCAudioSession.sharedInstance()
@@ -27,10 +27,14 @@ class WebRTCModel: NSObject {
     
     
     
-    init(iceServers: [String]) {
+    override init() {
         // Config setup
         let config = RTCConfiguration()
-        config.iceServers = [RTCIceServer(urlStrings: iceServers)]
+        config.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302",
+                                                       "stun:stun1.l.google.com:19302",
+                                                       "stun:stun2.l.google.com:19302",
+                                                       "stun:stun3.l.google.com:19302",
+                                                       "stun:stun4.l.google.com:19302"])]
         config.sdpSemantics = .unifiedPlan
         config.continualGatheringPolicy = .gatherContinually
         
@@ -79,7 +83,6 @@ class WebRTCModel: NSObject {
             debugPrint("Warning: Couldn't create data channel.")
             return
         }
+        self.localDataChannel = dataChannel
     }
-    
-    
 }

@@ -24,5 +24,8 @@ back-clean:
 	cd back; for i in ` docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' sage_default 2>/dev/null || true`; do docker network disconnect -f sage_default $i; done;
 	cd back; docker system prune -af --volumes
 
-front-up:
+front-up: front-down
 	cd front; osascript ios/build.js
+
+front-down:
+	cd front; osascript ios/kill.js

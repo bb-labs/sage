@@ -29,7 +29,6 @@
 		8B39CEFA29CD90F800DB250E /* authentic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF929CD90F800DB250E /* authentic.json */; };
 		8B39CEFD29CD9C4400DB250E /* fleeing.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEFC29CD9C4400DB250E /* fleeing.json */; };
 		8B39CEFF29CD9E0F00DB250E /* swaying.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEFE29CD9E0F00DB250E /* swaying.json */; };
-		8B530E6629EFD2E50031D7DE /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6529EFD2E50031D7DE /* WebRTCClient.swift */; };
 		8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 8B530E6829EFD46F0031D7DE /* WebRTC */; };
 		8B530E6B29EFD5B30031D7DE /* WebRTCSignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E6A29EFD5B30031D7DE /* WebRTCSignalingClient.swift */; };
 		8B530E7229EFD6C90031D7DE /* WebRTCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B530E7129EFD6C90031D7DE /* WebRTCMessage.swift */; };
@@ -110,7 +109,6 @@
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
 		8B39CEFC29CD9C4400DB250E /* fleeing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fleeing.json; sourceTree = "<group>"; };
 		8B39CEFE29CD9E0F00DB250E /* swaying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swaying.json; sourceTree = "<group>"; };
-		8B530E6529EFD2E50031D7DE /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		8B530E6A29EFD5B30031D7DE /* WebRTCSignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalingClient.swift; sourceTree = "<group>"; };
 		8B530E7129EFD6C90031D7DE /* WebRTCMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMessage.swift; sourceTree = "<group>"; };
 		8B530E7329EFD6F90031D7DE /* WebRTCSessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSessionDescription.swift; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 		8B530E6329EFD1190031D7DE /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
-				8B530E6529EFD2E50031D7DE /* WebRTCClient.swift */,
 				8B530E6A29EFD5B30031D7DE /* WebRTCSignalingClient.swift */,
 				8B530E7129EFD6C90031D7DE /* WebRTCMessage.swift */,
 				8B530E7329EFD6F90031D7DE /* WebRTCSessionDescription.swift */,
@@ -584,7 +581,6 @@
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B530E7829EFD73B0031D7DE /* WebRTCIceCandidate.swift in Sources */,
-				8B530E6629EFD2E50031D7DE /* WebRTCClient.swift in Sources */,
 				8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
 				8B89FE0529DE8C240051F0D5 /* DoubleChevronView.swift in Sources */,

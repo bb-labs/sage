@@ -9,6 +9,9 @@ import (
 
 func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
 	return func(ctx *gin.Context) {
+		// Logger
+		logger := log.Default()
+
 		// upgrade HTTP connection to WebSocket
 		conn, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 		if err != nil {
@@ -26,7 +29,7 @@ func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
 				return
 			}
 
-			log.Printf("Received message: %s", msg)
+			logger.Printf("Received message: %s\n", msg)
 
 			// send message back to client
 			err = conn.WriteMessage(websocket.TextMessage, []byte("What a nice message, thank you!"))
