@@ -29,7 +29,7 @@ func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
 			log.Printf("Received message: %s", msg)
 
 			// send message back to client
-			err = conn.WriteMessage(websocket.TextMessage, msg)
+			err = conn.WriteMessage(websocket.TextMessage, []byte("What a nice message, thank you!"))
 			if err != nil {
 				log.Println(err)
 				return
