@@ -14,7 +14,7 @@
 		8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943929A8932A001497FE /* SlideCreateUser.swift */; };
 		8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22682E29BE5718009EC60F /* WelcomeView.swift */; };
 		8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */; };
-		8B2E31B72A08566C00E02591 /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31B62A08566C00E02591 /* CameraVideoChatView.swift */; };
+		8B2E31B72A08566C00E02591 /* CameraVideoChatSelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */; };
 		8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31B82A08758500E02591 /* WebRTCModel.swift */; };
 		8B2E31BC2A08791800E02591 /* WebRTCPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31BB2A08791800E02591 /* WebRTCPeerModel.swift */; };
 		8B2E31BE2A0887CD00E02591 /* WebRTCSignalingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31BD2A0887CD00E02591 /* WebRTCSignalingModel.swift */; };
@@ -50,6 +50,7 @@
 		8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */; };
 		8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */; };
 		8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */; };
+		8BA5847C2A0B517A005F4A2F /* CameraVideoChatPeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */; };
 		8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
@@ -93,7 +94,7 @@
 		8B14943929A8932A001497FE /* SlideCreateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCreateUser.swift; sourceTree = "<group>"; };
 		8B22682E29BE5718009EC60F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpdateLocation.swift; sourceTree = "<group>"; };
-		8B2E31B62A08566C00E02591 /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
+		8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatSelfView.swift; sourceTree = "<group>"; };
 		8B2E31B82A08758500E02591 /* WebRTCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCModel.swift; sourceTree = "<group>"; };
 		8B2E31BB2A08791800E02591 /* WebRTCPeerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCPeerModel.swift; sourceTree = "<group>"; };
 		8B2E31BD2A0887CD00E02591 /* WebRTCSignalingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalingModel.swift; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumScheduleView.swift; sourceTree = "<group>"; };
+		8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatPeerView.swift; sourceTree = "<group>"; };
 		8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
@@ -259,7 +261,8 @@
 				8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */,
 				8B5469BF29A1848A00648205 /* CameraCaptureView.swift */,
 				8B5469C129A1855400648205 /* CameraLiveView.swift */,
-				8B2E31B62A08566C00E02591 /* CameraVideoChatView.swift */,
+				8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */,
+				8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -555,7 +558,8 @@
 				8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */,
 				8B14943829A87C61001497FE /* KeyChain.swift in Sources */,
 				8BC836142980CC5500FEE6E1 /* HTTPClient.swift in Sources */,
-				8B2E31B72A08566C00E02591 /* CameraVideoChatView.swift in Sources */,
+				8BA5847C2A0B517A005F4A2F /* CameraVideoChatPeerView.swift in Sources */,
+				8B2E31B72A08566C00E02591 /* CameraVideoChatSelfView.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
 				8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */,
 				8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */,

@@ -4,7 +4,7 @@ import Foundation
 import WebRTC
 
 extension WebRTCModel: RTCDataChannelDelegate {
-    func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
+    func startCaptureLocalVideo() {
         guard let capturer = self.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
@@ -28,7 +28,7 @@ extension WebRTCModel: RTCDataChannelDelegate {
                              format: format,
                              fps: Int(fps.maxFrameRate))
        
-       self.localVideoTrack?.add(renderer)
+        self.localVideoTrack?.add(self.localVideoRender!)
     }
     
     func renderRemoteVideo(to renderer: RTCVideoRenderer) {

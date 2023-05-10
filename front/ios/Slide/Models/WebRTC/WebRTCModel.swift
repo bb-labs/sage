@@ -25,6 +25,8 @@ class WebRTCModel: NSObject, ObservableObject {
     public var localDataChannel: RTCDataChannel?
     public var remoteDataChannel: RTCDataChannel?
     
+    public var localVideoRender: RTCMTLVideoView?
+    public var remoteVideoRender: RTCMTLVideoView?
     
     
     override init() {

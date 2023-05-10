@@ -3,11 +3,10 @@ import SwiftUI
 
 struct SlideView: View {
     @EnvironmentObject var cameraModel: CameraModel
+    @EnvironmentObject var webRTCModel: WebRTCModel
     
     var body: some View {
-        CameraVideoChatView()
-            .onAppear {
-                cameraModel.requestPermissions()
-            }
+        CameraVideoChatSelfView()
+            .ignoresSafeArea(.all, edges: .all)
     }
 }
