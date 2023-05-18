@@ -25,6 +25,7 @@
 		8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */; };
 		8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2B29C437B400C18123 /* ProfileModel.swift */; };
 		8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */; };
+		8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5562A15F73B0066FD7B /* CallModel.swift */; };
 		8B39CEF629CD90BD00DB250E /* ghost.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF529CD90BD00DB250E /* ghost.json */; };
 		8B39CEF829CD90D600DB250E /* sage.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF729CD90D600DB250E /* sage.json */; };
 		8B39CEFA29CD90F800DB250E /* authentic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF929CD90F800DB250E /* authentic.json */; };
@@ -107,6 +108,7 @@
 		8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsResolveAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
 		8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
+		8B32E5562A15F73B0066FD7B /* CallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallModel.swift; sourceTree = "<group>"; };
 		8B39CEF529CD90BD00DB250E /* ghost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghost.json; sourceTree = "<group>"; };
 		8B39CEF729CD90D600DB250E /* sage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sage.json; sourceTree = "<group>"; };
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				8B2E31BA2A08790200E02591 /* WebRTC */,
 				8B54698129A16BF600648205 /* CameraModel.swift */,
+				8B32E5562A15F73B0066FD7B /* CallModel.swift */,
 				8B14943129A85D31001497FE /* IntroModel.swift */,
 				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
 				8B14942E29A85C6C001497FE /* UserModel.swift */,
@@ -585,6 +588,7 @@
 				8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */,
 				8B530E6B29EFD5B30031D7DE /* WebRTCSignalingClient.swift in Sources */,
 				8B530E7629EFD7170031D7DE /* WebRTCStates.swift in Sources */,
+				8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */,
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B530E7829EFD73B0031D7DE /* WebRTCIceCandidate.swift in Sources */,
@@ -767,6 +771,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -804,6 +809,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Always;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When in Use";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "WYD needs access to the microphone";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
