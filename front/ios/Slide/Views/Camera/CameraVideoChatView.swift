@@ -1,7 +1,7 @@
 
 import SwiftUI
 
-struct SlideView: View {
+struct CameraVideoChatView: View {
     @EnvironmentObject var cameraModel: CameraModel
     @EnvironmentObject var webRTCModel: WebRTCModel
     

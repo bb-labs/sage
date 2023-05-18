@@ -24,6 +24,7 @@
 		8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2229C417BF00C18123 /* LottieView.swift */; };
 		8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */; };
 		8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2B29C437B400C18123 /* ProfileModel.swift */; };
+		8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */; };
 		8B39CEF629CD90BD00DB250E /* ghost.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF529CD90BD00DB250E /* ghost.json */; };
 		8B39CEF829CD90D600DB250E /* sage.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF729CD90D600DB250E /* sage.json */; };
 		8B39CEFA29CD90F800DB250E /* authentic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF929CD90F800DB250E /* authentic.json */; };
@@ -105,6 +106,7 @@
 		8B2FDB2B29C437B400C18123 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsResolveAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
+		8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
 		8B39CEF529CD90BD00DB250E /* ghost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghost.json; sourceTree = "<group>"; };
 		8B39CEF729CD90D600DB250E /* sage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sage.json; sourceTree = "<group>"; };
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */,
 				8B5469BF29A1848A00648205 /* CameraCaptureView.swift */,
 				8B5469C129A1855400648205 /* CameraLiveView.swift */,
+				8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */,
 				8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */,
 				8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */,
 			);
@@ -595,6 +598,7 @@
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
+				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

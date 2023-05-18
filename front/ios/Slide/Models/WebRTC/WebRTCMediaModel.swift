@@ -31,8 +31,8 @@ extension WebRTCModel: RTCDataChannelDelegate {
         self.localVideoTrack?.add(self.localVideoRender!)
     }
     
-    func renderRemoteVideo(to renderer: RTCVideoRenderer) {
-        self.remoteVideoTrack?.add(renderer)
+    func renderRemoteVideo() {
+        self.remoteVideoTrack?.add(self.remoteVideoRender!)
     }
     
     func sendData(_ data: Data) {

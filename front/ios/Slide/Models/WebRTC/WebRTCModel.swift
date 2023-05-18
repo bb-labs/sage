@@ -86,5 +86,12 @@ class WebRTCModel: NSObject, ObservableObject {
             return
         }
         self.localDataChannel = dataChannel
+        
+        // Send offer continously
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            self.offer { sdp in
+                self.signalingClient.send(sdp: sdp)
+            }
+        }
     }
 }
