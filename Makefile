@@ -32,4 +32,6 @@ front-down:
 	cd front; osascript ios/kill.js
 
 proto:
-	protoc -I=protos --swift_out=front/ios/Slide/Protos sage.proto
+	protoc -I=protos --swift_out=front/ios/Slide/Protos Sage.proto
+	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative Sage.proto
+	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative Sage.proto
