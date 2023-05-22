@@ -2,11 +2,6 @@ import Foundation
 import CoreLocation
 
 struct SlideCreateUser: APICall {
-    struct User: Codable {
-        var id: String
-        var email: String?
-    }
-    
     struct Request: Codable {
         var user: User
     }

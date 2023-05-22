@@ -1,14 +1,17 @@
 package routes
 
 import (
+	"io"
 	"log"
 	"net/http"
 	"os"
 
+	sageproto "github.com/i-r-l/sage/back/app/protos"
+
 	"github.com/gin-gonic/gin"
-	"github.com/i-r-l/sage/back/app/protos/sageproto"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"google.golang.org/protobuf/proto"
 )
 
 func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
@@ -16,23 +19,22 @@ func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 		logger := log.Default()
 
 		user := sageproto.User{}
+		buf, err := io.ReadAll(ctx.Request.Body)
 
-		var userCreateRequest types.UserCreateRequest
-		ctx.BindJSON(&userCreateRequest)
+		if err != nil {
+			logger.Fatalln(err)
+		}
 
-		update := bson.D{{Key: "$set", Value: userCreateRequest.User}}
+		if err := proto.Unmarshal(buf, &user); err != nil {
+			logger.Fatalln(err)
+		}
+
+		logger.Println("Hi!", user)
+
+		update := bson.D{{Key: "$set", Value: &user}}
 		db.Database(os.Getenv("MONGO_DB_NAME")).Collection("users").InsertOne(ctx, update)
 
-		refresh_token, _ := ctx.Get("refresh_token")
-		identity_token, _ := ctx.Get("identity_token")
-
-		logger.Println("refresh_token: ", refresh_token)
-		logger.Println("identity_token: ", identity_token)
-
-		ctx.JSON(http.StatusOK, gin.H{
-			"identity_token": identity_token,
-			"refresh_token":  refresh_token,
-		})
+		ctx.JSON(http.StatusOK, gin.H{"status": "OK"})
 	}
 
 }
