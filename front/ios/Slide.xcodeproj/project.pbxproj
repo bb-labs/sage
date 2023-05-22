@@ -32,8 +32,6 @@
 		8B32E5622A1AEFCA0066FD7B /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5612A1AEFCA0066FD7B /* SwiftProtobuf */; };
 		8B32E5642A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5632A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary */; };
 		8B32E5662A1AEFCA0066FD7B /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5652A1AEFCA0066FD7B /* protoc-gen-swift */; };
-		8B32E56F2A1B25320066FD7B /* Protos in Resources */ = {isa = PBXBuildFile; fileRef = 8B32E56E2A1B25320066FD7B /* Protos */; };
-		8B32E5712A1B253C0066FD7B /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5702A1B253C0066FD7B /* Sage.pb.swift */; };
 		8B39CEF629CD90BD00DB250E /* ghost.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF529CD90BD00DB250E /* ghost.json */; };
 		8B39CEF829CD90D600DB250E /* sage.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF729CD90D600DB250E /* sage.json */; };
 		8B39CEFA29CD90F800DB250E /* authentic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF929CD90F800DB250E /* authentic.json */; };
@@ -120,8 +118,6 @@
 		8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAppleModel.swift; sourceTree = "<group>"; };
 		8B32E55C2A1AE7130066FD7B /* AuthGoogleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGoogleModel.swift; sourceTree = "<group>"; };
 		8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDeviceModel.swift; sourceTree = "<group>"; };
-		8B32E56E2A1B25320066FD7B /* Protos */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Protos; path = Slide/Protos; sourceTree = "<group>"; };
-		8B32E5702A1B253C0066FD7B /* Sage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
 		8B39CEF529CD90BD00DB250E /* ghost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghost.json; sourceTree = "<group>"; };
 		8B39CEF729CD90D600DB250E /* sage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sage.json; sourceTree = "<group>"; };
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
@@ -177,20 +173,6 @@
 				8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */,
 				8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */,
 				8B32E5622A1AEFCA0066FD7B /* SwiftProtobuf in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BB1934129778E2E00EC5967 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BB1934B29778E2E00EC5967 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,14 +256,6 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		8B32E5672A1AF4E60066FD7B /* Protos */ = {
-			isa = PBXGroup;
-			children = (
-				8B32E5702A1B253C0066FD7B /* Sage.pb.swift */,
-			);
-			path = Protos;
-			sourceTree = "<group>";
-		};
 		8B530E6329EFD1190031D7DE /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +318,6 @@
 		8BB1932629778E2D00EC5967 = {
 			isa = PBXGroup;
 			children = (
-				8B32E56E2A1B25320066FD7B /* Protos */,
 				8BB1933129778E2D00EC5967 /* Slide */,
 				8BB1934729778E2E00EC5967 /* SlideTests */,
 				8BB1935129778E2E00EC5967 /* SlideUITests */,
@@ -371,7 +344,6 @@
 				8BB1936329778EE100EC5967 /* App */,
 				8BB19366297792CB00EC5967 /* Utils */,
 				8B8848B529FEF752001D6571 /* Network */,
-				8B32E5672A1AF4E60066FD7B /* Protos */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -488,8 +460,6 @@
 			buildConfigurationList = 8BB1935B29778E2E00EC5967 /* Build configuration list for PBXNativeTarget "SlideTests" */;
 			buildPhases = (
 				8BB1934029778E2E00EC5967 /* Sources */,
-				8BB1934129778E2E00EC5967 /* Frameworks */,
-				8BB1934229778E2E00EC5967 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -506,8 +476,6 @@
 			buildConfigurationList = 8BB1935E29778E2E00EC5967 /* Build configuration list for PBXNativeTarget "SlideUITests" */;
 			buildPhases = (
 				8BB1934A29778E2E00EC5967 /* Sources */,
-				8BB1934B29778E2E00EC5967 /* Frameworks */,
-				8BB1934C29778E2E00EC5967 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -577,23 +545,8 @@
 				8B39CEFF29CD9E0F00DB250E /* swaying.json in Resources */,
 				8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */,
 				8B39CEF829CD90D600DB250E /* sage.json in Resources */,
-				8B32E56F2A1B25320066FD7B /* Protos in Resources */,
 				8B39CEFD29CD9C4400DB250E /* fleeing.json in Resources */,
 				8B39CEF629CD90BD00DB250E /* ghost.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BB1934229778E2E00EC5967 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BB1934C29778E2E00EC5967 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,7 +575,6 @@
 				8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */,
 				8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */,
 				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
-				8B32E5712A1B253C0066FD7B /* Sage.pb.swift in Sources */,
 				8B530E7429EFD6F90031D7DE /* WebRTCSessionDescription.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
 				8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */,

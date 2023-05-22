@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6dc963f7eb08c28e25dad776f10e222b8de7e3d066dd4f159b8eeda35b1bb283"
+            "sha256": "25b088a2feaee783473c324ce2a3e9af9449b667e9fc5f422f49c57afc7c8a31"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -30,12 +30,9 @@
             "version": "==1.5.4"
         },
         "pbxproj": {
-            "hashes": [
-                "sha256:6f7703dff55a308208b9af8b4af0809c3631c68885add3b8f3a8e0ab5588a8ed",
-                "sha256:9de9df2bb052832bc7eaae91568e33c2567c63610cc69b110feec6b33d85d3b2"
-            ],
-            "index": "pypi",
-            "version": "==3.5.0"
+            "editable": true,
+            "git": "https://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@github.com/i-r-l/mod-pbxproj",
+            "ref": "fcf1db42768b5cd8c6a09df852e5a9237b3cac22"
         }
     },
     "develop": {}
