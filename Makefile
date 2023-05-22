@@ -7,6 +7,7 @@
 .PHONY: back-logs
 .PHONY: back-clean
 .PHONY: proto
+.PHONY: init
 
 # TODO(trumanpurnell) - fix this janky cd shit
 
@@ -33,5 +34,9 @@ front-down:
 
 proto:
 	protoc -I=protos --swift_out=front/ios/Slide/Protos Sage.proto
+	pipenv run pbxproj file front/ios/Slide.xcodeproj/project.pbxproj front/ios/Slide/Protos/Sage.pb.swift
+
 	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative Sage.proto
 	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative Sage.proto
+
+# TODO(trumanpurnell) - handle init, sheesh..

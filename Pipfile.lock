@@ -1,0 +1,42 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "6dc963f7eb08c28e25dad776f10e222b8de7e3d066dd4f159b8eeda35b1bb283"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.9"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "docopt": {
+            "hashes": [
+                "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"
+            ],
+            "version": "==0.6.2"
+        },
+        "openstep-parser": {
+            "hashes": [
+                "sha256:56d7d25f6bfb1b17ce6c522f2467cf114f70b0c910693a07d4513109e19e9b18",
+                "sha256:f03c7fd9c78ac718c470cb0f667c1f09fa7f58786314f77fef8767302abe1658"
+            ],
+            "version": "==1.5.4"
+        },
+        "pbxproj": {
+            "hashes": [
+                "sha256:6f7703dff55a308208b9af8b4af0809c3631c68885add3b8f3a8e0ab5588a8ed",
+                "sha256:9de9df2bb052832bc7eaae91568e33c2567c63610cc69b110feec6b33d85d3b2"
+            ],
+            "index": "pypi",
+            "version": "==3.5.0"
+        }
+    },
+    "develop": {}
+}
