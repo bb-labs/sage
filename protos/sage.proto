@@ -1,8 +1,7 @@
 syntax = "proto3";
 
-package sage;
 
-option go_package = "github.com/i-r-l/sage";
+option go_package = "github.com/i-r-l/sage/back/sageproto";
 
 message Token {
   string access_token = 1;

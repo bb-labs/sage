@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14E64A7494484338951D6106 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F45F29C5C166DEF263298 /* Sage.pb.swift */; };
+		1B194B4FA39699CCAF25733B /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F45F29C5C166DEF263298 /* Sage.pb.swift */; };
+		86D743F9B09F2CC7E7238388 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F45F29C5C166DEF263298 /* Sage.pb.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -74,9 +77,6 @@
 		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
-		B894479A8BC9492395D50B4D /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013348B28D06CA7AB0214E56 /* Sage.pb.swift */; };
-		B8C149E887928D1B5EFB91FC /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013348B28D06CA7AB0214E56 /* Sage.pb.swift */; };
-		C77E430FBB766FCCB7D940EF /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013348B28D06CA7AB0214E56 /* Sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +97,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		013348B28D06CA7AB0214E56 /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
+		0C3F45F29C5C166DEF263298 /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -436,7 +436,7 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				013348B28D06CA7AB0214E56 /* Sage.pb.swift */,
+				0C3F45F29C5C166DEF263298 /* Sage.pb.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -622,7 +622,7 @@
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
-				B894479A8BC9492395D50B4D /* Sage.pb.swift in Sources */,
+				86D743F9B09F2CC7E7238388 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,7 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				B8C149E887928D1B5EFB91FC /* Sage.pb.swift in Sources */,
+				14E64A7494484338951D6106 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,7 +641,7 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				C77E430FBB766FCCB7D940EF /* Sage.pb.swift in Sources */,
+				1B194B4FA39699CCAF25733B /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

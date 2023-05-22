@@ -1,4 +1,4 @@
-module github.com/i-r-l/sage/app
+module github.com/i-r-l/sage/back/app
 
 go 1.18
 

@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/i-r-l/slide/src/types"
+	"github.com/i-r-l/sage/back/app/protos/sageproto"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -14,6 +14,8 @@ import (
 func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 	return func(ctx *gin.Context) {
 		logger := log.Default()
+
+		user := sageproto.User{}
 
 		var userCreateRequest types.UserCreateRequest
 		ctx.BindJSON(&userCreateRequest)

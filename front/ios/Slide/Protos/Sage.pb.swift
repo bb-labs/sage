@@ -20,7 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-enum Sage_LocationProximity: SwiftProtobuf.Enum {
+enum LocationProximity: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case neighborhood // = 0
   case city // = 1
@@ -56,9 +56,9 @@ enum Sage_LocationProximity: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension Sage_LocationProximity: CaseIterable {
+extension LocationProximity: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Sage_LocationProximity] = [
+  static var allCases: [LocationProximity] = [
     .neighborhood,
     .city,
     .metro,
@@ -68,7 +68,7 @@ extension Sage_LocationProximity: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct Sage_Token {
+struct Token {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -82,15 +82,15 @@ struct Sage_Token {
   init() {}
 }
 
-struct Sage_User {
+struct User {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   var id: String = String()
 
-  var location: Sage_Location {
-    get {return _location ?? Sage_Location()}
+  var location: Location {
+    get {return _location ?? Location()}
     set {_location = newValue}
   }
   /// Returns true if `location` has been explicitly set.
@@ -112,10 +112,10 @@ struct Sage_User {
 
   init() {}
 
-  fileprivate var _location: Sage_Location? = nil
+  fileprivate var _location: Location? = nil
 }
 
-struct Sage_Location {
+struct Location {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -131,13 +131,13 @@ struct Sage_Location {
   init() {}
 }
 
-struct Sage_Match {
+struct Match {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var user: Sage_User {
-    get {return _storage._user ?? Sage_User()}
+  var user: User {
+    get {return _storage._user ?? User()}
     set {_uniqueStorage()._user = newValue}
   }
   /// Returns true if `user` has been explicitly set.
@@ -145,8 +145,8 @@ struct Sage_Match {
   /// Clears the value of `user`. Subsequent reads from it will return its default value.
   mutating func clearUser() {_uniqueStorage()._user = nil}
 
-  var otherUser: Sage_User {
-    get {return _storage._otherUser ?? Sage_User()}
+  var otherUser: User {
+    get {return _storage._otherUser ?? User()}
     set {_uniqueStorage()._otherUser = newValue}
   }
   /// Returns true if `otherUser` has been explicitly set.
@@ -154,8 +154,8 @@ struct Sage_Match {
   /// Clears the value of `otherUser`. Subsequent reads from it will return its default value.
   mutating func clearOtherUser() {_uniqueStorage()._otherUser = nil}
 
-  var location: Sage_Location {
-    get {return _storage._location ?? Sage_Location()}
+  var location: Location {
+    get {return _storage._location ?? Location()}
     set {_uniqueStorage()._location = newValue}
   }
   /// Returns true if `location` has been explicitly set.
@@ -175,7 +175,7 @@ struct Sage_Match {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Sage_Criteria {
+struct Criteria {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -184,7 +184,7 @@ struct Sage_Criteria {
 
   var ageMax: Int32 = 0
 
-  var proximity: Sage_LocationProximity = .neighborhood
+  var proximity: LocationProximity = .neighborhood
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -192,19 +192,17 @@ struct Sage_Criteria {
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
-extension Sage_LocationProximity: @unchecked Sendable {}
-extension Sage_Token: @unchecked Sendable {}
-extension Sage_User: @unchecked Sendable {}
-extension Sage_Location: @unchecked Sendable {}
-extension Sage_Match: @unchecked Sendable {}
-extension Sage_Criteria: @unchecked Sendable {}
+extension LocationProximity: @unchecked Sendable {}
+extension Token: @unchecked Sendable {}
+extension User: @unchecked Sendable {}
+extension Location: @unchecked Sendable {}
+extension Match: @unchecked Sendable {}
+extension Criteria: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "sage"
-
-extension Sage_LocationProximity: SwiftProtobuf._ProtoNameProviding {
+extension LocationProximity: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NEIGHBORHOOD"),
     1: .same(proto: "CITY"),
@@ -213,8 +211,8 @@ extension Sage_LocationProximity: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension Sage_Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Token"
+extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Token"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "access_token"),
     2: .standard(proto: "refresh_token"),
@@ -243,7 +241,7 @@ extension Sage_Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sage_Token, rhs: Sage_Token) -> Bool {
+  static func ==(lhs: Token, rhs: Token) -> Bool {
     if lhs.accessToken != rhs.accessToken {return false}
     if lhs.refreshToken != rhs.refreshToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -251,8 +249,8 @@ extension Sage_Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
   }
 }
 
-extension Sage_User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".User"
+extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "User"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "location"),
@@ -310,7 +308,7 @@ extension Sage_User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sage_User, rhs: Sage_User) -> Bool {
+  static func ==(lhs: User, rhs: User) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._location != rhs._location {return false}
     if lhs.email != rhs.email {return false}
@@ -323,8 +321,8 @@ extension Sage_User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
   }
 }
 
-extension Sage_Location: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Location"
+extension Location: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Location"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "type"),
     2: .same(proto: "latitude"),
@@ -358,7 +356,7 @@ extension Sage_Location: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sage_Location, rhs: Sage_Location) -> Bool {
+  static func ==(lhs: Location, rhs: Location) -> Bool {
     if lhs.type != rhs.type {return false}
     if lhs.latitude != rhs.latitude {return false}
     if lhs.longitude != rhs.longitude {return false}
@@ -367,8 +365,8 @@ extension Sage_Location: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 }
 
-extension Sage_Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Match"
+extension Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Match"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "user"),
     2: .standard(proto: "other_user"),
@@ -377,9 +375,9 @@ extension Sage_Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
   ]
 
   fileprivate class _StorageClass {
-    var _user: Sage_User? = nil
-    var _otherUser: Sage_User? = nil
-    var _location: Sage_Location? = nil
+    var _user: User? = nil
+    var _otherUser: User? = nil
+    var _location: Location? = nil
     var _createdAt: Int32 = 0
 
     static let defaultInstance = _StorageClass()
@@ -441,7 +439,7 @@ extension Sage_Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sage_Match, rhs: Sage_Match) -> Bool {
+  static func ==(lhs: Match, rhs: Match) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -459,8 +457,8 @@ extension Sage_Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
   }
 }
 
-extension Sage_Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Criteria"
+extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Criteria"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "age_min"),
     2: .standard(proto: "age_max"),
@@ -494,7 +492,7 @@ extension Sage_Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sage_Criteria, rhs: Sage_Criteria) -> Bool {
+  static func ==(lhs: Criteria, rhs: Criteria) -> Bool {
     if lhs.ageMin != rhs.ageMin {return false}
     if lhs.ageMax != rhs.ageMax {return false}
     if lhs.proximity != rhs.proximity {return false}

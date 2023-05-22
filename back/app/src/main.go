@@ -10,8 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
-	"github.com/i-r-l/slide/src/middleware"
-	"github.com/i-r-l/slide/src/routes"
+	"github.com/i-r-l/sage/back/app/src/routes"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
