@@ -34,8 +34,8 @@ front-down:
 
 proto:
 	protoc -I=protos --swift_out=front/ios/Slide/Protos Sage.proto
-	pipenv run python front/ios/proto.py Sage.pb.swift # handles xcode nonsense
-
+	pipenv run python front/ios/proto.py Sage.pb.swift
+	
 	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative Sage.proto
 	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative Sage.proto
 
