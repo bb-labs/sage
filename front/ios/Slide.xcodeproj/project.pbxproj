@@ -26,6 +26,12 @@
 		8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2B29C437B400C18123 /* ProfileModel.swift */; };
 		8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */; };
 		8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5562A15F73B0066FD7B /* CallModel.swift */; };
+		8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */; };
+		8B32E55D2A1AE7130066FD7B /* AuthGoogleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55C2A1AE7130066FD7B /* AuthGoogleModel.swift */; };
+		8B32E55F2A1AE7290066FD7B /* AuthDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */; };
+		8B32E5622A1AEFCA0066FD7B /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5612A1AEFCA0066FD7B /* SwiftProtobuf */; };
+		8B32E5642A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5632A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary */; };
+		8B32E5662A1AEFCA0066FD7B /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8B32E5652A1AEFCA0066FD7B /* protoc-gen-swift */; };
 		8B39CEF629CD90BD00DB250E /* ghost.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF529CD90BD00DB250E /* ghost.json */; };
 		8B39CEF829CD90D600DB250E /* sage.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF729CD90D600DB250E /* sage.json */; };
 		8B39CEFA29CD90F800DB250E /* authentic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEF929CD90F800DB250E /* authentic.json */; };
@@ -109,6 +115,9 @@
 		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
 		8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
 		8B32E5562A15F73B0066FD7B /* CallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallModel.swift; sourceTree = "<group>"; };
+		8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAppleModel.swift; sourceTree = "<group>"; };
+		8B32E55C2A1AE7130066FD7B /* AuthGoogleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGoogleModel.swift; sourceTree = "<group>"; };
+		8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDeviceModel.swift; sourceTree = "<group>"; };
 		8B39CEF529CD90BD00DB250E /* ghost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghost.json; sourceTree = "<group>"; };
 		8B39CEF729CD90D600DB250E /* sage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sage.json; sourceTree = "<group>"; };
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
@@ -159,8 +168,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B32E5662A1AEFCA0066FD7B /* protoc-gen-swift in Frameworks */,
+				8B32E5642A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary in Frameworks */,
 				8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */,
 				8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */,
+				8B32E5622A1AEFCA0066FD7B /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +246,35 @@
 				8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		8B32E5582A1AE6A70066FD7B /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */,
+				8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */,
+				8B32E55C2A1AE7130066FD7B /* AuthGoogleModel.swift */,
+				8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		8B32E5592A1AE6B20066FD7B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8B14943129A85D31001497FE /* IntroModel.swift */,
+				8B2FDB2B29C437B400C18123 /* ProfileModel.swift */,
+				8B14942E29A85C6C001497FE /* UserModel.swift */,
+				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		8B32E5672A1AF4E60066FD7B /* Protos */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protos;
 			sourceTree = "<group>";
 		};
 		8B530E6329EFD1190031D7DE /* WebRTC */ = {
@@ -319,11 +360,12 @@
 			isa = PBXGroup;
 			children = (
 				8B14942129A84F6D001497FE /* Slide.entitlements */,
-				8B8848B529FEF752001D6571 /* Network */,
-				8BB19366297792CB00EC5967 /* Utils */,
-				8BB1936329778EE100EC5967 /* App */,
-				8BB1936229778ED300EC5967 /* Views */,
 				8BB1936129778ED000EC5967 /* Models */,
+				8BB1936229778ED300EC5967 /* Views */,
+				8BB1936329778EE100EC5967 /* App */,
+				8BB19366297792CB00EC5967 /* Utils */,
+				8B8848B529FEF752001D6571 /* Network */,
+				8B32E5672A1AF4E60066FD7B /* Protos */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -348,14 +390,11 @@
 		8BB1936129778ED000EC5967 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B32E5592A1AE6B20066FD7B /* User */,
+				8B32E5582A1AE6A70066FD7B /* Auth */,
 				8B2E31BA2A08790200E02591 /* WebRTC */,
 				8B54698129A16BF600648205 /* CameraModel.swift */,
 				8B32E5562A15F73B0066FD7B /* CallModel.swift */,
-				8B14943129A85D31001497FE /* IntroModel.swift */,
-				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
-				8B14942E29A85C6C001497FE /* UserModel.swift */,
-				8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */,
-				8B2FDB2B29C437B400C18123 /* ProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -430,6 +469,9 @@
 			packageProductDependencies = (
 				8B2FDB1E29C4169000C18123 /* Lottie */,
 				8B530E6829EFD46F0031D7DE /* WebRTC */,
+				8B32E5612A1AEFCA0066FD7B /* SwiftProtobuf */,
+				8B32E5632A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary */,
+				8B32E5652A1AEFCA0066FD7B /* protoc-gen-swift */,
 			);
 			productName = Slide;
 			productReference = 8BB1932F29778E2D00EC5967 /* Slide.app */;
@@ -506,6 +548,7 @@
 			packageReferences = (
 				8B2FDB1D29C4169000C18123 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				8B530E6729EFD46F0031D7DE /* XCRemoteSwiftPackageReference "WebRTC" */,
+				8B32E5602A1AEFCA0066FD7B /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			productRefGroup = 8BB1933029778E2D00EC5967 /* Products */;
 			projectDirPath = "";
@@ -559,6 +602,7 @@
 				8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */,
 				8B14943229A85D31001497FE /* IntroModel.swift in Sources */,
 				8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */,
+				8B32E55D2A1AE7130066FD7B /* AuthGoogleModel.swift in Sources */,
 				8B2E31BE2A0887CD00E02591 /* WebRTCSignalingModel.swift in Sources */,
 				8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */,
 				8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */,
@@ -592,6 +636,7 @@
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
 				8B530E7829EFD73B0031D7DE /* WebRTCIceCandidate.swift in Sources */,
+				8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */,
 				8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
 				8B89FE0529DE8C240051F0D5 /* DoubleChevronView.swift in Sources */,
@@ -599,6 +644,7 @@
 				8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */,
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
+				8B32E55F2A1AE7290066FD7B /* AuthDeviceModel.swift in Sources */,
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
@@ -955,6 +1001,14 @@
 				kind = branch;
 			};
 		};
+		8B32E5602A1AEFCA0066FD7B /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		8B530E6729EFD46F0031D7DE /* XCRemoteSwiftPackageReference "WebRTC" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stasel/WebRTC.git";
@@ -970,6 +1024,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B2FDB1D29C4169000C18123 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		8B32E5612A1AEFCA0066FD7B /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B32E5602A1AEFCA0066FD7B /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		8B32E5632A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B32E5602A1AEFCA0066FD7B /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		8B32E5652A1AEFCA0066FD7B /* protoc-gen-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B32E5602A1AEFCA0066FD7B /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = "protoc-gen-swift";
 		};
 		8B530E6829EFD46F0031D7DE /* WebRTC */ = {
 			isa = XCSwiftPackageProductDependency;

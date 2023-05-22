@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+message Token {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message User {
+  string id = 1;
+  Location location = 2;
+  string email = 3;
+  string name = 5;
+  double rating = 6;
+  int32 birthday = 7;
+  bool is_online = 8;
+}
+
+enum LocationProximity {
+  NEIGHBORHOOD = 0;
+  CITY = 1;
+  METRO = 2;
+  STATE = 3;
+}
+
+message Location {
+  string type = 1;
+  int32 latitude = 2;
+  int32 longitude = 3;
+}
+
+message Match {
+  User user = 1;
+  User other_user = 2;
+  Location location = 3;
+  int32 created_at = 4;
+}
+
+message Criteria {
+  int32 age_min = 1;
+  int32 age_max = 2;
+  LocationProximity proximity = 3;
+}

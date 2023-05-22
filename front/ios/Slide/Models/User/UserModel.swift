@@ -25,4 +25,8 @@ class UserModel: ObservableObject {
         
         print(slideUpdateLocationResponse)
     }
+    
+    func addCredential(_ credential: Credentials) {
+        self.auth.client.credentials.append(credential)
+    }
 }

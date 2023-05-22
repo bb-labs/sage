@@ -1,6 +1,6 @@
 import Foundation
 
-struct SlidePresignData: APICall {
+struct SlidePresignData: APICall {    
     struct Request: Codable {
         let body: Data?
         let meta: SlidePresignUrl.Response

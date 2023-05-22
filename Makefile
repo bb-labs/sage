@@ -6,6 +6,7 @@
 .PHONY: back-down
 .PHONY: back-logs
 .PHONY: back-clean
+.PHONY: proto
 
 # TODO(trumanpurnell) - fix this janky cd shit
 
@@ -29,3 +30,6 @@ front-up: front-down
 
 front-down:
 	cd front; osascript ios/kill.js
+
+proto:
+	protoc -I=protos --swift_out=front/ios/Slide/Protos sage.proto

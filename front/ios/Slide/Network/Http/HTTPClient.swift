@@ -11,7 +11,7 @@ protocol APICall {
     var method: APIMethod { get }
     var queryParams: [URLQueryItem] { get }
     
-    func pack(with credentials: Credentials?) -> URLRequest
+    func pack(with credentials: [Credentials]) -> URLRequest
     func unpack<T: Codable>(_ payload: Data) throws -> T
 }
 
@@ -22,13 +22,13 @@ extension APICall {
     
     var queryParams: [URLQueryItem] { [] }
         
-    func pack(with credentials: Credentials?) -> URLRequest {
+    func pack(with credentials: [Credentials]) -> URLRequest {
         var urlComponents = URLComponents(string: url)!
         
         urlComponents.queryItems = queryParams
         
-        if let credentials = credentials {
-            urlComponents.queryItems! += credentials.queryParams
+        for credential in credentials {
+            urlComponents.queryItems! += credential.queryParams
         }
         
         var urlRequest = URLRequest(url: urlComponents.url!)
@@ -58,7 +58,7 @@ enum APIMethod: String, Codable {
 
 struct HttpClient {
     let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-    var credentials: Credentials?
+    var credentials: [Credentials] = []
         
     func fetch<T: Codable>(_ request: any APICall) async throws -> T {
         let (data, response) = try await self.urlSession.data(for: request.pack(with: self.credentials))
