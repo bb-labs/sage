@@ -1,28 +1,16 @@
 import Foundation
 import CoreLocation
+import SwiftProtobuf
 
 struct SlideCreateUser: APICall {
-    struct Request: Codable {
-        var user: User
-    }
-    
-    struct Response: Codable {
-        let refreshToken: String
-        let identityToken: String
-    }
-    
-    init(id: String, email: String?, authorizationCode: String) {
-        self.request = Request(user: User(id: id, email: email))
-        self.authorizationCode = authorizationCode
-    }
-    
-    var authorizationCode: String
+    var user: User
+    var authCode: String
     
     var url = "http://10.0.0.40:3000/user"
-    var request: Request
     var method = APIMethod.POST
+    var body: Data? { return try! user.serializedData() }
     var queryParams: [URLQueryItem] {
-        return [URLQueryItem(name: "authorization_code", value: authorizationCode)]
+        return [URLQueryItem(name: "authorization_code", value: authCode)]
     }
 }
 

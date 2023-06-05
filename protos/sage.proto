@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-
 option go_package = "github.com/i-r-l/sage/back/sageproto";
 
 message Token {
   string access_token = 1;
   string refresh_token = 2;
+  string auth_code = 3;
+  string identity_token = 4;
 }
 
 message User {
@@ -42,4 +43,14 @@ message Criteria {
   int32 age_min = 1;
   int32 age_max = 2;
   LocationProximity proximity = 3;
+}
+
+message PresignedUrlRequest {
+  string action = 1;
+  string file_name = 2;
+}
+
+message PresignedUrlResponse {
+  string url = 1;
+  PresignedUrlRequest request = 2;
 }

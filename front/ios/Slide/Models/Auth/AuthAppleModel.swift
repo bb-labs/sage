@@ -21,13 +21,12 @@ extension AuthModel {
             
             Task {
                 // Create user account
-                let createUserRequest = SlideCreateUser(
-                    id: appleCredentials.user,
-                    email: appleCredentials.email,
-                    authorizationCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
-                )
+                let createUserRequest = SlideCreateUser( user: User.with {
+                    $0.id = appleCredentials.user
+                    $0.email = appleCredentials.email!
+                }, authCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self))
                 
-                let createUserResponse: SlideCreateUser.Response = try await self.client.fetch(createUserRequest)
+                let createUserResponse: Token = try await self.client.fetch(createUserRequest)
                 
                 // Store the credentials and associate with the client
                 DispatchQueue.main.async {

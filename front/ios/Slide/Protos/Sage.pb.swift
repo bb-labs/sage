@@ -77,6 +77,10 @@ struct Token {
 
   var refreshToken: String = String()
 
+  var authCode: String = String()
+
+  var identityToken: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -191,6 +195,43 @@ struct Criteria {
   init() {}
 }
 
+struct PresignedUrlRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var action: String = String()
+
+  var fileName: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct PresignedUrlResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var url: String = String()
+
+  var request: PresignedUrlRequest {
+    get {return _request ?? PresignedUrlRequest()}
+    set {_request = newValue}
+  }
+  /// Returns true if `request` has been explicitly set.
+  var hasRequest: Bool {return self._request != nil}
+  /// Clears the value of `request`. Subsequent reads from it will return its default value.
+  mutating func clearRequest() {self._request = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _request: PresignedUrlRequest? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension LocationProximity: @unchecked Sendable {}
 extension Token: @unchecked Sendable {}
@@ -198,6 +239,8 @@ extension User: @unchecked Sendable {}
 extension Location: @unchecked Sendable {}
 extension Match: @unchecked Sendable {}
 extension Criteria: @unchecked Sendable {}
+extension PresignedUrlRequest: @unchecked Sendable {}
+extension PresignedUrlResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -216,6 +259,8 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "access_token"),
     2: .standard(proto: "refresh_token"),
+    3: .standard(proto: "auth_code"),
+    4: .standard(proto: "identity_token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -226,6 +271,8 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.accessToken) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.refreshToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.authCode) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.identityToken) }()
       default: break
       }
     }
@@ -238,12 +285,20 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
     if !self.refreshToken.isEmpty {
       try visitor.visitSingularStringField(value: self.refreshToken, fieldNumber: 2)
     }
+    if !self.authCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.authCode, fieldNumber: 3)
+    }
+    if !self.identityToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityToken, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Token, rhs: Token) -> Bool {
     if lhs.accessToken != rhs.accessToken {return false}
     if lhs.refreshToken != rhs.refreshToken {return false}
+    if lhs.authCode != rhs.authCode {return false}
+    if lhs.identityToken != rhs.identityToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -496,6 +551,86 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     if lhs.ageMin != rhs.ageMin {return false}
     if lhs.ageMax != rhs.ageMax {return false}
     if lhs.proximity != rhs.proximity {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension PresignedUrlRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "PresignedUrlRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "action"),
+    2: .standard(proto: "file_name"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.action) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.fileName) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.action.isEmpty {
+      try visitor.visitSingularStringField(value: self.action, fieldNumber: 1)
+    }
+    if !self.fileName.isEmpty {
+      try visitor.visitSingularStringField(value: self.fileName, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: PresignedUrlRequest, rhs: PresignedUrlRequest) -> Bool {
+    if lhs.action != rhs.action {return false}
+    if lhs.fileName != rhs.fileName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension PresignedUrlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "PresignedUrlResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "url"),
+    2: .same(proto: "request"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
+    }
+    try { if let v = self._request {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: PresignedUrlResponse, rhs: PresignedUrlResponse) -> Bool {
+    if lhs.url != rhs.url {return false}
+    if lhs._request != rhs._request {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

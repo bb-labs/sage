@@ -27,6 +27,7 @@ struct GoogleMapsLookupPlace: APICall {
     var url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
     var request: Request
     var method = APIMethod.GET
+    var body: Data? { try! JSONEncoder().encode(request) }
     var queryParams: [URLQueryItem] {
         return [
             URLQueryItem(name: "input", value: request.input),

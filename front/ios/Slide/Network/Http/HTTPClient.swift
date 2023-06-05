@@ -1,25 +1,19 @@
 
 import Foundation
+import SwiftProtobuf
 
 protocol APICall {
-    associatedtype Request: Codable
-    associatedtype Response: Codable
-    
-    var body: Data? { get }
     var url: String { get }
-    var request: Request { get }
+    var body: Data? { get }
     var method: APIMethod { get }
     var queryParams: [URLQueryItem] { get }
     
     func pack(with credentials: [Credentials]) -> URLRequest
-    func unpack<T: Codable>(_ payload: Data) throws -> T
+    func unpack<T>(_ payload: Data, type: T.Type) throws -> T
 }
 
 extension APICall {
-    var body: Data? {
-        try! JSONEncoder().encode(request)
-    }
-    
+    var data: Data? { nil }
     var queryParams: [URLQueryItem] { [] }
         
     func pack(with credentials: [Credentials]) -> URLRequest {
@@ -39,10 +33,17 @@ extension APICall {
         return urlRequest
     }
     
-    func unpack<T: Codable>(_ payload: Data) throws -> T {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return try decoder.decode(T.self, from: payload)
+    func unpack<T>(_ payload: Data, type: T.Type) throws -> T {
+        switch T.self {
+        case let decodableType as Decodable.Type:
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode(decodableType, from: payload) as! T
+        case let protobufType as SwiftProtobuf.Message.Type:
+            return try protobufType.init(serializedData: payload) as! T
+        default:
+            throw APIError.fetchError
+        }
     }
 }
 
@@ -59,15 +60,15 @@ enum APIMethod: String, Codable {
 struct HttpClient {
     let urlSession = URLSession(configuration: URLSessionConfiguration.default)
     var credentials: [Credentials] = []
-        
-    func fetch<T: Codable>(_ request: any APICall) async throws -> T {
+    
+    func fetch<T>(_ request: APICall) async throws -> T {
         let (data, response) = try await self.urlSession.data(for: request.pack(with: self.credentials))
-        
+            
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw APIError.fetchError
         }
         
-        return try request.unpack(data)
+        return try request.unpack(data, type: T.self)
     }
 }
 

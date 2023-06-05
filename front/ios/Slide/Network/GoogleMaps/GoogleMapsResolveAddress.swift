@@ -24,6 +24,7 @@ struct GoogleMapsAddress: APICall {
     var url = "https://maps.googleapis.com/maps/api/geocode/json"
     var request: Request
     var method = APIMethod.GET
+    var body: Data? { try! JSONEncoder().encode(request) }
     var queryParams: [URLQueryItem] {
         return [URLQueryItem(name: "latlng", value: request.latlng)]
     }
