@@ -28,7 +28,20 @@ extension WebRTCModel: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        debugPrint("peerConnection did generate candidate: \(candidate)")
+        var request = WebRTCSignalingRequest.with {
+            $0.type = .ice
+            $0.iceLineIndex = candidate.sdpMLineIndex
+            $0.sdp = candidate.sdp
+        }
+
+        if let streamID = candidate.sdpMid { request.iceStreamID = streamID }
+        if let serverURL = candidate.serverUrl { request.iceServerURL = serverURL }
+
+        self.socket?.send(.data(try! request.serializedData())) { err in
+            if let err = err {
+                debugPrint("peerConnection couldn't send ICE candidate: err \(err.localizedDescription)")
+            }
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {

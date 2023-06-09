@@ -54,3 +54,20 @@ message PresignedUrlResponse {
   string url = 1;
   PresignedUrlRequest request = 2;
 }
+
+enum WebRTCRequestType {
+  ICE = 0;
+  SDP = 1;
+}
+
+message WebRTCSignalingRequest {
+  WebRTCRequestType type = 7;
+
+  string sdp = 1;
+  int32 sdp_type = 2;
+  string sdp_description = 3;
+
+  string ice_stream_id = 4;
+  int32 ice_line_index = 5;
+  string ice_server_url = 6;
+}

@@ -5,6 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	sageproto "github.com/i-r-l/sage/back/wss/protos"
+	"google.golang.org/protobuf/proto"
 )
 
 func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
@@ -20,19 +22,32 @@ func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
 		}
 		defer conn.Close()
 
-		// infinite loop to read messages from client
 		for {
-			// read message from client
 			_, msg, err := conn.ReadMessage()
 			if err != nil {
 				log.Println(err)
 				return
 			}
 
-			logger.Printf("Received message: %s\n", msg)
+			// Unmarshal
+			webRTCReq := sageproto.WebRTCSignalingRequest{}
+			err = proto.Unmarshal(msg, &webRTCReq)
 
-			// send message back to client
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			switch webRTCReq.Type {
+			case *sageproto.WebRTCRequestType_ICE.Enum():
+				logger.Printf("Received ice: %v\n", webRTCReq)
+			case *sageproto.WebRTCRequestType_SDP.Enum():
+				logger.Printf("Received sdp: %v\n", webRTCReq)
+			}
+
+			// Write back
 			err = conn.WriteMessage(websocket.TextMessage, []byte("What a nice message, thank you!"))
+
 			if err != nil {
 				log.Println(err)
 				return

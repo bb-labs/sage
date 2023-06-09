@@ -68,6 +68,46 @@ extension LocationProximity: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum WebRTCRequestType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case ice // = 0
+  case sdp // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .ice
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .ice
+    case 1: self = .sdp
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .ice: return 0
+    case .sdp: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension WebRTCRequestType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [WebRTCRequestType] = [
+    .ice,
+    .sdp,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Token {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -232,8 +272,33 @@ struct PresignedUrlResponse {
   fileprivate var _request: PresignedUrlRequest? = nil
 }
 
+struct WebRTCSignalingRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var type: WebRTCRequestType = .ice
+
+  var sdp: String = String()
+
+  var sdpType: Int32 = 0
+
+  var sdpDescription: String = String()
+
+  var iceStreamID: String = String()
+
+  var iceLineIndex: Int32 = 0
+
+  var iceServerURL: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension LocationProximity: @unchecked Sendable {}
+extension WebRTCRequestType: @unchecked Sendable {}
 extension Token: @unchecked Sendable {}
 extension User: @unchecked Sendable {}
 extension Location: @unchecked Sendable {}
@@ -241,6 +306,7 @@ extension Match: @unchecked Sendable {}
 extension Criteria: @unchecked Sendable {}
 extension PresignedUrlRequest: @unchecked Sendable {}
 extension PresignedUrlResponse: @unchecked Sendable {}
+extension WebRTCSignalingRequest: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -251,6 +317,13 @@ extension LocationProximity: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "CITY"),
     2: .same(proto: "METRO"),
     3: .same(proto: "STATE"),
+  ]
+}
+
+extension WebRTCRequestType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ICE"),
+    1: .same(proto: "SDP"),
   ]
 }
 
@@ -631,6 +704,74 @@ extension PresignedUrlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   static func ==(lhs: PresignedUrlResponse, rhs: PresignedUrlResponse) -> Bool {
     if lhs.url != rhs.url {return false}
     if lhs._request != rhs._request {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension WebRTCSignalingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "WebRTCSignalingRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    7: .same(proto: "type"),
+    1: .same(proto: "sdp"),
+    2: .standard(proto: "sdp_type"),
+    3: .standard(proto: "sdp_description"),
+    4: .standard(proto: "ice_stream_id"),
+    5: .standard(proto: "ice_line_index"),
+    6: .standard(proto: "ice_server_url"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.sdp) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.sdpType) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.sdpDescription) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.iceStreamID) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.iceLineIndex) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.iceServerURL) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sdp.isEmpty {
+      try visitor.visitSingularStringField(value: self.sdp, fieldNumber: 1)
+    }
+    if self.sdpType != 0 {
+      try visitor.visitSingularInt32Field(value: self.sdpType, fieldNumber: 2)
+    }
+    if !self.sdpDescription.isEmpty {
+      try visitor.visitSingularStringField(value: self.sdpDescription, fieldNumber: 3)
+    }
+    if !self.iceStreamID.isEmpty {
+      try visitor.visitSingularStringField(value: self.iceStreamID, fieldNumber: 4)
+    }
+    if self.iceLineIndex != 0 {
+      try visitor.visitSingularInt32Field(value: self.iceLineIndex, fieldNumber: 5)
+    }
+    if !self.iceServerURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.iceServerURL, fieldNumber: 6)
+    }
+    if self.type != .ice {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: WebRTCSignalingRequest, rhs: WebRTCSignalingRequest) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.sdp != rhs.sdp {return false}
+    if lhs.sdpType != rhs.sdpType {return false}
+    if lhs.sdpDescription != rhs.sdpDescription {return false}
+    if lhs.iceStreamID != rhs.iceStreamID {return false}
+    if lhs.iceLineIndex != rhs.iceLineIndex {return false}
+    if lhs.iceServerURL != rhs.iceServerURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

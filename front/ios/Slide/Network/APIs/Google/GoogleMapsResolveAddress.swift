@@ -29,4 +29,4 @@ struct GoogleMapsAddress: APICall {
         return [URLQueryItem(name: "latlng", value: request.latlng)]
     }
 }
-
+ 

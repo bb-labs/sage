@@ -5,9 +5,11 @@ import Combine
 import SwiftUI
 
 class UserModel: ObservableObject {
+    @Published var user = User()
     @Published var auth = AuthModel()
     @Published var profile = ProfileModel()
     @Published var location = LocationModel()
+    
     
     func uploadProfileVideo(fileName: String, video: Data) async throws {
         let presignUrlRequest = SlidePresignUrl( presignInfo: PresignedUrlRequest.with {
