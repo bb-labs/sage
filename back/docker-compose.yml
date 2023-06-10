@@ -14,23 +14,25 @@ services:
       - ~/.aws:/root/.aws
     ports:
       - 3000:3000
+
   app_db:
     container_name: sage_app_db
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: sage
+      MONGO_INITDB_DATABASE: sage_app
     ports:
-      - 27017:27017
+      - 3001:27017
     volumes:
-      - ./app/db:/home/mongodb
       - ./app/db/data:/data/db
       - ./app/db/scripts:/docker-entrypoint-initdb.d
 
-  # Wss server
+  # WSS server
   wss:
     container_name: sage_wss
+    depends_on:
+      - wss_db
     env_file:
       - ./wss/.env.dev
     build:
@@ -40,7 +42,20 @@ services:
       - ./wss:/usr/src/wss
       - ~/.aws:/root/.aws
     ports:
-      - 3001:3001
+      - 4000:4000
+
+  wss_db:
+    container_name: sage_wss_db
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: sage_wss
+    ports:
+      - 4001:27017
+    volumes:
+      - ./wss/db/data:/data/db
+      - ./wss/db/scripts:/docker-entrypoint-initdb.d
 
 networks:
   sage:

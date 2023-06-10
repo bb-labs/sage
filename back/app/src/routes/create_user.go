@@ -29,12 +29,9 @@ func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 			logger.Fatalln(err)
 		}
 
-		logger.Println("Hi!", user)
-
 		update := bson.D{{Key: "$set", Value: &user}}
 		db.Database(os.Getenv("MONGO_DB_NAME")).Collection("users").InsertOne(ctx, update)
 
 		ctx.JSON(http.StatusOK, gin.H{"status": "OK"})
 	}
-
 }

@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23554212A3E2CB0DC4CBFB12 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485644B081B7DBF63EC3C0EA /* Sage.pb.swift */; };
-		5BF147219CC4F2E088429905 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485644B081B7DBF63EC3C0EA /* Sage.pb.swift */; };
+		278A4B288AF854C593F402E0 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -71,7 +70,8 @@
 		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
-		909F4D03947AE87371AC7675 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485644B081B7DBF63EC3C0EA /* Sage.pb.swift */; };
+		B1064881B2ED6E7D6F5B565D /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
+		DD994D5FBA01D8B014D29436 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +92,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		485644B081B7DBF63EC3C0EA /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -155,6 +154,7 @@
 		8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
+		DC2649C498F050984B2021BC /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,7 +412,7 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				485644B081B7DBF63EC3C0EA /* Sage.pb.swift */,
+				DC2649C498F050984B2021BC /* Sage.pb.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -610,7 +610,7 @@
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
-				5BF147219CC4F2E088429905 /* Sage.pb.swift in Sources */,
+				278A4B288AF854C593F402E0 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +619,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				23554212A3E2CB0DC4CBFB12 /* Sage.pb.swift in Sources */,
+				DD994D5FBA01D8B014D29436 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,7 +629,7 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				909F4D03947AE87371AC7675 /* Sage.pb.swift in Sources */,
+				B1064881B2ED6E7D6F5B565D /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

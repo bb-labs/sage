@@ -17,9 +17,12 @@ extension WebRTCModel {
                             type: RTCSdpType(rawValue: Int(request.sdpType))!,
                             sdp: request.sdp
                         )
+                        
                         self.peerConnection.setRemoteDescription(sdp) { err in
                             if let err = err { debugPrint(err.localizedDescription) }
                         }
+                        
+                        debugPrint("Got sdp from : \(request.user.name)")
                     case .ice:
                         let candidate = RTCIceCandidate(
                             sdp: request.sdp,
@@ -61,10 +64,11 @@ extension WebRTCModel {
                     $0.sdp = sdp.sdp
                     $0.sdpType = Int32(sdp.type.rawValue)
                     $0.sdpDescription = sdp.description
+                    $0.user = srcUser
                 }
                 
                 self.socket?.send(.data(try! request.serializedData())) { err in
-                    debugPrint("Warning: Couldn't send data")
+                    if let err = err { debugPrint(err.localizedDescription) }
                 }
             }
         }

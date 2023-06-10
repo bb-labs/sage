@@ -1,4 +1,4 @@
-module github.com/i-r-l/slide/presign
+module github.com/i-r-l/sage/back/presign
 
 go 1.18
 

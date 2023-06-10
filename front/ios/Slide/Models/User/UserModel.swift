@@ -3,9 +3,10 @@ import Foundation
 import AVFoundation
 import Combine
 import SwiftUI
+import UIKit
 
 class UserModel: ObservableObject {
-    @Published var user = User()
+    @Published var user = User.with { $0.name = UIDevice.current.identifierForVendor!.uuidString }
     @Published var auth = AuthModel()
     @Published var profile = ProfileModel()
     @Published var location = LocationModel()

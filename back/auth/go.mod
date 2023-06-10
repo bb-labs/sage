@@ -1,4 +1,4 @@
-module github.com/i-r-l/sage/auth
+module github.com/i-r-l/sage/back/auth
 
 go 1.18
 

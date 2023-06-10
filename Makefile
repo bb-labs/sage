@@ -5,6 +5,7 @@
 .PHONY: back-up
 .PHONY: back-down
 .PHONY: back-logs
+.PHONY: back-status
 .PHONY: back-clean
 .PHONY: proto
 .PHONY: init
@@ -19,6 +20,9 @@ back-down:
 
 back-logs:
 	cd back; docker compose logs -f
+
+back-status:
+	cd back; docker container ls
 
 back-clean:
 	cd back; rm -rf sage-db/data

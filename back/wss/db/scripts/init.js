@@ -1,2 +1,2 @@
 
-db.createCollection('sdps');
+db.createCollection('webRtc');

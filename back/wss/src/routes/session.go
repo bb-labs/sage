@@ -6,10 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	sageproto "github.com/i-r-l/sage/back/wss/protos"
+	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/protobuf/proto"
 )
 
-func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
+func HandleSession(upgrader websocket.Upgrader, db *mongo.Client) func(*gin.Context) {
 	return func(ctx *gin.Context) {
 		// Logger
 		logger := log.Default()
@@ -45,7 +46,7 @@ func HandleSession(upgrader websocket.Upgrader) func(*gin.Context) {
 				logger.Printf("Received sdp: %v\n", webRTCReq)
 			}
 
-			// Write back
+			// If there's
 			err = conn.WriteMessage(websocket.TextMessage, []byte("What a nice message, thank you!"))
 
 			if err != nil {

@@ -1,10 +1,9 @@
-package middleware
+package auth
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/i-r-l/slide/src/auth"
 )
 
 func HandleAuth() gin.HandlerFunc {
@@ -14,7 +13,7 @@ func HandleAuth() gin.HandlerFunc {
 		authorizationCode := ctx.Query("authorization_code")
 
 		if authorizationCode != "" {
-			refreshResponse, err := auth.RefreshToken(authorizationCode)
+			refreshResponse, err := RefreshToken(authorizationCode)
 
 			if err != nil {
 				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
@@ -28,7 +27,7 @@ func HandleAuth() gin.HandlerFunc {
 			return
 		}
 
-		idIsValid, err := auth.VerifyIdToken(identityToken)
+		idIsValid, err := VerifyIdToken(identityToken)
 
 		// Token is valid, move along
 		if idIsValid {
@@ -38,7 +37,7 @@ func HandleAuth() gin.HandlerFunc {
 
 		// Maybe the token is expired, but they have a refresh token
 		if refreshToken != "" {
-			refreshResponse, err := auth.RefreshIdentity(refreshToken)
+			refreshResponse, err := RefreshIdentity(refreshToken)
 
 			if err != nil {
 				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})

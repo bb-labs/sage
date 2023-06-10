@@ -14,9 +14,17 @@ message User {
   Location location = 2;
   string email = 3;
   string name = 5;
+  string video_url = 10;
   double rating = 6;
   int32 birthday = 7;
   bool is_online = 8;
+  Gender gender = 9;
+}
+
+enum Gender {
+  MAN = 0;
+  WOMAN = 1;
+  HUMAN = 2;
 }
 
 enum LocationProximity {
@@ -24,6 +32,13 @@ enum LocationProximity {
   CITY = 1;
   METRO = 2;
   STATE = 3;
+}
+
+enum MeetingTime {
+  MORNING = 0;
+  EARLY_AFTERNOON = 1;
+  LATE_AFTERNOON = 2;
+  EVENING = 3;
 }
 
 message Location {
@@ -62,6 +77,8 @@ enum WebRTCRequestType {
 
 message WebRTCSignalingRequest {
   WebRTCRequestType type = 7;
+
+  User user = 8;
 
   string sdp = 1;
   int32 sdp_type = 2;

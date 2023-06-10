@@ -20,6 +20,50 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum Gender: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case man // = 0
+  case woman // = 1
+  case human // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .man
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .man
+    case 1: self = .woman
+    case 2: self = .human
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .man: return 0
+    case .woman: return 1
+    case .human: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Gender: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Gender] = [
+    .man,
+    .woman,
+    .human,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum LocationProximity: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case neighborhood // = 0
@@ -63,6 +107,54 @@ extension LocationProximity: CaseIterable {
     .city,
     .metro,
     .state,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+enum MeetingTime: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case morning // = 0
+  case earlyAfternoon // = 1
+  case lateAfternoon // = 2
+  case evening // = 3
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .morning
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .morning
+    case 1: self = .earlyAfternoon
+    case 2: self = .lateAfternoon
+    case 3: self = .evening
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .morning: return 0
+    case .earlyAfternoon: return 1
+    case .lateAfternoon: return 2
+    case .evening: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension MeetingTime: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [MeetingTime] = [
+    .morning,
+    .earlyAfternoon,
+    .lateAfternoon,
+    .evening,
   ]
 }
 
@@ -151,6 +243,8 @@ struct User {
   var birthday: Int32 = 0
 
   var isOnline: Bool = false
+
+  var gender: Gender = .man
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -277,27 +371,61 @@ struct WebRTCSignalingRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var type: WebRTCRequestType = .ice
+  var type: WebRTCRequestType {
+    get {return _storage._type}
+    set {_uniqueStorage()._type = newValue}
+  }
 
-  var sdp: String = String()
+  var user: User {
+    get {return _storage._user ?? User()}
+    set {_uniqueStorage()._user = newValue}
+  }
+  /// Returns true if `user` has been explicitly set.
+  var hasUser: Bool {return _storage._user != nil}
+  /// Clears the value of `user`. Subsequent reads from it will return its default value.
+  mutating func clearUser() {_uniqueStorage()._user = nil}
 
-  var sdpType: Int32 = 0
+  var sdp: String {
+    get {return _storage._sdp}
+    set {_uniqueStorage()._sdp = newValue}
+  }
 
-  var sdpDescription: String = String()
+  var sdpType: Int32 {
+    get {return _storage._sdpType}
+    set {_uniqueStorage()._sdpType = newValue}
+  }
 
-  var iceStreamID: String = String()
+  var sdpDescription: String {
+    get {return _storage._sdpDescription}
+    set {_uniqueStorage()._sdpDescription = newValue}
+  }
 
-  var iceLineIndex: Int32 = 0
+  var iceStreamID: String {
+    get {return _storage._iceStreamID}
+    set {_uniqueStorage()._iceStreamID = newValue}
+  }
 
-  var iceServerURL: String = String()
+  var iceLineIndex: Int32 {
+    get {return _storage._iceLineIndex}
+    set {_uniqueStorage()._iceLineIndex = newValue}
+  }
+
+  var iceServerURL: String {
+    get {return _storage._iceServerURL}
+    set {_uniqueStorage()._iceServerURL = newValue}
+  }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Gender: @unchecked Sendable {}
 extension LocationProximity: @unchecked Sendable {}
+extension MeetingTime: @unchecked Sendable {}
 extension WebRTCRequestType: @unchecked Sendable {}
 extension Token: @unchecked Sendable {}
 extension User: @unchecked Sendable {}
@@ -311,12 +439,29 @@ extension WebRTCSignalingRequest: @unchecked Sendable {}
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
+extension Gender: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MAN"),
+    1: .same(proto: "WOMAN"),
+    2: .same(proto: "HUMAN"),
+  ]
+}
+
 extension LocationProximity: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NEIGHBORHOOD"),
     1: .same(proto: "CITY"),
     2: .same(proto: "METRO"),
     3: .same(proto: "STATE"),
+  ]
+}
+
+extension MeetingTime: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MORNING"),
+    1: .same(proto: "EARLY_AFTERNOON"),
+    2: .same(proto: "LATE_AFTERNOON"),
+    3: .same(proto: "EVENING"),
   ]
 }
 
@@ -387,6 +532,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     6: .same(proto: "rating"),
     7: .same(proto: "birthday"),
     8: .standard(proto: "is_online"),
+    9: .same(proto: "gender"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -402,6 +548,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
       case 6: try { try decoder.decodeSingularDoubleField(value: &self.rating) }()
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.birthday) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.isOnline) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.gender) }()
       default: break
       }
     }
@@ -433,6 +580,9 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     if self.isOnline != false {
       try visitor.visitSingularBoolField(value: self.isOnline, fieldNumber: 8)
     }
+    if self.gender != .man {
+      try visitor.visitSingularEnumField(value: self.gender, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -444,6 +594,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     if lhs.rating != rhs.rating {return false}
     if lhs.birthday != rhs.birthday {return false}
     if lhs.isOnline != rhs.isOnline {return false}
+    if lhs.gender != rhs.gender {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -713,6 +864,7 @@ extension WebRTCSignalingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   static let protoMessageName: String = "WebRTCSignalingRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     7: .same(proto: "type"),
+    8: .same(proto: "user"),
     1: .same(proto: "sdp"),
     2: .standard(proto: "sdp_type"),
     3: .standard(proto: "sdp_description"),
@@ -721,57 +873,112 @@ extension WebRTCSignalingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     6: .standard(proto: "ice_server_url"),
   ]
 
+  fileprivate class _StorageClass {
+    var _type: WebRTCRequestType = .ice
+    var _user: User? = nil
+    var _sdp: String = String()
+    var _sdpType: Int32 = 0
+    var _sdpDescription: String = String()
+    var _iceStreamID: String = String()
+    var _iceLineIndex: Int32 = 0
+    var _iceServerURL: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _type = source._type
+      _user = source._user
+      _sdp = source._sdp
+      _sdpType = source._sdpType
+      _sdpDescription = source._sdpDescription
+      _iceStreamID = source._iceStreamID
+      _iceLineIndex = source._iceLineIndex
+      _iceServerURL = source._iceServerURL
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.sdp) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.sdpType) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.sdpDescription) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.iceStreamID) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.iceLineIndex) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.iceServerURL) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.type) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._sdp) }()
+        case 2: try { try decoder.decodeSingularInt32Field(value: &_storage._sdpType) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._sdpDescription) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._iceStreamID) }()
+        case 5: try { try decoder.decodeSingularInt32Field(value: &_storage._iceLineIndex) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._iceServerURL) }()
+        case 7: try { try decoder.decodeSingularEnumField(value: &_storage._type) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._user) }()
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.sdp.isEmpty {
-      try visitor.visitSingularStringField(value: self.sdp, fieldNumber: 1)
-    }
-    if self.sdpType != 0 {
-      try visitor.visitSingularInt32Field(value: self.sdpType, fieldNumber: 2)
-    }
-    if !self.sdpDescription.isEmpty {
-      try visitor.visitSingularStringField(value: self.sdpDescription, fieldNumber: 3)
-    }
-    if !self.iceStreamID.isEmpty {
-      try visitor.visitSingularStringField(value: self.iceStreamID, fieldNumber: 4)
-    }
-    if self.iceLineIndex != 0 {
-      try visitor.visitSingularInt32Field(value: self.iceLineIndex, fieldNumber: 5)
-    }
-    if !self.iceServerURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.iceServerURL, fieldNumber: 6)
-    }
-    if self.type != .ice {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 7)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._sdp.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._sdp, fieldNumber: 1)
+      }
+      if _storage._sdpType != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._sdpType, fieldNumber: 2)
+      }
+      if !_storage._sdpDescription.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._sdpDescription, fieldNumber: 3)
+      }
+      if !_storage._iceStreamID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iceStreamID, fieldNumber: 4)
+      }
+      if _storage._iceLineIndex != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._iceLineIndex, fieldNumber: 5)
+      }
+      if !_storage._iceServerURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iceServerURL, fieldNumber: 6)
+      }
+      if _storage._type != .ice {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 7)
+      }
+      try { if let v = _storage._user {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: WebRTCSignalingRequest, rhs: WebRTCSignalingRequest) -> Bool {
-    if lhs.type != rhs.type {return false}
-    if lhs.sdp != rhs.sdp {return false}
-    if lhs.sdpType != rhs.sdpType {return false}
-    if lhs.sdpDescription != rhs.sdpDescription {return false}
-    if lhs.iceStreamID != rhs.iceStreamID {return false}
-    if lhs.iceLineIndex != rhs.iceLineIndex {return false}
-    if lhs.iceServerURL != rhs.iceServerURL {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._user != rhs_storage._user {return false}
+        if _storage._sdp != rhs_storage._sdp {return false}
+        if _storage._sdpType != rhs_storage._sdpType {return false}
+        if _storage._sdpDescription != rhs_storage._sdpDescription {return false}
+        if _storage._iceStreamID != rhs_storage._iceStreamID {return false}
+        if _storage._iceLineIndex != rhs_storage._iceLineIndex {return false}
+        if _storage._iceServerURL != rhs_storage._iceServerURL {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
