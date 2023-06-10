@@ -34,8 +34,6 @@ func NewHub(db *mongo.Client) *Hub {
 }
 
 func (h *Hub) Run() {
-	// logger := log.Default()
-
 	for {
 		select {
 		case client := <-h.register:
