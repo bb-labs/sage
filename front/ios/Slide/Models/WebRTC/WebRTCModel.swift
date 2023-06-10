@@ -57,7 +57,7 @@ class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
         self.peerConnection.delegate = self
         
         // Signaling setup
-        self.socket = urlSession.webSocketTask(with: URL(string: "ws://10.0.0.40:3001/session")!)
+        self.socket = urlSession.webSocketTask(with: URL(string: "ws://10.0.0.40:4000/session")!)
         self.socket?.resume()
         self.listen()
         

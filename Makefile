@@ -19,7 +19,7 @@ back-down:
 	cd back; docker compose down --remove-orphans
 
 back-logs:
-	cd back; docker compose logs -f
+	cd back; docker compose logs -f $(service)
 
 back-status:
 	cd back; docker container ls
