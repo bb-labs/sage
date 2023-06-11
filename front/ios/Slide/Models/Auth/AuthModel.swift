@@ -11,7 +11,7 @@ extension Credentials {
     }
     
     var dict: [String:String] {
-        guard let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return [:] }
+        guard let dict = try? JSONSerialization.jsonObject(with: self.data, options: .allowFragments) else { return [:] }
         
         return dict as! [String:String]
     }
@@ -23,8 +23,11 @@ extension Credentials {
     }
 }
 
-class AuthModel: ObservableObject {
-    var client = HttpClient()
+class AuthModel: NSObject, ObservableObject, URLSessionDelegate {
+    static let shared = AuthModel()
+    
+    var httpClient = HTTPClient()
+    var credentials: [Credentials] = []
 }
 
 

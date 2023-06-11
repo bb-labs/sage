@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,18 +21,33 @@ func main() {
 	// Logger
 	logger := log.Default()
 
+	// Context for server
+	ctx := context.Background()
+
 	// Initialize the db
 	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
 
 	if err != nil {
-		logger.Fatalf("err: %v", err)
+		logger.Printf("err initializing db: %v", err)
 	}
 
+	// Connect to the db
+	err = db.Connect(ctx)
+	if err != nil {
+		logger.Printf("err connecting to db: %v", err)
+	}
+
+	// Cleanup any errors
+	defer func() {
+		db.Disconnect(ctx)
+	}()
+
 	// Initialize the hub
-	hub := rtc.NewHub(db)
+	hub := rtc.NewHub(db, ctx)
 	go hub.Run()
 
-	// Grab the auth URL for a particular integration
+	// Setup routes for sessions and
+	router.POST("/chat", rtc.HandleChat(hub))
 	router.GET("/session", rtc.HandleSession(upgrader, hub))
 
 	// Run the server

@@ -26,7 +26,7 @@ extension AuthModel {
                     $0.email = appleCredentials.email!
                 }, authCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self))
                 
-                let createUserResponse: Token = try await self.client.fetch(createUserRequest)
+                let createUserResponse: Token = try await self.httpClient.fetch(createUserRequest)
                 
                 // Store the credentials and associate with the client
                 DispatchQueue.main.async {
@@ -37,7 +37,7 @@ extension AuthModel {
                         identityToken: createUserResponse.identityToken
                     )
                     
-                    self.client.credentials.append(appleCredentials)
+                    self.credentials.append(appleCredentials)
                     
                     _ = KeyChain.store(key: "apple", data: appleCredentials.data)
                 }

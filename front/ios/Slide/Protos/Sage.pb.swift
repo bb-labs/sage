@@ -64,6 +64,50 @@ extension Gender: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum GenderPlural: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case men // = 0
+  case women // = 1
+  case humans // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .men
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .men
+    case 1: self = .women
+    case 2: self = .humans
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .men: return 0
+    case .women: return 1
+    case .humans: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension GenderPlural: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [GenderPlural] = [
+    .men,
+    .women,
+    .humans,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum LocationProximity: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case neighborhood // = 0
@@ -238,6 +282,8 @@ struct User {
 
   var name: String = String()
 
+  var videoURL: String = String()
+
   var rating: Double = 0
 
   var birthday: Int32 = 0
@@ -327,6 +373,36 @@ struct Criteria {
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+}
+
+struct ChatRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var user: User {
+    get {return _storage._user ?? User()}
+    set {_uniqueStorage()._user = newValue}
+  }
+  /// Returns true if `user` has been explicitly set.
+  var hasUser: Bool {return _storage._user != nil}
+  /// Clears the value of `user`. Subsequent reads from it will return its default value.
+  mutating func clearUser() {_uniqueStorage()._user = nil}
+
+  var otherUser: User {
+    get {return _storage._otherUser ?? User()}
+    set {_uniqueStorage()._otherUser = newValue}
+  }
+  /// Returns true if `otherUser` has been explicitly set.
+  var hasOtherUser: Bool {return _storage._otherUser != nil}
+  /// Clears the value of `otherUser`. Subsequent reads from it will return its default value.
+  mutating func clearOtherUser() {_uniqueStorage()._otherUser = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct PresignedUrlRequest {
@@ -424,6 +500,7 @@ struct WebRTCSignalingRequest {
 
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Gender: @unchecked Sendable {}
+extension GenderPlural: @unchecked Sendable {}
 extension LocationProximity: @unchecked Sendable {}
 extension MeetingTime: @unchecked Sendable {}
 extension WebRTCRequestType: @unchecked Sendable {}
@@ -432,6 +509,7 @@ extension User: @unchecked Sendable {}
 extension Location: @unchecked Sendable {}
 extension Match: @unchecked Sendable {}
 extension Criteria: @unchecked Sendable {}
+extension ChatRequest: @unchecked Sendable {}
 extension PresignedUrlRequest: @unchecked Sendable {}
 extension PresignedUrlResponse: @unchecked Sendable {}
 extension WebRTCSignalingRequest: @unchecked Sendable {}
@@ -444,6 +522,14 @@ extension Gender: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "MAN"),
     1: .same(proto: "WOMAN"),
     2: .same(proto: "HUMAN"),
+  ]
+}
+
+extension GenderPlural: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MEN"),
+    1: .same(proto: "WOMEN"),
+    2: .same(proto: "HUMANS"),
   ]
 }
 
@@ -529,6 +615,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     2: .same(proto: "location"),
     3: .same(proto: "email"),
     5: .same(proto: "name"),
+    10: .standard(proto: "video_url"),
     6: .same(proto: "rating"),
     7: .same(proto: "birthday"),
     8: .standard(proto: "is_online"),
@@ -549,6 +636,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.birthday) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.isOnline) }()
       case 9: try { try decoder.decodeSingularEnumField(value: &self.gender) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.videoURL) }()
       default: break
       }
     }
@@ -583,6 +671,9 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     if self.gender != .man {
       try visitor.visitSingularEnumField(value: self.gender, fieldNumber: 9)
     }
+    if !self.videoURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.videoURL, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -591,6 +682,7 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     if lhs._location != rhs._location {return false}
     if lhs.email != rhs.email {return false}
     if lhs.name != rhs.name {return false}
+    if lhs.videoURL != rhs.videoURL {return false}
     if lhs.rating != rhs.rating {return false}
     if lhs.birthday != rhs.birthday {return false}
     if lhs.isOnline != rhs.isOnline {return false}
@@ -775,6 +867,82 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     if lhs.ageMin != rhs.ageMin {return false}
     if lhs.ageMax != rhs.ageMax {return false}
     if lhs.proximity != rhs.proximity {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ChatRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "ChatRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "user"),
+    2: .standard(proto: "other_user"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _user: User? = nil
+    var _otherUser: User? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _user = source._user
+      _otherUser = source._otherUser
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._user) }()
+        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._otherUser) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._user {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      try { if let v = _storage._otherUser {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      } }()
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: ChatRequest, rhs: ChatRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._user != rhs_storage._user {return false}
+        if _storage._otherUser != rhs_storage._otherUser {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -37,7 +37,7 @@ extension WebRTCModel: RTCPeerConnectionDelegate {
         if let streamID = candidate.sdpMid { request.iceStreamID = streamID }
         if let serverURL = candidate.serverUrl { request.iceServerURL = serverURL }
 
-        self.socket?.send(.data(try! request.serializedData())) { err in
+        self.signalingClient.socket?.send(.data(try! request.serializedData())) { err in
             if let err = err {
                 debugPrint("peerConnection couldn't send ICE candidate: err \(err.localizedDescription)")
             }

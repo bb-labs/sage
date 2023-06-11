@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		278A4B288AF854C593F402E0 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
+		89914637BA859687C4F0C42E /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB24497A299C548A030BB03 /* Sage.pb.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -24,7 +24,6 @@
 		8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 8B2FDB1E29C4169000C18123 /* Lottie */; };
 		8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2229C417BF00C18123 /* LottieView.swift */; };
 		8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */; };
-		8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2B29C437B400C18123 /* ProfileModel.swift */; };
 		8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */; };
 		8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5562A15F73B0066FD7B /* CallModel.swift */; };
 		8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */; };
@@ -47,6 +46,9 @@
 		8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */; };
 		8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C929A1EB3B00648205 /* SlidePresignData.swift */; };
 		8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */; };
+		8B6EAB042A353E09001BC68E /* WSSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB032A353E09001BC68E /* WSSClient.swift */; };
+		8B6EAB062A353F4E001BC68E /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */; };
+		8B6EAB082A3540B7001BC68E /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */; };
 		8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */; };
 		8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */; };
 		8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */; };
@@ -64,14 +66,13 @@
 		8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */; };
 		8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933229778E2D00EC5967 /* SlideApp.swift */; };
 		8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933429778E2D00EC5967 /* SlideView.swift */; };
-		8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836042980B59500FEE6E1 /* LocationModel.swift */; };
 		8BC836142980CC5500FEE6E1 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC836132980CC5500FEE6E1 /* HTTPClient.swift */; };
 		8BC8630E2A088EF800F8FB7E /* WebRTCMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630D2A088EF800F8FB7E /* WebRTCMediaModel.swift */; };
 		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
-		B1064881B2ED6E7D6F5B565D /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
-		DD994D5FBA01D8B014D29436 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2649C498F050984B2021BC /* Sage.pb.swift */; };
+		B75F4E6C9F2CBC9E3A857124 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB24497A299C548A030BB03 /* Sage.pb.swift */; };
+		E3FF44FE8E3DFBB7A2E14211 /* Sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB24497A299C548A030BB03 /* Sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +109,6 @@
 		8B2FDB1229C4125C00C18123 /* WelcomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCardView.swift; sourceTree = "<group>"; };
 		8B2FDB2229C417BF00C18123 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCreationView.swift; sourceTree = "<group>"; };
-		8B2FDB2B29C437B400C18123 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		8B308177297921BA002056A1 /* GoogleMapsResolveAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsResolveAddress.swift; sourceTree = "<group>"; };
 		8B3081792979226D002056A1 /* GoogleMapsLookupPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsLookupPlace.swift; sourceTree = "<group>"; };
 		8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
@@ -129,6 +129,9 @@
 		8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureSettingsView.swift; sourceTree = "<group>"; };
 		8B5469C929A1EB3B00648205 /* SlidePresignData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignData.swift; sourceTree = "<group>"; };
 		8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePresignUrl.swift; sourceTree = "<group>"; };
+		8B6EAB032A353E09001BC68E /* WSSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSClient.swift; sourceTree = "<group>"; };
+		8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
+		8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionsView.swift; sourceTree = "<group>"; };
 		8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronView.swift; sourceTree = "<group>"; };
@@ -148,13 +151,12 @@
 		8BB1934E29778E2E00EC5967 /* SlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1935229778E2E00EC5967 /* SlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITests.swift; sourceTree = "<group>"; };
 		8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8BC836042980B59500FEE6E1 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		8BC836132980CC5500FEE6E1 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8BC8630D2A088EF800F8FB7E /* WebRTCMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMediaModel.swift; sourceTree = "<group>"; };
 		8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
-		DC2649C498F050984B2021BC /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
+		CBB24497A299C548A030BB03 /* Sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Sage.pb.swift; path = Sage.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,11 +244,9 @@
 		8B32E5592A1AE6B20066FD7B /* User */ = {
 			isa = PBXGroup;
 			children = (
-				8B54698129A16BF600648205 /* CameraModel.swift */,
-				8B14943129A85D31001497FE /* IntroModel.swift */,
-				8B2FDB2B29C437B400C18123 /* ProfileModel.swift */,
 				8B14942E29A85C6C001497FE /* UserModel.swift */,
-				8BC836042980B59500FEE6E1 /* LocationModel.swift */,
+				8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */,
+				8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -255,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				8BC836132980CC5500FEE6E1 /* HTTPClient.swift */,
+				8B6EAB032A353E09001BC68E /* WSSClient.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -273,6 +274,22 @@
 				8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		8B6EAB092A354158001BC68E /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8B54698129A16BF600648205 /* CameraModel.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		8B6EAB0A2A35417F001BC68E /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				8B14943129A85D31001497FE /* IntroModel.swift */,
+			);
+			path = Signup;
 			sourceTree = "<group>";
 		};
 		8B8848B529FEF752001D6571 /* Network */ = {
@@ -321,11 +338,11 @@
 			children = (
 				8B14942129A84F6D001497FE /* Slide.entitlements */,
 				8BE335B22A1B3D0A00160DE4 /* Protos */,
+				8BB1936329778EE100EC5967 /* App */,
 				8BB1936129778ED000EC5967 /* Models */,
 				8BB1936229778ED300EC5967 /* Views */,
-				8BB1936329778EE100EC5967 /* App */,
-				8BB19366297792CB00EC5967 /* Utils */,
 				8B8848B529FEF752001D6571 /* Network */,
+				8BB19366297792CB00EC5967 /* Utils */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -350,6 +367,8 @@
 		8BB1936129778ED000EC5967 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B6EAB0A2A35417F001BC68E /* Signup */,
+				8B6EAB092A354158001BC68E /* Camera */,
 				8BE335B42A32F33500160DE4 /* Match */,
 				8B32E5592A1AE6B20066FD7B /* User */,
 				8B32E5582A1AE6A70066FD7B /* Auth */,
@@ -412,7 +431,7 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				DC2649C498F050984B2021BC /* Sage.pb.swift */,
+				CBB24497A299C548A030BB03 /* Sage.pb.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -582,11 +601,9 @@
 				8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */,
 				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
-				8BC836112980B8D600FEE6E1 /* LocationModel.swift in Sources */,
 				8B14942F29A85C6C001497FE /* UserModel.swift in Sources */,
 				8B5469CD29A1EB8900648205 /* SlidePresignUrl.swift in Sources */,
 				8B2FDB1329C4125C00C18123 /* WelcomeCardView.swift in Sources */,
-				8B2FDB2C29C437B400C18123 /* ProfileModel.swift in Sources */,
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */,
 				8BC8630E2A088EF800F8FB7E /* WebRTCMediaModel.swift in Sources */,
@@ -597,6 +614,8 @@
 				8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */,
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
 				8BC8360C2980B8C800FEE6E1 /* GoogleMapsResolveAddress.swift in Sources */,
+				8B6EAB062A353F4E001BC68E /* UserLocationModel.swift in Sources */,
+				8B6EAB082A3540B7001BC68E /* UserProfileModel.swift in Sources */,
 				8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */,
 				8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
@@ -606,11 +625,12 @@
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B5469CA29A1EB3B00648205 /* SlidePresignData.swift in Sources */,
 				8B32E55F2A1AE7290066FD7B /* AuthDeviceModel.swift in Sources */,
+				8B6EAB042A353E09001BC68E /* WSSClient.swift in Sources */,
 				8B14943A29A8932A001497FE /* SlideCreateUser.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
-				278A4B288AF854C593F402E0 /* Sage.pb.swift in Sources */,
+				B75F4E6C9F2CBC9E3A857124 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				DD994D5FBA01D8B014D29436 /* Sage.pb.swift in Sources */,
+				89914637BA859687C4F0C42E /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,7 +649,7 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				B1064881B2ED6E7D6F5B565D /* Sage.pb.swift in Sources */,
+				E3FF44FE8E3DFBB7A2E14211 /* Sage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,13 +13,17 @@ var upgrader = websocket.Upgrader{
 
 // Client is a middleman between the websocket connection and the hub.
 type Client struct {
-	hub *Hub
+	// ID of the client
+	ID string
 
 	// The websocket connection.
 	conn *websocket.Conn
 
 	// Buffered channel of outbound messages.
 	send chan []byte
+
+	// Logger for the client
+	logger *log.Logger
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -27,21 +31,19 @@ type Client struct {
 // The application runs readPump in a per-connection goroutine. The application
 // ensures that there is at most one reader on a connection by executing all
 // reads from this goroutine.
-func (c *Client) readPump() {
-	logger := log.Default()
-
+func (c *Client) readPump(hub *Hub) {
 	defer func() {
-		c.hub.unregister <- c
+		hub.unregister <- c
 		c.conn.Close()
 	}()
 
 	for {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
-			logger.Fatalf("error: %v", err)
+			c.logger.Printf("error: %v", err)
 			return
 		}
-		c.hub.broadcast <- message
+		hub.incoming <- &Message{Data: message, Client: c}
 	}
 }
 
@@ -50,7 +52,7 @@ func (c *Client) readPump() {
 // A goroutine running writePump is started for each connection. The
 // application ensures that there is at most one writer to a connection by
 // executing all writes from this goroutine.
-func (c *Client) writePump() {
+func (c *Client) writePump(hub *Hub) {
 	defer func() {
 		c.conn.Close()
 	}()

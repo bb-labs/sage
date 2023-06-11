@@ -1,4 +1,5 @@
 
+import Foundation
 import CoreLocation
 
 
@@ -6,25 +7,7 @@ extension CLLocationCoordinate2D {
     func toString() -> String { "\(self.longitude),\(self.latitude)" }
 }
 
-class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-    let locationManager = CLLocationManager()
-    var coordinate: CLLocationCoordinate2D?
-
-    override init() {
-        super.init()
-        
-        self.locationManager.delegate = self
-        self.requestPermission()
-    }
-    
-    func requestPermission(){
-        self.locationManager.requestAlwaysAuthorization()
-    }
-
-    func requestLocation() {
-        self.locationManager.requestLocation()
-    }
-    
+extension UserModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let coordinate = locations.first?.coordinate {
             self.coordinate = coordinate
@@ -38,4 +21,21 @@ class LocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("Changed auth status")
     }
+    
+    func publishLocation(_ latitude: Int32, _ longitude: Int32) async throws {
+        let slideUpdateLocationRequest = SlideUpdateLocation( location: Location.with {
+            $0.type = "Point"
+            $0.latitude = latitude
+            $0.longitude = longitude
+        })
+        
+        let slideUpdateLocationResponse: SlideUpdateLocation.Response = try await self.httpClient.fetch(slideUpdateLocationRequest)
+        
+        print(slideUpdateLocationResponse)
+    }
 }
+    
+    
+    
+    
+

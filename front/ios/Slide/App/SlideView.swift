@@ -9,7 +9,7 @@ struct SlideView: View {
     var body: some View {
         CameraVideoChatView()
             .onAppear {
-                webRTCModel.offer(from: userModel.user, to: userModel.user)
+                webRTCModel.offer(to: userModel.user)
             }
     }
 }

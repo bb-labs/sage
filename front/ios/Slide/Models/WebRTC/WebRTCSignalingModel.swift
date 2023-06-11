@@ -5,7 +5,7 @@ import WebRTC
 
 extension WebRTCModel {
     func listen() {
-        self.socket?.receive { message in
+        self.signalingClient.socket?.receive { message in
             switch message {
             case .success(.data(let data)):
                 do {
@@ -21,8 +21,6 @@ extension WebRTCModel {
                         self.peerConnection.setRemoteDescription(sdp) { err in
                             if let err = err { debugPrint(err.localizedDescription) }
                         }
-                        
-                        debugPrint("Got sdp from : \(request.user.name)")
                     case .ice:
                         let candidate = RTCIceCandidate(
                             sdp: request.sdp,
@@ -52,7 +50,7 @@ extension WebRTCModel {
         case offer, answer
     }
     
-    private func connect(from srcUser: User, to dstUser: User, direction: Direction) {
+    private func connect(to user: User, direction: Direction) {
         let fn = direction == .offer ? self.peerConnection.offer : self.peerConnection.answer
         
         fn(RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil)) { sdp, error in
@@ -64,16 +62,16 @@ extension WebRTCModel {
                     $0.sdp = sdp.sdp
                     $0.sdpType = Int32(sdp.type.rawValue)
                     $0.sdpDescription = sdp.description
-                    $0.user = srcUser
+                    $0.user = user
                 }
                 
-                self.socket?.send(.data(try! request.serializedData())) { err in
+                self.signalingClient.socket?.send(.data(try! request.serializedData())) { err in
                     if let err = err { debugPrint(err.localizedDescription) }
                 }
             }
         }
     }
     
-    func offer(from a: User, to b: User) { connect(from: a, to: b, direction: .offer) }
-    func answer(from a: User, to b: User) { connect(from: a, to: b, direction: .answer) }
+    func offer(to user: User) { connect(to: user, direction: .offer) }
+    func answer(to user: User) { connect(to: user, direction: .answer) }
 }

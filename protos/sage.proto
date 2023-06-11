@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/descriptor.proto";
+
 option go_package = "github.com/i-r-l/sage/back/sageproto";
 
 message Token {
@@ -58,6 +60,11 @@ message Criteria {
   int32 age_min = 1;
   int32 age_max = 2;
   LocationProximity proximity = 3;
+}
+
+message ChatRequest {
+  User user = 1;
+  User other_user = 2;
 }
 
 message PresignedUrlRequest {

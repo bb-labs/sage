@@ -19,8 +19,9 @@ struct SlideApp: App {
 class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let userModel = UserModel()
     let introModel = IntroModel()
-    let cameraModel = CameraModel()
     let webRTCModel = WebRTCModel()
+    let cameraModel = CameraModel()
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
@@ -33,8 +34,10 @@ class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNoti
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.userModel.addCredential(DeviceCredentials(
-            deviceToken: String(decoding: deviceToken, as: UTF8.self)
+        AuthModel.shared.credentials.append(DeviceCredentials(
+            deviceToken: deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         ))
+        
+        self.webRTCModel.startSignaling()
     }
 }

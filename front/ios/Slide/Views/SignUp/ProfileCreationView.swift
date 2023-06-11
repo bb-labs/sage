@@ -12,29 +12,29 @@ struct CreateProfileView: View {
     
     
     @State var identifyAs = [
-        ProfileModel.Gender.MAN.rawValue: false,
-        ProfileModel.Gender.WOMAN.rawValue: false,
-        ProfileModel.Gender.HUMAN.rawValue: false
+        String(describing: Gender.man.rawValue): false,
+        String(describing: Gender.woman.rawValue): false,
+        String(describing: Gender.human.rawValue): false
     ]
     
     @State var interestedIn = [
-        ProfileModel.Gender.MEN.rawValue: false,
-        ProfileModel.Gender.WOMEN.rawValue: false,
-        ProfileModel.Gender.HUMANS.rawValue: false
+        String(describing: Gender.man.rawValue): false,
+        String(describing: Gender.woman.rawValue): false,
+        String(describing: Gender.human.rawValue): false
     ]
     
     @State var scheduleFree = [
-        ProfileModel.MeetingTime.MORNING.rawValue: false,
-        ProfileModel.MeetingTime.EARLY_AFTERNOON.rawValue: false,
-        ProfileModel.MeetingTime.LATE_AFTERNOON.rawValue: false,
-        ProfileModel.MeetingTime.EVENING.rawValue: false
+        String(describing: MeetingTime.morning.rawValue): false,
+        String(describing: MeetingTime.earlyAfternoon.rawValue): false,
+        String(describing: MeetingTime.lateAfternoon.rawValue): false,
+        String(describing: MeetingTime.evening.rawValue): false
     ]
     
     @State var locationRadius = [
-        ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue: false,
-        ProfileModel.LocationRadius.CITY.rawValue: false,
-        ProfileModel.LocationRadius.METRO.rawValue: false,
-        ProfileModel.LocationRadius.STATE.rawValue: false
+        String(describing: LocationProximity.neighborhood.rawValue): false,
+        String(describing: LocationProximity.city.rawValue): false,
+        String(describing: LocationProximity.metro.rawValue): false,
+        String(describing: LocationProximity.state.rawValue): false
     ]
     
 
@@ -76,10 +76,10 @@ struct CreateProfileView: View {
                     errorMessage: "Tell us when you're free!",
                     validate: { scheduleFree.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: true, selections: $scheduleFree, ordering: [
-                        ProfileModel.MeetingTime.MORNING.rawValue,
-                        ProfileModel.MeetingTime.EARLY_AFTERNOON.rawValue,
-                        ProfileModel.MeetingTime.LATE_AFTERNOON.rawValue,
-                        ProfileModel.MeetingTime.EVENING.rawValue
+                        String(describing: MeetingTime.morning.rawValue),
+                        String(describing: MeetingTime.earlyAfternoon.rawValue),
+                        String(describing: MeetingTime.lateAfternoon.rawValue),
+                        String(describing: MeetingTime.evening.rawValue)
                     ])
                 }.tag(3)
                 
@@ -89,10 +89,10 @@ struct CreateProfileView: View {
                     errorMessage: "Help us understand your willingness to travel!",
                     validate: { scheduleFree.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: false, selections: $locationRadius, ordering: [
-                        ProfileModel.LocationRadius.NEIGHBORHOOD.rawValue,
-                        ProfileModel.LocationRadius.CITY.rawValue,
-                        ProfileModel.LocationRadius.METRO.rawValue,
-                        ProfileModel.LocationRadius.STATE.rawValue
+                        String(describing: LocationProximity.neighborhood.rawValue),
+                        String(describing: LocationProximity.city.rawValue),
+                        String(describing: LocationProximity.metro.rawValue),
+                        String(describing: LocationProximity.state.rawValue)
                     ])
                 }.tag(4)
                 

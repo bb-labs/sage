@@ -11,7 +11,14 @@
 .PHONY: init
 
 # TODO(trumanpurnell) - fix this janky cd shit
+back-test:
+	cd back/wss/test; go test -run TestSendChatRequest
 
+back-dump:
+	mongoexport --uri='mongodb://root:password@localhost:4001/sage_wss?authsource=admin' --collection=webRtc --pretty
+	@echo "\n\n\n\n\n"
+	mongoexport --uri='mongodb://root:password@localhost:3001/sage_app?authsource=admin' --collection=users --pretty
+	
 back-up: back-down
 	cd back; docker compose up --build --detach
 

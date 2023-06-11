@@ -2,7 +2,16 @@
 import Foundation
 import WebRTC
 
-class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
+class WebRTCModel: NSObject, ObservableObject {
+    // Signaling client
+    let signalingClient = WSSClient()
+    
+    func startSignaling() {
+        self.signalingClient.start()
+        self.listen()
+    }
+    
+    // WebRTC internals
     let streamId = "sage-stream"
     
     public static let peerFactory: RTCPeerConnectionFactory = {
@@ -12,12 +21,6 @@ class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
         return RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
     }()
     
-    
-    // Signaling
-    public var socket: URLSessionWebSocketTask?
-    public lazy var urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
-    
-    // WebRTC internals
     public let peerConnection: RTCPeerConnection
     public let rtcAudioSession =  RTCAudioSession.sharedInstance()
     public let audioQueue = DispatchQueue(label: "audio")
@@ -31,7 +34,6 @@ class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
     
     public var localVideoRender: RTCMTLVideoView?
     public var remoteVideoRender: RTCMTLVideoView?
-    
     
     override init() {
         // Config setup
@@ -52,14 +54,10 @@ class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
         ) else {
             fatalError("Could not create new RTCPeerConnection")
         }
+        
         self.peerConnection = peerConnection
         super.init()
         self.peerConnection.delegate = self
-        
-        // Signaling setup
-        self.socket = urlSession.webSocketTask(with: URL(string: "ws://10.0.0.40:4000/session")!)
-        self.socket?.resume()
-        self.listen()
         
         // Audio
         let audioConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)

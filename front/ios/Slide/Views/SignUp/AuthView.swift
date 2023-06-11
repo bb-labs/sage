@@ -39,8 +39,8 @@ struct AuthView: View {
                     Spacer()
                     
                     SignInWithAppleButton(.continue,
-                                          onRequest: userModel.auth.requestAppleScopes,
-                                          onCompletion: userModel.auth.onAppleSignUpComplete)
+                                          onRequest: AuthModel.shared.requestAppleScopes,
+                                          onCompletion: AuthModel.shared.onAppleSignUpComplete)
                         .frame(width: 300, height: 45)
                         .cornerRadius(50)
                         .signInWithAppleButtonStyle(.black)

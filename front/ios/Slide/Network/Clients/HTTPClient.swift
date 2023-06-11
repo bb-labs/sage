@@ -57,12 +57,11 @@ enum APIMethod: String, Codable {
     case POST = "POST"
 }
 
-struct HttpClient {
+struct HTTPClient {
     let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-    var credentials: [Credentials] = []
     
     func fetch<T>(_ request: APICall) async throws -> T {
-        let (data, response) = try await self.urlSession.data(for: request.pack(with: self.credentials))
+        let (data, response) = try await self.urlSession.data(for: request.pack(with: AuthModel.shared.credentials))
             
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw APIError.fetchError
