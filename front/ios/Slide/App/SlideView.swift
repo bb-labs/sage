@@ -1,5 +1,6 @@
 
 import SwiftUI
+import WebRTC
 
 struct SlideView: View {
     @EnvironmentObject var userModel: UserModel
@@ -8,8 +9,26 @@ struct SlideView: View {
     
     var body: some View {
         CameraVideoChatView()
-            .onAppear {
-                webRTCModel.offer(to: userModel.user)
+            .overlay {
+                HStack {
+                    Button("Offer") {
+                        webRTCModel.offer(to: userModel.user)
+                    }
+                    Button("Answer") {
+                        webRTCModel.answer(to: userModel.user)
+                    }
+                    Button("Video") {
+                        webRTCModel.setTrackEnabled(RTCVideoTrack.self, isEnabled: true)
+                        webRTCModel.renderRemoteVideo()
+                    }
+                    Button("Hello") {
+                        webRTCModel.signalingClient.socket?.send(.string("Hello!")) { err in
+                            if let err = err {
+                                debugPrint(err)
+                            }
+                        }
+                    }
+                }
             }
     }
 }

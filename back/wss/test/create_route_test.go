@@ -9,19 +9,18 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	sageproto "github.com/i-r-l/sage/back/wss/protos"
+	rtcproto "github.com/i-r-l/sage/back/wss/protos"
 )
 
-func TestSendChatRequest(t *testing.T) {
-	// Create Users
-	john := &sageproto.User{Id: "4fe602ce24720c0da87c8d33a638d47669f69fb74d1b7e9b54f44382adf74b17"}
-	jane := &sageproto.User{Id: "387afdfe09c45b8ce033337e46ca94e26c2afe2c1d94e4b820b521a58802be6a"}
+func TestSendRouteRequest(t *testing.T) {
+	// Create a RouteRequest message
+	routeRequest := &rtcproto.RouteRequest{
+		Id:      "4fe602ce24720c0da87c8d33a638d47669f69fb74d1b7e9b54f44382adf74b17",
+		OtherId: "387afdfe09c45b8ce033337e46ca94e26c2afe2c1d94e4b820b521a58802be6a",
+	}
 
-	// Create a ChatRequest message
-	chatRequest := &sageproto.ChatRequest{User: john, OtherUser: jane}
-
-	// Convert the ChatRequest message to bytes
-	protoData, err := proto.Marshal(chatRequest)
+	// Convert the RouteRequest message to bytes
+	protoData, err := proto.Marshal(routeRequest)
 	if err != nil {
 		t.Fatalf("Error marshaling protobuf: %v", err)
 	}
@@ -32,7 +31,7 @@ func TestSendChatRequest(t *testing.T) {
 	}
 
 	// Send the HTTP request to the mock server
-	resp, err := client.Post("http://localhost:4000/chat", "application/x-protobuf", bytes.NewReader(protoData))
+	resp, err := client.Post("http://localhost:4000/route", "application/x-protobuf", bytes.NewReader(protoData))
 	if err != nil {
 		t.Fatalf("Error sending request: %v", err)
 	}

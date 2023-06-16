@@ -43,11 +43,18 @@ front-up: front-down
 front-down:
 	cd front; osascript ios/kill.js
 
-proto:
-	protoc -I=protos --swift_out=front/ios/Slide/Protos Sage.proto
-	pipenv run python front/ios/proto.py Sage.pb.swift
+define gen_protos
+	protoc -I=protos --swift_out=front/ios/Slide/Protos $1.proto
+	pipenv run python front/ios/proto.py $1.pb.swift
 	
-	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative Sage.proto
-	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative Sage.proto
+	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative $1.proto
+endef
+
+proto:
+	@$(call gen_protos,"sage")
+	@$(call gen_protos,"auth")
+	@$(call gen_protos,"presign")
+	@$(call gen_protos,"rtc")
 
 # TODO(trumanpurnell) - handle init, sheesh..

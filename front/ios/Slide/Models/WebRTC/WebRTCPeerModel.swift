@@ -8,7 +8,7 @@ extension WebRTCModel: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
-        debugPrint("peerConnection did add stream")
+        debugPrint("peerConnection did add stream \(stream)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
@@ -28,16 +28,19 @@ extension WebRTCModel: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        var request = WebRTCSignalingRequest.with {
-            $0.type = .ice
-            $0.iceLineIndex = candidate.sdpMLineIndex
-            $0.sdp = candidate.sdp
+        var iceRequest = SignalingRequest.with {
+            $0.ice = Ice.with {
+                $0.lineIndex = candidate.sdpMLineIndex
+                $0.sdp = Sdp.with {
+                    $0.message = candidate.sdp
+                }
+            }
         }
+        
+        if let streamID = candidate.sdpMid { iceRequest.ice.streamID = streamID }
+        if let serverURL = candidate.serverUrl { iceRequest.ice.serverURL = serverURL }
 
-        if let streamID = candidate.sdpMid { request.iceStreamID = streamID }
-        if let serverURL = candidate.serverUrl { request.iceServerURL = serverURL }
-
-        self.signalingClient.socket?.send(.data(try! request.serializedData())) { err in
+        self.signalingClient.socket?.send(.data(try! iceRequest.serializedData())) { err in
             if let err = err {
                 debugPrint("peerConnection couldn't send ICE candidate: err \(err.localizedDescription)")
             }

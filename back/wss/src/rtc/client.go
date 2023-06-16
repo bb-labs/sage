@@ -3,13 +3,10 @@ package rtc
 import (
 	"log"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/gorilla/websocket"
+	sageproto "github.com/i-r-l/sage/back/wss/protos"
 )
-
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024 * 1024 * 3, // 3MB
-	WriteBufferSize: 1024 * 1024 * 3, // 3MB
-}
 
 // Client is a middleman between the websocket connection and the hub.
 type Client struct {
@@ -20,7 +17,7 @@ type Client struct {
 	conn *websocket.Conn
 
 	// Buffered channel of outbound messages.
-	send chan []byte
+	send chan *Message
 
 	// Logger for the client
 	logger *log.Logger
@@ -39,11 +36,15 @@ func (c *Client) readPump(hub *Hub) {
 
 	for {
 		_, message, err := c.conn.ReadMessage()
+
 		if err != nil {
 			c.logger.Printf("error: %v", err)
 			return
 		}
-		hub.incoming <- &Message{Data: message, Client: c}
+
+		c.logger.Println("Client: ", c.ID)
+
+		hub.wire <- &Message{Data: &message, Client: c}
 	}
 }
 
@@ -61,11 +62,20 @@ func (c *Client) writePump(hub *Hub) {
 		message, ok := <-c.send
 
 		if !ok {
-			// The hub closed the channel.
 			c.conn.WriteMessage(websocket.CloseMessage, []byte{})
 			return
 		}
 
-		c.conn.WriteMessage(websocket.BinaryMessage, message)
+		request := sageproto.SignalingRequest{}
+		err := proto.Unmarshal(*message.Data, &request)
+		if err != nil {
+			c.logger.Println("err: ", err)
+		} else if request.GetIce() != nil {
+			c.logger.Println("Ice: ", request.GetIce())
+		} else {
+			c.logger.Println("Sdp: ", request.GetSdp())
+		}
+
+		c.conn.WriteMessage(websocket.BinaryMessage, *message.Data)
 	}
 }

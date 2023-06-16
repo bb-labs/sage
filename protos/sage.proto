@@ -1,15 +1,6 @@
 syntax = "proto3";
 
-import "google/protobuf/descriptor.proto";
-
 option go_package = "github.com/i-r-l/sage/back/sageproto";
-
-message Token {
-  string access_token = 1;
-  string refresh_token = 2;
-  string auth_code = 3;
-  string identity_token = 4;
-}
 
 message User {
   string id = 1;
@@ -49,49 +40,15 @@ message Location {
   int32 longitude = 3;
 }
 
-message Match {
-  User user = 1;
-  User other_user = 2;
-  Location location = 3;
-  int32 created_at = 4;
-}
-
 message Criteria {
   int32 age_min = 1;
   int32 age_max = 2;
   LocationProximity proximity = 3;
 }
 
-message ChatRequest {
+message Match {
   User user = 1;
   User other_user = 2;
-}
-
-message PresignedUrlRequest {
-  string action = 1;
-  string file_name = 2;
-}
-
-message PresignedUrlResponse {
-  string url = 1;
-  PresignedUrlRequest request = 2;
-}
-
-enum WebRTCRequestType {
-  ICE = 0;
-  SDP = 1;
-}
-
-message WebRTCSignalingRequest {
-  WebRTCRequestType type = 7;
-
-  User user = 8;
-
-  string sdp = 1;
-  int32 sdp_type = 2;
-  string sdp_description = 3;
-
-  string ice_stream_id = 4;
-  int32 ice_line_index = 5;
-  string ice_server_url = 6;
+  Location location = 3;
+  int32 created_at = 4;
 }

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/i-r-l/sage/back/sageproto";
+
+message RouteRequest {
+  string id = 1;
+  string other_id = 2;
+}
+
+message Sdp {
+  string message = 1;
+  int32 type = 2;
+  string description = 3;
+}
+
+message Ice {
+  Sdp sdp = 1;
+  string stream_id = 2;
+  int32 line_index = 3;
+  string server_url = 4;
+}
+
+message SignalingRequest {
+  oneof message {
+    Sdp sdp = 1;
+    Ice ice = 2;
+  }
+}

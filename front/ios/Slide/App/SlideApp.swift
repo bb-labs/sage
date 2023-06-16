@@ -38,6 +38,7 @@ class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNoti
             deviceToken: deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         ))
         
+        debugPrint(AuthModel.shared.credentials)
         self.webRTCModel.startSignaling()
     }
 }

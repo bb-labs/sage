@@ -13,7 +13,6 @@ struct CameraVideoChatPeerView: UIViewRepresentable {
         
         webRTCModel.remoteVideoRender = RTCMTLVideoView(frame: view.frame)
         webRTCModel.remoteVideoRender?.transform = CGAffineTransformMakeScale(-1.0, 1.0)
-        webRTCModel.renderRemoteVideo()
         
         view.addSubview(webRTCModel.remoteVideoRender!)
 

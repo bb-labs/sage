@@ -28,13 +28,13 @@ func main() {
 	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
 
 	if err != nil {
-		logger.Printf("err initializing db: %v", err)
+		logger.Fatalf("err initializing db: %v", err)
 	}
 
 	// Connect to the db
 	err = db.Connect(ctx)
 	if err != nil {
-		logger.Printf("err connecting to db: %v", err)
+		logger.Fatalf("err connecting to db: %v", err)
 	}
 
 	// Cleanup any errors
@@ -43,11 +43,14 @@ func main() {
 	}()
 
 	// Initialize the hub
-	hub := rtc.NewHub(db, ctx)
+	hub, err := rtc.NewHub(db, ctx)
+	if err != nil {
+		logger.Fatalf("err initializing hub: %v", err)
+	}
 	go hub.Run()
 
 	// Setup routes for sessions and
-	router.POST("/chat", rtc.HandleChat(hub))
+	router.POST("/route", rtc.HandleRoute(hub))
 	router.GET("/session", rtc.HandleSession(upgrader, hub))
 
 	// Run the server

@@ -9,34 +9,41 @@ extension WebRTCModel {
             switch message {
             case .success(.data(let data)):
                 do {
-                    let request = try WebRTCSignalingRequest(serializedData: data)
+                    let request = try SignalingRequest(serializedData: data)
                     
-                    switch request.type {
-                    case .sdp:
+                    switch request.message {
+                    case .sdp(let sdp):
                         let sdp = RTCSessionDescription(
-                            type: RTCSdpType(rawValue: Int(request.sdpType))!,
-                            sdp: request.sdp
+                            type: RTCSdpType(rawValue: Int(sdp.type))!,
+                            sdp: sdp.message
                         )
+                        
+                        debugPrint("remote got a new sdp")
                         
                         self.peerConnection.setRemoteDescription(sdp) { err in
                             if let err = err { debugPrint(err.localizedDescription) }
                         }
-                    case .ice:
+                    case .ice(let ice):
                         let candidate = RTCIceCandidate(
-                            sdp: request.sdp,
-                            sdpMLineIndex: request.iceLineIndex,
-                            sdpMid: request.iceStreamID
+                            sdp: ice.sdp.message,
+                            sdpMLineIndex: ice.lineIndex,
+                            sdpMid: ice.streamID
                         )
+                        
+                        debugPrint("remote got a new candidate")
                         
                         self.peerConnection.add(candidate) { err in
                             if let err = err { debugPrint(err.localizedDescription) }
                         }
-                    case .UNRECOGNIZED(_):
-                        debugPrint("Unexpected data format for signaling data")
+                    default:
+                        debugPrint("error: expected either ice or sdp")
+                        return
                     }
+                    
+                    self.listen()
                 }
                 catch {
-                    debugPrint("Failed to parse signaling data")
+                    debugPrint("Failed to parse signaling data. \(error.localizedDescription)")
                 }
             case .success:
                 debugPrint("Warning: Expected to receive data format. Check the websocket server config.")
@@ -57,15 +64,15 @@ extension WebRTCModel {
             guard let sdp = sdp else { return }
             
             self.peerConnection.setLocalDescription(sdp) { error in
-                let request = WebRTCSignalingRequest.with {
-                    $0.type = .sdp
-                    $0.sdp = sdp.sdp
-                    $0.sdpType = Int32(sdp.type.rawValue)
-                    $0.sdpDescription = sdp.description
-                    $0.user = user
+                let sdpRequest = SignalingRequest.with {
+                    $0.sdp = Sdp.with {
+                        $0.message = sdp.sdp
+                        $0.type = Int32(sdp.type.rawValue)
+                        $0.description_p = sdp.description
+                    }
                 }
                 
-                self.signalingClient.socket?.send(.data(try! request.serializedData())) { err in
+                self.signalingClient.socket?.send(.data(try! sdpRequest.serializedData())) { err in
                     if let err = err { debugPrint(err.localizedDescription) }
                 }
             }
