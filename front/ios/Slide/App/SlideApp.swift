@@ -38,7 +38,13 @@ class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNoti
             deviceToken: deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         ))
         
-        self.webRTCModel.startSignaling()
+//        self.webRTCModel.startSignaling()
+        
+        Task {
+            // Create user account
+            let response: SlideAuthorizeDevice.Response  = try await userModel.httpClient.fetch(SlideAuthorizeDevice())
+            debugPrint("Got back a: \(response.status)")
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError err: Error) {

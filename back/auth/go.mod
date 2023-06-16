@@ -7,7 +7,7 @@ require (
 	github.com/golang/protobuf v1.5.0
 	github.com/lestrrat-go/jwx/v2 v2.0.11
 	go.mongodb.org/mongo-driver v1.11.1
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.30.0
 )
 
 require (

@@ -3,11 +3,14 @@ package routes
 import (
 	"io"
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang/protobuf/proto"
-	sageproto "github.com/i-r-l/sage/back/auth/protos"
 	"go.mongodb.org/mongo-driver/mongo"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
+
+	sageproto "github.com/i-r-l/sage/back/auth/protos"
 )
 
 func HandleAuth(db *mongo.Client) gin.HandlerFunc {
@@ -27,6 +30,8 @@ func HandleAuth(db *mongo.Client) gin.HandlerFunc {
 			return
 		}
 
-		logger.Println("Hey token!", token.DeviceToken)
+		jsonBuf, _ := protojson.Marshal(&token)
+
+		ctx.JSON(http.StatusOK, gin.H{"status": "YAY!"})
 	}
 }
