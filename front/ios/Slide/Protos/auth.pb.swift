@@ -33,6 +33,8 @@ struct Token {
 
   var identityToken: String = String()
 
+  var deviceToken: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -51,6 +53,7 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
     2: .standard(proto: "refresh_token"),
     3: .standard(proto: "auth_code"),
     4: .standard(proto: "identity_token"),
+    5: .standard(proto: "device_token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -63,6 +66,7 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
       case 2: try { try decoder.decodeSingularStringField(value: &self.refreshToken) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.authCode) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.identityToken) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.deviceToken) }()
       default: break
       }
     }
@@ -81,6 +85,9 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
     if !self.identityToken.isEmpty {
       try visitor.visitSingularStringField(value: self.identityToken, fieldNumber: 4)
     }
+    if !self.deviceToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceToken, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -89,6 +96,7 @@ extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase
     if lhs.refreshToken != rhs.refreshToken {return false}
     if lhs.authCode != rhs.authCode {return false}
     if lhs.identityToken != rhs.identityToken {return false}
+    if lhs.deviceToken != rhs.deviceToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

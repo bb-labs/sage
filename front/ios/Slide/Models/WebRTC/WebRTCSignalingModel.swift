@@ -13,28 +13,16 @@ extension WebRTCModel {
                     
                     switch request.message {
                     case .sdp(let sdp):
-                        let sdp = RTCSessionDescription(
+                        self.peerConnection.setRemoteDescription(RTCSessionDescription(
                             type: RTCSdpType(rawValue: Int(sdp.type))!,
                             sdp: sdp.message
-                        )
-                        
-                        debugPrint("remote got a new sdp")
-                        
-                        self.peerConnection.setRemoteDescription(sdp) { err in
-                            if let err = err { debugPrint(err.localizedDescription) }
-                        }
+                        )) { err in if let err = err { debugPrint(err.localizedDescription) } }
                     case .ice(let ice):
-                        let candidate = RTCIceCandidate(
+                        self.peerConnection.add(RTCIceCandidate(
                             sdp: ice.sdp.message,
                             sdpMLineIndex: ice.lineIndex,
                             sdpMid: ice.streamID
-                        )
-                        
-                        debugPrint("remote got a new candidate")
-                        
-                        self.peerConnection.add(candidate) { err in
-                            if let err = err { debugPrint(err.localizedDescription) }
-                        }
+                        )) { err in if let err = err { debugPrint(err.localizedDescription) } }
                     default:
                         debugPrint("error: expected either ice or sdp")
                         return

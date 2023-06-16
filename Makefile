@@ -28,6 +28,9 @@ back-down:
 back-logs:
 	cd back; docker compose logs -f $(service)
 
+back-shell:
+	cd back; docker exec -it $(container) bash
+
 back-status:
 	cd back; docker container ls
 
@@ -49,6 +52,7 @@ define gen_protos
 	
 	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative $1.proto
 	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=back/auth/protos --go_opt=paths=source_relative $1.proto
 endef
 
 proto:

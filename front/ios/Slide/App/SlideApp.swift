@@ -38,7 +38,10 @@ class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNoti
             deviceToken: deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         ))
         
-        debugPrint(AuthModel.shared.credentials)
         self.webRTCModel.startSignaling()
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError err: Error) {
+        debugPrint("Couldn't register device token! \(err)")
     }
 }

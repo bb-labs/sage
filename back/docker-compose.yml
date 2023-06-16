@@ -56,6 +56,35 @@ services:
     volumes:
       - ./wss/db/data:/data/db
       - ./wss/db/scripts:/docker-entrypoint-initdb.d
+  
+  # Auth server
+  auth:
+    container_name: sage_auth
+    depends_on:
+      - auth_db
+    env_file:
+      - ./auth/.env.dev
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    volumes:
+      - ./auth:/usr/src/auth
+      - ~/.aws:/root/.aws
+    ports:
+      - 6000:6000
+
+  auth_db:
+    container_name: sage_auth_db
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: sage_auth
+    ports:
+      - 6001:27017
+    volumes:
+      - ./auth/db/data:/data/db
+      - ./auth/db/scripts:/docker-entrypoint-initdb.d
 
 networks:
   sage:

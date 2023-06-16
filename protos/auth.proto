@@ -7,4 +7,5 @@ message Token {
   string refresh_token = 2;
   string auth_code = 3;
   string identity_token = 4;
+  string device_token = 5;
 }

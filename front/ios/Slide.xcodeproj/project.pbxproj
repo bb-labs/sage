@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		158E446C81AFBF2A75F294CC /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E214CFEA5F686C5B8BCD4A6 /* presign.pb.swift */; };
-		241249C7830CC408271D509C /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F4F939C63E674282CB5E8 /* rtc.pb.swift */; };
-		31A648498622EE65CEC2BA02 /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E214CFEA5F686C5B8BCD4A6 /* presign.pb.swift */; };
-		4F084537A96BE90024CD640A /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC48418D13DE647DF95438 /* auth.pb.swift */; };
+		031C4E6E96BB68C0E10F3D86 /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD44B2B1904034A66CCF97 /* presign.pb.swift */; };
+		20AA4715882B556C7DA6BF73 /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD44B2B1904034A66CCF97 /* presign.pb.swift */; };
+		3D6C49AE890783C88E07CE0D /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2404D748BF568D66691A637 /* rtc.pb.swift */; };
+		453A428D98BFA36667930E6A /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B24995A08066A14CA8916C /* sage.pb.swift */; };
+		50CF4A1E903B9892621D97EE /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B24995A08066A14CA8916C /* sage.pb.swift */; };
+		5BFD44578AD56AC890C9FDD0 /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85044DDDA2C105F68A34B345 /* auth.pb.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -52,6 +54,7 @@
 		8B6EAB042A353E09001BC68E /* WSSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB032A353E09001BC68E /* WSSClient.swift */; };
 		8B6EAB062A353F4E001BC68E /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */; };
 		8B6EAB082A3540B7001BC68E /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */; };
+		8B6EAB0C2A3C02A8001BC68E /* SlideAuthorizeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB0B2A3C02A8001BC68E /* SlideAuthorizeDevice.swift */; };
 		8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */; };
 		8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */; };
 		8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */; };
@@ -74,14 +77,12 @@
 		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
-		9BE3432AB79B15CFCC634DA2 /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F4F939C63E674282CB5E8 /* rtc.pb.swift */; };
-		9EDB4AEC9AF364458AF61C8A /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C499BBFF6FC04ED0C32B7 /* sage.pb.swift */; };
-		AA67432E98F97DE43407DAD2 /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F4F939C63E674282CB5E8 /* rtc.pb.swift */; };
-		D40D4680B8BD7B6BD2DF8822 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C499BBFF6FC04ED0C32B7 /* sage.pb.swift */; };
-		D843420B92563C514EE18F59 /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC48418D13DE647DF95438 /* auth.pb.swift */; };
-		DED4446DABAC4FDBDDDB9CB6 /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC48418D13DE647DF95438 /* auth.pb.swift */; };
-		E0F54F9F81DF4A863511DFC3 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C499BBFF6FC04ED0C32B7 /* sage.pb.swift */; };
-		F8494B83B00F24786B81228C /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E214CFEA5F686C5B8BCD4A6 /* presign.pb.swift */; };
+		AAEC4B3D911BAE0E56C02041 /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85044DDDA2C105F68A34B345 /* auth.pb.swift */; };
+		AD8043798DDBED5695BE57EA /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2404D748BF568D66691A637 /* rtc.pb.swift */; };
+		D20F42B9B08FAF4736E1C097 /* presign.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD44B2B1904034A66CCF97 /* presign.pb.swift */; };
+		E5D944BCBB35B835C335BDB0 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B24995A08066A14CA8916C /* sage.pb.swift */; };
+		F6C64F16ABD2361B859743EB /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85044DDDA2C105F68A34B345 /* auth.pb.swift */; };
+		F969466D8D619D0CCF80237D /* rtc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2404D748BF568D66691A637 /* rtc.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,9 +103,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		138C499BBFF6FC04ED0C32B7 /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
-		1FEC48418D13DE647DF95438 /* auth.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = auth.pb.swift; path = auth.pb.swift; sourceTree = "<group>"; };
-		7E214CFEA5F686C5B8BCD4A6 /* presign.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = presign.pb.swift; path = presign.pb.swift; sourceTree = "<group>"; };
+		58B24995A08066A14CA8916C /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		63CD44B2B1904034A66CCF97 /* presign.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = presign.pb.swift; path = presign.pb.swift; sourceTree = "<group>"; };
+		85044DDDA2C105F68A34B345 /* auth.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = auth.pb.swift; path = auth.pb.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		8B6EAB032A353E09001BC68E /* WSSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSClient.swift; sourceTree = "<group>"; };
 		8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
 		8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
+		8B6EAB0B2A3C02A8001BC68E /* SlideAuthorizeDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAuthorizeDevice.swift; sourceTree = "<group>"; };
 		8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionsView.swift; sourceTree = "<group>"; };
 		8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronView.swift; sourceTree = "<group>"; };
@@ -168,7 +170,7 @@
 		8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
-		BD0F4F939C63E674282CB5E8 /* rtc.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = rtc.pb.swift; path = rtc.pb.swift; sourceTree = "<group>"; };
+		B2404D748BF568D66691A637 /* rtc.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = rtc.pb.swift; path = rtc.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				8B275AA0298A3A9300E89EF1 /* SlideUpdateLocation.swift */,
+				8B6EAB0B2A3C02A8001BC68E /* SlideAuthorizeDevice.swift */,
 				8B14943929A8932A001497FE /* SlideCreateUser.swift */,
 				8B5469CC29A1EB8900648205 /* SlidePresignUrl.swift */,
 				8B5469C929A1EB3B00648205 /* SlidePresignData.swift */,
@@ -443,10 +446,10 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				138C499BBFF6FC04ED0C32B7 /* sage.pb.swift */,
-				1FEC48418D13DE647DF95438 /* auth.pb.swift */,
-				7E214CFEA5F686C5B8BCD4A6 /* presign.pb.swift */,
-				BD0F4F939C63E674282CB5E8 /* rtc.pb.swift */,
+				58B24995A08066A14CA8916C /* sage.pb.swift */,
+				85044DDDA2C105F68A34B345 /* auth.pb.swift */,
+				63CD44B2B1904034A66CCF97 /* presign.pb.swift */,
+				B2404D748BF568D66691A637 /* rtc.pb.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				8BA5847C2A0B517A005F4A2F /* CameraVideoChatPeerView.swift in Sources */,
 				8B2E31B72A08566C00E02591 /* CameraVideoChatSelfView.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
+				8B6EAB0C2A3C02A8001BC68E /* SlideAuthorizeDevice.swift in Sources */,
 				8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */,
 				8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */,
 				8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */,
@@ -645,10 +649,10 @@
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
-				D40D4680B8BD7B6BD2DF8822 /* sage.pb.swift in Sources */,
-				DED4446DABAC4FDBDDDB9CB6 /* auth.pb.swift in Sources */,
-				F8494B83B00F24786B81228C /* presign.pb.swift in Sources */,
-				AA67432E98F97DE43407DAD2 /* rtc.pb.swift in Sources */,
+				50CF4A1E903B9892621D97EE /* sage.pb.swift in Sources */,
+				AAEC4B3D911BAE0E56C02041 /* auth.pb.swift in Sources */,
+				031C4E6E96BB68C0E10F3D86 /* presign.pb.swift in Sources */,
+				3D6C49AE890783C88E07CE0D /* rtc.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,10 +661,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				E0F54F9F81DF4A863511DFC3 /* sage.pb.swift in Sources */,
-				4F084537A96BE90024CD640A /* auth.pb.swift in Sources */,
-				31A648498622EE65CEC2BA02 /* presign.pb.swift in Sources */,
-				9BE3432AB79B15CFCC634DA2 /* rtc.pb.swift in Sources */,
+				453A428D98BFA36667930E6A /* sage.pb.swift in Sources */,
+				F6C64F16ABD2361B859743EB /* auth.pb.swift in Sources */,
+				D20F42B9B08FAF4736E1C097 /* presign.pb.swift in Sources */,
+				AD8043798DDBED5695BE57EA /* rtc.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,10 +674,10 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				9EDB4AEC9AF364458AF61C8A /* sage.pb.swift in Sources */,
-				D843420B92563C514EE18F59 /* auth.pb.swift in Sources */,
-				158E446C81AFBF2A75F294CC /* presign.pb.swift in Sources */,
-				241249C7830CC408271D509C /* rtc.pb.swift in Sources */,
+				E5D944BCBB35B835C335BDB0 /* sage.pb.swift in Sources */,
+				5BFD44578AD56AC890C9FDD0 /* auth.pb.swift in Sources */,
+				20AA4715882B556C7DA6BF73 /* presign.pb.swift in Sources */,
+				F969466D8D619D0CCF80237D /* rtc.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
