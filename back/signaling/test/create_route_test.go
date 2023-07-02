@@ -9,7 +9,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	rtcproto "github.com/i-r-l/sage/back/wss/protos"
+	rtcproto "github.com/i-r-l/sage/back/signaling/protos"
 )
 
 func TestSendRouteRequest(t *testing.T) {

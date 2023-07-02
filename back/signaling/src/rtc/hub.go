@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	sageproto "github.com/i-r-l/sage/back/wss/protos"
+	sageproto "github.com/i-r-l/sage/back/signaling/protos"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -60,7 +60,7 @@ func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
 }
 
 func (h *Hub) initRouter() error {
-	routerCur, err := h.db.Database(os.Getenv("MONGO_DB_NAME")).Collection("webRtc").Find(h.ctx, bson.D{})
+	routerCur, err := h.db.Database(os.Getenv("SIGNALING_MONGO_DB_NAME")).Collection("webRtc").Find(h.ctx, bson.D{})
 
 	if err != nil {
 		h.logger.Fatalf("err: %v. failed to fetch routing table", err)
@@ -84,7 +84,7 @@ func (h *Hub) initRouter() error {
 }
 
 func (h *Hub) Store(chatReq *sageproto.RouteRequest) (*mongo.InsertOneResult, error) {
-	res, err := h.db.Database(os.Getenv("MONGO_DB_NAME")).Collection("webRtc").InsertOne(h.ctx, chatReq)
+	res, err := h.db.Database(os.Getenv("SIGNALING_MONGO_DB_NAME")).Collection("webRtc").InsertOne(h.ctx, chatReq)
 
 	if err != nil {
 		return nil, err

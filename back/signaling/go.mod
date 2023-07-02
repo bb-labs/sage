@@ -1,4 +1,4 @@
-module github.com/i-r-l/sage/back/wss
+module github.com/i-r-l/sage/back/signaling
 
 go 1.18
 

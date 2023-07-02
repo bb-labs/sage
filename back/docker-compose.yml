@@ -1,90 +1,87 @@
 services:
   # App server
   app:
-    container_name: sage_app
+    container_name: ${APP_CONTAINER_NAME}
     depends_on:
       - app_db
     env_file:
-      - ./app/.env.dev
+      - ./.env.dev
     build:
       context: ./app
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./app:/usr/src/app
-      - ~/.aws:/root/.aws
+      - ./app:/usr/src/
     ports:
-      - 3000:3000
+      - ${APP_SERVICE_PORT}:${APP_SERVICE_PORT}
 
   app_db:
-    container_name: sage_app_db
+    container_name: ${APP_CONTAINER_NAME}_db
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: sage_app
-    ports:
-      - 3001:27017
+      MONGO_INITDB_DATABASE: ${APP_MONGO_DB_NAME}
     volumes:
       - ./app/db/data:/data/db
       - ./app/db/scripts:/docker-entrypoint-initdb.d
-
-  # WSS server
-  wss:
-    container_name: sage_wss
-    depends_on:
-      - wss_db
-    env_file:
-      - ./wss/.env.dev
-    build:
-      context: ./wss
-      dockerfile: Dockerfile
-    volumes:
-      - ./wss:/usr/src/wss
-      - ~/.aws:/root/.aws
     ports:
-      - 4000:4000
+      - ${APP_MONGO_PORT}:27017
 
-  wss_db:
-    container_name: sage_wss_db
+  # Signaling server
+  signaling:
+    container_name: ${SIGNALING_CONTAINER_NAME}
+    depends_on:
+      - signaling_db
+    env_file:
+      - ./.env.dev
+    build:
+      context: ./signaling
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./signaling:/usr/src/
+    ports:
+      - ${SIGNALING_SERVICE_PORT}:${SIGNALING_SERVICE_PORT}
+
+  signaling_db:
+    container_name: ${SIGNALING_CONTAINER_NAME}_db
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: sage_wss
-    ports:
-      - 4001:27017
+      MONGO_INITDB_DATABASE: ${SIGNALING_MONGO_DB_NAME}
     volumes:
-      - ./wss/db/data:/data/db
-      - ./wss/db/scripts:/docker-entrypoint-initdb.d
-  
+      - ./signaling/db/data:/data/db
+      - ./signaling/db/scripts:/docker-entrypoint-initdb.d
+    ports:
+      - ${SIGNALING_MONGO_PORT}:27017
+
   # Auth server
   auth:
-    container_name: sage_auth
+    container_name: ${AUTH_CONTAINER_NAME}
     depends_on:
       - auth_db
     env_file:
-      - ./auth/.env.dev
+      - ./.env.dev
     build:
       context: ./auth
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./auth:/usr/src/auth
-      - ~/.aws:/root/.aws
+      - ./auth:/usr/src/
     ports:
-      - 6000:6000
+      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
 
   auth_db:
-    container_name: sage_auth_db
+    container_name: ${AUTH_CONTAINER_NAME}_db
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: sage_auth
-    ports:
-      - 6001:27017
+      MONGO_INITDB_DATABASE: ${AUTH_MONGO_DB_NAME}
     volumes:
       - ./auth/db/data:/data/db
       - ./auth/db/scripts:/docker-entrypoint-initdb.d
+    ports:
+      - ${AUTH_MONGO_PORT}:27017
 
 networks:
   sage:

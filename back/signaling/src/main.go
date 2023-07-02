@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"github.com/i-r-l/sage/back/wss/src/rtc"
+	"github.com/i-r-l/sage/back/signaling/src/rtc"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -25,7 +25,7 @@ func main() {
 	ctx := context.Background()
 
 	// Initialize the db
-	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("SIGNALING_MONGO_URI")))
 
 	if err != nil {
 		logger.Fatalf("err initializing db: %v", err)

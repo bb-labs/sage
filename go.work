@@ -4,5 +4,5 @@ use (
 	./back/app
 	./back/auth
 	./back/presign
-	./back/wss
+	./back/signaling
 )

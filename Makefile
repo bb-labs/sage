@@ -1,58 +1,11 @@
-.PHONY: front-up
-.PHONY: front-down
-.PHONY: front-logs
-.PHONY: front-clean
-.PHONY: back-up
-.PHONY: back-down
-.PHONY: back-logs
-.PHONY: back-status
-.PHONY: back-clean
-.PHONY: proto
-.PHONY: init
-
-# TODO(trumanpurnell) - fix this janky cd shit
-back-test:
-	cd back/wss/test; go test -run TestSendChatRequest
-
-back-dump:
-	mongoexport --uri='mongodb://root:password@localhost:4001/sage_wss?authsource=admin' --collection=webRtc --pretty
-	@echo "\n\n\n\n\n"
-	mongoexport --uri='mongodb://root:password@localhost:3001/sage_app?authsource=admin' --collection=users --pretty
-	
-back-up: back-down
-	cd back; docker compose up --build --detach
-
-back-down:
-	cd back; docker compose down --remove-orphans
-
-back-logs:
-	cd back; docker compose logs -f $(service)
-
-back-shell:
-	cd back; docker exec -it $(container) bash
-
-back-status:
-	cd back; docker container ls
-
-back-clean:
-	cd back; rm -rf sage-db/data
-	cd back; docker container rm -f $(docker ps -a -q) 2>/dev/null || true
-	cd back; for i in ` docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' sage_default 2>/dev/null || true`; do docker network disconnect -f sage_default $i; done;
-	cd back; docker system prune -af --volumes
-
-front-up: front-down
-	cd front; osascript ios/build.js
-
-front-down:
-	cd front; osascript ios/kill.js
 
 define gen_protos
 	protoc -I=protos --swift_out=front/ios/Slide/Protos $1.proto
 	pipenv run python front/ios/proto.py $1.pb.swift
 	
 	protoc -I=protos --go_out=back/app/protos --go_opt=paths=source_relative $1.proto
-	protoc -I=protos --go_out=back/wss/protos --go_opt=paths=source_relative $1.proto
 	protoc -I=protos --go_out=back/auth/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=back/signaling/protos --go_opt=paths=source_relative $1.proto
 endef
 
 proto:
@@ -60,5 +13,3 @@ proto:
 	@$(call gen_protos,"auth")
 	@$(call gen_protos,"presign")
 	@$(call gen_protos,"rtc")
-
-# TODO(trumanpurnell) - handle init, sheesh..

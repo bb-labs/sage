@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/protobuf/proto"
 
-	sageproto "github.com/i-r-l/sage/back/wss/protos"
+	sageproto "github.com/i-r-l/sage/back/signaling/protos"
 )
 
 func HandleRoute(hub *Hub) func(*gin.Context) {

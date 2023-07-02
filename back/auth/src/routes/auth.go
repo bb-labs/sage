@@ -7,7 +7,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
-	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 
 	sageproto "github.com/i-r-l/sage/back/auth/protos"
@@ -29,8 +28,6 @@ func HandleAuth(db *mongo.Client) gin.HandlerFunc {
 			logger.Println("err: ", err)
 			return
 		}
-
-		jsonBuf, _ := protojson.Marshal(&token)
 
 		ctx.JSON(http.StatusOK, gin.H{"status": "YAY!"})
 	}
