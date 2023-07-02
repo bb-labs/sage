@@ -1,5 +1,10 @@
 
 
+ifneq (,$(wildcard ./.env.dev))
+    include .env.dev
+    export
+endif
+
 dev-dump:
 	mongoexport --uri='mongodb://root:password@localhost:4001/sage_wss?authsource=admin' --collection=webRtc --pretty
 	@echo "\n\n\n\n\n"
@@ -32,13 +37,8 @@ stage-push:
 	sh docker.sh signaling
 
 stage-apply:
-	set -a && . ./.env.stage && envsubst < stunner/deployment.yml > deployment_tmp.yml
-	kubectl apply -f deployment_tmp.yml
-	rm deployment_tmp.yml
-
-	set -a && . ./.env.stage && envsubst < signaling/deployment.yml > deployment_tmp.yml
-	kubectl apply -f deployment_tmp.yml
-	rm deployment_tmp.yml
+	envsubst < stunner/deployment.yml | kubectl apply -f -
+	envsubst < signaling/deployment.yml | kubectl apply -f -
 
 stage-up:
 	minikube start 
@@ -52,3 +52,7 @@ stage-up:
 
 stage-down: 
 	minikube delete
+
+	kubectl delete namespace stunner
+	kubectl delete namespace stunner-system
+	kubectl delete namespace signaling

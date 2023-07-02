@@ -54,5 +54,5 @@ func main() {
 	router.GET("/session", rtc.HandleSession(upgrader, hub))
 
 	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
+	router.Run(fmt.Sprintf(":%s", os.Getenv("SIGNALING_SERVICE_PORT")))
 }
