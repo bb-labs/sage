@@ -24,7 +24,7 @@ func main() {
 	ctx, cancelFn := context.WithTimeout(context.Background(), 30*time.Second)
 
 	// Initialize the db
-	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("APP_DB_URI")))
 
 	if err != nil {
 		logger.Fatalf("err: %v", err)
@@ -47,5 +47,5 @@ func main() {
 	router.POST("/locate", routes.HandleLocation(db))
 
 	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
+	router.Run(fmt.Sprintf(":%s", os.Getenv("APP_SERVICE_PORT")))
 }

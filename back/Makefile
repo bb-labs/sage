@@ -1,23 +1,21 @@
 
 
-ifneq (,$(wildcard ./.env.dev))
-    include .env.dev
-    export
-endif
+include .env.dev
+export
 
 dev-dump:
-	mongoexport --uri='mongodb://root:password@localhost:4001/sage_wss?authsource=admin' --collection=webRtc --pretty
+	mongoexport --uri='mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:${SIGNALING_DB_PORT}/${SIGNALING_DB_NAME}?authsource=admin' --collection=${SIGNALING_DB_TABLE_NAME} --pretty
 	@echo "\n\n\n\n\n"
-	mongoexport --uri='mongodb://root:password@localhost:3001/sage_app?authsource=admin' --collection=users --pretty
+	mongoexport --uri='mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:${APP_DB_PORT}/${APP_DB_NAME}?authsource=admin' --collection=${APP_DB_TABLE_NAME} --pretty
 	
 dev-up: dev-down
-	set -a; . ./.env.dev; docker compose up --build --detach
+	envsubst < docker-compose.yml | docker compose -f - up --build --detach
 
 dev-down:
-	docker compose down --remove-orphans
+	envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
 
 dev-logs:
-	docker compose logs -f $(service)
+	envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
 
 dev-shell:
 	docker exec -it $(container) bash
@@ -25,18 +23,14 @@ dev-shell:
 dev-status:
 	docker container ls
 
-dev-clean:
-	rm -rf app/db/data
-	rm -rf signaling/db/data
-	rm -rf auth/db/data
-	docker container rm -f $(docker ps -a -q) 2>/dev/null || true
-	for i in ` docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' sage_default 2>/dev/null || true`; do docker network disconnect -f sage_default $i; done;
-	docker system prune -af --volumes
+dev-clean: dev-down
+	docker system prune -af
+	docker volume prune -af
 
 stage-push:
 	sh docker.sh signaling
 
-stage-apply:
+stage-apply: stage-push
 	envsubst < stunner/deployment.yml | kubectl apply -f -
 	envsubst < signaling/deployment.yml | kubectl apply -f -
 

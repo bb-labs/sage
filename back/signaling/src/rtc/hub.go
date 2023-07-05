@@ -60,7 +60,7 @@ func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
 }
 
 func (h *Hub) initRouter() error {
-	routerCur, err := h.db.Database(os.Getenv("SIGNALING_MONGO_DB_NAME")).Collection("webRtc").Find(h.ctx, bson.D{})
+	routerCur, err := h.db.Database(os.Getenv("SIGNALING_DB_NAME")).Collection("SIGNALING_DB_TABLE_NAME").Find(h.ctx, bson.D{})
 
 	if err != nil {
 		h.logger.Fatalf("err: %v. failed to fetch routing table", err)
@@ -83,15 +83,15 @@ func (h *Hub) initRouter() error {
 	return nil
 }
 
-func (h *Hub) Store(chatReq *sageproto.RouteRequest) (*mongo.InsertOneResult, error) {
-	res, err := h.db.Database(os.Getenv("SIGNALING_MONGO_DB_NAME")).Collection("webRtc").InsertOne(h.ctx, chatReq)
+func (h *Hub) Store(routeReq *sageproto.RouteRequest) (*mongo.InsertOneResult, error) {
+	res, err := h.db.Database(os.Getenv("SIGNALING_DB_NAME")).Collection("SIGNALING_DB_TABLE_NAME").InsertOne(h.ctx, routeReq)
 
 	if err != nil {
 		return nil, err
 	}
 
-	h.router[chatReq.Id] = chatReq.OtherId
-	h.router[chatReq.OtherId] = chatReq.Id
+	h.router[routeReq.Id] = routeReq.OtherId
+	h.router[routeReq.OtherId] = routeReq.Id
 
 	return res, nil
 }

@@ -25,7 +25,7 @@ func main() {
 	ctx := context.Background()
 
 	// Initialize the db
-	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("SIGNALING_MONGO_URI")))
+	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("SIGNALING_DB_URI")))
 
 	if err != nil {
 		logger.Fatalf("err initializing db: %v", err)

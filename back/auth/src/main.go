@@ -24,7 +24,7 @@ func main() {
 	ctx := context.Background()
 
 	// Initialize the db
-	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("AUTH_DB_URI")))
 
 	if err != nil {
 		logger.Fatalf("err: %v", err)
@@ -52,5 +52,5 @@ func main() {
 	router.POST("/authorize", routes.HandleAuth(db))
 
 	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
+	router.Run(fmt.Sprintf(":%s", os.Getenv("AUTH_SERVICE_PORT")))
 }

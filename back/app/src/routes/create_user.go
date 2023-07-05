@@ -30,7 +30,7 @@ func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 		}
 
 		update := bson.D{{Key: "$set", Value: &user}}
-		db.Database(os.Getenv("MONGO_DB_NAME")).Collection("users").InsertOne(ctx, update)
+		db.Database(os.Getenv("APP_DB_NAME")).Collection("APP_DB_TABLE_NAME").InsertOne(ctx, update)
 
 		ctx.JSON(http.StatusOK, gin.H{"status": "OK"})
 	}

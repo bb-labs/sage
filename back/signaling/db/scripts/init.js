@@ -1,2 +1,1 @@
-
-db.createCollection('webRtc');
+db.createCollection(process.env.SIGNALING_DB_TABLE_NAME);
