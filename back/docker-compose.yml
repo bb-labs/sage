@@ -1,9 +1,8 @@
 services:
-  # App server
   ${APP_SERVICE_NAME}:
     container_name: ${APP_CONTAINER_NAME}
     depends_on:
-      - ${APP_DB_SERVICE_NAME}
+      - ${DB_SERVICE_NAME}
     env_file:
       - ./.env.dev
     build:
@@ -14,7 +13,7 @@ services:
     ports:
       - ${APP_SERVICE_PORT}:${APP_SERVICE_PORT}
 
-  ${APP_DB_SERVICE_NAME}:
+  ${DB_SERVICE_NAME}:
     container_name: ${APP_CONTAINER_NAME}_db
     image: mongo:6
     env_file:
@@ -25,81 +24,15 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${APP_DB_NAME}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
     volumes:
-      - ${APP_DB_SERVICE_NAME}:/data/db
+      - ${DB_SERVICE_NAME}:/data/db
       - ./${APP_SERVICE_NAME}/db/scripts:/docker-entrypoint-initdb.d
     ports:
-      - ${APP_DB_PORT}:27017
-
-  # Signaling server
-  ${SIGNALING_SERVICE_NAME}:
-    container_name: ${SIGNALING_CONTAINER_NAME}
-    depends_on:
-      - ${SIGNALING_DB_SERVICE_NAME}
-    env_file:
-      - ./.env.dev
-    build:
-      context: ./${SIGNALING_SERVICE_NAME}
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./${SIGNALING_SERVICE_NAME}:/usr/src/
-    ports:
-      - ${SIGNALING_SERVICE_PORT}:${SIGNALING_SERVICE_PORT}
-
-  ${SIGNALING_DB_SERVICE_NAME}:
-    container_name: ${SIGNALING_CONTAINER_NAME}_db
-    build:
-      context: ./${SIGNALING_SERVICE_NAME}/db
-      dockerfile: Dockerfile.dev
-    env_file:
-      - ./.env.dev
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${SIGNALING_DB_NAME}
-    volumes:
-      - ${SIGNALING_DB_SERVICE_NAME}:/data/db
-      - ./${SIGNALING_SERVICE_NAME}/db/scripts:/docker-entrypoint-initdb.d
-    ports:
-      - ${SIGNALING_DB_PORT}:27017
-
-  # Auth server
-  ${AUTH_SERVICE_NAME}:
-    container_name: ${AUTH_CONTAINER_NAME}
-    depends_on:
-      - ${AUTH_DB_SERVICE_NAME}
-    env_file:
-      - ./.env.dev
-    build:
-      context: ./${AUTH_SERVICE_NAME}
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./${AUTH_SERVICE_NAME}:/usr/src/
-    ports:
-      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
-
-  ${AUTH_DB_SERVICE_NAME}:
-    container_name: ${AUTH_CONTAINER_NAME}_db
-    build:
-      context: ./${AUTH_SERVICE_NAME}/db
-      dockerfile: Dockerfile.dev
-    env_file:
-      - ./.env.dev
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${AUTH_DB_NAME}
-    volumes:
-      - ${AUTH_DB_SERVICE_NAME}:/data/db
-      - ./${AUTH_SERVICE_NAME}/db/scripts:/docker-entrypoint-initdb.d
-    ports:
-      - ${AUTH_DB_PORT}:27017
+      - ${DB_PORT}:27017
 
 volumes:
-  ${APP_DB_SERVICE_NAME}:
-  ${AUTH_DB_SERVICE_NAME}:
-  ${SIGNALING_DB_SERVICE_NAME}:
+  ${DB_SERVICE_NAME}:
 
 networks:
   sage:

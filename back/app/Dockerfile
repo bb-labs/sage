@@ -1,11 +1,10 @@
 FROM golang:latest
 
-WORKDIR /usr/src
+WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
-RUN go install github.com/cosmtrek/air@latest
 
 COPY . .
 
-CMD air -c .air.toml
+CMD go build -o ./tmp/main ./src/main.go

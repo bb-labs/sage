@@ -1,8 +1,5 @@
-go 1.18
+go 1.20
 
 use (
 	./back/app
-	./back/auth
-	./back/presign
-	./back/signaling
 )
