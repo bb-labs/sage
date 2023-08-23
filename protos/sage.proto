@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/i-r-l/sage/back/sageproto";
+option go_package = "github.com/bb-labs/sage/back/sageproto";
 
 message Token {
   string auth_code = 1;
