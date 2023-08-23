@@ -26,3 +26,13 @@ message SignalingRequest {
     Ice ice = 2;
   }
 }
+
+message PresignedUrlRequest {
+  string action = 1;
+  string file_name = 2;
+}
+
+message PresignedUrlResponse {
+  string url = 1;
+  PresignedUrlRequest request = 2;
+}

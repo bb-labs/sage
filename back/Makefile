@@ -1,6 +1,5 @@
-
-
 include .env.dev
+include .env.secret
 export
 
 dev-dump:
@@ -27,8 +26,18 @@ dev-clean: dev-down
 	docker system prune -af
 	docker volume prune -af
 
+stage-env: 
+	pipenv run python kube.py config-map .env.dev > app/db/config.yml
+	pipenv run python kube.py secret .env.secret > app/db/secret.yml
+	pipenv run python kube.py config-map .env.dev > auth/db/config.yml
+	pipenv run python kube.py secret .env.secret > auth/db/secret.yml
+	pipenv run python kube.py config-map .env.dev > signaling/db/config.yml
+	pipenv run python kube.py secret .env.secret > signaling/db/secret.yml
+
 stage-push:
-	sh docker.sh signaling
+	sh docker.sh signaling/db
+	sh docker.sh app/db
+	sh docker.sh auth/db
 
 stage-apply: stage-push
 	envsubst < stunner/deployment.yml | kubectl apply -f -

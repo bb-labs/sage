@@ -1,1 +1,0 @@
-db.createCollection(process.env.SIGNALING_DB_TABLE_NAME);

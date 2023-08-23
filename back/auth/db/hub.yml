@@ -1,0 +1,4 @@
+env: stage
+registry: trumanpurnell
+repo: sage
+tag: auth-db

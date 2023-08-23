@@ -1,21 +1,14 @@
 #!/bin/bash
 
-SERVICE=$1
+yaml() {
+    pipenv run python -c "import yaml;print(yaml.safe_load(open('$1'))$2)"
+}
 
-# Set your image details
-DOCKERFILE_PATH="$SERVICE/Dockerfile.dev"
-IMAGE_TAG=$1
-REGISTRY="trumanpurnell"
-REPO="sage"
+TAG=$(yaml "$1/hub.yml" "['tag']")
+REPO=$(yaml "$1/hub.yml" "['repo']")
+REGISTRY=$(yaml "$1/hub.yml" "['registry']")
 
-# Build the Docker image
-docker build -t "$IMAGE_TAG" -f "$DOCKERFILE_PATH" "$SERVICE"
-
-# Tag the Docker image
-docker tag "$IMAGE_TAG" "$REGISTRY/$REPO:$IMAGE_TAG"
-
-# Push the Docker image
-docker push "$REGISTRY/$REPO:$IMAGE_TAG"
-
-# Clean up the local image (optional)
-docker image rm "$IMAGE_TAG"
+docker build -t "$TAG" -f "$1/Dockerfile.stage" "$1"
+docker tag "$TAG" "$REGISTRY/$REPO:$TAG"
+docker push "$REGISTRY/$REPO:$TAG"
+docker image rm "$TAG"

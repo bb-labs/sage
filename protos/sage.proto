@@ -2,16 +2,24 @@ syntax = "proto3";
 
 option go_package = "github.com/i-r-l/sage/back/sageproto";
 
+message Token {
+  string auth_code = 1;
+  string device_token = 2;
+  string access_token = 3;
+  string refresh_token = 4;
+  string identity_token = 5;
+}
+
 message User {
-  string id = 1;
-  Location location = 2;
+  Token token = 1;
+  string name = 2;
   string email = 3;
-  string name = 5;
-  string video_url = 10;
-  double rating = 6;
-  int32 birthday = 7;
-  bool is_online = 8;
-  Gender gender = 9;
+  double rating = 4;
+  Gender gender = 5;
+  int32 birthday = 6;
+  string video_url = 7;
+  Location location = 8;
+  Criteria criteria = 9;
 }
 
 enum Gender {
@@ -20,7 +28,7 @@ enum Gender {
   HUMAN = 2;
 }
 
-enum LocationProximity {
+enum Proximity {
   NEIGHBORHOOD = 0;
   CITY = 1;
   METRO = 2;
@@ -34,6 +42,15 @@ enum MeetingTime {
   EVENING = 3;
 }
 
+message Place {
+  string name = 1;
+  Location location = 2;
+  string description = 3;
+  repeated string tags = 4;
+  repeated int32 open_hours = 5;
+  repeated int32 close_hours = 6;
+}
+
 message Location {
   string type = 1;
   int32 latitude = 2;
@@ -43,12 +60,15 @@ message Location {
 message Criteria {
   int32 age_min = 1;
   int32 age_max = 2;
-  LocationProximity proximity = 3;
+  Gender gender = 3;
+  Proximity proximity = 4;
 }
 
-message Match {
+message Date {
   User user = 1;
   User other_user = 2;
-  Location location = 3;
-  int32 created_at = 4;
+
+  int32 time = 3;
+  Place place = 4;
+  int32 created_at = 5;
 }
