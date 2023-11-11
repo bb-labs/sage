@@ -1,47 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-db
+  name: db-deployment
   labels:
-    app: app-db
+    app: db-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-db
+      app: db-deployment
   template:
     metadata:
       labels:
-        app: app-db
+        app: db-deployment
     spec:
       containers:
-        - name: app-db
-          image: trumanpurnell/sage:auth-db
+        - name: db-deployment
+          image: "{{ .Values.registry }}/{{ .Values.repository }}:{{ .Values.dbTag }}"
           ports:
-            - containerPort: 27017
+            - containerPort: "{{ .Values.dbPort }}"
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: app-db-secret
+                  name: db-deployment-secret
                   key: username
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: app-db-secret
+                  name: db-deployment-secret
                   key: password
             - name: MONGO_INITDB_DATABASE
-              value: ${APP_DB_NAME}
+              value: "{{ .Values.dbName }}"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-db-service
+  name: db-service
 spec:
   selector:
-    app: app-db
+    app: db-deployment
   ports:
     - protocol: TCP
-      port: ${APP_DB_PORT}
-      targetPort: 27017
+      port: "{{ .Values.dbPort }}"
+      targetPort: "{{ .Values.dbPort }}"

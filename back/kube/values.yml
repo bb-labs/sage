@@ -1,0 +1,9 @@
+registry: trumanpurnell
+repository: sage
+
+dbTag: db
+dbPort: 27017
+dbName: sage
+
+appTag: app
+appPort: 3000

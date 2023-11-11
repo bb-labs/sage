@@ -64,7 +64,7 @@ extension Gender: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-enum LocationProximity: SwiftProtobuf.Enum {
+enum Proximity: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case neighborhood // = 0
   case city // = 1
@@ -100,9 +100,9 @@ enum LocationProximity: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension LocationProximity: CaseIterable {
+extension Proximity: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [LocationProximity] = [
+  static var allCases: [Proximity] = [
     .neighborhood,
     .city,
     .metro,
@@ -160,12 +160,101 @@ extension MeetingTime: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+struct Token {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var authCode: String = String()
+
+  var deviceToken: String = String()
+
+  var accessToken: String = String()
+
+  var refreshToken: String = String()
+
+  var identityToken: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct User {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  var token: Token {
+    get {return _storage._token ?? Token()}
+    set {_uniqueStorage()._token = newValue}
+  }
+  /// Returns true if `token` has been explicitly set.
+  var hasToken: Bool {return _storage._token != nil}
+  /// Clears the value of `token`. Subsequent reads from it will return its default value.
+  mutating func clearToken() {_uniqueStorage()._token = nil}
+
+  var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
+
+  var email: String {
+    get {return _storage._email}
+    set {_uniqueStorage()._email = newValue}
+  }
+
+  var rating: Double {
+    get {return _storage._rating}
+    set {_uniqueStorage()._rating = newValue}
+  }
+
+  var gender: Gender {
+    get {return _storage._gender}
+    set {_uniqueStorage()._gender = newValue}
+  }
+
+  var birthday: Int32 {
+    get {return _storage._birthday}
+    set {_uniqueStorage()._birthday = newValue}
+  }
+
+  var videoURL: String {
+    get {return _storage._videoURL}
+    set {_uniqueStorage()._videoURL = newValue}
+  }
+
+  var location: Location {
+    get {return _storage._location ?? Location()}
+    set {_uniqueStorage()._location = newValue}
+  }
+  /// Returns true if `location` has been explicitly set.
+  var hasLocation: Bool {return _storage._location != nil}
+  /// Clears the value of `location`. Subsequent reads from it will return its default value.
+  mutating func clearLocation() {_uniqueStorage()._location = nil}
+
+  var criteria: Criteria {
+    get {return _storage._criteria ?? Criteria()}
+    set {_uniqueStorage()._criteria = newValue}
+  }
+  /// Returns true if `criteria` has been explicitly set.
+  var hasCriteria: Bool {return _storage._criteria != nil}
+  /// Clears the value of `criteria`. Subsequent reads from it will return its default value.
+  mutating func clearCriteria() {_uniqueStorage()._criteria = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Place {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var name: String = String()
 
   var location: Location {
     get {return _location ?? Location()}
@@ -176,19 +265,13 @@ struct User {
   /// Clears the value of `location`. Subsequent reads from it will return its default value.
   mutating func clearLocation() {self._location = nil}
 
-  var email: String = String()
+  var description_p: String = String()
 
-  var name: String = String()
+  var tags: [String] = []
 
-  var videoURL: String = String()
+  var openHours: [Int32] = []
 
-  var rating: Double = 0
-
-  var birthday: Int32 = 0
-
-  var isOnline: Bool = false
-
-  var gender: Gender = .man
+  var closeHours: [Int32] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -222,65 +305,70 @@ struct Criteria {
 
   var ageMax: Int32 = 0
 
-  var proximity: LocationProximity = .neighborhood
+  var gender: Gender = .man
+
+  var proximity: Proximity = .neighborhood
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct Match {
+struct Date {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   var user: User {
-    get {return _storage._user ?? User()}
-    set {_uniqueStorage()._user = newValue}
+    get {return _user ?? User()}
+    set {_user = newValue}
   }
   /// Returns true if `user` has been explicitly set.
-  var hasUser: Bool {return _storage._user != nil}
+  var hasUser: Bool {return self._user != nil}
   /// Clears the value of `user`. Subsequent reads from it will return its default value.
-  mutating func clearUser() {_uniqueStorage()._user = nil}
+  mutating func clearUser() {self._user = nil}
 
   var otherUser: User {
-    get {return _storage._otherUser ?? User()}
-    set {_uniqueStorage()._otherUser = newValue}
+    get {return _otherUser ?? User()}
+    set {_otherUser = newValue}
   }
   /// Returns true if `otherUser` has been explicitly set.
-  var hasOtherUser: Bool {return _storage._otherUser != nil}
+  var hasOtherUser: Bool {return self._otherUser != nil}
   /// Clears the value of `otherUser`. Subsequent reads from it will return its default value.
-  mutating func clearOtherUser() {_uniqueStorage()._otherUser = nil}
+  mutating func clearOtherUser() {self._otherUser = nil}
 
-  var location: Location {
-    get {return _storage._location ?? Location()}
-    set {_uniqueStorage()._location = newValue}
-  }
-  /// Returns true if `location` has been explicitly set.
-  var hasLocation: Bool {return _storage._location != nil}
-  /// Clears the value of `location`. Subsequent reads from it will return its default value.
-  mutating func clearLocation() {_uniqueStorage()._location = nil}
+  var time: Int32 = 0
 
-  var createdAt: Int32 {
-    get {return _storage._createdAt}
-    set {_uniqueStorage()._createdAt = newValue}
+  var place: Place {
+    get {return _place ?? Place()}
+    set {_place = newValue}
   }
+  /// Returns true if `place` has been explicitly set.
+  var hasPlace: Bool {return self._place != nil}
+  /// Clears the value of `place`. Subsequent reads from it will return its default value.
+  mutating func clearPlace() {self._place = nil}
+
+  var createdAt: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _user: User? = nil
+  fileprivate var _otherUser: User? = nil
+  fileprivate var _place: Place? = nil
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Gender: @unchecked Sendable {}
-extension LocationProximity: @unchecked Sendable {}
+extension Proximity: @unchecked Sendable {}
 extension MeetingTime: @unchecked Sendable {}
+extension Token: @unchecked Sendable {}
 extension User: @unchecked Sendable {}
+extension Place: @unchecked Sendable {}
 extension Location: @unchecked Sendable {}
 extension Criteria: @unchecked Sendable {}
-extension Match: @unchecked Sendable {}
+extension Date: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -293,7 +381,7 @@ extension Gender: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension LocationProximity: SwiftProtobuf._ProtoNameProviding {
+extension Proximity: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NEIGHBORHOOD"),
     1: .same(proto: "CITY"),
@@ -311,18 +399,14 @@ extension MeetingTime: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "User"
+extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Token"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "location"),
-    3: .same(proto: "email"),
-    5: .same(proto: "name"),
-    10: .standard(proto: "video_url"),
-    6: .same(proto: "rating"),
-    7: .same(proto: "birthday"),
-    8: .standard(proto: "is_online"),
-    9: .same(proto: "gender"),
+    1: .standard(proto: "auth_code"),
+    2: .standard(proto: "device_token"),
+    3: .standard(proto: "access_token"),
+    4: .standard(proto: "refresh_token"),
+    5: .standard(proto: "identity_token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -331,15 +415,201 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.authCode) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.deviceToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.accessToken) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.refreshToken) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.identityToken) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.authCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.authCode, fieldNumber: 1)
+    }
+    if !self.deviceToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceToken, fieldNumber: 2)
+    }
+    if !self.accessToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.accessToken, fieldNumber: 3)
+    }
+    if !self.refreshToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.refreshToken, fieldNumber: 4)
+    }
+    if !self.identityToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.identityToken, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Token, rhs: Token) -> Bool {
+    if lhs.authCode != rhs.authCode {return false}
+    if lhs.deviceToken != rhs.deviceToken {return false}
+    if lhs.accessToken != rhs.accessToken {return false}
+    if lhs.refreshToken != rhs.refreshToken {return false}
+    if lhs.identityToken != rhs.identityToken {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "User"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "token"),
+    2: .same(proto: "name"),
+    3: .same(proto: "email"),
+    4: .same(proto: "rating"),
+    5: .same(proto: "gender"),
+    6: .same(proto: "birthday"),
+    7: .standard(proto: "video_url"),
+    8: .same(proto: "location"),
+    9: .same(proto: "criteria"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _token: Token? = nil
+    var _name: String = String()
+    var _email: String = String()
+    var _rating: Double = 0
+    var _gender: Gender = .man
+    var _birthday: Int32 = 0
+    var _videoURL: String = String()
+    var _location: Location? = nil
+    var _criteria: Criteria? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _token = source._token
+      _name = source._name
+      _email = source._email
+      _rating = source._rating
+      _gender = source._gender
+      _birthday = source._birthday
+      _videoURL = source._videoURL
+      _location = source._location
+      _criteria = source._criteria
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._token) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._email) }()
+        case 4: try { try decoder.decodeSingularDoubleField(value: &_storage._rating) }()
+        case 5: try { try decoder.decodeSingularEnumField(value: &_storage._gender) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._birthday) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._videoURL) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._location) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._criteria) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._token {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
+      if !_storage._email.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._email, fieldNumber: 3)
+      }
+      if _storage._rating != 0 {
+        try visitor.visitSingularDoubleField(value: _storage._rating, fieldNumber: 4)
+      }
+      if _storage._gender != .man {
+        try visitor.visitSingularEnumField(value: _storage._gender, fieldNumber: 5)
+      }
+      if _storage._birthday != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._birthday, fieldNumber: 6)
+      }
+      if !_storage._videoURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._videoURL, fieldNumber: 7)
+      }
+      try { if let v = _storage._location {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
+      try { if let v = _storage._criteria {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: User, rhs: User) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._token != rhs_storage._token {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._email != rhs_storage._email {return false}
+        if _storage._rating != rhs_storage._rating {return false}
+        if _storage._gender != rhs_storage._gender {return false}
+        if _storage._birthday != rhs_storage._birthday {return false}
+        if _storage._videoURL != rhs_storage._videoURL {return false}
+        if _storage._location != rhs_storage._location {return false}
+        if _storage._criteria != rhs_storage._criteria {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Place: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Place"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "location"),
+    3: .same(proto: "description"),
+    4: .same(proto: "tags"),
+    5: .standard(proto: "open_hours"),
+    6: .standard(proto: "close_hours"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._location) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.email) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 6: try { try decoder.decodeSingularDoubleField(value: &self.rating) }()
-      case 7: try { try decoder.decodeSingularInt32Field(value: &self.birthday) }()
-      case 8: try { try decoder.decodeSingularBoolField(value: &self.isOnline) }()
-      case 9: try { try decoder.decodeSingularEnumField(value: &self.gender) }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.videoURL) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.tags) }()
+      case 5: try { try decoder.decodeRepeatedInt32Field(value: &self.openHours) }()
+      case 6: try { try decoder.decodeRepeatedInt32Field(value: &self.closeHours) }()
       default: break
       }
     }
@@ -350,46 +620,34 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
     try { if let v = self._location {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if !self.email.isEmpty {
-      try visitor.visitSingularStringField(value: self.email, fieldNumber: 3)
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
     }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 5)
+    if !self.tags.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.tags, fieldNumber: 4)
     }
-    if self.rating != 0 {
-      try visitor.visitSingularDoubleField(value: self.rating, fieldNumber: 6)
+    if !self.openHours.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.openHours, fieldNumber: 5)
     }
-    if self.birthday != 0 {
-      try visitor.visitSingularInt32Field(value: self.birthday, fieldNumber: 7)
-    }
-    if self.isOnline != false {
-      try visitor.visitSingularBoolField(value: self.isOnline, fieldNumber: 8)
-    }
-    if self.gender != .man {
-      try visitor.visitSingularEnumField(value: self.gender, fieldNumber: 9)
-    }
-    if !self.videoURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.videoURL, fieldNumber: 10)
+    if !self.closeHours.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.closeHours, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs._location != rhs._location {return false}
-    if lhs.email != rhs.email {return false}
+  static func ==(lhs: Place, rhs: Place) -> Bool {
     if lhs.name != rhs.name {return false}
-    if lhs.videoURL != rhs.videoURL {return false}
-    if lhs.rating != rhs.rating {return false}
-    if lhs.birthday != rhs.birthday {return false}
-    if lhs.isOnline != rhs.isOnline {return false}
-    if lhs.gender != rhs.gender {return false}
+    if lhs._location != rhs._location {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.tags != rhs.tags {return false}
+    if lhs.openHours != rhs.openHours {return false}
+    if lhs.closeHours != rhs.closeHours {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -444,7 +702,8 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "age_min"),
     2: .standard(proto: "age_max"),
-    3: .same(proto: "proximity"),
+    3: .same(proto: "gender"),
+    4: .same(proto: "proximity"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -455,7 +714,8 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.ageMin) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.ageMax) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.proximity) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.gender) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.proximity) }()
       default: break
       }
     }
@@ -468,8 +728,11 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     if self.ageMax != 0 {
       try visitor.visitSingularInt32Field(value: self.ageMax, fieldNumber: 2)
     }
+    if self.gender != .man {
+      try visitor.visitSingularEnumField(value: self.gender, fieldNumber: 3)
+    }
     if self.proximity != .neighborhood {
-      try visitor.visitSingularEnumField(value: self.proximity, fieldNumber: 3)
+      try visitor.visitSingularEnumField(value: self.proximity, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -477,99 +740,68 @@ extension Criteria: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
   static func ==(lhs: Criteria, rhs: Criteria) -> Bool {
     if lhs.ageMin != rhs.ageMin {return false}
     if lhs.ageMax != rhs.ageMax {return false}
+    if lhs.gender != rhs.gender {return false}
     if lhs.proximity != rhs.proximity {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Match: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "Match"
+extension Date: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Date"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "user"),
     2: .standard(proto: "other_user"),
-    3: .same(proto: "location"),
-    4: .standard(proto: "created_at"),
+    3: .same(proto: "time"),
+    4: .same(proto: "place"),
+    5: .standard(proto: "created_at"),
   ]
 
-  fileprivate class _StorageClass {
-    var _user: User? = nil
-    var _otherUser: User? = nil
-    var _location: Location? = nil
-    var _createdAt: Int32 = 0
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _user = source._user
-      _otherUser = source._otherUser
-      _location = source._location
-      _createdAt = source._createdAt
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._user) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._otherUser) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._location) }()
-        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._createdAt) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._user) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._otherUser) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.time) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._place) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.createdAt) }()
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._user {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._otherUser {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._location {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-      if _storage._createdAt != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._createdAt, fieldNumber: 4)
-      }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._user {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._otherUser {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if self.time != 0 {
+      try visitor.visitSingularInt32Field(value: self.time, fieldNumber: 3)
+    }
+    try { if let v = self._place {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    if self.createdAt != 0 {
+      try visitor.visitSingularInt32Field(value: self.createdAt, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Match, rhs: Match) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._user != rhs_storage._user {return false}
-        if _storage._otherUser != rhs_storage._otherUser {return false}
-        if _storage._location != rhs_storage._location {return false}
-        if _storage._createdAt != rhs_storage._createdAt {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+  static func ==(lhs: Date, rhs: Date) -> Bool {
+    if lhs._user != rhs._user {return false}
+    if lhs._otherUser != rhs._otherUser {return false}
+    if lhs.time != rhs.time {return false}
+    if lhs._place != rhs._place {return false}
+    if lhs.createdAt != rhs.createdAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

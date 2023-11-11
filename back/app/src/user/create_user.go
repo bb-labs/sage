@@ -1,4 +1,4 @@
-package routes
+package user
 
 import (
 	"io"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	sageproto "github.com/i-r-l/sage/back/app/protos"
+	sageproto "github.com/bb-labs/sage/back/app/protos"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -30,7 +30,7 @@ func HandleCreateUser(db *mongo.Client) func(*gin.Context) {
 		}
 
 		update := bson.D{{Key: "$set", Value: &user}}
-		db.Database(os.Getenv("APP_DB_NAME")).Collection("APP_DB_TABLE_NAME").InsertOne(ctx, update)
+		db.Database(os.Getenv("APP_DB_NAME")).Collection("DB_APP_TABLE_NAME").InsertOne(ctx, update)
 
 		ctx.JSON(http.StatusOK, gin.H{"status": "OK"})
 	}

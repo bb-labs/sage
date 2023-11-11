@@ -1,33 +1,31 @@
 services:
   ${APP_SERVICE_NAME}:
-    container_name: ${APP_CONTAINER_NAME}
+    image: dev:${APP_SERVICE_NAME}
+    container_name: ${APP_SERVICE_NAME}
     depends_on:
       - ${DB_SERVICE_NAME}
     env_file:
       - ./.env.dev
     build:
       context: ./${APP_SERVICE_NAME}
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     volumes:
-      - ./${APP_SERVICE_NAME}:/usr/src/
+      - ./${APP_SERVICE_NAME}:/${APP_SERVICE_NAME}
     ports:
       - ${APP_SERVICE_PORT}:${APP_SERVICE_PORT}
+    entrypoint: ["./entrypoint.dev.sh"]
 
   ${DB_SERVICE_NAME}:
-    container_name: ${APP_CONTAINER_NAME}_db
-    image: mongo:6
+    image: mongo:latest
+    container_name: ${DB_SERVICE_NAME}
     env_file:
       - ./.env.dev
-    build:
-      context: ./${APP_SERVICE_NAME}/db
-      dockerfile: Dockerfile.dev
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${DB_NAME}
     volumes:
-      - ${DB_SERVICE_NAME}:/data/db
-      - ./${APP_SERVICE_NAME}/db/scripts:/docker-entrypoint-initdb.d
+      - ${DB_SERVICE_NAME}:/data/${DB_SERVICE_NAME}
     ports:
       - ${DB_PORT}:27017
 

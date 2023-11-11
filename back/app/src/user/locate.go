@@ -1,4 +1,4 @@
-package routes
+package user
 
 import (
 	"github.com/gin-gonic/gin"
@@ -14,7 +14,7 @@ func HandleLocation(db *mongo.Client) func(*gin.Context) {
 		// update := bson.D{{Key: "$set", Value: userLocation}}
 		// options := options.Update().SetUpsert(true)
 
-		// db.Database(os.Getenv("MONGO_DB_NAME")).Collection("users").UpdateOne(ctx, filter, update, options)
+		// db.Database(os.Getenv("MONGO_DB_NAME")).Collection("DB_APP_TABLE_NAME").UpdateOne(ctx, filter, update, options)
 
 		// ctx.String(http.StatusOK, "Success, bro")
 	}

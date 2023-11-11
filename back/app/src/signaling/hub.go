@@ -5,9 +5,10 @@ import (
 	"log"
 	"os"
 
-	sageproto "github.com/i-r-l/sage/back/signaling/protos"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+
+	sageproto "github.com/bb-labs/sage/back/app/protos"
 )
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -60,7 +61,7 @@ func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
 }
 
 func (h *Hub) initRouter() error {
-	routerCur, err := h.db.Database(os.Getenv("SIGNALING_DB_NAME")).Collection("SIGNALING_DB_TABLE_NAME").Find(h.ctx, bson.D{})
+	routerCur, err := h.db.Database(os.Getenv("DB_NAME")).Collection("DB_SIGNALING_TABLE_NAME").Find(h.ctx, bson.D{})
 
 	if err != nil {
 		h.logger.Fatalf("err: %v. failed to fetch routing table", err)
@@ -84,7 +85,7 @@ func (h *Hub) initRouter() error {
 }
 
 func (h *Hub) Store(routeReq *sageproto.RouteRequest) (*mongo.InsertOneResult, error) {
-	res, err := h.db.Database(os.Getenv("SIGNALING_DB_NAME")).Collection("SIGNALING_DB_TABLE_NAME").InsertOne(h.ctx, routeReq)
+	res, err := h.db.Database(os.Getenv("DB_NAME")).Collection("SIGNALING_DB_TABLE_NAME").InsertOne(h.ctx, routeReq)
 
 	if err != nil {
 		return nil, err
