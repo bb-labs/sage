@@ -18,7 +18,7 @@ spec:
         - name: db-deployment
           image: "{{ .Values.registry }}/{{ .Values.repository }}:{{ .Values.dbTag }}"
           ports:
-            - containerPort: "{{ .Values.dbPort }}"
+            - containerPort: {{ .Values.dbPort }}
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -32,16 +32,3 @@ spec:
                   key: password
             - name: MONGO_INITDB_DATABASE
               value: "{{ .Values.dbName }}"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: db-service
-spec:
-  selector:
-    app: db-deployment
-  ports:
-    - protocol: TCP
-      port: "{{ .Values.dbPort }}"
-      targetPort: "{{ .Values.dbPort }}"

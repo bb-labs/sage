@@ -1,12 +1,25 @@
 # # -------------------------------------------------------------------
-# # roles
+# # user
+# # -------------------------------------------------------------------
+user:
+  get_user:
+    client: iam
+    workflow:
+      - init
+  get_caller_identity:
+    client: sts
+    workflow:
+      - init
+
+# # -------------------------------------------------------------------
+# # role
 # # -------------------------------------------------------------------
 
-sage_role:
+role:
   get_role:
     client: iam
     depends_on:
-      - sage_role.create_role
+      - role.create_role
     workflow:
       - init
     args:
@@ -33,39 +46,37 @@ sage_role:
             "Action": "sts:AssumeRole"
           }]
         }
-
-sage_role_attach_rds:
   attach_role_policy:
     client: iam
     workflow:
       - init
     depends_on:
-      - sage_role.get_role
+      - role.get_role
     args:
       RoleName: sage
       PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
 # # -------------------------------------------------------------------
-# # images
-# # -------------------------------------------------------------------
-
-# # -------------------------------------------------------------------
 # # kubernetes
 # # -------------------------------------------------------------------
 
-sage_update_kube_config:
-  update_kube_config:
+kube:
+  update_auth:
+    client: user
+    depends_on:
+      - user.get_caller_identity
+    workflow:
+      - init
+    args:
+      - $(user.get_caller_identity.Account)
+  update_config:
     client: user
     workflow:
       - init
-
-sage_vpcs:
   describe_vpcs:
     client: ec2
     workflow:
       - init
-
-sage_security_groups:
   describe_security_groups:
     client: ec2
     workflow:
@@ -73,39 +84,35 @@ sage_security_groups:
     args:
       GroupNames:
         - default
-
-sage_subnets:
   describe_subnets:
     client: ec2
     workflow:
       - init
     depends_on:
-      - sage_vpcs.describe_vpcs
+      - vpcs.describe_vpcs
     args:
       Filters:
         - Name: vpc-id
           Values:
-            - $(sage_vpcs.describe_vpcs.Vpcs.0.VpcId)
-
-sage_cluster:
+            - $(vpcs.describe_vpcs.Vpcs.0.VpcId)
   create_cluster:
     client: eks
     workflow:
       - init
     depends_on:
-      - sage_role.get_role
-      - sage_subnets.describe_subnets
-      - sage_security_groups.describe_security_groups
+      - role.get_role
+      - subnets.describe_subnets
+      - security_groups.describe_security_groups
     args:
       name: sage
       version: 1.28
-      roleArn: $(sage_role.get_role.Role.Arn)
+      roleArn: $(role.get_role.Role.Arn)
       resourcesVpcConfig:
         securityGroupIds:
-          - $(sage_security_groups.describe_security_groups.SecurityGroups.0.GroupId)
+          - $(security_groups.describe_security_groups.SecurityGroups.0.GroupId)
         subnetIds:
-          - $(sage_subnets.describe_subnets.Subnets.0.SubnetId)
-          - $(sage_subnets.describe_subnets.Subnets.1.SubnetId)
-          - $(sage_subnets.describe_subnets.Subnets.2.SubnetId)
-          - $(sage_subnets.describe_subnets.Subnets.3.SubnetId)
+          - $(subnets.describe_subnets.Subnets.0.SubnetId)
+          - $(subnets.describe_subnets.Subnets.1.SubnetId)
+          - $(subnets.describe_subnets.Subnets.2.SubnetId)
+          - $(subnets.describe_subnets.Subnets.3.SubnetId)
         endpointPublicAccess: true

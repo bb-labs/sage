@@ -18,17 +18,4 @@ spec:
         - name: app-deployment
           image: "{{ .Values.registry }}/{{ .Values.repository }}:{{ .Values.appTag }}"
           ports:
-            - containerPort: "{{ .Values.appPort }}"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app-service
-spec:
-  selector:
-    app: app-deployment
-  ports:
-    - protocol: TCP
-      port: "{{ .Values.appPort }}"
-      targetPort: "{{ .Values.appPort }}"
+            - containerPort: {{ .Values.appPort }}
