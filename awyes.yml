@@ -12,6 +12,32 @@ user:
       - init
 
 # # -------------------------------------------------------------------
+# # images
+# # -------------------------------------------------------------------
+
+image:
+  build:
+    client: docker.images
+    workflow:
+      - init
+    args:
+      tag: trumanpurnell/sage
+      path: ./back/app
+      dockerfile: Dockerfile
+  push:
+    client: docker.images
+    workflow:
+      - init
+    depends_on:
+      - image.build
+    args:
+      repository: trumanpurnell/sage
+      tag: latest
+      auth_config:
+        username: trumanpurnell
+        password: Smores44!
+
+# # -------------------------------------------------------------------
 # # roles
 # # -------------------------------------------------------------------
 
@@ -145,6 +171,14 @@ kube:
     args:
       - $(kube.describe_cluster.cluster.name)
   install_chart:
+    client: user
+    depends_on:
+      - kube.describe_cluster
+    workflow:
+      - init
+    args:
+      - $(kube.describe_cluster.cluster.name)
+  upgrade_chart:
     client: user
     depends_on:
       - kube.describe_cluster

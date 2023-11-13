@@ -11,6 +11,14 @@ def install_chart(cluster_name):
     proc.kill()
 
 
+def upgrade_chart(cluster_name):
+    proc = subprocess.Popen(
+        ["helm", "upgrade", cluster_name, "./back/kube"])
+
+    proc.wait()
+    proc.kill()
+
+
 def update_config(cluster_name):
     print(cluster_name)
 

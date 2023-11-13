@@ -5,5 +5,5 @@ dbTag: db
 dbPort: 27017
 dbName: sage
 
-appTag: app
+appTag: latest
 appPort: 3000

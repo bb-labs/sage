@@ -5,7 +5,9 @@ metadata:
 spec:
   selector:
     app: app-deployment
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: {{ .Values.appPort }}
       targetPort: {{ .Values.appPort }}
+      nodePort: 30000

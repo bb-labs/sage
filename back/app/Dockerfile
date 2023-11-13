@@ -7,4 +7,9 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-CMD go build -o ./tmp/main ./src/main.go
+RUN go build -o ./tmp/main ./src/main.go
+
+EXPOSE 3000
+
+CMD ./tmp/main
+

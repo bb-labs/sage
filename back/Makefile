@@ -10,16 +10,16 @@ dump:
 	mongoexport --uri='mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_SERVICE_PORT}/${DB_NAME}?authsource=admin' --collection=${DB_NAME} --pretty
 	
 build:
-	envsubst < docker-compose.$(env).yml | docker compose -f - build
+	envsubst < docker-compose.yml | docker compose -f - build
 
 up: down
-	envsubst < docker-compose.dev.yml | docker compose -f - up --build
+	envsubst < docker-compose.yml | docker compose -f - up --build
 
 down:
-	envsubst < docker-compose.dev.yml | docker compose -f - down --remove-orphans
+	envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
 
 logs:
-	envsubst < docker-compose.dev.yml | docker compose -f - logs --follow $(service)
+	envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
 
 shell:
 	docker exec -it $(container) bash
