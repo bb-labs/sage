@@ -1,15 +1,24 @@
 import os
 import yaml
 import subprocess
-import urllib.request
 
 
-def update_config():
+def install_chart(cluster_name):
+    proc = subprocess.Popen(
+        ["helm", "install", cluster_name, "./back/kube"])
+
+    proc.wait()
+    proc.kill()
+
+
+def update_config(cluster_name):
+    print(cluster_name)
+
     env = os.environ.copy()
-    env["KUBECONFIG"] = "./back/kube/config.yaml"
+    env["KUBECONFIG"] = "./back/kube/config"
 
     proc = subprocess.Popen(["aws", "eks", "update-kubeconfig",
-                             "--region", "us-west-2", "--name", "sage"], env=env)
+                             "--region", "us-west-2", "--name", cluster_name], env=env)
     proc.wait()
     proc.kill()
 
