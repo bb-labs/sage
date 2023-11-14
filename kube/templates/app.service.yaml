@@ -10,4 +10,4 @@ spec:
     - protocol: TCP
       port: {{ .Values.appPort }}
       targetPort: {{ .Values.appPort }}
-      nodePort: 30000
+      nodePort: {{ .Values.appNodePort }}

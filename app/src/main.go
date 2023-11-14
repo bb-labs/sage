@@ -25,6 +25,7 @@ func main() {
 	upgrader := websocket.Upgrader{}
 
 	// Logger
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	logger := log.Default()
 
 	// Context for server
