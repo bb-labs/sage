@@ -22,7 +22,7 @@ image:
       - init
     args:
       tag: trumanpurnell/sage
-      path: ./back/app
+      path: ./app
       dockerfile: Dockerfile
   push:
     client: docker.images
