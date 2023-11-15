@@ -4,6 +4,9 @@ dockerRegistry: trumanpurnell
 dbImageTag: db
 dbPort: 3001
 dbName: sage
+dbSignalingCollection: signaling
+dbUsername: username
+dbPassword: password
 
 appImageTag: app
 appPort: 3000

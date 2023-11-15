@@ -14,7 +14,7 @@ func HandleSession(upgrader websocket.Upgrader, hub *Hub) func(*gin.Context) {
 		clientID := ctx.Query("deviceToken")
 
 		if _, ok := hub.router[clientID]; !ok {
-			hub.logger.Printf("err: no receiving client found for %s", clientID)
+			log.Printf("err: no receiving client found for %s", clientID)
 			return
 		}
 
@@ -27,10 +27,9 @@ func HandleSession(upgrader websocket.Upgrader, hub *Hub) func(*gin.Context) {
 		}
 
 		client := &Client{
-			ID:     ctx.Query("deviceToken"),
-			conn:   conn,
-			send:   make(chan *Message),
-			logger: log.Default(),
+			ID:   ctx.Query("deviceToken"),
+			conn: conn,
+			send: make(chan *Message),
 		}
 
 		hub.register <- client

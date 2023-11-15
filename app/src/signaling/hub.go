@@ -34,9 +34,6 @@ type Hub struct {
 
 	// Database to store client records
 	db *mongo.Client
-
-	// Logger
-	logger *log.Logger
 }
 
 func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
@@ -48,7 +45,6 @@ func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		clients:    make(map[string]*Client),
-		logger:     log.Default(),
 	}
 
 	err := hub.initRouter()
@@ -61,10 +57,10 @@ func NewHub(db *mongo.Client, ctx context.Context) (*Hub, error) {
 }
 
 func (h *Hub) initRouter() error {
-	routerCur, err := h.db.Database(os.Getenv("DB_NAME")).Collection("DB_SIGNALING_TABLE_NAME").Find(h.ctx, bson.D{})
+	routerCur, err := h.db.Database(os.Getenv("dbName")).Collection(os.Getenv("dbSignalingCollection")).Find(h.ctx, bson.D{})
 
 	if err != nil {
-		h.logger.Fatalf("err: %v. failed to fetch routing table", err)
+		log.Fatalf("err: %v. failed to fetch routing table", err)
 		return nil
 	}
 
@@ -72,7 +68,7 @@ func (h *Hub) initRouter() error {
 	err = routerCur.All(h.ctx, &results)
 
 	if err != nil {
-		h.logger.Fatalf("err: %v. failed to fetch routing table", err)
+		log.Fatalf("err: %v. failed to fetch routing table", err)
 		return err
 	}
 

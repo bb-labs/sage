@@ -19,42 +19,43 @@ import (
 )
 
 func main() {
-
 	// Create the server
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 	upgrader := websocket.Upgrader{}
 
 	// Logger
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	logger := log.Default()
 
 	// Context for server
 	ctx := context.Background()
 
 	// Initialize the db
-	db, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("DB_URI")))
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", os.Getenv("dbUsername"), os.Getenv("dbPassword"), os.Getenv("dbName"), os.Getenv("dbPort"))
+	db, err := mongo.NewClient(options.Client().ApplyURI(uri))
 
 	if err != nil {
-		logger.Fatalf("err: %v", err)
+		log.Fatalf("err: %v", err)
 	}
 
 	// Connect to the db
 	err = db.Connect(ctx)
 	if err != nil {
-		logger.Fatalf("err: %v", err)
+		log.Fatalf("err: %v", err)
 	}
 
 	// Initialize the signaling hub
 	hub, err := rtc.NewHub(db, ctx)
 	if err != nil {
-		logger.Fatalf("err initializing hub: %v", err)
+		log.Fatalf("err initializing hub: %v", err)
 	}
 	go hub.Run()
 
 	// Connect to S3 for presigning
 	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
-		logger.Fatalf("err: %v", err)
+		log.Fatalf("err: %v", err)
 	}
 
 	s3Client := s3.NewFromConfig(sdkConfig)

@@ -16,9 +16,6 @@ type Client struct {
 
 	// Buffered channel of outbound messages.
 	send chan *Message
-
-	// Logger for the client
-	logger *log.Logger
 }
 
 func (c *Client) readPump(hub *Hub) {
@@ -31,11 +28,11 @@ func (c *Client) readPump(hub *Hub) {
 		_, message, err := c.conn.ReadMessage()
 
 		if err != nil {
-			c.logger.Printf("error: %v", err)
+			log.Printf("error: %v", err)
 			return
 		}
 
-		c.logger.Println("Client: ", c.ID)
+		log.Println("Client: ", c.ID)
 
 		hub.wire <- &Message{Data: &message, Client: c}
 	}

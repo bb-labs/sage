@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./${appImageTag}:/${appImageTag}
+      - .:/${appImageTag}
     ports:
       - ${appPort}:${appPort}
     entrypoint: ["./entrypoint.dev.sh"]
@@ -21,8 +21,8 @@ services:
     env_file:
       - ./kube/values.yaml
     environment:
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: ${dbUsername}
+      MONGO_INITDB_ROOT_PASSWORD: ${dbPassword}
       MONGO_INITDB_DATABASE: ${dbName}
     volumes:
       - ${dbImageTag}:/data/${dbImageTag}

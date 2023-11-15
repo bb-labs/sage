@@ -1,5 +1,4 @@
-$(foreach var,$(shell yq 'to_entries | map(.key + "=" + .value) | join(" ")' app/kube/values.yaml),$(eval export $(var)))
-
+$(foreach var,$(shell yq -o=shell app/kube/values.yaml),$(eval export $(var)))
 
 backtidy:
 	cd app; go mod tidy
@@ -8,7 +7,13 @@ backbuild:
 	cd app; envsubst < docker-compose.yml | docker compose -f - build
 
 backup: backdown
-	cd app; envsubst < docker-compose.yml | docker compose -f - up --build
+	cd app; envsubst < docker-compose.yml | docker compose -f - up --build --detach
+
+backrun: backbuild
+	docker run -it --rm $(shell yq 'to_entries | map("-e " + .key + "=" + .value) | join(" ")' app/kube/values.yaml) $(image)
+	
+backshell:
+	docker exec -it $(container) bash
 
 backdown:
 	cd app; envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
