@@ -32,7 +32,7 @@ image:
       - image.build
     args:
       repository: trumanpurnell/sage
-      tag: latest
+      tag: app
       auth_config:
         username: trumanpurnell
         password: Smores44!
@@ -158,6 +158,7 @@ kube:
     client: user
     depends_on:
       - user.get_caller_identity
+      - kube.update_config
     workflow:
       - init
     args:
@@ -175,7 +176,7 @@ kube:
     depends_on:
       - kube.describe_cluster
     workflow:
-      - init
+      - release
     args:
       - $(kube.describe_cluster.cluster.name)
   upgrade_chart:
@@ -183,13 +184,15 @@ kube:
     depends_on:
       - kube.describe_cluster
     workflow:
-      - init
+      - upgrade
     args:
       - $(kube.describe_cluster.cluster.name)
   describe_cluster:
     client: eks
     workflow:
       - init
+    depends_on:
+      - kube.create_nodegroup
     args:
       name: sage
   describe_vpcs:
