@@ -24,7 +24,7 @@ logs:
 status:
 	docker container ls
 
-clean: backdown
+clean: down
 	docker system prune -af
 	docker volume prune -af
 

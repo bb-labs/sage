@@ -20,8 +20,6 @@ import (
 
 func main() {
 	// Create the server
-	gin.SetMode(gin.ReleaseMode)
-
 	router := gin.Default()
 	upgrader := websocket.Upgrader{}
 
@@ -35,7 +33,7 @@ func main() {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
 		os.Getenv("MONGO_INITDB_ROOT_USERNAME"),
 		os.Getenv("MONGO_INITDB_ROOT_PASSWORD"),
-		os.Getenv("MONGO_INITDB_DATABASE"),
+		os.Getenv("DB_CONTAINER_NAME"),
 		os.Getenv("DB_PORT"))
 
 	db, err := mongo.NewClient(options.Client().ApplyURI(uri))
@@ -71,6 +69,14 @@ func main() {
 		db.Disconnect(ctx)
 	}()
 
+	// Test route for health check
+	router.GET("/ping", func(c *gin.Context) {
+		log.Println("ping")
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
 	// Setup routes for user actions
 	router.POST("/user", user.HandleCreateUser(db))
 	router.POST("/locate", user.HandleLocation(db))
@@ -83,5 +89,5 @@ func main() {
 	router.GET("/session", rtc.HandleSession(upgrader, hub))
 
 	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("APP_SERVICE_PORT")))
+	router.Run(fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
 }

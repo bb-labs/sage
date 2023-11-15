@@ -1,6 +1,6 @@
 DOCKER_REGISTRY: trumanpurnell
 
-DB_PORT: 3001
+DB_PORT: 27017
 DB_REPO: mongo
 DB_IMAGE_TAG: latest
 DB_CONTAINER_NAME: db
