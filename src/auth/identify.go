@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/protobuf/proto"
 
-	sageproto "github.com/bb-labs/sage/back/app/protos"
+	sageproto "github.com/bb-labs/sage/src/protos"
 )
 
 func HandleAuth(db *mongo.Client) gin.HandlerFunc {

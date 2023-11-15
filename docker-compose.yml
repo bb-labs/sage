@@ -1,0 +1,36 @@
+services:
+  ${APP_CONTAINER_NAME}:
+    image: ${APP_CONTAINER_NAME}
+    container_name: ${APP_CONTAINER_NAME}
+    depends_on:
+      - ${DB_CONTAINER_NAME}
+    env_file:
+      - ./kube/values.yaml
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/${APP_CONTAINER_NAME}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    entrypoint: ["./entrypoint.dev.sh"]
+
+  ${DB_CONTAINER_NAME}:
+    image: mongo:latest
+    container_name: ${DB_CONTAINER_NAME}
+    env_file:
+      - ./kube/values.yaml
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ${DB_CONTAINER_NAME}:/data/${DB_CONTAINER_NAME}
+    ports:
+      - ${DB_PORT}:27017
+
+volumes:
+  ${DB_CONTAINER_NAME}:
+
+networks:
+  sage:

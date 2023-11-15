@@ -1,4 +1,4 @@
-module github.com/bb-labs/sage/back/app
+module github.com/bb-labs/sage
 
 go 1.18
 

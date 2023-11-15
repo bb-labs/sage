@@ -1,45 +1,39 @@
-$(foreach var,$(shell yq -o=shell app/kube/values.yaml),$(eval export $(var)))
+$(foreach var,$(shell yq -o=shell kube/values.yaml),$(eval export $(var)))
 
-backtidy:
-	cd app; go mod tidy
+tidy:
+	go mod tidy
 	
-backbuild:
-	cd app; envsubst < docker-compose.yml | docker compose -f - build
+build:
+	envsubst < docker-compose.yml | docker compose -f - build
 
-backup: backdown
-	cd app; envsubst < docker-compose.yml | docker compose -f - up --build --detach
+up: down
+	envsubst < docker-compose.yml | docker compose -f - up --build --detach
 
-backrun: backbuild
-	docker run -it --rm $(shell yq 'to_entries | map("-e " + .key + "=" + .value) | join(" ")' app/kube/values.yaml) $(image)
+run: build
+	docker run -it --rm $(shell yq 'to_entries | map("-e " + .key + "=" + .value) | join(" ")' kube/values.yaml) $(image)
 	
-backshell:
+shell:
 	docker exec -it $(container) bash
 
-backdown:
-	cd app; envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
+down:
+	envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
 
-backlogs:
-	cd app; envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
+logs:
+	envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
 
-backstatus:
+status:
 	docker container ls
 
-backclean: backdown
+clean: backdown
 	docker system prune -af
 	docker volume prune -af
 
-frontup: frontdown
-	cd ios; osascript ios/build.js
-
-frontdown:
-	cd ios; osascript ios/kill.js
-
 
 define gen_protos
-	protoc -I=protos --swift_out=ios/Slide/Protos $1.proto
-	pipenv run python ios/proto.py $1.pb.swift
+	protoc -I=protos --swift_out=src/ios/Slide/Protos $1.proto
+	pipenv run python src/ios/proto.py $1.pb.swift
 	
-	protoc -I=protos --go_out=app/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=src/protos --go_opt=paths=source_relative $1.proto
 endef
 
 proto:

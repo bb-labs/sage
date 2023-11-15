@@ -32,7 +32,7 @@ image:
       - image.build
     args:
       repository: trumanpurnell/sage
-      tag: app
+      tag: latest
       auth_config:
         username: trumanpurnell
         password: Smores44!

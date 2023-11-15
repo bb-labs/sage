@@ -8,14 +8,14 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/bb-labs/sage/back/app/src/presign"
-	"github.com/bb-labs/sage/back/app/src/user"
+	"github.com/bb-labs/sage/src/presign"
+	"github.com/bb-labs/sage/src/user"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	rtc "github.com/bb-labs/sage/back/app/src/signaling"
+	rtc "github.com/bb-labs/sage/src/signaling"
 )
 
 func main() {
@@ -32,7 +32,12 @@ func main() {
 	ctx := context.Background()
 
 	// Initialize the db
-	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", os.Getenv("dbUsername"), os.Getenv("dbPassword"), os.Getenv("dbName"), os.Getenv("dbPort"))
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
+		os.Getenv("MONGO_INITDB_ROOT_USERNAME"),
+		os.Getenv("MONGO_INITDB_ROOT_PASSWORD"),
+		os.Getenv("MONGO_INITDB_DATABASE"),
+		os.Getenv("DB_PORT"))
+
 	db, err := mongo.NewClient(options.Client().ApplyURI(uri))
 
 	if err != nil {
