@@ -1,0 +1,36 @@
+name: Sage CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow:
+        description: "awyes workflow type"
+        required: true
+        type: choice
+        default: init
+        options:
+          - init
+
+jobs:
+  deploy:
+    name: Deploy AWS resources
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install deps
+        run: |
+          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Run awyes action
+        uses: bb-labs/awyes@main
+        with:
+          workflow: ${{ inputs.workflow }}
