@@ -1,4 +1,5 @@
-export $(yq 'to_entries | map(.key + "=" + .value) | join(" ")' kube/values.yaml)
+$(foreach var,$(shell yq 'to_entries | map(.key + "=" + .value) | join(" ")' app/kube/values.yaml),$(eval export $(var)))
+
 
 backtidy:
 	cd app; go mod tidy
