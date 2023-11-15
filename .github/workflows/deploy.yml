@@ -23,7 +23,9 @@ jobs:
 
       - name: Install deps
         run: |
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O ~/yq
+          chmod +x ~/yq
+          sudo mv ~/yq /usr/local/bin/yq
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
