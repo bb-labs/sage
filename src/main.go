@@ -20,16 +20,11 @@ import (
 
 func main() {
 	// Create the server
+	ctx := context.Background()
 	router := gin.Default()
-	upgrader := websocket.Upgrader{}
-
-	// Logger
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	// Context for server
-	ctx := context.Background()
-
-	// Initialize the db
+	// Connect to db
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
 		os.Getenv("MONGO_INITDB_ROOT_USERNAME"),
 		os.Getenv("MONGO_INITDB_ROOT_PASSWORD"),
@@ -42,13 +37,13 @@ func main() {
 		log.Fatalf("err: %v", err)
 	}
 
-	// Connect to the db
 	err = db.Connect(ctx)
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
 
 	// Initialize the signaling hub
+	upgrader := websocket.Upgrader{}
 	hub, err := rtc.NewHub(db, ctx)
 	if err != nil {
 		log.Fatalf("err initializing hub: %v", err)

@@ -8,9 +8,6 @@ build:
 
 up: down
 	envsubst < docker-compose.yml | docker compose -f - up --build --detach
-
-run: build
-	docker run -it --rm $(shell yq 'to_entries | map("-e " + .key + "=" + .value) | join(" ")' kube/values.yaml) $(image)
 	
 shell:
 	docker exec -it $(container) bash
