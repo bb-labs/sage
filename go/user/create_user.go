@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/protobuf/proto"
 
-	sageproto "github.com/bb-labs/sage/src/protos"
+	sageproto "github.com/bb-labs/sage/protos"
 )
 
 func HandleCreateUser(db *mongo.Client) func(*gin.Context) {

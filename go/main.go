@@ -8,14 +8,13 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/bb-labs/sage/src/presign"
-	"github.com/bb-labs/sage/src/user"
+	"github.com/bb-labs/sage/presign"
+	"github.com/bb-labs/sage/signaling"
+	"github.com/bb-labs/sage/user"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-
-	rtc "github.com/bb-labs/sage/src/signaling"
 )
 
 func main() {
@@ -44,7 +43,7 @@ func main() {
 
 	// Initialize the signaling hub
 	upgrader := websocket.Upgrader{}
-	hub, err := rtc.NewHub(db, ctx)
+	hub, err := signaling.NewHub(db, ctx)
 	if err != nil {
 		log.Fatalf("err initializing hub: %v", err)
 	}
@@ -80,8 +79,8 @@ func main() {
 	router.GET("/presign", presign.HandlePresign(presignClient))
 
 	// Setup routes for sessions and wss routing
-	router.POST("/route", rtc.HandleRoute(hub))
-	router.GET("/session", rtc.HandleSession(upgrader, hub))
+	router.POST("/route", signaling.HandleRoute(hub))
+	router.GET("/session", signaling.HandleSession(upgrader, hub))
 
 	// Run the server
 	router.Run(fmt.Sprintf(":%s", os.Getenv("APP_PORT")))

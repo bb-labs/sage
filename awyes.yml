@@ -1,34 +1,4 @@
 # # -------------------------------------------------------------------
-# # env
-# # -------------------------------------------------------------------
-
-env:
-  update:
-    client: env
-    workflow:
-      - init
-      - upgrade
-    args:
-      DOCKER_REGISTRY: trumanpurnell
-      DB_PORT: "27017"
-      DB_REPO: mongo
-      DB_IMAGE_TAG: latest
-      DB_CONTAINER_NAME: db
-      DB_SERVICE_NAME: dbservice
-      DB_DEPLOYMENT_NAME: dbdeployment
-      DB_USERS_COLLECTION: users
-      DB_SIGNALING_COLLECTION: signaling
-      MONGO_INITDB_DATABASE: sagedb
-      APP_PORT: "3000"
-      APP_NODE_PORT: "30003"
-      APP_REPO: sage
-      APP_IMAGE_TAG: latest
-      APP_CONTAINER_NAME: app
-      APP_SERVICE_NAME: appservice
-      APP_DEPLOYMENT_NAME: appdeployment
-      KUBECONFIG: ./kube/config
-
-# # -------------------------------------------------------------------
 # # user
 # # -------------------------------------------------------------------
 user:
@@ -186,8 +156,6 @@ cluster_role:
 kube:
   env_args:
     client: user
-    depends_on:
-      - env.update
     workflow:
       - init
       - upgrade
@@ -196,7 +164,6 @@ kube:
     depends_on:
       - user.get_caller_identity
       - kube.update_config
-      - env.update
     workflow:
       - init
     args:
@@ -205,7 +172,6 @@ kube:
     client: user
     depends_on:
       - kube.describe_cluster
-      - env.update
     workflow:
       - init
     args:
@@ -216,7 +182,6 @@ kube:
       - kube.update_auth
       - image.push
       - kube.describe_cluster
-      - env.update
     workflow:
       - release
     args:
@@ -227,7 +192,6 @@ kube:
     depends_on:
       - kube.describe_cluster
       - kube.env_args
-      - env.update
     workflow:
       - upgrade
     args:

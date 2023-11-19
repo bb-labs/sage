@@ -1,4 +1,4 @@
-package rtc
+package signaling
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/protobuf/proto"
 
-	sageproto "github.com/bb-labs/sage/src/protos"
+	sageproto "github.com/bb-labs/sage/protos"
 )
 
 func HandleRoute(hub *Hub) func(*gin.Context) {

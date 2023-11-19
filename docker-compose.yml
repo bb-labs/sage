@@ -4,13 +4,9 @@ services:
     container_name: ${APP_CONTAINER_NAME}
     depends_on:
       - ${DB_CONTAINER_NAME}
-    env_file:
-      - ./kube/values.yaml
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: go
     volumes:
-      - .:/${APP_CONTAINER_NAME}
+      - ./go:/${APP_CONTAINER_NAME}
     ports:
       - ${APP_PORT}:${APP_PORT}
     entrypoint: ["./entrypoint.dev.sh"]
@@ -18,8 +14,6 @@ services:
   ${DB_CONTAINER_NAME}:
     image: mongo:latest
     container_name: ${DB_CONTAINER_NAME}
-    env_file:
-      - ./kube/values.yaml
     environment:
       MONGO_INITDB_ROOT_USERNAME: username
       MONGO_INITDB_ROOT_PASSWORD: password

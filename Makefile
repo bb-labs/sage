@@ -1,4 +1,4 @@
-$(foreach var,$(shell yq -o=shell kube/values.yaml),$(eval export $(var)))
+$(foreach var,$(shell yq -o=shell '.env.update.args' awyes.yml),$(eval export $(var)))
 
 tidy:
 	go mod tidy
@@ -7,7 +7,7 @@ build:
 	envsubst < docker-compose.yml | docker compose -f - build
 
 up: down
-	envsubst < docker-compose.yml | docker compose -f - up --build --detach
+	envsubst < docker-compose.yml | docker compose -f - up --build
 	
 shell:
 	docker exec -it $(container) bash

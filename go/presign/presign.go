@@ -8,9 +8,10 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
+
+	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
 )
 
 // Presigner encapsulates the Amazon Simple Storage Service (Amazon S3) presign actions

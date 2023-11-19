@@ -1,4 +1,4 @@
-package rtc
+package signaling
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	sageproto "github.com/bb-labs/sage/src/protos"
+	sageproto "github.com/bb-labs/sage/protos"
 )
 
 // Hub maintains the set of active clients and broadcasts messages to the
