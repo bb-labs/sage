@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.DB_SERVICE_NAME }}
 spec:
   selector:
-    app: {{ .Values.DB_DEPLOYMENT_NAME }}}
+    app: {{ .Values.DB_DEPLOYMENT_NAME }}
   ports:
     - protocol: TCP
       port: {{ .Values.DB_PORT }}

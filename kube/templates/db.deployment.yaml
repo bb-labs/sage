@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ Values.DB_DEPLOYMENT_NAME }}
+  name: {{ .Values.DB_DEPLOYMENT_NAME }}
   labels:
-    app: {{ Values.DB_DEPLOYMENT_NAME }}
+    app: {{ .Values.DB_DEPLOYMENT_NAME }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ Values.DB_DEPLOYMENT_NAME }}
+      app: {{ .Values.DB_DEPLOYMENT_NAME }}
   template:
     metadata:
       labels:
-        app: {{ Values.DB_DEPLOYMENT_NAME }}
+        app: {{ .Values.DB_DEPLOYMENT_NAME }}
     spec:
       containers:
-        - name: {{ Values.DB_DEPLOYMENT_NAME }}
+        - name: {{ .Values.DB_DEPLOYMENT_NAME }}
           image: "{{ .Values.DOCKER_REGISTRY }}/{{ .Values.DB_REPO }}:{{ .Values.DB_IMAGE_TAG }}"
           ports:
             - containerPort: {{ .Values.DB_PORT }}

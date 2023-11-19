@@ -4,36 +4,29 @@ import itertools
 import subprocess
 
 
-def set_env(**env):
-    with open('./kube/values.yaml', 'w') as outfile:
-        yaml.dump(env, outfile)
-
-    return env
+def env_args():
+    return list(itertools.chain(
+        *[['--set', f'{k}={v}'] for k, v in os.environ.items()]))
 
 
-def install_chart(cluster_name, env):
-    flat_env_string = list(itertools.chain(
-        *[['--set', f'{k}={v}'] for k, v in env.items()]))
-
+def install_chart(cluster_name, env_args):
     proc = subprocess.Popen(
-        ["helm", "install", *flat_env_string, cluster_name, "./kube"])
+        ["helm", "install", *env_args, cluster_name, "./kube"])
 
     proc.wait()
     proc.kill()
 
 
-def upgrade_chart(cluster_name):
+def upgrade_chart(cluster_name, env_args):
+    print(f"Upgrading chart {cluster_name}", env_args)
     proc = subprocess.Popen(
-        ["helm", "upgrade", cluster_name, "./kube"])
+        ["helm", "upgrade", *env_args, cluster_name, "./kube"])
 
     proc.wait()
     proc.kill()
 
 
 def update_config(cluster_name):
-    env = os.environ.copy()
-    env["KUBECONFIG"] = "./kube/config"
-
     proc = subprocess.Popen(["aws", "eks", "update-kubeconfig",
                              "--region", "us-west-2", "--name", cluster_name], env=env)
     proc.wait()
@@ -60,7 +53,7 @@ def update_auth(account_id):
         yaml.dump(auth, outfile)
 
     proc = subprocess.Popen(
-        ["kubectl", "--kubeconfig", "kube/config",  "apply", "-f", "./kube/auth.yaml"])
+        ["kubectl",  "apply", "-f", "./kube/auth.yaml"])
 
     proc.wait()
     proc.kill()

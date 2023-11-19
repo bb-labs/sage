@@ -5,7 +5,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
-COPY . .
+COPY src .
 
 RUN go build -o ./tmp/main ./src/main.go
 
