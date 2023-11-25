@@ -1,4 +1,6 @@
-$(foreach var,$(shell yq -o=shell '.env.update.args' awyes.yml),$(eval export $(var)))
+include .env
+export
+
 
 tidy:
 	go mod tidy

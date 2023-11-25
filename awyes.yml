@@ -1,267 +1,106 @@
-# # -------------------------------------------------------------------
-# # user
-# # -------------------------------------------------------------------
-user:
-  get_user:
-    client: iam
-    workflow:
-      - init
-  get_caller_identity:
-    client: sts
-    workflow:
-      - init
+- aws_user:
+    - iam.get_user:
+    - iam.get_caller_identity:
 
-# # -------------------------------------------------------------------
-# # images
-# # -------------------------------------------------------------------
+- image:
+    - docker.build:
+        tag: ${DOCKER_REGISTRY}/${APP_REPO}
+        path: go
+        dockerfile: Dockerfile
+    - docker.push:
+        repository: ${DOCKER_REGISTRY}/${APP_REPO}
+        tag: ${APP_IMAGE_TAG}
+        auth_config:
+          username: ${DOCKER_HUB_USERNAME}
+          password: ${DOCKER_HUB_PASSWORD}
 
-image:
-  build:
-    client: docker.images
-    workflow:
-      - init
-    args:
-      tag: trumanpurnell/sage
-      path: .
-      dockerfile: Dockerfile
-  push:
-    client: docker.images
-    workflow:
-      - init
-    depends_on:
-      - image.build
-    args:
-      repository: trumanpurnell/sage
-      tag: latest
-      auth_config:
-        username: trumanpurnell
-        password: Smores44!
+- node_role:
+    - iam.create_role:
+        RoleName: ${AWS_SAGE_NODE_ROLE_NAME}
+        Description: Role for sage kubernetes node
+        AssumeRolePolicyDocument: >
+          {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Principal": { 
+                "Service": [
+                  "ec2.amazonaws.com"
+                ] 
+              },
+              "Action": "sts:AssumeRole"
+            }]
+          }
+    - iam.get_role:
+        RoleName: ${AWS_SAGE_NODE_ROLE_NAME}
+    - iam.attach_role_policy:
+        RoleName: ${AWS_SAGE_NODE_ROLE_NAME}
+        PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+    - iam.attach_role_policy:
+        RoleName: ${AWS_SAGE_NODE_ROLE_NAME}
+        PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+    - iam.attach_role_policy:
+        RoleName: ${AWS_SAGE_NODE_ROLE_NAME}
+        PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
 
-# # -------------------------------------------------------------------
-# # roles
-# # -------------------------------------------------------------------
+- cluster_role:
+    - iam.create_role:
+        RoleName: ${AWS_SAGE_NODE_CLUSTER_NAME}
+        Description: Role for sage kubernetes cluster
+        AssumeRolePolicyDocument: >
+          {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Principal": { 
+                "Service": [
+                  "lambda.amazonaws.com", 
+                  "rds.amazonaws.com",
+                  "eks.amazonaws.com"
+                ] 
+              },
+              "Action": "sts:AssumeRole"
+            }]
+          }
+    - iam.get_role:
+        RoleName: ${AWS_SAGE_NODE_CLUSTER_NAME}
+    - iam.attach_role_policy:
+        RoleName: ${AWS_SAGE_NODE_CLUSTER_NAME}
+        PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
-node_role:
-  get_role:
-    client: iam
-    depends_on:
-      - node_role.create_role
-      - node_role_policy_cni.attach_role_policy
-      - node_role_policy_worker.attach_role_policy
-      - node_role_policy_container.attach_role_policy
-    workflow:
-      - init
-    args:
-      RoleName: sage-node
-  create_role:
-    client: iam
-    workflow:
-      - init
-    args:
-      RoleName: sage-node
-      Description: Role for sage kubernetes node
-      AssumeRolePolicyDocument: >
-        {
-          "Version": "2012-10-17",
-          "Statement": [{
-            "Effect": "Allow",
-            "Principal": { 
-              "Service": [
-                "ec2.amazonaws.com"
-              ] 
-            },
-            "Action": "sts:AssumeRole"
-          }]
-        }
-
-node_role_policy_worker:
-  attach_role_policy:
-    client: iam
-    workflow:
-      - init
-    depends_on:
-      - node_role.create_role
-    args:
-      RoleName: sage-node
-      PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
-
-node_role_policy_container:
-  attach_role_policy:
-    client: iam
-    workflow:
-      - init
-    depends_on:
-      - node_role.create_role
-    args:
-      RoleName: sage-node
-      PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
-
-node_role_policy_cni:
-  attach_role_policy:
-    client: iam
-    workflow:
-      - init
-    depends_on:
-      - node_role.create_role
-    args:
-      RoleName: sage-node
-      PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
-
-cluster_role:
-  get_role:
-    client: iam
-    depends_on:
-      - cluster_role.create_role
-      - cluster_role.attach_role_policy
-    workflow:
-      - init
-    args:
-      RoleName: sage-cluster
-  create_role:
-    client: iam
-    workflow:
-      - init
-    args:
-      RoleName: sage-cluster
-      Description: Role for sage kubernetes cluster
-      AssumeRolePolicyDocument: >
-        {
-          "Version": "2012-10-17",
-          "Statement": [{
-            "Effect": "Allow",
-            "Principal": { 
-              "Service": [
-                "lambda.amazonaws.com", 
-                "rds.amazonaws.com",
-                "eks.amazonaws.com"
-              ] 
-            },
-            "Action": "sts:AssumeRole"
-          }]
-        }
-  attach_role_policy:
-    client: iam
-    workflow:
-      - init
-    depends_on:
-      - cluster_role.create_role
-    args:
-      RoleName: sage-cluster
-      PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-
-# # -------------------------------------------------------------------
-# # kubernetes
-# # -------------------------------------------------------------------
-
-kube:
-  env_args:
-    client: user
-    workflow:
-      - init
-      - upgrade
-  update_auth:
-    client: user
-    depends_on:
-      - user.get_caller_identity
-      - kube.update_config
-    workflow:
-      - init
-    args:
-      - $(user.get_caller_identity.Account)
-  update_config:
-    client: user
-    depends_on:
-      - kube.describe_cluster
-    workflow:
-      - init
-    args:
-      - $(kube.describe_cluster.cluster.name)
-  install_chart:
-    client: user
-    depends_on:
-      - kube.update_auth
-      - image.push
-      - kube.describe_cluster
-    workflow:
-      - release
-    args:
-      - $(kube.describe_cluster.cluster.name)
-      - $(env.set_env)
-  upgrade_chart:
-    client: user
-    depends_on:
-      - kube.describe_cluster
-      - kube.env_args
-    workflow:
-      - upgrade
-    args:
-      - $(kube.describe_cluster.cluster.name)
-      - $(kube.env_args)
-  describe_cluster:
-    client: eks
-    workflow:
-      - init
-      - upgrade
-    depends_on:
-      - kube.create_nodegroup
-    args:
-      name: sage
-  describe_vpcs:
-    client: ec2
-    workflow:
-      - init
-  describe_security_groups:
-    client: ec2
-    workflow:
-      - init
-    args:
-      GroupNames:
-        - default
-  describe_subnets:
-    client: ec2
-    workflow:
-      - init
-    depends_on:
-      - kube.describe_vpcs
-    args:
-      Filters:
-        - Name: vpc-id
-          Values:
-            - $(kube.describe_vpcs.Vpcs.0.VpcId)
-  create_nodegroup:
-    client: eks
-    workflow:
-      - init
-    depends_on:
-      - kube.create_cluster
-      - node_role.get_role
-    args:
-      clusterName: sage
-      nodegroupName: sage-node-group
-      nodeRole: $(node_role.get_role.Role.Arn)
-      subnets:
-        - $(kube.describe_subnets.Subnets.0.SubnetId)
-        - $(kube.describe_subnets.Subnets.1.SubnetId)
-        - $(kube.describe_subnets.Subnets.2.SubnetId)
-        - $(kube.describe_subnets.Subnets.3.SubnetId)
-  create_cluster:
-    client: eks
-    workflow:
-      - init
-    depends_on:
-      - cluster_role.get_role
-      - kube.describe_subnets
-      - kube.describe_security_groups
-    args:
-      name: sage
-      version: "1.28"
-      roleArn: $(cluster_role.get_role.Role.Arn)
-      resourcesVpcConfig:
-        securityGroupIds:
-          - $(kube.describe_security_groups.SecurityGroups.0.GroupId)
-        subnetIds:
+- kube:
+    - ec2.describe_vpcs:
+    - ec2.describe_subnets:
+        Filters:
+          - Name: vpc-id
+            Values:
+              - $(kube.describe_vpcs.Vpcs.0.VpcId)
+    - ec2.describe_security_groups:
+        GroupNames:
+          - default
+    - eks.create_cluster:
+        name: ${AWS_SAGE_CLUSTER_NAME}
+        version: ${AWS_EKS_VERSION}
+        roleArn: $(cluster_role.iam.get_role.Role.Arn)
+        resourcesVpcConfig:
+          securityGroupIds:
+            - $(kube.describe_security_groups.SecurityGroups.0.GroupId)
+          subnetIds:
+            - $(kube.describe_subnets.Subnets.0.SubnetId)
+            - $(kube.describe_subnets.Subnets.1.SubnetId)
+            - $(kube.describe_subnets.Subnets.2.SubnetId)
+            - $(kube.describe_subnets.Subnets.3.SubnetId)
+          endpointPublicAccess: true
+    - eks.create_nodegroup:
+        clusterName: sage
+        nodegroupName: ${AWS_SAGE_NODE_ROLE_NAME}-group
+        nodeRole: $(node_role.get_role.Role.Arn)
+        subnets:
           - $(kube.describe_subnets.Subnets.0.SubnetId)
           - $(kube.describe_subnets.Subnets.1.SubnetId)
           - $(kube.describe_subnets.Subnets.2.SubnetId)
           - $(kube.describe_subnets.Subnets.3.SubnetId)
-        endpointPublicAccess: true
+    - kube_deploy:
+        action: ${AWS_KUBE_ACTION}
+        account_id: ${AWS_ACCOUNT_ID}
+        cluster_name: ${AWS_SAGE_CLUSTER_NAME}

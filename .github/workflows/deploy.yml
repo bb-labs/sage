@@ -7,11 +7,10 @@ on:
         description: "awyes workflow type"
         required: true
         type: choice
-        default: init
-        options:
-          - init
-          - release
-          - upgrade
+        options: |
+          init
+          release
+          upgrade
 
 jobs:
   deploy:

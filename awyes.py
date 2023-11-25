@@ -1,43 +1,40 @@
 import os
+import boto3
 import yaml
 import itertools
 import subprocess
 
 
-def env_args():
-    return list(itertools.chain(
-        *[['--set', f'{k}={v}'] for k, v in os.environ.items()]))
+def docker():
+    return docker.client.from_env()
 
 
-def install_chart(cluster_name, env_args):
-    proc = subprocess.Popen(
-        ["helm", "install", *env_args, cluster_name, "./kube"])
-
-    proc.wait()
-    proc.kill()
+def iam():
+    return boto3.client('iam')
 
 
-def upgrade_chart(cluster_name, env_args):
-    print(f"Upgrading chart {cluster_name}", env_args)
-    proc = subprocess.Popen(
-        ["helm", "upgrade", *env_args, cluster_name, "./kube"])
-
-    proc.wait()
-    proc.kill()
+def ec2():
+    return boto3.client('ec2')
 
 
-def update_config(cluster_name):
-    proc = subprocess.Popen(["aws", "eks", "update-kubeconfig",
-                             "--region", "us-west-2", "--name", cluster_name], env=env)
-    proc.wait()
-    proc.kill()
+def eks():
+    return boto3.client('eks')
 
 
-def update_auth(account_id):
+def kube_deploy(action, account_id, cluster_name):
+    # Inline utility functions
     def str_presenter(dumper, data):
         if len(data.splitlines()) > 1:
             return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
         return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+    def wait_and_kill(proc):
+        proc.wait()
+        proc.kill()
+
+    # Update kubeconfig auth to talk to the cluster
+    wait_and_kill(subprocess.Popen(["aws", "eks", "update-kubeconfig",
+                                    "--region", "us-west-2", "--name", cluster_name], env=os.environ))
 
     yaml.add_representer(str, str_presenter)
     yaml.representer.SafeRepresenter.add_representer(str, str_presenter)
@@ -52,8 +49,12 @@ def update_auth(account_id):
     with open('./kube/auth.yaml', 'w') as outfile:
         yaml.dump(auth, outfile)
 
-    proc = subprocess.Popen(
-        ["kubectl",  "apply", "-f", "./kube/auth.yaml"])
+    wait_and_kill(subprocess.Popen(
+        ["kubectl",  "apply", "-f", "./kube/auth.yaml"]))
 
-    proc.wait()
-    proc.kill()
+    # Install Helm charts
+    env_args = list(itertools.chain(
+        *[['--set', f'{k}={v}'] for k, v in os.environ.items()]))
+
+    wait_and_kill(subprocess.Popen(
+        ["helm", action, *env_args, cluster_name, "./kube"]))
