@@ -25,6 +25,9 @@ release:
 
 status:
 	docker container ls
+	kubectl --kubeconfig kube/config get po -o wide
+	kubectl --kubeconfig kube/config get svc
+	kubectl --kubeconfig kube/config get events --sort-by=.metadata.creationTimestamp
 
 clean: down
 	docker system prune -af
