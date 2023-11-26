@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "08035cb9e866c88d0685a15e271ccea8d95687556d8d75e8b08ae0350dc309e6"
+            "sha256": "3d7d0cb501427e3516e42a59f0626d6bb36b0dae5382db2cd91faec5dddefeda"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "awyes": {
             "hashes": [
-                "sha256:32ef6994d808c64abebf40c2f8a70f3b4b7f95789da74cab0f9288a6ec524c53",
-                "sha256:e0a752c29aef55bd5d786eedbfca144fdf21b9ca47711fc48b49dd48f9b5d087"
+                "sha256:7166a02e8e8e4281006c7a10f6a0a397128f5ba82f08309e21708af1a2aa4e71",
+                "sha256:e162c898f85489b7b4437d18033e222658136a8d7d78f7d3c1ae8af4d33dabf9"
             ],
             "index": "pypi",
-            "version": "==13.0.2"
+            "version": "==13.0.4"
         },
         "certifi": {
             "hashes": [
@@ -128,6 +128,14 @@
             "markers": "python_full_version >= '3.7.0'",
             "version": "==3.3.2"
         },
+        "docker": {
+            "hashes": [
+                "sha256:aa6d17830045ba5ef0168d5eaa34d37beeb113948c413affe1d5991fc11f9a20",
+                "sha256:aecd2277b8bf8e506e484f6ab7aec39abe0038e29fa4a6d3ba86c3fe01844ed9"
+            ],
+            "index": "pypi",
+            "version": "==6.1.3"
+        },
         "docopt": {
             "hashes": [
                 "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"
@@ -149,18 +157,18 @@
             ],
             "version": "==1.5.4"
         },
+        "packaging": {
+            "hashes": [
+                "sha256:048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5",
+                "sha256:8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==23.2"
+        },
         "pbxproj": {
             "editable": true,
             "git": "https://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@github.com/bb-labs/mod-pbxproj",
             "ref": "fcf1db42768b5cd8c6a09df852e5a9237b3cac22"
-        },
-        "pipreqs": {
-            "hashes": [
-                "sha256:a17f167880b6921be37533ce4c81ddc6e22b465c107aad557db43b1add56a99b",
-                "sha256:e522b9ed54aa3e8b7978ff251ab7a9af2f75d2cd8de4c102e881b666a79a308e"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==0.4.13"
         },
         "python-dotenv": {
             "hashes": [
@@ -242,12 +250,13 @@
             "markers": "python_version >= '3.8'",
             "version": "==2.1.0"
         },
-        "yarg": {
+        "websocket-client": {
             "hashes": [
-                "sha256:4f9cebdc00fac946c9bf2783d634e538a71c7d280a4d806d45fd4dc0ef441492",
-                "sha256:55695bf4d1e3e7f756496c36a69ba32c40d18f821e38f61d028f6049e5e15911"
+                "sha256:084072e0a7f5f347ef2ac3d8698a5e0b4ffbfcab607628cadabc650fc9a83a24",
+                "sha256:b3324019b3c28572086c4a319f91d1dcd44e6e11cd340232978c684a7650d0df"
             ],
-            "version": "==0.1.9"
+            "markers": "python_version >= '3.8'",
+            "version": "==1.6.4"
         }
     },
     "develop": {}

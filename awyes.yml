@@ -1,11 +1,13 @@
-docker.user.login:
-  username: ${DOCKER_HUB_USERNAME}
-  password: ${DOCKER_HUB_PASSWORD}
-docker.user.build:
+docker.image.build:
+  tag: ${DOCKER_REGISTRY}/${APP_REPO}
   path: go
-  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
-docker.user.push:
-  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
+  dockerfile: Dockerfile
+docker.image.push:
+  repository: ${DOCKER_REGISTRY}/${APP_REPO}
+  tag: ${APP_IMAGE_TAG}
+  auth_config:
+    username: ${DOCKER_HUB_USERNAME}
+    password: ${DOCKER_HUB_PASSWORD}
 
 node_role.iam.create_role:
   RoleName: ${APP_NODE_ROLE_NAME}

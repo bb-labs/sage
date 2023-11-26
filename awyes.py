@@ -1,22 +1,22 @@
 import os
 import boto3
 import yaml
+import docker
 import itertools
 import subprocess
 
 
-def wait_and_kill(proc):
-    proc.wait()
-    proc.kill()
-
-
-def str_presenter(dumper, data):
-    if len(data.splitlines()) > 1:
-        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
-    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
-
-
 def deploy(action, account_id, region, cluster_name):
+    # Inline utility functions
+    def str_presenter(dumper, data):
+        if len(data.splitlines()) > 1:
+            return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+    def wait_and_kill(proc):
+        proc.wait()
+        proc.kill()
+
     # Update kubeconfig auth to talk to the cluster
     wait_and_kill(subprocess.Popen(["aws", "eks", "update-kubeconfig",
                                     "--region", region, "--name", cluster_name], env=os.environ))
@@ -45,28 +45,9 @@ def deploy(action, account_id, region, cluster_name):
         ["helm", action, *env_args, cluster_name, "./kube"]))
 
 
-def docker_login(username, password):
-    wait_and_kill(subprocess.Popen(
-        ["docker", "login", "-u", username, "-p", password], env=os.environ))
-
-
-def docker_build_image(path, tag):
-    wait_and_kill(subprocess.Popen(
-        ["docker", "build", "-t", tag, path], env=os.environ))
-
-
-def docker_push_image(tag):
-    wait_and_kill(subprocess.Popen(["docker", "push", tag], env=os.environ))
-
-
-user = {
-    "deploy": deploy,
-    "login": docker_login,
-    "build": docker_build_image,
-    "push": docker_push_image
-}
-
+user = {"deploy": deploy}
 iam = boto3.client('iam')
 ec2 = boto3.client('ec2')
 eks = boto3.client('eks')
 eks_waiter = eks.get_waiter('cluster_active')
+image = docker.from_env().images
