@@ -22,12 +22,12 @@ def install_binaries():
     subprocess.run(
         ["curl", "-fsSL", "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip", "-o", "awscliv2.zip"])
     subprocess.run(
-        ["unzip", "awscliv2.zip"])
-    subprocess.run(["sudo ./aws/install"])
+        ["unzip", "-q", "awscliv2.zip"])
+    subprocess.run(["sudo", "./aws/install"])
 
     # kubectl
     subprocess.run(
-        ["curl", "-fsSL", "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl"])
+        ["curl", "-fsSL", "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl", "-o", "kubectl"])
     subprocess.run(["chmod", "+x", "./kubectl"])
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
