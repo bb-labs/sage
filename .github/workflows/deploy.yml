@@ -30,6 +30,7 @@ jobs:
       - name: test docker
         run: |
           docker --version
+          which docker
       - name: Run awyes action
         uses: bb-labs/awyes@main
         with:
