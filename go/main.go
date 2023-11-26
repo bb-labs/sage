@@ -65,7 +65,6 @@ func main() {
 
 	// Test route for health check
 	router.GET("/ping", func(c *gin.Context) {
-		log.Println("ping")
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})

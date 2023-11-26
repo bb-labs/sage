@@ -83,6 +83,9 @@ func (h *Hub) initRouter() error {
 func (h *Hub) Store(routeReq *sageproto.RouteRequest) (*mongo.InsertOneResult, error) {
 	res, err := h.db.Database(os.Getenv("MONGO_INITDB_DATABASE")).Collection("DB_SIGNALING_COLLECTION").InsertOne(h.ctx, routeReq)
 
+	log.Printf("res: %v", res)
+	log.Printf("stored route request: %v", routeReq)
+
 	if err != nil {
 		return nil, err
 	}
