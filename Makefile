@@ -18,16 +18,16 @@ down:
 	envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
 
 logs:
-	envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
+	envsubst < docker-compose.yml | docker compose -f - logs $(service)
 
 release:
 	gh workflow run 'Sage CI/CD'
 
 status:
-	docker container ls
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
 	kubectl --kubeconfig kube/config get events --sort-by=.metadata.creationTimestamp
+	kubectl --kubeconfig kube/config logs deployment/sage-deployment  --all-containers
 
 clean: down
 	docker system prune -af

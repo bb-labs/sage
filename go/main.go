@@ -27,7 +27,7 @@ func main() {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
 		os.Getenv("MONGO_INITDB_ROOT_USERNAME"),
 		os.Getenv("MONGO_INITDB_ROOT_PASSWORD"),
-		os.Getenv("DB_CONTAINER_NAME"),
+		os.Getenv("DB_SERVICE_NAME"),
 		os.Getenv("DB_PORT"))
 
 	db, err := mongo.NewClient(options.Client().ApplyURI(uri))
