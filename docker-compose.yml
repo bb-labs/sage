@@ -9,6 +9,8 @@ services:
       - ./go:/${APP_CONTAINER_NAME}
     ports:
       - ${APP_PORT}:${APP_PORT}
+    env_file:
+      - .env
     entrypoint: ["./entrypoint.dev.sh"]
 
   ${DB_CONTAINER_NAME}:
@@ -18,6 +20,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: username
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: db
+    env_file:
+      - .env
     volumes:
       - ${DB_CONTAINER_NAME}:/data/${DB_CONTAINER_NAME}
     ports:
