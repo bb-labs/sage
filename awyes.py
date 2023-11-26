@@ -5,17 +5,18 @@ import itertools
 import subprocess
 
 
+def wait_and_kill(proc):
+    proc.wait()
+    proc.kill()
+
+
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+
 def deploy(action, account_id, region, cluster_name):
-    # Inline utility functions
-    def str_presenter(dumper, data):
-        if len(data.splitlines()) > 1:
-            return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
-        return dumper.represent_scalar('tag:yaml.org,2002:str', data)
-
-    def wait_and_kill(proc):
-        proc.wait()
-        proc.kill()
-
     # Update kubeconfig auth to talk to the cluster
     wait_and_kill(subprocess.Popen(["aws", "eks", "update-kubeconfig",
                                     "--region", region, "--name", cluster_name], env=os.environ))
@@ -45,15 +46,16 @@ def deploy(action, account_id, region, cluster_name):
 
 
 def docker_login(username, password):
-    subprocess.run(["docker", "login", "-u", username, "-p", password])
+    wait_and_kill(subprocess.Popen(
+        ["docker", "login", "-u", username, "-p", password]))
 
 
 def docker_build_image(path, tag):
-    subprocess.run(["docker", "build", "-t", tag, path])
+    wait_and_kill(subprocess.Popen(["docker", "build", "-t", tag, path]))
 
 
 def docker_push_image(tag):
-    subprocess.run(["docker", "push", tag])
+    wait_and_kill(subprocess.Popen(["docker", "push", tag]))
 
 
 user = {
