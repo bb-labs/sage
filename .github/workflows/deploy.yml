@@ -29,12 +29,7 @@ jobs:
           aws-region: us-west-2
       - name: test docker
         run: |
-          docker --version
-          which docker
-          which aws
-          which helm
-          echo $PATH
-          export
+          mv /usr/bin/docker /usr/local/bin/docker
       - name: Run awyes action
         uses: bb-labs/awyes@main
         with:
