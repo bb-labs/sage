@@ -12,12 +12,12 @@ services:
     entrypoint: ["./entrypoint.dev.sh"]
 
   ${DB_CONTAINER_NAME}:
-    image: mongo:latest
+    image: ${DB_REPO}:${DB_IMAGE_TAG}
     container_name: ${DB_CONTAINER_NAME}
     environment:
       MONGO_INITDB_ROOT_USERNAME: username
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_DATABASE: db
     volumes:
       - ${DB_CONTAINER_NAME}:/data/${DB_CONTAINER_NAME}
     ports:

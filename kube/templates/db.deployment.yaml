@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.DB_DEPLOYMENT_NAME }}
-          image: {{ .Values.DB_REPO }}:{{ .Values.DB_IMAGE_TAG }}
+          image: "{{ .Values.DB_REPO }}:{{ .Values.DB_IMAGE_TAG }}"
           ports:
             - containerPort: {{ .Values.DB_PORT }}
           env:
