@@ -20,6 +20,9 @@ down:
 logs:
 	envsubst < docker-compose.yml | docker compose -f - logs --follow $(service)
 
+release:
+	gh workflow run 'Sage CI/CD'
+
 status:
 	docker container ls
 
