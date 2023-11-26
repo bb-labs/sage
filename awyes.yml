@@ -94,7 +94,7 @@ kube.eks.create_nodegroup:
     - $(kube.ec2.describe_subnets.Subnets.1.SubnetId)
     - $(kube.ec2.describe_subnets.Subnets.2.SubnetId)
     - $(kube.ec2.describe_subnets.Subnets.3.SubnetId)
-kube.user.install_binaries:
+kube.user.binaries:
 kube.user.deploy:
   action: install
   account_id: ${AWS_ACCOUNT_ID}
@@ -113,7 +113,7 @@ init:
 
 release:
   - docker
-  - kube.user.install_binaries
+  - kube.user.binaries
   - kube.user.deploy:
       action: upgrade
       account_id: ${AWS_ACCOUNT_ID}
