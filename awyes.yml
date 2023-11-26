@@ -1,13 +1,11 @@
-image.docker.build:
-  tag: ${DOCKER_REGISTRY}/${APP_REPO}
+docker.user.login:
+  username: ${DOCKER_HUB_USERNAME}
+  password: ${DOCKER_HUB_PASSWORD}
+docker.user.build:
   path: go
-  dockerfile: Dockerfile
-image.docker.push:
-  repository: ${DOCKER_REGISTRY}/${APP_REPO}
-  tag: ${APP_IMAGE_TAG}
-  auth_config:
-    username: ${DOCKER_HUB_USERNAME}
-    password: ${DOCKER_HUB_PASSWORD}
+  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
+docker.user.push:
+  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
 
 node_role.iam.create_role:
   RoleName: ${APP_NODE_ROLE_NAME}
@@ -102,16 +100,16 @@ kube.user.deploy:
 
 ---
 build:
-  - image
+  - docker
 
 init:
-  - image
+  - docker
   - node_role
   - cluster_role
   - kube
 
 release:
-  - image
+  - docker
   - kube.user.deploy:
       action: upgrade
       account_id: ${AWS_ACCOUNT_ID}

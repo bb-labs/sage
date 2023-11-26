@@ -1,7 +1,6 @@
 import os
 import boto3
 import yaml
-import docker
 import itertools
 import subprocess
 
@@ -45,9 +44,26 @@ def deploy(action, account_id, region, cluster_name):
         ["helm", action, *env_args, cluster_name, "./kube"]))
 
 
-user = {"deploy": deploy}
+def docker_login(username, password):
+    subprocess.run(["docker", "login", "-u", username, "-p", password])
+
+
+def docker_build_image(path, tag):
+    subprocess.run(["docker", "build", "-t", tag, path])
+
+
+def docker_push_image(tag):
+    subprocess.run(["docker", "push", tag])
+
+
+user = {
+    "deploy": deploy,
+    "login": docker_login,
+    "build": docker_build_image,
+    "push": docker_push_image
+}
+
 iam = boto3.client('iam')
 ec2 = boto3.client('ec2')
 eks = boto3.client('eks')
 eks_waiter = eks.get_waiter('cluster_active')
-docker = docker.client.from_env()
