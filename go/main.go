@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ func main() {
 	router.GET("/ping", func(c *gin.Context) {
 		log.Println("ping")
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"env": os.Environ(),
 		})
 	})
 
