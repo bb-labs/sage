@@ -17,8 +17,14 @@ def deploy(action, account_id, region, cluster_name):
         proc.wait()
         proc.kill()
 
+    wait_and_kill(subprocess.Popen(["ls", "-la"], env=os.environ))
+    wait_and_kill(subprocess.Popen(
+        ["ls", "-la", "/usr/local/bin"], env=os.environ))
+    wait_and_kill(subprocess.Popen(
+        ["export"], env=os.environ))
+    return
+
     # Update kubeconfig auth to talk to the cluster
-    print(os.environ)
     wait_and_kill(subprocess.Popen(["aws", "eks", "update-kubeconfig",
                                     "--region", region, "--name", cluster_name], env=os.environ))
 
@@ -36,14 +42,14 @@ def deploy(action, account_id, region, cluster_name):
         yaml.dump(auth, outfile)
 
     wait_and_kill(subprocess.Popen(
-        ["kubectl",  "apply", "-f", "./kube/auth.yaml"]))
+        ["kubectl",  "apply", "-f", "./kube/auth.yaml"], env=os.environ))
 
     # Install Helm charts
     env_args = list(itertools.chain(
         *[['--set', f'{k}={v}'] for k, v in os.environ.items()]))
 
     wait_and_kill(subprocess.Popen(
-        ["helm", action, *env_args, cluster_name, "./kube"]))
+        ["helm", action, *env_args, cluster_name, "./kube"], env=os.environ))
 
 
 user = {"deploy": deploy}
