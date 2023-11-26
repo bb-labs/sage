@@ -95,10 +95,12 @@ kube.eks.create_nodegroup:
     - $(kube.ec2.describe_subnets.Subnets.2.SubnetId)
     - $(kube.ec2.describe_subnets.Subnets.3.SubnetId)
 kube.user.binaries:
-kube.user.deploy:
-  action: install
+kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
+  cluster_name: ${APP_CLUSTER_NAME}
+kube.user.deploy:
+  action: install
   cluster_name: ${APP_CLUSTER_NAME}
 
 ---
@@ -116,6 +118,4 @@ release:
   - kube.user.binaries
   - kube.user.deploy:
       action: upgrade
-      account_id: ${AWS_ACCOUNT_ID}
-      region: ${AWS_REGION}
       cluster_name: ${APP_CLUSTER_NAME}

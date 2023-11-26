@@ -19,3 +19,6 @@ spec:
           image: "{{ .Values.DOCKER_REGISTRY }}/{{ .Values.APP_REPO }}:{{ .Values.APP_IMAGE_TAG }}"
           ports:
             - containerPort: {{ .Values.APP_PORT }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.APP_CONFIG_MAP_NAME }}
