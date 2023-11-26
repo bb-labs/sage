@@ -33,6 +33,8 @@ jobs:
           which docker
           which aws
           which helm
+          echo $PATH
+          export
       - name: Run awyes action
         uses: bb-labs/awyes@main
         with:

@@ -47,15 +47,16 @@ def deploy(action, account_id, region, cluster_name):
 
 def docker_login(username, password):
     wait_and_kill(subprocess.Popen(
-        ["docker", "login", "-u", username, "-p", password]))
+        ["docker", "login", "-u", username, "-p", password], env=os.environ))
 
 
 def docker_build_image(path, tag):
-    wait_and_kill(subprocess.Popen(["docker", "build", "-t", tag, path]))
+    wait_and_kill(subprocess.Popen(
+        ["docker", "build", "-t", tag, path], env=os.environ))
 
 
 def docker_push_image(tag):
-    wait_and_kill(subprocess.Popen(["docker", "push", tag]))
+    wait_and_kill(subprocess.Popen(["docker", "push", tag], env=os.environ))
 
 
 user = {
