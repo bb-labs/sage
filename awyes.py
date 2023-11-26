@@ -39,10 +39,6 @@ def deploy(action, account_id, region, cluster_name):
             return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
         return dumper.represent_scalar('tag:yaml.org,2002:str', data)
 
-    # santity check
-    subprocess.run(["ls", "-la"])
-    subprocess.run(["ls", "-la", "/usr/local/bin"])
-
     # Update kubeconfig auth to talk to the cluster
     subprocess.run(["aws", "eks", "update-kubeconfig",
                    "--region", region, "--name", cluster_name])
