@@ -6,7 +6,12 @@ on:
       workflow:
         description: "awyes workflow type"
         required: true
-        type: string
+        type: choice
+        default: init
+        options:
+          - init
+          - release
+          - build
 
 jobs:
   deploy:
@@ -15,12 +20,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install deps
-        run: |
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O ~/yq
-          chmod +x ~/yq
-          sudo mv ~/yq /usr/local/bin/yq
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -33,3 +32,7 @@ jobs:
         uses: bb-labs/awyes@main
         with:
           workflow: ${{ inputs.workflow }}
+        env:
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}

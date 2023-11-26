@@ -1,27 +1,12 @@
 import os
 import boto3
 import yaml
+import docker
 import itertools
 import subprocess
 
 
-def docker():
-    return docker.client.from_env()
-
-
-def iam():
-    return boto3.client('iam')
-
-
-def ec2():
-    return boto3.client('ec2')
-
-
-def eks():
-    return boto3.client('eks')
-
-
-def kube_deploy(action, account_id, cluster_name):
+def deploy(action, account_id, region, cluster_name):
     # Inline utility functions
     def str_presenter(dumper, data):
         if len(data.splitlines()) > 1:
@@ -34,7 +19,7 @@ def kube_deploy(action, account_id, cluster_name):
 
     # Update kubeconfig auth to talk to the cluster
     wait_and_kill(subprocess.Popen(["aws", "eks", "update-kubeconfig",
-                                    "--region", "us-west-2", "--name", cluster_name], env=os.environ))
+                                    "--region", region, "--name", cluster_name], env=os.environ))
 
     yaml.add_representer(str, str_presenter)
     yaml.representer.SafeRepresenter.add_representer(str, str_presenter)
@@ -58,3 +43,11 @@ def kube_deploy(action, account_id, cluster_name):
 
     wait_and_kill(subprocess.Popen(
         ["helm", action, *env_args, cluster_name, "./kube"]))
+
+
+user = {"deploy": deploy}
+iam = boto3.client('iam')
+ec2 = boto3.client('ec2')
+eks = boto3.client('eks')
+eks_waiter = eks.get_waiter('cluster_active')
+docker = docker.client.from_env()
