@@ -14,20 +14,20 @@ def wait_and_kill(proc):
 def install_binaries():
     # helm
     subprocess.run(
-        ["curl", "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"])
+        ["curl", "-fsSL", "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3", "-o", "get_helm.sh"])
     subprocess.run(["chmod", "700", "get_helm.sh"])
     subprocess.run(["./get_helm.sh"])
 
     # awscli
     subprocess.run(
-        ["curl", "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip", "-o", "awscliv2.zip"])
+        ["curl", "-fsSL", "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip", "-o", "awscliv2.zip"])
     subprocess.run(
         ["unzip", "awscliv2.zip"])
     subprocess.run(["sudo ./aws/install"])
 
     # kubectl
     subprocess.run(
-        ["curl", "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl"])
+        ["curl", "-fsSL", "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl"])
     subprocess.run(["chmod", "+x", "./kubectl"])
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
