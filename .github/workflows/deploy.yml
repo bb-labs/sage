@@ -31,6 +31,8 @@ jobs:
         run: |
           docker --version
           which docker
+          which aws
+          which helm
       - name: Run awyes action
         uses: bb-labs/awyes@main
         with:
