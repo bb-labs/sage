@@ -59,9 +59,8 @@ def deploy(action, cluster_name, dry_run=False):
     )
 
     subprocess.run(
-        ["helm", action, *env_args, cluster_name, "./kube"] + ["--dry-run"]
-        if dry_run
-        else []
+        ["helm", action, *env_args, cluster_name, "./kube"]
+        + (["--dry-run"] if dry_run else [])
     )
 
 
