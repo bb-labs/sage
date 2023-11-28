@@ -6,11 +6,6 @@ import itertools
 import subprocess
 
 
-def wait_and_kill(proc):
-    proc.wait()
-    proc.kill()
-
-
 def install_binaries():
     # helm
     subprocess.run(
@@ -63,6 +58,19 @@ def deploy(action, cluster_name, dry_run=False):
         + (["--dry-run"] if dry_run else [])
     )
 
+    subprocess.run(
+        [
+            "helm",
+            action,
+            *env_args,
+            cluster_name,
+            "oauth2-proxy/oauth2-proxy",
+            "--config",
+            "./kube/oauth.cfg",
+        ]
+        + (["--dry-run"] if dry_run else [])
+    )
+
 
 def init(account_id, region, cluster_name):
     # Inline utility functions
@@ -80,19 +88,31 @@ def init(account_id, region, cluster_name):
     yaml.add_representer(str, str_presenter)
     yaml.representer.SafeRepresenter.add_representer(str, str_presenter)
 
-    auth = {
-        "apiVersion": "v1",
-        "data": {
-            "mapUsers": f"- groups:\n  - system:masters\n  userarn: arn:aws:iam::{account_id}:root"
-        },
-        "kind": "ConfigMap",
-        "metadata": {"name": "aws-auth", "namespace": "kube-system"},
-    }
-
     with open("./kube/auth.yaml", "w") as outfile:
-        yaml.dump(auth, outfile)
+        yaml.dump(
+            {
+                "apiVersion": "v1",
+                "data": {
+                    "mapUsers": f"- groups:\n  - system:masters\n  userarn: arn:aws:iam::{account_id}:root"
+                },
+                "kind": "ConfigMap",
+                "metadata": {"name": "aws-auth", "namespace": "kube-system"},
+            },
+            outfile,
+        )
 
     subprocess.run(["kubectl", "apply", "-f", "./kube/auth.yaml"])
+
+    # Grab the proxy chart
+    subprocess.run(
+        [
+            "helm",
+            "repo",
+            "add",
+            "oauth2-proxy",
+            "https://oauth2-proxy.github.io/manifests",
+        ]
+    )
 
 
 user = {"deploy": deploy, "init": init, "binaries": install_binaries}
