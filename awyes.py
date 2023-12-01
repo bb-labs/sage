@@ -1,4 +1,5 @@
 import os
+import json
 import boto3
 import yaml
 import docker
@@ -6,68 +7,46 @@ import itertools
 import subprocess
 
 
-def install_binaries():
+def binaries():
+    HELM_URL = "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+    AWSCLI_URL = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    KUBECTL_URL = "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl"
+
     # helm
-    subprocess.run(
-        [
-            "curl",
-            "-fsSL",
-            "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3",
-            "-o",
-            "get_helm.sh",
-        ]
-    )
+    subprocess.run(["curl", "-fsSL", HELM_URL, "-o", "get_helm.sh"])
     subprocess.run(["chmod", "700", "get_helm.sh"])
     subprocess.run(["./get_helm.sh"])
 
     # awscli
-    subprocess.run(
-        [
-            "curl",
-            "-fsSL",
-            "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip",
-            "-o",
-            "awscliv2.zip",
-        ]
-    )
+    subprocess.run(["curl", "-fsSL", AWSCLI_URL, "-o", "awscliv2.zip"])
     subprocess.run(["unzip", "-q", "awscliv2.zip"])
     subprocess.run(["sudo", "./aws/install"])
 
     # kubectl
-    subprocess.run(
-        [
-            "curl",
-            "-fsSL",
-            "https://storage.googleapis.com/kubernetes-release/release/v1.28.4/bin/linux/amd64/kubectl",
-            "-o",
-            "kubectl",
-        ]
-    )
+    subprocess.run(["curl", "-fsSL", KUBECTL_URL, "-o", "kubectl"])
     subprocess.run(["chmod", "+x", "./kubectl"])
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
 
-def deploy(action, cluster_name, dry_run=False):
-    # Install Helm charts
-    env_args = list(
-        itertools.chain(*[["--set", f"{k}={v}"] for k, v in os.environ.items()])
+def deploy(action, deployment, chart, values=os.environ, dry_run=False):
+    value_args = list(
+        itertools.chain(
+            *[
+                ["--set-json", f"{k}={json.dumps(v)}"]
+                if isinstance(v, dict)
+                else ["--set", f"{k}={v}"]
+                for k, v in values.items()
+            ]
+        )
     )
 
-    subprocess.run(
-        ["helm", action, *env_args, cluster_name, "./kube"]
+    print(
+        ["helm", action, *value_args, deployment, chart]
         + (["--dry-run"] if dry_run else [])
     )
 
-    subprocess.run(
-        [
-            "helm",
-            action,
-            *env_args,
-            cluster_name,
-            "oauth2-proxy/oauth2-proxy",
-            "--config",
-            "./kube/oauth.cfg",
-        ]
+    return subprocess.run(
+        ["helm", action, *value_args, deployment, chart]
         + (["--dry-run"] if dry_run else [])
     )
 
@@ -104,7 +83,7 @@ def init(account_id, region, cluster_name):
     subprocess.run(["kubectl", "apply", "-f", "./kube/auth.yaml"])
 
     # Grab the proxy chart
-    subprocess.run(
+    return subprocess.run(
         [
             "helm",
             "repo",
@@ -115,7 +94,7 @@ def init(account_id, region, cluster_name):
     )
 
 
-user = {"deploy": deploy, "init": init, "binaries": install_binaries}
+user = {"deploy": deploy, "init": init, "binaries": binaries}
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
 eks = boto3.client("eks")

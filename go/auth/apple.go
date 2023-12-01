@@ -4,7 +4,6 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -14,19 +13,7 @@ import (
 	"github.com/lestrrat-go/jwx/v2/jwt"
 )
 
-type Apple struct {
-	Logger *log.Logger
-}
-
-func NewApple() *Apple {
-	return &Apple{}
-}
-
-func (a *Apple) GenerateApnToken() (string, error) {
-	keyId := os.Getenv("KEY_ID")
-	keyPath := os.Getenv("KEY_PATH")
-	teamId := os.Getenv("TEAM_ID")
-
+func GenerateAppleClientSecret(keyId, keyPath, teamId, bundleId string) (string, error) {
 	absPath, _ := filepath.Abs(keyPath)
 	signingKey, _ := os.ReadFile(absPath)
 
@@ -43,6 +30,9 @@ func (a *Apple) GenerateApnToken() (string, error) {
 	token, err := jwt.NewBuilder().
 		Issuer(teamId).
 		IssuedAt(time.Now()).
+		Expiration(time.Now().Add(24 * time.Hour * 180)).
+		Audience([]string{"https://appleid.apple.com"}).
+		Subject(bundleId).
 		Build()
 	if err != nil {
 		return "", fmt.Errorf("err building key: %v", err)

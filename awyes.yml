@@ -99,9 +99,21 @@ kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
   cluster_name: ${APP_CLUSTER_NAME}
-kube.user.deploy:
+kube.user.deploy.sage:
   action: install
-  cluster_name: ${APP_CLUSTER_NAME}
+  deployment: ${APP_CLUSTER_NAME}
+  chart: ./kube
+kube.user.deploy.oauth2:
+  action: install
+  deployment: ${OAUTH2_PROXY_DEPLOYMENT_NAME}
+  chart: oauth2-proxy/oauth2-proxy
+  values:
+    extraArgs:
+      client-id: ${OAUTH2_PROXY_CLIENT_ID}
+      client-secret: ${OAUTH2_PROXY_CLIENT_SECRET}
+      skip-jwt-bearer-tokens: ${OAUTH2_PROXY_SKIP_JWT_BEARER_TOKENS}
+      provider: ${OAUTH2_PROXY_PROVIDER}
+      oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
 
 ---
 build:
@@ -116,6 +128,7 @@ init:
 release:
   - docker
   - kube.user.binaries
-  - kube.user.deploy:
+  - kube.user.deploy.sage:
       action: upgrade
-      cluster_name: ${APP_CLUSTER_NAME}
+      deployment: ${APP_CLUSTER_NAME}
+      chart: ./kube

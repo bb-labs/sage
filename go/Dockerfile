@@ -1,6 +1,6 @@
 FROM golang:latest AS base
 
-WORKDIR /app
+WORKDIR /sage-service
 
 COPY ./go.mod ./go.sum ./
 RUN go mod download 
