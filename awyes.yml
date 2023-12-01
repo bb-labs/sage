@@ -100,11 +100,9 @@ kube.user.init:
   region: ${AWS_REGION}
   cluster_name: ${APP_CLUSTER_NAME}
 kube.user.deploy.sage:
-  action: install
   deployment: ${APP_CLUSTER_NAME}
   chart: ./kube
 kube.user.deploy.oauth2:
-  action: install
   deployment: ${OAUTH2_PROXY_DEPLOYMENT_NAME}
   chart: oauth2-proxy/oauth2-proxy
   values:
@@ -114,6 +112,9 @@ kube.user.deploy.oauth2:
       skip-jwt-bearer-tokens: ${OAUTH2_PROXY_SKIP_JWT_BEARER_TOKENS}
       provider: ${OAUTH2_PROXY_PROVIDER}
       oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
+kube.user.deploy.nginx:
+  deployment: ${NGINX_INGRESS_DEPLOYMENT_NAME}
+  chart: ingress-nginx/ingress-nginx
 
 ---
 build:
@@ -129,6 +130,5 @@ release:
   - docker
   - kube.user.binaries
   - kube.user.deploy.sage:
-      action: upgrade
       deployment: ${APP_CLUSTER_NAME}
       chart: ./kube

@@ -28,7 +28,7 @@ def binaries():
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
 
-def deploy(action, deployment, chart, values=os.environ, dry_run=False):
+def deploy(deployment, chart, values=os.environ, dry_run=False):
     value_args = list(
         itertools.chain(
             *[
@@ -40,13 +40,8 @@ def deploy(action, deployment, chart, values=os.environ, dry_run=False):
         )
     )
 
-    print(
-        ["helm", action, *value_args, deployment, chart]
-        + (["--dry-run"] if dry_run else [])
-    )
-
     return subprocess.run(
-        ["helm", action, *value_args, deployment, chart]
+        ["helm", "upgrade", "--install", *value_args, deployment, chart]
         + (["--dry-run"] if dry_run else [])
     )
 
@@ -82,16 +77,12 @@ def init(account_id, region, cluster_name):
 
     subprocess.run(["kubectl", "apply", "-f", "./kube/auth.yaml"])
 
-    # Grab the proxy chart
-    return subprocess.run(
-        [
-            "helm",
-            "repo",
-            "add",
-            "oauth2-proxy",
-            "https://oauth2-proxy.github.io/manifests",
-        ]
-    )
+    # Grab vendor charts
+    OAUTH2_CHART_URL = "https://oauth2-proxy.github.io/manifests"
+    NGINX_CHART_URL = "https://kubernetes.github.io/ingress-nginx"
+
+    subprocess.run(["helm", "repo", "add", "oauth2-proxy", OAUTH2_CHART_URL])
+    subprocess.run(["helm", "repo", "add", "ingress-nginx", NGINX_CHART_URL])
 
 
 user = {"deploy": deploy, "init": init, "binaries": binaries}
