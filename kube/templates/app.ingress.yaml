@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.APP_INGRESS_NAME }}
+spec:
+  ingressClassName: {{ .Values.NGINX_INGRESS_NAME }} 
+  rules:
+    - host: {{ .Values.APP_DOMAIN }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.APP_SERVICE_NAME }}
+                port:
+                  number: {{ .Values.APP_PORT }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.OAUTH2_PROXY_INGRESS_NAME }}
+spec:
+  ingressClassName: {{ .Values.NGINX_INGRESS_NAME }}
+  rules:
+    - host: {{ .Values.APP_DOMAIN }}
+      http:
+        paths:
+          - path: /oauth2
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.OAUTH2_PROXY_DEPLOYMENT_NAME }}
+                port:
+                  number: {{ .Values.OAUTH2_PROXY_PORT }}

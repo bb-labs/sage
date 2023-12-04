@@ -9,58 +9,59 @@ docker.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 
-node_role.iam.create_role:
+kube.iam.create_role:
   RoleName: ${APP_NODE_ROLE_NAME}
   Description: Role for sage kubernetes node
   AssumeRolePolicyDocument: >
     {
       "Version": "2012-10-17",
-      "Statement": [{
-        "Effect": "Allow",
-        "Principal": { 
-          "Service": [
-            "ec2.amazonaws.com"
-          ] 
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": { 
+            "Service": [
+              "ec2.amazonaws.com",
+              "eks.amazonaws.com"
+            ]
+          },
+          "Action": "sts:AssumeRole"
         },
-        "Action": "sts:AssumeRole"
-      }]
-    }
-node_role.iam.get_role:
-  RoleName: ${APP_NODE_ROLE_NAME}
-node_role.iam.attach_role_policy.eks:
-  RoleName: ${APP_NODE_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
-node_role.iam.attach_role_policy.ec2:
-  RoleName: ${APP_NODE_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
-node_role.iam.attach_role_policy.cni:
-  RoleName: ${APP_NODE_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
-
-cluster_role.iam.create_role:
-  RoleName: ${APP_CLUSTER_ROLE_NAME}
-  Description: Role for sage kubernetes cluster
-  AssumeRolePolicyDocument: >
-    {
-      "Version": "2012-10-17",
-      "Statement": [{
-        "Effect": "Allow",
-        "Principal": { 
-          "Service": [
-            "lambda.amazonaws.com", 
-            "rds.amazonaws.com",
-            "eks.amazonaws.com"
-          ] 
+        {
+          "Effect": "Allow",
+          "Action": [
+            "route53:ChangeResourceRecordSets"
+          ],
+          "Resource": [
+            "arn:aws:route53:::hostedzone/*"
+          ]
         },
-        "Action": "sts:AssumeRole"
-      }]
+        {
+          "Effect": "Allow",
+          "Action": [
+            "route53:ListHostedZones",
+            "route53:ListResourceRecordSets",
+            "route53:ListTagsForResource"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
     }
-cluster_role.iam.get_role:
-  RoleName: ${APP_CLUSTER_ROLE_NAME}
-cluster_role.iam.attach_role_policy:
+kube.iam.get_role:
+  RoleName: ${APP_NODE_ROLE_NAME}
+kube.iam.attach_role_policy.eks_cluster:
   RoleName: ${APP_CLUSTER_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-
+kube.iam.attach_role_policy.eks_worker:
+  RoleName: ${APP_NODE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+kube.iam.attach_role_policy.ec2:
+  RoleName: ${APP_NODE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+kube.iam.attach_role_policy.cni:
+  RoleName: ${APP_NODE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
 kube.ec2.describe_vpcs:
 kube.ec2.describe_subnets:
   Filters:
@@ -115,6 +116,11 @@ kube.user.deploy.oauth2:
 kube.user.deploy.nginx:
   deployment: ${NGINX_INGRESS_DEPLOYMENT_NAME}
   chart: ingress-nginx/ingress-nginx
+  dry_run: true
+kube.route53.list_hosted_zones_by_name:
+  DNSName: ${APP_DOMAIN}
+kube.route53.list_resource_record_sets:
+  HostedZoneId: $(kube.route53.list_hosted_zones_by_name.HostedZones.0.Id)
 
 ---
 build:
@@ -122,13 +128,13 @@ build:
 
 init:
   - docker
-  - node_role
-  - cluster_role
   - kube
 
 release:
   - docker
   - kube.user.binaries
-  - kube.user.deploy.sage:
-      deployment: ${APP_CLUSTER_NAME}
-      chart: ./kube
+  - kube.user.deploy
+
+records:
+  - kube.route53.list_hosted_zones_by_name
+  - kube.route53.list_resource_record_sets

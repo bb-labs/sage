@@ -89,5 +89,6 @@ user = {"deploy": deploy, "init": init, "binaries": binaries}
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
 eks = boto3.client("eks")
+route53 = boto3.client("route53")
 eks_waiter = eks.get_waiter("cluster_active")
 image = docker.from_env().images
