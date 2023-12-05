@@ -116,7 +116,6 @@ kube.user.deploy.oauth2:
 kube.user.deploy.nginx:
   deployment: ${NGINX_INGRESS_DEPLOYMENT_NAME}
   chart: ingress-nginx/ingress-nginx
-  dry_run: true
 kube.route53.list_hosted_zones_by_name:
   DNSName: ${APP_DOMAIN}
 kube.route53.list_resource_record_sets:
