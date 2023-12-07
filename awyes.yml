@@ -10,7 +10,7 @@ docker.image.push:
     password: ${DOCKER_HUB_PASSWORD}
 
 kube.iam.create_role:
-  RoleName: ${APP_NODE_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
   Description: Role for sage kubernetes node
   AssumeRolePolicyDocument: >
     {
@@ -21,47 +21,45 @@ kube.iam.create_role:
           "Principal": { 
             "Service": [
               "ec2.amazonaws.com",
-              "eks.amazonaws.com"
+              "eks.amazonaws.com",
+              "route53.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"
-        },
+        }
+      ]
+    }
+kube.iam.create_policy.dns:
+  PolicyName: ${EKS_DNS_POLICY_NAME}
+  PolicyDocument: >
+    {
+      "Version": "2012-10-17",
+      "Statement": [
         {
           "Effect": "Allow",
-          "Action": [
-            "route53:ChangeResourceRecordSets"
-          ],
-          "Resource": [
-            "arn:aws:route53:::hostedzone/*"
-          ]
-        },
-        {
-          "Effect": "Allow",
-          "Action": [
-            "route53:ListHostedZones",
-            "route53:ListResourceRecordSets",
-            "route53:ListTagsForResource"
-          ],
-          "Resource": [
-            "*"
-          ]
+          "Action": "route53:*",
+          "Resource": "*"
         }
       ]
     }
 kube.iam.get_role:
-  RoleName: ${APP_NODE_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
+kube.iam.attach_role_policy.dns:
+  RoleName: ${EKS_ROLE_NAME}
+  PolicyArn: arn:aws:iam::${AWS_ACCOUNT_ID}:policy/${EKS_DNS_POLICY_NAME}
 kube.iam.attach_role_policy.eks_cluster:
-  RoleName: ${APP_CLUSTER_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 kube.iam.attach_role_policy.eks_worker:
-  RoleName: ${APP_NODE_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
 kube.iam.attach_role_policy.ec2:
-  RoleName: ${APP_NODE_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
 kube.iam.attach_role_policy.cni:
-  RoleName: ${APP_NODE_ROLE_NAME}
+  RoleName: ${EKS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+
 kube.ec2.describe_vpcs:
 kube.ec2.describe_subnets:
   Filters:
@@ -72,8 +70,8 @@ kube.ec2.describe_security_groups:
   GroupNames:
     - default
 kube.eks.create_cluster:
-  name: ${APP_CLUSTER_NAME}
-  version: "${AWS_EKS_VERSION}"
+  name: ${EKS_CLUSTER_NAME}
+  version: "${EKS_VERSION}"
   roleArn: $(cluster_role.iam.get_role.Role.Arn)
   resourcesVpcConfig:
     securityGroupIds:
@@ -85,11 +83,11 @@ kube.eks.create_cluster:
       - $(kube.ec2.describe_subnets.Subnets.3.SubnetId)
     endpointPublicAccess: true
 kube.eks_waiter.wait:
-  name: ${APP_CLUSTER_NAME}
+  name: ${EKS_CLUSTER_NAME}
 kube.eks.create_nodegroup:
-  clusterName: ${APP_CLUSTER_NAME}
-  nodegroupName: ${APP_NODE_GROUP_NAME}
-  nodeRole: $(node_role.iam.get_role.Role.Arn)
+  clusterName: ${EKS_CLUSTER_NAME}
+  nodegroupName: ${EKS_NODE_GROUP_NAME}
+  nodeRole: $(kube.iam.get_role.Role.Arn)
   subnets:
     - $(kube.ec2.describe_subnets.Subnets.0.SubnetId)
     - $(kube.ec2.describe_subnets.Subnets.1.SubnetId)
@@ -99,9 +97,9 @@ kube.user.binaries:
 kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
-  cluster_name: ${APP_CLUSTER_NAME}
+  cluster_name: ${EKS_CLUSTER_NAME}
 kube.user.deploy.sage:
-  deployment: ${APP_CLUSTER_NAME}
+  deployment: ${EKS_CLUSTER_NAME}
   chart: ./kube
 kube.user.deploy.oauth2:
   deployment: ${OAUTH2_PROXY_DEPLOYMENT_NAME}
@@ -116,10 +114,6 @@ kube.user.deploy.oauth2:
 kube.user.deploy.nginx:
   deployment: ${NGINX_INGRESS_DEPLOYMENT_NAME}
   chart: ingress-nginx/ingress-nginx
-kube.route53.list_hosted_zones_by_name:
-  DNSName: ${APP_DOMAIN}
-kube.route53.list_resource_record_sets:
-  HostedZoneId: $(kube.route53.list_hosted_zones_by_name.HostedZones.0.Id)
 
 ---
 build:
@@ -128,12 +122,3 @@ build:
 init:
   - docker
   - kube
-
-release:
-  - docker
-  - kube.user.binaries
-  - kube.user.deploy
-
-records:
-  - kube.route53.list_hosted_zones_by_name
-  - kube.route53.list_resource_record_sets
