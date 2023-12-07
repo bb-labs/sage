@@ -72,7 +72,7 @@ kube.ec2.describe_security_groups:
 kube.eks.create_cluster:
   name: ${EKS_CLUSTER_NAME}
   version: "${EKS_VERSION}"
-  roleArn: $(cluster_role.iam.get_role.Role.Arn)
+  roleArn: $(kube.iam.get_role.Role.Arn)
   resourcesVpcConfig:
     securityGroupIds:
       - $(kube.ec2.describe_security_groups.SecurityGroups.0.GroupId)
