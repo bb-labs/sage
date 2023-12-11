@@ -1,29 +1,29 @@
 apiVersion: v1
 clusters:
-  - cluster:
-      certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJSUoyVzBxVDQ2VWt3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpFeE1qWXdNRFE1TkROYUZ3MHpNekV4TWpNd01EVTBORE5hTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUNtRmIyTmxoaVh3b21qczhPMHpXZDF1amU3MWJPdWlSUVJyZ0xBMDNCWEFYTG1pQmpFVGVWZmFFYUoKQlJ1VWVPWFpYdWJQWlFvMGdRVmkxeWIrM1g2K0g5QnVZbUpvajFUU3I3alhUd1Q0VEpvSVhrT0JGZkVlVS9rNwpaRzFHdy9tR0tUYW9LUklTcE8vdDdKOVhtVXZDWDRDdXVBbCtaQUszbm45QXR5U3lSTWNtbkh6ZjB6MmJvZXdLCjA5VGJ3NGxxV2ZVNzhFL2M1cEI5cnovUSttNDZ2WGxvbVBTTVA0T05QbnNna0NZTjNQUlJWMVloMmJ0Ti96WmoKaVhraG1vMFg1NmdFMG8xeWFIRGRrR3hXRTBxc28rVGp6L0NLYWRNYUdrdGQ1RVF6R0VXc2FTYjVqS092ZnR5YQo3UkZiSUpBMFhrdVdGcVJCTkNJelB1ZjB4WDJ0QWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJSdlNnYzBqZ2Zpb3p3OWV0WVVxdUZ3TXE1YWFEQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQkk5aFNpdTVLQgpMbDBYS24wRWJ3Q1FiUUhHNThuRFFEamoydjROOVhSNE1qWXo0NG4vWDNkVWxxcmpzSXJtS2t5R3FSZjJQT0tiCjZnamxGd1hsNTM3ZUVKMXNhVGpPbStVNTl3V29rRlpNRnJKcWxoTnZEZE1NYlhaV2NSQmEzYXl1ODkrSFIvSlgKcXpTbW1RVkw0VUtwQjRUYVZmeGNNU2FUcGIyQ3Q2OVR5dWZ6dEE5eU4yR0RZRnV5eDJaVkx1TVZDQXgvbVBpQwpBSnJJTEpDSm1JYW9IM1BaNC9lUEhuN21OK0JRMXJ0QnFhSFZNVTJnempsYXBNaXhiSFhEK1J1djFneWtvdk8vCjhvVkhaMTRoYkNSS1RrU2hRVVJIZlVQRklqTHpydU9ZRlJMSDdOb2JKL2JIQzRHL3VMcmt4V2N1R2dYK0NtR3MKRmNaaTgzbGJrb28yCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-      server: https://9464E0B9B8CDCC155E4B131287CE4F23.gr7.us-west-2.eks.amazonaws.com
-    name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJZXc0Tlg1S25nSTB3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpFeU1EY3dOREF3TkRWYUZ3MHpNekV5TURRd05EQTFORFZhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUN3Zkt2aGVrbFZ3MFF1dFgrcUNob1hkWStqakI2bmhqbkFibjhmRlIxV2diZjZwQ3pSQlN1MUhQOGMKT1JRMHRXaFNUSkZ4c2tSemNmc2FTcTdOMFFTcnlhdUFYZzBBSk5kSnFsYmdYNmFuMkdsaXBEb2I1ODB5RkYwYQpoTCtBTTRkY1FVREZlbFppYVZwb1IwSWQrbHpXNXpja2dTcmc0Q29YdjBKVHFibDN6WXVITEFrcjAwbW9CVytCCjc1bkwyazFrTHZEemNPNTlyT3BaVjh5VzFGUUtKL1JsaEUvcE9RRUV6QTl3dXhrNytScERZY2VzakFuMW5pV1cKRGFaRzNzQ0dvOU1iN01nV0tyNkIyM0dneG1LMTlERm1aVVNPSVdKR2psSHJ0cWYySndyVGltdFYxNEJ0QTlpcQpqaDRONU9nbXlKTGdVVTNaRXZxdkJNQ0FMb003QWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJUOElqdlU0VTdQdDBRdk5TaElDN2VHNFp0TVN6QVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmVUNGZIcnNLSwp1dEJDOUdPOGdYZ2VxdUVHMXp1WUp3ZTVidEhRcWVvWkE5NDJXV1VLRm5mMmxhRGlmbFU3Um0xNlNaS1BidC82CkVWbm5yc3h1Q3hiQ1JCaS9QYVIyOFloTGVzM2tlL3lCYmNOVWNhb0d3VGpiV0VreFA2ZzZYTEtOWWFqcFQwV0EKcEpVMlQ3RTRnU0UrM0d3Z1piOFoxZHY2NUo3ZzJRKzJFSXZNSkJlZTBuQVRiS1VkSk9qOFBXQXNXbXRCOW1tRgp5Yk5ubVRUSWdRamsvQmpWMXNlelY1NFZGdUlBN3ZpSlM4bUxEdkFENkVRTklwSDVpZmNNcmRBU1ViQzZ1QUJFCjNEYmhkQXdqTjNRdUVyWXg5L0t0SGFpWUhzQ0FkZFdQRTFmS3dhSUlUb3lFQ1V0TVFDNjBacHo1NlpRUEdBMW4KWkVTUXpkclhzN1hyCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    server: https://431C867EA2B386731891D4CF47DCF422.gr7.us-west-2.eks.amazonaws.com
+  name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
 contexts:
-  - context:
-      cluster: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
-      user: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
-    name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
+- context:
+    cluster: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
+    user: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
+  name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
 current-context: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
 kind: Config
 preferences: {}
 users:
-  - name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
-    user:
-      exec:
-        apiVersion: client.authentication.k8s.io/v1beta1
-        args:
-          - --region
-          - us-west-2
-          - eks
-          - get-token
-          - --cluster-name
-          - sage-cluster
-          - --output
-          - json
-        command: aws
+- name: arn:aws:eks:us-west-2:718734850255:cluster/sage-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - --region
+      - us-west-2
+      - eks
+      - get-token
+      - --cluster-name
+      - sage-cluster
+      - --output
+      - json
+      command: aws

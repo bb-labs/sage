@@ -26,8 +26,7 @@ release:
 status:
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
-	kubectl --kubeconfig kube/config get events --sort-by=.metadata.creationTimestamp
-	kubectl --kubeconfig kube/config logs deployment/sage-deployment  --all-containers
+	kubectl --kubeconfig kube/config get endpoints -A 
 
 clean: down
 	docker system prune -af
@@ -35,10 +34,10 @@ clean: down
 
 
 define gen_protos
-	protoc -I=protos --swift_out=src/ios/Slide/Protos $1.proto
-	pipenv run python src/ios/proto.py $1.pb.swift
+	protoc -I=protos --swift_out=ios/Slide/Protos $1.proto
+	pipenv run python ios/proto.py $1.pb.swift
 	
-	protoc -I=protos --go_out=src/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=go/protos --go_opt=paths=source_relative $1.proto
 endef
 
 proto:

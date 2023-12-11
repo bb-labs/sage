@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.APP_CONFIG_MAP_NAME }}
+  name: {{ .Values.CONFIG_MAP_NAME }}
 data:
   {{- range $key, $value := .Values }}
   {{ $key }}: "{{ $value }}"
   {{- end }}
+
   

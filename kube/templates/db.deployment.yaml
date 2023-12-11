@@ -21,4 +21,4 @@ spec:
             - containerPort: {{ .Values.DB_PORT }}
           envFrom:
             - configMapRef:
-                name: {{ .Values.APP_CONFIG_MAP_NAME }}
+                name: {{ .Values.CONFIG_MAP_NAME }}

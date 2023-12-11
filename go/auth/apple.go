@@ -13,7 +13,7 @@ import (
 	"github.com/lestrrat-go/jwx/v2/jwt"
 )
 
-func GenerateAppleClientSecret(keyId, keyPath, teamId, bundleId string) (string, error) {
+func GenerateAppleClientSecret(keyId, keyPath, bundleId string) (string, error) {
 	absPath, _ := filepath.Abs(keyPath)
 	signingKey, _ := os.ReadFile(absPath)
 
@@ -28,10 +28,10 @@ func GenerateAppleClientSecret(keyId, keyPath, teamId, bundleId string) (string,
 	}
 
 	token, err := jwt.NewBuilder().
-		Issuer(teamId).
+		Issuer("https://appleid.apple.com").
 		IssuedAt(time.Now()).
 		Expiration(time.Now().Add(24 * time.Hour * 180)).
-		Audience([]string{"https://appleid.apple.com"}).
+		Audience([]string{"trumanpurnell.Slide"}).
 		Subject(bundleId).
 		Build()
 	if err != nil {

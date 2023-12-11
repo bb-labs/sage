@@ -99,20 +99,28 @@ kube.user.init:
   region: ${AWS_REGION}
   cluster_name: ${EKS_CLUSTER_NAME}
 kube.user.deploy.sage:
-  deployment: ${EKS_CLUSTER_NAME}
+  deployment: ${APP_NAME}
   chart: ./kube
 kube.user.deploy.oauth2:
-  deployment: ${OAUTH2_PROXY_DEPLOYMENT_NAME}
+  deployment: ${OAUTH2_PROXY_NAME}
   chart: oauth2-proxy/oauth2-proxy
   values:
+    proxyVarsAsSecrets: false
+    config.configFile: ""
     extraArgs:
       client-id: ${OAUTH2_PROXY_CLIENT_ID}
+      cookie-secret: ${OAUTH2_PROXY_COOKIE_SECRET}
       client-secret: ${OAUTH2_PROXY_CLIENT_SECRET}
       skip-jwt-bearer-tokens: ${OAUTH2_PROXY_SKIP_JWT_BEARER_TOKENS}
       provider: ${OAUTH2_PROXY_PROVIDER}
       oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
+      set-xauthrequest: ${OAUTH2_PROXY_SET_XAUTHREQUEST}
+      upstream: ${OAUTH2_PROXY_UPSTREAM}
+      email-domain: "${OAUTH2_PROXY_EMAIL_DOMAINS}"
+      ssl-insecure-skip-verify: true
+      ssl-upstream-insecure-skip-verify: true
 kube.user.deploy.nginx:
-  deployment: ${NGINX_INGRESS_DEPLOYMENT_NAME}
+  deployment: ${NGINX_NAME}
   chart: ingress-nginx/ingress-nginx
 
 ---

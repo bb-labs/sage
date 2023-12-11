@@ -4,7 +4,7 @@ from pbxproj import XcodeProject
 from pbxproj.pbxextensions import TreeType
 
 
-project = XcodeProject.load('src/ios/Slide.xcodeproj/project.pbxproj')
+project = XcodeProject.load('ios/Slide.xcodeproj/project.pbxproj')
 
 # Add protos
 proto_group = project.get_groups_by_name('Protos').pop()
