@@ -4,9 +4,9 @@ services:
     container_name: ${APP_SERVICE_NAME}
     depends_on:
       - ${DB_SERVICE_NAME}
-    build: go
+    build: app
     volumes:
-      - ./go:/${APP_SERVICE_NAME}
+      - ./app:/${APP_SERVICE_NAME}
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:

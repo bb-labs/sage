@@ -1,6 +1,6 @@
 docker.image.build:
   tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
-  path: go
+  path: app
   dockerfile: Dockerfile
 docker.image.push:
   repository: ${DOCKER_REGISTRY}/${APP_REPO}
