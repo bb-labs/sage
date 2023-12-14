@@ -1,9 +1,6 @@
 include .env
 export
 
-
-tidy:
-	go mod tidy
 	
 build:
 	envsubst < docker-compose.yml | docker compose -f - build
@@ -27,17 +24,21 @@ status:
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
 	kubectl --kubeconfig kube/config get endpoints -A 
+	kubectl --kubeconfig kube/config describe ingress -A
 
 clean: down
 	docker system prune -af
 	docker volume prune -af
 
+config:
+	cp .env ios/Slide/Config/Config.xcconfig
+	pipenv run python ios/config.py
 
 define gen_protos
 	protoc -I=protos --swift_out=ios/Slide/Protos $1.proto
 	pipenv run python ios/proto.py $1.pb.swift
 	
-	protoc -I=protos --go_out=go/protos --go_opt=paths=source_relative $1.proto
+	protoc -I=protos --go_out=app/protos --go_opt=paths=source_relative $1.proto
 endef
 
 proto:

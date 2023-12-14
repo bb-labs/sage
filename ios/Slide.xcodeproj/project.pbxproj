@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		125A4F648A12E50DB85E2B40 /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C949D081A850CFCB042D6E /* net.pb.swift */; };
-		24344F0DACCF9D14E0A9E61D /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3848EB8CDCEB032407DC70 /* sage.pb.swift */; };
-		582B4EE2AAE7B042DF367D17 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3848EB8CDCEB032407DC70 /* sage.pb.swift */; };
+		1CCE45DCB8BF9CAC4A5DAFF8 /* Config.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = EA8344818D8C01600B4EE01F /* Config.xcconfig */; };
+		3384483DB9E1077F953F78BD /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3864D38964BA2BA9128F226 /* sage.pb.swift */; };
+		70294FF9988105CA33F33651 /* Config.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = EA8344818D8C01600B4EE01F /* Config.xcconfig */; };
+		878E46EE8987EF07366E594D /* Config.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = EA8344818D8C01600B4EE01F /* Config.xcconfig */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -74,9 +75,11 @@
 		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
-		A1E34FF5ABEA7C0346CD132B /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C949D081A850CFCB042D6E /* net.pb.swift */; };
-		D4D348F2A3F45491AECA0F3A /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C949D081A850CFCB042D6E /* net.pb.swift */; };
-		F88D455081AF430CFD820997 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3848EB8CDCEB032407DC70 /* sage.pb.swift */; };
+		AC1547E9AC13861F8EFD7C50 /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5054775B22C1024164A7252 /* net.pb.swift */; };
+		EAA84B16847ED03C963DC91C /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3864D38964BA2BA9128F226 /* sage.pb.swift */; };
+		EB5A4090B8F8F0EEFBA47495 /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5054775B22C1024164A7252 /* net.pb.swift */; };
+		F44A436AA1CDA510A253736D /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3864D38964BA2BA9128F226 /* sage.pb.swift */; };
+		F5934F288FBC15EA8DA3199D /* net.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5054775B22C1024164A7252 /* net.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +100,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		88C949D081A850CFCB042D6E /* net.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = net.pb.swift; path = net.pb.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -162,7 +164,9 @@
 		8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
-		EB3848EB8CDCEB032407DC70 /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		E5054775B22C1024164A7252 /* net.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = net.pb.swift; sourceTree = "<group>"; };
+		EA8344818D8C01600B4EE01F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.xcconfig; name = Config.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		F3864D38964BA2BA9128F226 /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +323,14 @@
 			path = Molecules;
 			sourceTree = "<group>";
 		};
+		8B92A4412B2AD3C6004484D0 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EA8344818D8C01600B4EE01F /* Config.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		8BB1932629778E2D00EC5967 = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				8B14942129A84F6D001497FE /* Slide.entitlements */,
+				8B92A4412B2AD3C6004484D0 /* Config */,
 				8BE335B22A1B3D0A00160DE4 /* Protos */,
 				8BB1936329778EE100EC5967 /* App */,
 				8BB1936129778ED000EC5967 /* Models */,
@@ -438,8 +451,8 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				EB3848EB8CDCEB032407DC70 /* sage.pb.swift */,
-				88C949D081A850CFCB042D6E /* net.pb.swift */,
+				F3864D38964BA2BA9128F226 /* sage.pb.swift */,
+				E5054775B22C1024164A7252 /* net.pb.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -639,8 +652,9 @@
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
 				8B275AA1298A3A9300E89EF1 /* SlideUpdateLocation.swift in Sources */,
 				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
-				24344F0DACCF9D14E0A9E61D /* sage.pb.swift in Sources */,
-				A1E34FF5ABEA7C0346CD132B /* net.pb.swift in Sources */,
+				3384483DB9E1077F953F78BD /* sage.pb.swift in Sources */,
+				EB5A4090B8F8F0EEFBA47495 /* net.pb.swift in Sources */,
+				1CCE45DCB8BF9CAC4A5DAFF8 /* Config.xcconfig in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,8 +663,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				582B4EE2AAE7B042DF367D17 /* sage.pb.swift in Sources */,
-				D4D348F2A3F45491AECA0F3A /* net.pb.swift in Sources */,
+				EAA84B16847ED03C963DC91C /* sage.pb.swift in Sources */,
+				AC1547E9AC13861F8EFD7C50 /* net.pb.swift in Sources */,
+				878E46EE8987EF07366E594D /* Config.xcconfig in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,8 +675,9 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				F88D455081AF430CFD820997 /* sage.pb.swift in Sources */,
-				125A4F648A12E50DB85E2B40 /* net.pb.swift in Sources */,
+				F44A436AA1CDA510A253736D /* sage.pb.swift in Sources */,
+				F5934F288FBC15EA8DA3199D /* net.pb.swift in Sources */,
+				70294FF9988105CA33F33651 /* Config.xcconfig in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,6 +841,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = trumanpurnell.Slide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -863,6 +880,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = trumanpurnell.Slide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

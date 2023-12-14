@@ -5,7 +5,6 @@ import AuthenticationServices
 struct AppleCredentials: Credentials {
     let user: String
     let email: String?
-    var refreshToken: String
     var identityToken: String
 }
 
@@ -21,19 +20,19 @@ extension AuthModel {
             
             Task {
                 // Create user account
-                let createUserRequest = SlideCreateUser( user: User.with {
-                    $0.id = appleCredentials.user
+                let createUserRequest = SlideCreateUser(user: User.with {
+                    $0.token.userID = appleCredentials.user
+                    $0.token.authCode = String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
                     $0.email = appleCredentials.email!
-                }, authCode: String(decoding: appleCredentials.authorizationCode!, as: UTF8.self))
+                })
                 
-                let createUserResponse: Token = try await self.httpClient.fetch(createUserRequest)
+                let createUserResponse: User.Token = try await self.httpClient.fetch(createUserRequest)
                 
-                // Store the credentials and associate with the client
+                // Store the credentials
                 DispatchQueue.main.async {
                     let appleCredentials = AppleCredentials(
                         user: appleCredentials.user,
                         email: appleCredentials.email,
-                        refreshToken: createUserResponse.refreshToken,
                         identityToken: createUserResponse.identityToken
                     )
                     
@@ -43,7 +42,7 @@ extension AuthModel {
                 }
             }
         case .failure(let error):
-            print("Authorisation failed: \(error.localizedDescription)")
+            print("Authorization failed: \(error.localizedDescription)")
         }
     }
 }

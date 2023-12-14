@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: {{ .Values.APP_INGRESS_NAME }}
   annotations:
-    # nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
 spec:
   ingressClassName: {{ .Values.NGINX_INGRESS_NAME }} 
   rules:
@@ -24,9 +24,6 @@ metadata:
   name: {{ .Values.OAUTH2_PROXY_INGRESS_NAME }}
 spec:
   ingressClassName: {{ .Values.NGINX_INGRESS_NAME }}
-  tls: 
-    - hosts:
-        - {{ .Values.APP_DOMAIN }}
   rules:
     - host: {{ .Values.APP_DOMAIN }}
       http:

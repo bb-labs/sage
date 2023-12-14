@@ -9,6 +9,8 @@ docker.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 
+app.user.apple_client_id:
+
 kube.iam.create_role:
   RoleName: ${EKS_ROLE_NAME}
   Description: Role for sage kubernetes node
@@ -59,7 +61,6 @@ kube.iam.attach_role_policy.ec2:
 kube.iam.attach_role_policy.cni:
   RoleName: ${EKS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
-
 kube.ec2.describe_vpcs:
 kube.ec2.describe_subnets:
   Filters:
@@ -107,6 +108,8 @@ kube.user.deploy.oauth2:
   values:
     proxyVarsAsSecrets: false
     config.configFile: ""
+    metrics.enabled: false
+    service.portNumber: ${OAUTH2_PROXY_PORT}
     extraArgs:
       client-id: ${OAUTH2_PROXY_CLIENT_ID}
       cookie-secret: ${OAUTH2_PROXY_COOKIE_SECRET}

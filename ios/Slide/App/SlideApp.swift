@@ -24,27 +24,12 @@ class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNoti
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success,_ in
-            print("Success: ", success)
-        }
-        UIApplication.shared.registerForRemoteNotifications()
         
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        AuthModel.shared.credentials.append(DeviceCredentials(
-            deviceToken: deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        ))
         
-//        self.webRTCModel.startSignaling()
-        
-        Task {
-            // Create user account
-            let response: SlideAuthorizeDevice.Response  = try await userModel.httpClient.fetch(SlideAuthorizeDevice())
-            debugPrint("Got back a: \(response.status)")
-        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError err: Error) {

@@ -8,7 +8,7 @@ struct CreateProfileView: View {
     @State var pageIndex = 0
         
     let minimumAge = Calendar.current.date(byAdding: .year, value: -18, to: .now)!
-    @State var birthDate = Date.now
+    @State var birthDate = Calendar.current.date(byAdding: .year, value: -18, to: .now)!
     
     
     @State var identifyAs = [
@@ -31,10 +31,10 @@ struct CreateProfileView: View {
     ]
     
     @State var locationRadius = [
-        String(describing: LocationProximity.neighborhood.rawValue): false,
-        String(describing: LocationProximity.city.rawValue): false,
-        String(describing: LocationProximity.metro.rawValue): false,
-        String(describing: LocationProximity.state.rawValue): false
+        String(describing: Proximity.neighborhood.rawValue): false,
+        String(describing: Proximity.city.rawValue): false,
+        String(describing: Proximity.metro.rawValue): false,
+        String(describing: Proximity.state.rawValue): false
     ]
     
 
@@ -89,10 +89,10 @@ struct CreateProfileView: View {
                     errorMessage: "Help us understand your willingness to travel!",
                     validate: { scheduleFree.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: false, selections: $locationRadius, ordering: [
-                        String(describing: LocationProximity.neighborhood.rawValue),
-                        String(describing: LocationProximity.city.rawValue),
-                        String(describing: LocationProximity.metro.rawValue),
-                        String(describing: LocationProximity.state.rawValue)
+                        String(describing: Proximity.neighborhood.rawValue),
+                        String(describing: Proximity.city.rawValue),
+                        String(describing: Proximity.metro.rawValue),
+                        String(describing: Proximity.state.rawValue)
                     ])
                 }.tag(4)
                 

@@ -2,15 +2,13 @@ syntax = "proto3";
 
 option go_package = "github.com/bb-labs/sage/back/sageproto";
 
-message Token {
-  string auth_code = 1;
-  string device_token = 2;
-  string access_token = 3;
-  string refresh_token = 4;
-  string identity_token = 5;
-}
-
 message User {
+  message Token {
+    string user_id = 1;
+    string auth_code = 2;
+    string identity_token = 3;
+  }
+
   Token token = 1;
   string name = 2;
   string email = 3;
@@ -19,7 +17,7 @@ message User {
   int32 birthday = 6;
   string video_url = 7;
   Location location = 8;
-  Criteria criteria = 9;
+  Preferences preferences = 9;
 }
 
 enum Gender {
@@ -57,7 +55,7 @@ message Location {
   int32 longitude = 3;
 }
 
-message Criteria {
+message Preferences {
   int32 age_min = 1;
   int32 age_max = 2;
   Gender gender = 3;

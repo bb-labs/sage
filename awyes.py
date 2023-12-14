@@ -1,8 +1,11 @@
 import os
+import jwt
+import time
 import json
 import boto3
 import yaml
 import docker
+import pathlib
 import itertools
 import subprocess
 
@@ -85,7 +88,27 @@ def init(account_id, region, cluster_name):
     subprocess.run(["helm", "repo", "add", "ingress-nginx", NGINX_CHART_URL])
 
 
-user = {"deploy": deploy, "init": init, "binaries": binaries}
+def apple_client_id():
+    return jwt.encode(
+        {
+            "iss": os.environ["APP_TEAM_ID"],
+            "iat": int(time.time()),
+            "exp": int(time.time()) + 86400 * 180,  # 180 days
+            "aud": "https://appleid.apple.com",
+            "sub": os.environ["APP_BUNDLE_ID"],
+        },
+        pathlib.Path(os.environ["APP_KEY_PATH"]).read_bytes(),
+        algorithm="ES256",
+        headers={"kid": os.environ["APP_KEY_ID"], "alg": "ES256"},
+    )
+
+
+user = {
+    "deploy": deploy,
+    "init": init,
+    "binaries": binaries,
+    "apple_client_id": apple_client_id,
+}
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
 eks = boto3.client("eks")
