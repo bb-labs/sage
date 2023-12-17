@@ -6,29 +6,35 @@ protocol APICall {
     var url: String { get }
     var body: Data? { get }
     var method: APIMethod { get }
+    var credentials: AppleCredentials { get }
     var queryParams: [URLQueryItem] { get }
     
-    func pack(with credentials: [Credentials]) -> URLRequest
+    func pack() -> URLRequest
     func unpack<T>(_ payload: Data, type: T.Type) throws -> T
 }
 
 extension APICall {
     var data: Data? { nil }
     var queryParams: [URLQueryItem] { [] }
+    var credentials: AppleCredentials {
+        let appleCredentialsData = KeyChain.retrieve(key: "apple") ?? Data()
+        let appleCredentials = try? JSONDecoder().decode(AppleCredentials.self, from: appleCredentialsData)
         
-    func pack(with credentials: [Credentials]) -> URLRequest {
+        return appleCredentials ?? AppleCredentials()
+    }
+        
+    func pack() -> URLRequest {
         var urlComponents = URLComponents(string: url)!
         
-        urlComponents.queryItems = queryParams
-        
-        for credential in credentials {
-            urlComponents.queryItems! += credential.queryParams
+        if !queryParams.isEmpty {
+            urlComponents.queryItems = queryParams
         }
         
         var urlRequest = URLRequest(url: urlComponents.url!)
         
         urlRequest.httpBody = body
         urlRequest.httpMethod = method.rawValue
+        urlRequest.setValue("Bearer \(credentials.identityToken ?? "")", forHTTPHeaderField: "Authorization")
         
         return urlRequest
     }
@@ -61,7 +67,7 @@ struct HTTPClient {
     let urlSession = URLSession(configuration: URLSessionConfiguration.default)
     
     func fetch<T>(_ request: APICall) async throws -> T {
-        let (data, response) = try await self.urlSession.data(for: request.pack(with: AuthModel.shared.credentials))
+        let (data, response) = try await self.urlSession.data(for: request.pack())
             
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw APIError.fetchError

@@ -31,7 +31,7 @@ def binaries():
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
 
-def deploy(deployment, chart, values=os.environ, dry_run=False):
+def deploy(deployment, chart, values=os.environ, dry_run=False, version=None):
     value_args = list(
         itertools.chain(
             *[
@@ -45,6 +45,7 @@ def deploy(deployment, chart, values=os.environ, dry_run=False):
 
     return subprocess.run(
         ["helm", "upgrade", "--install", *value_args, deployment, chart]
+        + (["--version", version] if version else [])
         + (["--dry-run"] if dry_run else [])
     )
 
@@ -83,9 +84,11 @@ def init(account_id, region, cluster_name):
     # Grab vendor charts
     OAUTH2_CHART_URL = "https://oauth2-proxy.github.io/manifests"
     NGINX_CHART_URL = "https://kubernetes.github.io/ingress-nginx"
+    CERT_MANAGER_CHART_URL = "https://charts.jetstack.io"
 
     subprocess.run(["helm", "repo", "add", "oauth2-proxy", OAUTH2_CHART_URL])
     subprocess.run(["helm", "repo", "add", "ingress-nginx", NGINX_CHART_URL])
+    subprocess.run(["helm", "repo", "add", "jetstack", CERT_MANAGER_CHART_URL])
 
 
 def apple_client_id():

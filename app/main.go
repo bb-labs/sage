@@ -72,7 +72,7 @@ func main() {
 
 	// Setup routes for user actions
 	router.POST("/user", user.HandleCreateUser(db))
-	router.POST("/locate", user.HandleLocation(db))
+	router.GET("/users", user.HandleFetchUsers(db))
 
 	// Setup routes for presigning
 	router.GET("/presign", presign.HandlePresign(presignClient))

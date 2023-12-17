@@ -125,7 +125,12 @@ kube.user.deploy.oauth2:
 kube.user.deploy.nginx:
   deployment: ${NGINX_NAME}
   chart: ingress-nginx/ingress-nginx
-
+kube.user.deploy.certs:
+  deployment: ${CERT_MANAGER_NAME}
+  chart: jetstack/cert-manager
+  values:
+    installCRDs: true
+  version: v1.13.3
 ---
 release:
   - docker

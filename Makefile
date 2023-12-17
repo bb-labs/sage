@@ -27,7 +27,9 @@ status:
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
 	kubectl --kubeconfig kube/config get endpoints -A 
-	kubectl --kubeconfig kube/config describe ingress -A
+	kubectl --kubeconfig kube/config get ingress -A
+	kubectl --kubeconfig kube/config get issuer -A
+	kubectl --kubeconfig kube/config get certificate -A
 
 clean: down
 	docker system prune -af
