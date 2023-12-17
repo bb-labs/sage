@@ -91,15 +91,15 @@ def init(account_id, region, cluster_name):
 def apple_client_id():
     return jwt.encode(
         {
-            "iss": os.environ["APP_TEAM_ID"],
+            "iss": os.environ["APPLE_TEAM_ID"],
             "iat": int(time.time()),
             "exp": int(time.time()) + 86400 * 180,  # 180 days
             "aud": "https://appleid.apple.com",
-            "sub": os.environ["APP_BUNDLE_ID"],
+            "sub": os.environ["APPLE_BUNDLE_ID"],
         },
-        pathlib.Path(os.environ["APP_KEY_PATH"]).read_bytes(),
+        pathlib.Path(os.environ["APPLE_KEY_PATH"]).read_bytes(),
         algorithm="ES256",
-        headers={"kid": os.environ["APP_KEY_ID"], "alg": "ES256"},
+        headers={"kid": os.environ["APPLE_KEY_ID"], "alg": "ES256"},
     )
 
 

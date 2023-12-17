@@ -1,6 +1,9 @@
 include .env
 export
 
+db:
+	mongoexport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_USERS_COLLECTION} --pretty
+	mongoexport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_SIGNALING_COLLECTION} --pretty
 	
 build:
 	envsubst < docker-compose.yml | docker compose -f - build

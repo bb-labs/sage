@@ -6,6 +6,7 @@ struct AppleCredentials: Credentials {
     let user: String
     let email: String?
     var identityToken: String
+    var refreshToken: String
 }
 
 extension AuthModel {
@@ -21,19 +22,20 @@ extension AuthModel {
             Task {
                 // Create user account
                 let createUserRequest = SlideCreateUser(user: User.with {
-                    $0.token.userID = appleCredentials.user
+                    $0.token.id = appleCredentials.user
                     $0.token.authCode = String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
-                    $0.email = appleCredentials.email!
+                    $0.email = appleCredentials.email ?? ""
                 })
                 
-                let createUserResponse: User.Token = try await self.httpClient.fetch(createUserRequest)
+                let createUserResponse: Token = try await self.httpClient.fetch(createUserRequest)
                 
                 // Store the credentials
                 DispatchQueue.main.async {
                     let appleCredentials = AppleCredentials(
                         user: appleCredentials.user,
                         email: appleCredentials.email,
-                        identityToken: createUserResponse.identityToken
+                        identityToken: createUserResponse.idToken,
+                        refreshToken: createUserResponse.refreshToken
                     )
                     
                     self.credentials.append(appleCredentials)
