@@ -127,8 +127,11 @@ kube.user.deploy.nginx:
   chart: ingress-nginx/ingress-nginx
 
 ---
-build:
+release:
   - docker
+  - kube.user.binaries
+  - kube.user.init
+  - kube.user.deploy.sage
 
 init:
   - docker
