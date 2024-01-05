@@ -11,17 +11,13 @@ struct SlideApp: App {
                 .environmentObject(app.cameraModel)
                 .environmentObject(app.userModel)
                 .environmentObject(app.introModel)
-                .environmentObject(app.webRTCModel)
-                .environmentObject(app.sageModel)
         }
     }
 }
 
 class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    let sageModel = SageModel()
     let userModel = UserModel()
     let introModel = IntroModel()
-    let webRTCModel = WebRTCModel()
     let cameraModel = CameraModel()
     
     

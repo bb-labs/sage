@@ -12,16 +12,11 @@
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
 		8B14943829A87C61001497FE /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943729A87C61001497FE /* KeyChain.swift */; };
 		8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22682E29BE5718009EC60F /* WelcomeView.swift */; };
-		8B2E31B72A08566C00E02591 /* CameraVideoChatSelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */; };
-		8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31B82A08758500E02591 /* WebRTCModel.swift */; };
-		8B2E31BC2A08791800E02591 /* WebRTCPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31BB2A08791800E02591 /* WebRTCPeerModel.swift */; };
-		8B2E31BE2A0887CD00E02591 /* WebRTCSignalingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2E31BD2A0887CD00E02591 /* WebRTCSignalingModel.swift */; };
 		8B2FDB0029C3FEAF00C18123 /* plant.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B2FDAFF29C3FEAF00C18123 /* plant.mp4 */; };
 		8B2FDB1329C4125C00C18123 /* WelcomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB1229C4125C00C18123 /* WelcomeCardView.swift */; };
 		8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 8B2FDB1E29C4169000C18123 /* Lottie */; };
 		8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2229C417BF00C18123 /* LottieView.swift */; };
 		8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */; };
-		8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */; };
 		8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E5562A15F73B0066FD7B /* CallModel.swift */; };
 		8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */; };
 		8B32E55F2A1AE7290066FD7B /* AuthDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */; };
@@ -40,8 +35,6 @@
 		8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469BF29A1848A00648205 /* CameraCaptureView.swift */; };
 		8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C129A1855400648205 /* CameraLiveView.swift */; };
 		8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */; };
-		8B6EAB062A353F4E001BC68E /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */; };
-		8B6EAB082A3540B7001BC68E /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */; };
 		8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */; };
 		8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */; };
 		8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */; };
@@ -49,7 +42,6 @@
 		8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */; };
 		8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */; };
 		8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */; };
-		8BA5847C2A0B517A005F4A2F /* CameraVideoChatPeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */; };
 		8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
@@ -57,9 +49,12 @@
 		8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */; };
 		8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933229778E2D00EC5967 /* SlideApp.swift */; };
 		8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1933429778E2D00EC5967 /* SlideView.swift */; };
-		8BC8630E2A088EF800F8FB7E /* WebRTCMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630D2A088EF800F8FB7E /* WebRTCMediaModel.swift */; };
-		8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */; };
 		8BC8727C2B47EDFD00A8B9E5 /* SageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8727B2B47EDFD00A8B9E5 /* SageService.swift */; };
+		8BC872802B47FAA300A8B9E5 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC8727F2B47FAA300A8B9E5 /* CGRPCZlib */; };
+		8BC872822B47FAA300A8B9E5 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC872812B47FAA300A8B9E5 /* GRPC */; };
+		8BC872842B47FAA300A8B9E5 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC872832B47FAA300A8B9E5 /* GRPCReflectionService */; };
+		8BC872862B47FAA300A8B9E5 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC872852B47FAA300A8B9E5 /* _GRPCCore */; };
+		8BC872882B47FAA300A8B9E5 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC872872B47FAA300A8B9E5 /* protoc-gen-grpc-swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
 		90184519958C56764E02AB3A /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91544D8AA45CC9FFF28712B7 /* sage.grpc.swift */; };
@@ -94,15 +89,10 @@
 		8B14943129A85D31001497FE /* IntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroModel.swift; sourceTree = "<group>"; };
 		8B14943729A87C61001497FE /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		8B22682E29BE5718009EC60F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatSelfView.swift; sourceTree = "<group>"; };
-		8B2E31B82A08758500E02591 /* WebRTCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCModel.swift; sourceTree = "<group>"; };
-		8B2E31BB2A08791800E02591 /* WebRTCPeerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCPeerModel.swift; sourceTree = "<group>"; };
-		8B2E31BD2A0887CD00E02591 /* WebRTCSignalingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalingModel.swift; sourceTree = "<group>"; };
 		8B2FDAFF29C3FEAF00C18123 /* plant.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = plant.mp4; sourceTree = "<group>"; };
 		8B2FDB1229C4125C00C18123 /* WelcomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCardView.swift; sourceTree = "<group>"; };
 		8B2FDB2229C417BF00C18123 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCreationView.swift; sourceTree = "<group>"; };
-		8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatView.swift; sourceTree = "<group>"; };
 		8B32E5562A15F73B0066FD7B /* CallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallModel.swift; sourceTree = "<group>"; };
 		8B32E55A2A1AE6DD0066FD7B /* AuthAppleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAppleModel.swift; sourceTree = "<group>"; };
 		8B32E55E2A1AE7290066FD7B /* AuthDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDeviceModel.swift; sourceTree = "<group>"; };
@@ -117,8 +107,6 @@
 		8B5469BF29A1848A00648205 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
 		8B5469C129A1855400648205 /* CameraLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLiveView.swift; sourceTree = "<group>"; };
 		8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureSettingsView.swift; sourceTree = "<group>"; };
-		8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
-		8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionsView.swift; sourceTree = "<group>"; };
 		8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronView.swift; sourceTree = "<group>"; };
@@ -126,7 +114,6 @@
 		8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumScheduleView.swift; sourceTree = "<group>"; };
-		8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVideoChatPeerView.swift; sourceTree = "<group>"; };
 		8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
@@ -138,8 +125,6 @@
 		8BB1934E29778E2E00EC5967 /* SlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1935229778E2E00EC5967 /* SlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITests.swift; sourceTree = "<group>"; };
 		8BB1935429778E2E00EC5967 /* SlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8BC8630D2A088EF800F8FB7E /* WebRTCMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMediaModel.swift; sourceTree = "<group>"; };
-		8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8BC8727B2B47EDFD00A8B9E5 /* SageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageService.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
@@ -156,25 +141,18 @@
 				8B32E5642A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary in Frameworks */,
 				8B2FDB1F29C4169000C18123 /* Lottie in Frameworks */,
 				8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */,
+				8BC872882B47FAA300A8B9E5 /* protoc-gen-grpc-swift in Frameworks */,
+				8BC872862B47FAA300A8B9E5 /* _GRPCCore in Frameworks */,
 				8B32E5622A1AEFCA0066FD7B /* SwiftProtobuf in Frameworks */,
+				8BC872842B47FAA300A8B9E5 /* GRPCReflectionService in Frameworks */,
+				8BC872802B47FAA300A8B9E5 /* CGRPCZlib in Frameworks */,
+				8BC872822B47FAA300A8B9E5 /* GRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8B2E31BA2A08790200E02591 /* WebRTC */ = {
-			isa = PBXGroup;
-			children = (
-				8B2E31B82A08758500E02591 /* WebRTCModel.swift */,
-				8B2E31BB2A08791800E02591 /* WebRTCPeerModel.swift */,
-				8B2E31BD2A0887CD00E02591 /* WebRTCSignalingModel.swift */,
-				8BC8630D2A088EF800F8FB7E /* WebRTCMediaModel.swift */,
-				8BC8630F2A0890F900F8FB7E /* WebRTCControlsModel.swift */,
-			);
-			path = WebRTC;
-			sourceTree = "<group>";
-		};
 		8B2FDAF629C3F34B00C18123 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,8 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				8B14942E29A85C6C001497FE /* UserModel.swift */,
-				8B6EAB072A3540B7001BC68E /* UserProfileModel.swift */,
-				8B6EAB052A353F4E001BC68E /* UserLocationModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -238,9 +214,6 @@
 				8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */,
 				8B5469BF29A1848A00648205 /* CameraCaptureView.swift */,
 				8B5469C129A1855400648205 /* CameraLiveView.swift */,
-				8B32E5542A15EFC30066FD7B /* CameraVideoChatView.swift */,
-				8B2E31B62A08566C00E02591 /* CameraVideoChatSelfView.swift */,
-				8BA5847B2A0B517A005F4A2F /* CameraVideoChatPeerView.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -332,7 +305,6 @@
 				8BE335B42A32F33500160DE4 /* Match */,
 				8B32E5592A1AE6B20066FD7B /* User */,
 				8B32E5582A1AE6A70066FD7B /* Auth */,
-				8B2E31BA2A08790200E02591 /* WebRTC */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -424,6 +396,11 @@
 				8B32E5612A1AEFCA0066FD7B /* SwiftProtobuf */,
 				8B32E5632A1AEFCA0066FD7B /* SwiftProtobufPluginLibrary */,
 				8B32E5652A1AEFCA0066FD7B /* protoc-gen-swift */,
+				8BC8727F2B47FAA300A8B9E5 /* CGRPCZlib */,
+				8BC872812B47FAA300A8B9E5 /* GRPC */,
+				8BC872832B47FAA300A8B9E5 /* GRPCReflectionService */,
+				8BC872852B47FAA300A8B9E5 /* _GRPCCore */,
+				8BC872872B47FAA300A8B9E5 /* protoc-gen-grpc-swift */,
 			);
 			productName = Slide;
 			productReference = 8BB1932F29778E2D00EC5967 /* Slide.app */;
@@ -469,7 +446,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					8BB1932E29778E2D00EC5967 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -537,16 +514,11 @@
 				8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */,
 				8B14943229A85D31001497FE /* IntroModel.swift in Sources */,
 				8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */,
-				8B2E31BE2A0887CD00E02591 /* WebRTCSignalingModel.swift in Sources */,
-				8BC863102A0890F900F8FB7E /* WebRTCControlsModel.swift in Sources */,
 				8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */,
 				8B14943829A87C61001497FE /* KeyChain.swift in Sources */,
-				8BA5847C2A0B517A005F4A2F /* CameraVideoChatPeerView.swift in Sources */,
-				8B2E31B72A08566C00E02591 /* CameraVideoChatSelfView.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
 				8BC8727C2B47EDFD00A8B9E5 /* SageService.swift in Sources */,
 				8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */,
-				8B2E31B92A08758500E02591 /* WebRTCModel.swift in Sources */,
 				8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */,
 				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
@@ -554,14 +526,10 @@
 				8B2FDB1329C4125C00C18123 /* WelcomeCardView.swift in Sources */,
 				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
 				8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */,
-				8BC8630E2A088EF800F8FB7E /* WebRTCMediaModel.swift in Sources */,
 				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
-				8B2E31BC2A08791800E02591 /* WebRTCPeerModel.swift in Sources */,
 				8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */,
 				8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */,
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
-				8B6EAB062A353F4E001BC68E /* UserLocationModel.swift in Sources */,
-				8B6EAB082A3540B7001BC68E /* UserProfileModel.swift in Sources */,
 				8B32E55B2A1AE6DD0066FD7B /* AuthAppleModel.swift in Sources */,
 				8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
@@ -571,7 +539,6 @@
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B32E55F2A1AE7290066FD7B /* AuthDeviceModel.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
-				8B32E5552A15EFC30066FD7B /* CameraVideoChatView.swift in Sources */,
 				F9644F67AC685E5C0772652F /* sage.pb.swift in Sources */,
 				90184519958C56764E02AB3A /* sage.grpc.swift in Sources */,
 			);
@@ -650,6 +617,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -710,6 +678,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -983,6 +952,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B530E6729EFD46F0031D7DE /* XCRemoteSwiftPackageReference "WebRTC" */;
 			productName = WebRTC;
+		};
+		8BC8727F2B47FAA300A8B9E5 /* CGRPCZlib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC872792B47BDF400A8B9E5 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = CGRPCZlib;
+		};
+		8BC872812B47FAA300A8B9E5 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC872792B47BDF400A8B9E5 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		8BC872832B47FAA300A8B9E5 /* GRPCReflectionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC872792B47BDF400A8B9E5 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPCReflectionService;
+		};
+		8BC872852B47FAA300A8B9E5 /* _GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC872792B47BDF400A8B9E5 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = _GRPCCore;
+		};
+		8BC872872B47FAA300A8B9E5 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BC872792B47BDF400A8B9E5 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
 		};
 /* End XCSwiftPackageProductDependency section */
 

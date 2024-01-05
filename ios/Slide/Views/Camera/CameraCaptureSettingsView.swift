@@ -25,9 +25,6 @@ struct CameraCaptureSettingsView: View {
                 UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 
                 let (name, data) = cameraModel.getVideoData()
-                Task {
-                    try await userModel.uploadProfileVideo(fileName: name, video: data!)
-                }
             } label: {
                 Text("👍")
                     .font(.system(size: 60))

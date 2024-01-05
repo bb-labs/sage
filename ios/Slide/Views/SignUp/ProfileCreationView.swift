@@ -23,13 +23,6 @@ struct CreateProfileView: View {
         String(describing: Gender.human.rawValue): false
     ]
     
-    @State var scheduleFree = [
-        String(describing: MeetingTime.morning.rawValue): false,
-        String(describing: MeetingTime.earlyAfternoon.rawValue): false,
-        String(describing: MeetingTime.lateAfternoon.rawValue): false,
-        String(describing: MeetingTime.evening.rawValue): false
-    ]
-    
     @State var locationRadius = [
         String(describing: Proximity.neighborhood.rawValue): false,
         String(describing: Proximity.city.rawValue): false,
@@ -72,35 +65,22 @@ struct CreateProfileView: View {
                 
                 ProfileInputView(
                     pageIndex: $pageIndex,
-                    heading: "When are you free for dates?",
-                    errorMessage: "Tell us when you're free!",
-                    validate: { scheduleFree.values.contains { $0 } }) {
-                    SelectOptionsView(size: size, multiSelect: true, selections: $scheduleFree, ordering: [
-                        String(describing: MeetingTime.morning.rawValue),
-                        String(describing: MeetingTime.earlyAfternoon.rawValue),
-                        String(describing: MeetingTime.lateAfternoon.rawValue),
-                        String(describing: MeetingTime.evening.rawValue)
-                    ])
-                }.tag(3)
-                
-                ProfileInputView(
-                    pageIndex: $pageIndex,
                     heading: "How far would you travel for a date?",
                     errorMessage: "Help us understand your willingness to travel!",
-                    validate: { scheduleFree.values.contains { $0 } }) {
+                    validate: { locationRadius.values.contains { $0 } }) {
                     SelectOptionsView(size: size, multiSelect: false, selections: $locationRadius, ordering: [
                         String(describing: Proximity.neighborhood.rawValue),
                         String(describing: Proximity.city.rawValue),
                         String(describing: Proximity.metro.rawValue),
                         String(describing: Proximity.state.rawValue)
                     ])
-                }.tag(4)
+                }.tag(3)
                 
                 CameraView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
                     .simultaneousGesture(DragGesture())
-                    .tag(5)
+                    .tag(4)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .ignoresSafeArea(.all, edges: .all)
