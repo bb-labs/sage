@@ -1,10 +1,15 @@
 include .env
 export
 
-db:
+db-dump:
 	mongoexport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_USERS_COLLECTION} --pretty
-	mongoexport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_SIGNALING_COLLECTION} --pretty
-	
+
+db-wipe:
+	mongo -u ${MONGO_INITDB_ROOT_USERNAME} -p '${MONGO_INITDB_ROOT_PASSWORD}' --authenticationDatabase admin --eval "db.getSiblingDB('${MONGO_INITDB_DATABASE}').dropDatabase()"
+
+db-seed: db-wipe
+	mongoimport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_USERS_COLLECTION} --file=db/seed.users.json --jsonArray
+
 build:
 	envsubst < docker-compose.yml | docker compose -f - build
 
@@ -23,7 +28,7 @@ logs:
 release:
 	gh workflow run 'Sage CI/CD'
 
-status:
+kube:
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
 	kubectl --kubeconfig kube/config get endpoints -A 
@@ -35,17 +40,16 @@ clean: down
 	docker system prune -af
 	docker volume prune -af
 
-config:
-	cp .env ios/Slide/Config/Config.xcconfig
-	pipenv run python ios/config.py
-
-define gen_protos
-	protoc -I=protos --swift_out=ios/Slide/Protos $1.proto
-	pipenv run python ios/proto.py $1.pb.swift
-	
-	protoc -I=protos --go_out=app/protos --go_opt=paths=source_relative $1.proto
-endef
-
 proto:
-	@$(call gen_protos,"sage")
-	@$(call gen_protos,"net")
+	protoc sage.proto -I=protos \
+		--swift_out=ios/Slide/Protos \
+		--grpc-swift_out=ios/Slide/Protos
+	
+	pipenv run python ios/proto.py sage.pb.swift
+	pipenv run python ios/proto.py sage.grpc.swift
+
+	protoc sage.proto -I=protos \
+		--go_out=app/pb \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=app/pb \
+		--go-grpc_opt=paths=source_relative

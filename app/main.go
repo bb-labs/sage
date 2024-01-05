@@ -4,23 +4,25 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
 	"os"
 
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/bb-labs/sage/presign"
-	"github.com/bb-labs/sage/signaling"
-	"github.com/bb-labs/sage/user"
-	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
+	"github.com/bb-labs/sage/pb"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"google.golang.org/grpc/reflection"
+
+	"google.golang.org/grpc"
 )
 
+type SageServer struct {
+	pb.UnimplementedSageServer
+	dbc *mongo.Client
+}
+
 func main() {
-	// Create the server
+	// Create a context, set up logging
 	ctx := context.Background()
-	router := gin.Default()
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Connect to db
@@ -30,57 +32,32 @@ func main() {
 		os.Getenv("DB_SERVICE_NAME"),
 		os.Getenv("DB_PORT"))
 
-	db, err := mongo.NewClient(options.Client().ApplyURI(uri))
-
+	dbc, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
-		log.Fatalf("err: %v", err)
+		log.Fatalf("couldn't create new mongo client: %v", err)
 	}
 
-	err = db.Connect(ctx)
-	if err != nil {
-		log.Fatalf("err: %v", err)
+	if err = dbc.Connect(ctx); err != nil {
+		log.Fatalf("couldn't connect to mongo db: %v", err)
 	}
-
-	// Initialize the signaling hub
-	upgrader := websocket.Upgrader{}
-	hub, err := signaling.NewHub(db, ctx)
-	if err != nil {
-		log.Fatalf("err initializing hub: %v", err)
-	}
-	go hub.Run()
-
-	// Connect to S3 for presigning
-	sdkConfig, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		log.Fatalf("err: %v", err)
-	}
-
-	s3Client := s3.NewFromConfig(sdkConfig)
-	presignClient := s3.NewPresignClient(s3Client)
 
 	// Cleanup any errors
 	defer func() {
-		db.Disconnect(ctx)
+		dbc.Disconnect(ctx)
 	}()
 
-	// Test route for health check
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	// Create the server
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
 
-	// Setup routes for user actions
-	router.POST("/user", user.HandleCreateUser(db))
-	router.GET("/users", user.HandleFetchUsers(db))
+	server := grpc.NewServer()
+	pb.RegisterSageServer(server, &SageServer{dbc: dbc})
+	reflection.Register(server)
 
-	// Setup routes for presigning
-	router.GET("/presign", presign.HandlePresign(presignClient))
-
-	// Setup routes for sessions and wss routing
-	router.POST("/route", signaling.HandleRoute(hub))
-	router.GET("/session", signaling.HandleSession(upgrader, hub))
-
-	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
+	log.Printf("server listening at %v", listener.Addr())
+	if err := server.Serve(listener); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }

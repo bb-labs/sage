@@ -26,7 +26,7 @@ extension Credentials {
 class AuthModel: NSObject, ObservableObject, URLSessionDelegate {
     static let shared = AuthModel()
     
-    var httpClient = HTTPClient()
+    var sageService = SageService()
     var credentials: [Credentials] = []
 }
 

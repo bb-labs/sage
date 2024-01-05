@@ -18,7 +18,7 @@ extension AuthModel {
         switch authResult {
         case .success(let authResults):
             let appleCredentials = authResults.credential as! ASAuthorizationAppleIDCredential
-            
+
             Task {
                 // Create user account, sending all info separately to generate true credentials w/ refresh
                 let createUserRequest = SlideCreateUser(user: User.with {
@@ -27,7 +27,12 @@ extension AuthModel {
                     $0.email = appleCredentials.email ?? ""
                 }, credentials: AppleCredentials(identityToken: String(decoding: appleCredentials.identityToken!, as: UTF8.self)))
                 
-                let createUserResponse: Token = try await self.httpClient.fetch(createUserRequest)
+                
+                let response = try await self.sageService.client.makeCreateUserCall(CreateUserRequest.with {
+                    $0.user.id = appleCredentials.user
+                    $0.user.email = appleCredentials.email ?? ""
+                    $0.token.authCode = String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
+                })
                 
                 // Store the credentials
                 let appleCredentials = AppleCredentials(

@@ -51,8 +51,8 @@ struct CreateProfileView: View {
                         .datePickerStyle(.wheel)
                         .frame(width: size.width * 0.8)
                         .accentColor(Color("Main"))
+                        .labelsHidden()
                 }.tag(0)
-                
                 
                 ProfileInputView(
                     pageIndex: $pageIndex,
