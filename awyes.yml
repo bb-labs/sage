@@ -99,9 +99,6 @@ kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
   cluster_name: ${EKS_CLUSTER_NAME}
-kube.user.deploy.sage:
-  deployment: ${APP_NAME}
-  chart: ./kube
 kube.user.deploy.oauth2:
   deployment: ${OAUTH2_PROXY_NAME}
   chart: oauth2-proxy/oauth2-proxy
@@ -128,6 +125,9 @@ kube.user.deploy.certs:
   values:
     installCRDs: true
   version: v1.13.3
+kube.user.deploy.sage:
+  deployment: ${APP_NAME}
+  chart: ./kube
 ---
 release:
   - docker
@@ -136,5 +136,4 @@ release:
   - kube.user.deploy.sage
 
 init:
-  - docker
   - kube
