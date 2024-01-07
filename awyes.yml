@@ -39,7 +39,7 @@ db.rds.create_db_instance:
   AllocatedStorage: 5
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${POSTGRES_DB}
-  DBInstanceIdentifier: ${DB_ENGINE}-${DB_SERVICE_NAME}
+  DBInstanceIdentifier: ${APP_NAME}-${DB_SERVICE_NAME}
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
