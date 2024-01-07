@@ -117,11 +117,8 @@ kube.user.deploy.oauth2:
       skip-jwt-bearer-tokens: ${OAUTH2_PROXY_SKIP_JWT_BEARER_TOKENS}
       provider: ${OAUTH2_PROXY_PROVIDER}
       oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
-      set-xauthrequest: ${OAUTH2_PROXY_SET_XAUTHREQUEST}
       upstream: ${OAUTH2_PROXY_UPSTREAM}
       email-domain: "${OAUTH2_PROXY_EMAIL_DOMAINS}"
-      ssl-insecure-skip-verify: true
-      ssl-upstream-insecure-skip-verify: true
 kube.user.deploy.nginx:
   deployment: ${NGINX_NAME}
   chart: ingress-nginx/ingress-nginx

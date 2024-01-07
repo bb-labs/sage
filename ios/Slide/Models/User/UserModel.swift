@@ -6,9 +6,6 @@ import SwiftUI
 import UIKit
 
 class UserModel: NSObject, ObservableObject {
+    static let shared = UserModel()
     var user = User()
-    
-    override init() {
-        super.init()
-    }
 }

@@ -112,28 +112,9 @@ extension Proximity: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct Token {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var authCode: String = String()
-
-  var idToken: String = String()
-
-  var refreshToken: String = String()
-
-  var accessToken: String = String()
-
-  var expiresIn: Int32 = 0
-
-  var tokenType: String = String()
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
+/// // // // // // // // // // // //
+/// Sage
+/// // // // // // // // // // // //
 struct User {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -185,28 +166,19 @@ struct CreateUserRequest {
   // methods supported on all messages.
 
   var user: User {
-    get {return _storage._user ?? User()}
-    set {_uniqueStorage()._user = newValue}
+    get {return _user ?? User()}
+    set {_user = newValue}
   }
   /// Returns true if `user` has been explicitly set.
-  var hasUser: Bool {return _storage._user != nil}
+  var hasUser: Bool {return self._user != nil}
   /// Clears the value of `user`. Subsequent reads from it will return its default value.
-  mutating func clearUser() {_uniqueStorage()._user = nil}
-
-  var token: Token {
-    get {return _storage._token ?? Token()}
-    set {_uniqueStorage()._token = newValue}
-  }
-  /// Returns true if `token` has been explicitly set.
-  var hasToken: Bool {return _storage._token != nil}
-  /// Clears the value of `token`. Subsequent reads from it will return its default value.
-  mutating func clearToken() {_uniqueStorage()._token = nil}
+  mutating func clearUser() {self._user = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _user: User? = nil
 }
 
 struct CreateUserResponse {
@@ -214,20 +186,20 @@ struct CreateUserResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var token: Token {
-    get {return _token ?? Token()}
-    set {_token = newValue}
+  var user: User {
+    get {return _user ?? User()}
+    set {_user = newValue}
   }
-  /// Returns true if `token` has been explicitly set.
-  var hasToken: Bool {return self._token != nil}
-  /// Clears the value of `token`. Subsequent reads from it will return its default value.
-  mutating func clearToken() {self._token = nil}
+  /// Returns true if `user` has been explicitly set.
+  var hasUser: Bool {return self._user != nil}
+  /// Clears the value of `user`. Subsequent reads from it will return its default value.
+  mutating func clearUser() {self._user = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _token: Token? = nil
+  fileprivate var _user: User? = nil
 }
 
 struct Location {
@@ -264,6 +236,9 @@ struct Preferences {
   init() {}
 }
 
+/// // // // // // // // // // // //
+/// WebRTC
+/// // // // // // // // // // // //
 struct RouteRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -413,7 +388,6 @@ struct PresignedURLResponse {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Gender: @unchecked Sendable {}
 extension Proximity: @unchecked Sendable {}
-extension Token: @unchecked Sendable {}
 extension User: @unchecked Sendable {}
 extension CreateUserRequest: @unchecked Sendable {}
 extension CreateUserResponse: @unchecked Sendable {}
@@ -445,68 +419,6 @@ extension Proximity: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "METRO"),
     3: .same(proto: "STATE"),
   ]
-}
-
-extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "Token"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "auth_code"),
-    2: .standard(proto: "id_token"),
-    3: .standard(proto: "refresh_token"),
-    4: .standard(proto: "access_token"),
-    5: .standard(proto: "expires_in"),
-    6: .standard(proto: "token_type"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.authCode) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.idToken) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.refreshToken) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.accessToken) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.expiresIn) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.tokenType) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.authCode.isEmpty {
-      try visitor.visitSingularStringField(value: self.authCode, fieldNumber: 1)
-    }
-    if !self.idToken.isEmpty {
-      try visitor.visitSingularStringField(value: self.idToken, fieldNumber: 2)
-    }
-    if !self.refreshToken.isEmpty {
-      try visitor.visitSingularStringField(value: self.refreshToken, fieldNumber: 3)
-    }
-    if !self.accessToken.isEmpty {
-      try visitor.visitSingularStringField(value: self.accessToken, fieldNumber: 4)
-    }
-    if self.expiresIn != 0 {
-      try visitor.visitSingularInt32Field(value: self.expiresIn, fieldNumber: 5)
-    }
-    if !self.tokenType.isEmpty {
-      try visitor.visitSingularStringField(value: self.tokenType, fieldNumber: 6)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Token, rhs: Token) -> Bool {
-    if lhs.authCode != rhs.authCode {return false}
-    if lhs.idToken != rhs.idToken {return false}
-    if lhs.refreshToken != rhs.refreshToken {return false}
-    if lhs.accessToken != rhs.accessToken {return false}
-    if lhs.expiresIn != rhs.expiresIn {return false}
-    if lhs.tokenType != rhs.tokenType {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -597,82 +509,6 @@ extension CreateUserRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   static let protoMessageName: String = "CreateUserRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "user"),
-    2: .same(proto: "token"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _user: User? = nil
-    var _token: Token? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _user = source._user
-      _token = source._token
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._user) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._token) }()
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._user {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._token {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: CreateUserRequest, rhs: CreateUserRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._user != rhs_storage._user {return false}
-        if _storage._token != rhs_storage._token {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension CreateUserResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "CreateUserResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -681,7 +517,7 @@ extension CreateUserResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._token) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._user) }()
       default: break
       }
     }
@@ -692,14 +528,50 @@ extension CreateUserResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._token {
+    try { if let v = self._user {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: CreateUserRequest, rhs: CreateUserRequest) -> Bool {
+    if lhs._user != rhs._user {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension CreateUserResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "CreateUserResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "user"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._user) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._user {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: CreateUserResponse, rhs: CreateUserResponse) -> Bool {
-    if lhs._token != rhs._token {return false}
+    if lhs._user != rhs._user {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

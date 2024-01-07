@@ -16,7 +16,7 @@ struct SlideApp: App {
 }
 
 class AppDelegate: NSObject, ObservableObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    let userModel = UserModel()
+    let userModel = UserModel.shared
     let introModel = IntroModel()
     let cameraModel = CameraModel()
     

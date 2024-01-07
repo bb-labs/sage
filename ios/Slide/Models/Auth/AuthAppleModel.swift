@@ -4,13 +4,6 @@ import AuthenticationServices
 import NIOHPACK
 import GRPC
 
-struct AppleCredentials: Credentials {
-    var user: String?
-    var email: String?
-    var identityToken: String?
-    var refreshToken: String?
-}
-
 extension AuthModel {
     func requestAppleScopes(_ request: ASAuthorizationAppleIDRequest){
         request.requestedScopes = [.fullName, .email]
@@ -24,25 +17,17 @@ extension AuthModel {
             Task {
                 // Create user account, sending all info separately to generate true credentials w/ refresh
                 let authToken = String(decoding: appleCredentials.identityToken!, as: UTF8.self)
-                let headers: HPACKHeaders = ["authorization": "Bearer \(authToken)"]
+                let headers: HPACKHeaders = ["Authorization": "Bearer \(authToken)",
+                                             "X-Auth-Token": String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)]
                 
-                let response = try await self.sageService.client.createUser(CreateUserRequest.with {
+                guard let userResponse = try? await SageService.shared.client.createUser(CreateUserRequest.with {
                     $0.user.id = appleCredentials.user
+                    $0.user.name = appleCredentials.fullName?.description ?? ""
                     $0.user.email = appleCredentials.email ?? ""
-                    $0.token.authCode = String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
                 }, callOptions: CallOptions(customMetadata: headers))
+                else { return }
                 
-                print(response)
-                
-                // Store the credentials
-                let appleCredentials = AppleCredentials(
-                    user: appleCredentials.user,
-                    email: appleCredentials.email,
-                    identityToken: response.token.idToken,
-                    refreshToken: response.token.refreshToken
-                )
-                
-                _ = KeyChain.store(key: "apple", data: appleCredentials.data)
+                UserModel.shared.user = userResponse.user
             }
         case .failure(let error):
             print("Authorization failed: \(error.localizedDescription)")

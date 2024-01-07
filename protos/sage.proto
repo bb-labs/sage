@@ -2,15 +2,9 @@ syntax = "proto3";
 
 option go_package = "github.com/bb-labs/sage/back/pb";
 
-message Token {
-  string auth_code = 1;
-  string id_token = 2;
-  string refresh_token = 3;
-  string access_token = 4;
-  int32 expires_in = 5;
-  string token_type = 6;
-}
-
+// // // // // // // // // // // //
+// Sage
+// // // // // // // // // // // //
 message User {
   string id = 1;
   string name = 2;
@@ -23,12 +17,8 @@ message User {
   Preferences preferences = 9;
 }
 
-message CreateUserRequest {
-  User user = 1;
-  Token token = 2;
-}
-
-message CreateUserResponse { Token token = 1; }
+message CreateUserRequest { User user = 1; }
+message CreateUserResponse { User user = 1; }
 
 enum Gender {
   MAN = 0;
@@ -56,6 +46,9 @@ message Preferences {
   Proximity proximity = 4;
 }
 
+// // // // // // // // // // // //
+// WebRTC
+// // // // // // // // // // // //
 message RouteRequest {
   string id = 1;
   string other_id = 2;
@@ -91,6 +84,9 @@ message PresignedURLResponse {
   PresignedURLRequest request = 2;
 }
 
+// // // // // // // // // // // //
+// Service
+// // // // // // // // // // // //
 service Sage {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 }

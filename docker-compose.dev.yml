@@ -16,16 +16,12 @@ services:
   ${DB_SERVICE_NAME}:
     image: ${DB_REPO}:${DB_IMAGE_TAG}
     container_name: ${DB_SERVICE_NAME}
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: db
     env_file:
       - .env
     volumes:
       - ${DB_SERVICE_NAME}:/data/${DB_SERVICE_NAME}
     ports:
-      - ${DB_PORT}:27017
+      - ${DB_PORT}:${DB_PORT}
 
 volumes:
   ${DB_SERVICE_NAME}:

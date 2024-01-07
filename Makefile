@@ -1,34 +1,31 @@
 include .env
 export
 
-db-dump:
-	mongoexport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_USERS_COLLECTION} --pretty
-
 db-wipe:
-	mongo -u ${MONGO_INITDB_ROOT_USERNAME} -p '${MONGO_INITDB_ROOT_PASSWORD}' --authenticationDatabase admin --eval "db.getSiblingDB('${MONGO_INITDB_DATABASE}').dropDatabase()"
+	psql ${DB_REPO}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "delete from users where true"
 
-db-seed: db-wipe
-	mongoimport --uri='mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}?authsource=admin' --collection=${DB_USERS_COLLECTION} --file=db/seed.users.json --jsonArray
+db-dump:
+	psql ${DB_REPO}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
 
 build:
-	envsubst < docker-compose.yml | docker compose -f - build
+	envsubst < docker-compose.dev.yml | docker compose -f - build
 
 up: down
-	envsubst < docker-compose.yml | docker compose -f - up --build
+	envsubst < docker-compose.dev.yml | docker compose -f - up --build
 	
 shell:
 	docker exec -it $(container) bash
 
 down:
-	envsubst < docker-compose.yml | docker compose -f - down --remove-orphans
+	envsubst < docker-compose.dev.yml | docker compose -f - down --remove-orphans
 
 logs:
-	envsubst < docker-compose.yml | docker compose -f - logs $(service)
+	envsubst < docker-compose.dev.yml | docker compose -f - logs $(service)
 
 release:
 	gh workflow run 'Sage CI/CD'
 
-kube:
+kube-status:
 	kubectl --kubeconfig kube/config get po -o wide
 	kubectl --kubeconfig kube/config get svc
 	kubectl --kubeconfig kube/config get endpoints -A 

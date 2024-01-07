@@ -11,6 +11,10 @@ import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 
+/// // // // // // // // // // // //
+/// Service
+/// // // // // // // // // // // //
+///
 /// Usage: instantiate `SageClient`, then call methods of this protocol to make API calls.
 internal protocol SageClientProtocol: GRPCClient {
   var serviceName: String { get }
@@ -103,6 +107,9 @@ internal struct SageNIOClient: SageClientProtocol {
   }
 }
 
+/// // // // // // // // // // // //
+/// Service
+/// // // // // // // // // // // //
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 internal protocol SageAsyncClientProtocol: GRPCClient {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
@@ -193,6 +200,10 @@ internal enum SageClientMetadata {
   }
 }
 
+/// // // // // // // // // // // //
+/// Service
+/// // // // // // // // // // // //
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol SageProvider: CallHandlerProvider {
   var interceptors: SageServerInterceptorFactoryProtocol? { get }
@@ -227,6 +238,10 @@ extension SageProvider {
   }
 }
 
+/// // // // // // // // // // // //
+/// Service
+/// // // // // // // // // // // //
+///
 /// To implement a server, implement an object which conforms to this protocol.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 internal protocol SageAsyncProvider: CallHandlerProvider, Sendable {

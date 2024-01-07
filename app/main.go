@@ -1,50 +1,45 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net"
 	"os"
 
 	"github.com/bb-labs/sage/pb"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"google.golang.org/grpc/reflection"
-
+	"github.com/go-pg/pg/v10"
+	"github.com/go-pg/pg/v10/orm"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type SageServer struct {
 	pb.UnimplementedSageServer
-	dbc *mongo.Client
+	dbc *pg.DB
 }
 
 func main() {
 	// Create a context, set up logging
-	ctx := context.Background()
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Connect to db
-	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s",
-		os.Getenv("MONGO_INITDB_ROOT_USERNAME"),
-		os.Getenv("MONGO_INITDB_ROOT_PASSWORD"),
-		os.Getenv("DB_SERVICE_NAME"),
-		os.Getenv("DB_PORT"))
+	dbc := pg.Connect(&pg.Options{
+		User:     os.Getenv("POSTGRES_USER"),
+		Password: os.Getenv("POSTGRES_PASSWORD"),
+		Database: os.Getenv("POSTGRES_DB"),
+		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_SERVICE_NAME"), os.Getenv("DB_PORT")),
+	})
+	defer dbc.Close()
 
-	dbc, err := mongo.NewClient(options.Client().ApplyURI(uri))
-	if err != nil {
-		log.Fatalf("couldn't create new mongo client: %v", err)
+	// Create the db schema
+	for _, model := range []interface{}{(*pb.User)(nil)} {
+		err := dbc.Model(model).CreateTable(&orm.CreateTableOptions{
+			IfNotExists: true,
+		})
+		if err != nil {
+			log.Fatalf("failed to create table: %v", err)
+		}
 	}
-
-	if err = dbc.Connect(ctx); err != nil {
-		log.Fatalf("couldn't connect to mongo db: %v", err)
-	}
-
-	// Cleanup any errors
-	defer func() {
-		dbc.Disconnect(ctx)
-	}()
 
 	// Create the server
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_PORT")))

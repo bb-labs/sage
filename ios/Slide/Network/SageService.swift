@@ -3,15 +3,16 @@ import Foundation
 import GRPC
 
 class SageService: NSObject, ObservableObject {
-    var client: SageAsyncClient
+    static let shared = SageService()
     
-    override init() {
-        var group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
-        
-        self.client = SageAsyncClient(channel: try! GRPCChannelPool.with(
+    let client = SageAsyncClient(
+        channel: try! GRPCChannelPool.with(
             target: .host("10.0.0.40", port: 3000),
             transportSecurity: .plaintext,
-            eventLoopGroup: group
-        ))
-    }
+            eventLoopGroup: PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        ),
+        interceptors: SageServiceInterceptorFactory()
+    )
 }
+
+
