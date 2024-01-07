@@ -142,14 +142,11 @@ kube.user.deploy.sage:
   deployment: ${APP_NAME}
   chart: ./kube
 ---
-release:
-  - docker
-  - kube.user.binaries
-  - kube.user.init
-  - kube.user.deploy.sage
-
-init:
-  - docker
+db:
   - app
   - db
+
+kube:
+  - docker
+  - app
   - kube

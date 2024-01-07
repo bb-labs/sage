@@ -96,12 +96,7 @@ def tag():
     )
 
 
-user = {
-    "deploy": deploy,
-    "init": init,
-    "binaries": binaries,
-    "tag": tag,
-}
+user = {"deploy": deploy, "init": init, "binaries": binaries, "tag": tag}
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
 eks = boto3.client("eks")
