@@ -7,10 +7,10 @@ on:
         description: "awyes workflow type"
         required: true
         type: choice
-        default: release
+        default: kube
         options:
-          - init
-          - release
+          - db
+          - kube
 
 jobs:
   deploy:
