@@ -141,6 +141,8 @@ kube.user.deploy.certs:
 kube.user.deploy.sage:
   deployment: ${APP_NAME}
   chart: ./kube
+  overrides:
+    DB_HOST: postgres-db-service.c5e8mgqyznzj.us-west-2.rds.amazonaws.com
 ---
 db:
   - app

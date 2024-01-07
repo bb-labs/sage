@@ -28,14 +28,16 @@ def binaries():
     subprocess.run(["sudo", "mv", "./kubectl", "/usr/local/bin/kubectl"])
 
 
-def deploy(deployment, chart, values=os.environ, dry_run=False, version=None):
+def deploy(
+    deployment, chart, values=os.environ, overrides={}, dry_run=False, version=None
+):
     value_args = list(
         itertools.chain(
             *[
                 ["--set-json", f"{k}={json.dumps(v)}"]
                 if isinstance(v, dict)
                 else ["--set", f"{k}={v}"]
-                for k, v in values.items()
+                for k, v in ({**values, **overrides}).items()
             ]
         )
     )

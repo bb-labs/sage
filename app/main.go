@@ -27,7 +27,7 @@ func main() {
 		User:     os.Getenv("POSTGRES_USER"),
 		Password: os.Getenv("POSTGRES_PASSWORD"),
 		Database: os.Getenv("POSTGRES_DB"),
-		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_SERVICE_NAME"), os.Getenv("DB_PORT")),
+		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT")),
 	})
 	defer dbc.Close()
 
