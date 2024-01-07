@@ -9,10 +9,8 @@ docker.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 
-app.user.apple_client_id:
-
-kube.iam.create_role:
-  RoleName: ${EKS_ROLE_NAME}
+app.iam.create_role:
+  RoleName: ${AWS_ROLE_NAME}
   Description: Role for sage kubernetes node
   AssumeRolePolicyDocument: >
     {
@@ -24,13 +22,28 @@ kube.iam.create_role:
             "Service": [
               "ec2.amazonaws.com",
               "eks.amazonaws.com",
-              "route53.amazonaws.com"
+              "route53.amazonaws.com",
+              "rds.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"
         }
       ]
     }
+
+db.iam.attach_role_policy.rds:
+  RoleName: ${AWS_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
+
+db.rds.create_db_instance:
+  AllocatedStorage: 5
+  DBInstanceClass: ${DB_INSTANCE_CLASS}
+  DBName: ${POSTGRES_DB}
+  DBInstanceIdentifier: ${DB_ENGINE}-${DB_SERVICE_NAME}
+  Engine: ${DB_ENGINE}
+  MasterUsername: ${POSTGRES_USER}
+  MasterUserPassword: ${POSTGRES_PASSWORD}
+
 kube.iam.create_policy.dns:
   PolicyName: ${EKS_DNS_POLICY_NAME}
   PolicyDocument: >
@@ -45,21 +58,21 @@ kube.iam.create_policy.dns:
       ]
     }
 kube.iam.get_role:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
 kube.iam.attach_role_policy.dns:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::${AWS_ACCOUNT_ID}:policy/${EKS_DNS_POLICY_NAME}
 kube.iam.attach_role_policy.eks_cluster:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 kube.iam.attach_role_policy.eks_worker:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
 kube.iam.attach_role_policy.ec2:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
 kube.iam.attach_role_policy.cni:
-  RoleName: ${EKS_ROLE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
 kube.ec2.describe_vpcs:
 kube.ec2.describe_subnets:
@@ -136,4 +149,7 @@ release:
   - kube.user.deploy.sage
 
 init:
+  - docker
+  - app
+  - db
   - kube

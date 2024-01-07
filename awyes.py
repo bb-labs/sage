@@ -1,11 +1,8 @@
 import os
-import jwt
-import time
 import json
 import boto3
 import yaml
 import docker
-import pathlib
 import itertools
 import subprocess
 
@@ -91,18 +88,11 @@ def init(account_id, region, cluster_name):
     subprocess.run(["helm", "repo", "add", "jetstack", CERT_MANAGER_CHART_URL])
 
 
-def apple_client_id():
-    return jwt.encode(
-        {
-            "iss": os.environ["APPLE_TEAM_ID"],
-            "iat": int(time.time()),
-            "exp": int(time.time()) + 86400 * 180,  # 180 days
-            "aud": "https://appleid.apple.com",
-            "sub": os.environ["APPLE_BUNDLE_ID"],
-        },
-        pathlib.Path(os.environ["APPLE_KEY_PATH"]).read_bytes(),
-        algorithm="ES256",
-        headers={"kid": os.environ["APPLE_KEY_ID"], "alg": "ES256"},
+def tag():
+    return (
+        subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True)
+        .stdout.decode("utf-8")
+        .strip()
     )
 
 
@@ -110,7 +100,7 @@ user = {
     "deploy": deploy,
     "init": init,
     "binaries": binaries,
-    "apple_client_id": apple_client_id,
+    "tag": tag,
 }
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
