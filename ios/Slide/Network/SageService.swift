@@ -7,8 +7,8 @@ class SageService: NSObject, ObservableObject {
     
     let client = SageAsyncClient(
         channel: try! GRPCChannelPool.with(
-            target: .host("10.0.0.40", port: 3000),
-            transportSecurity: .plaintext,
+            target: .host("sage.dating"),
+            transportSecurity: .tls(.makeClientConfigurationBackedByNIOSSL()),
             eventLoopGroup: PlatformSupport.makeEventLoopGroup(loopCount: 1)
         ),
         interceptors: SageServiceInterceptorFactory()

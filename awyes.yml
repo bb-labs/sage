@@ -144,15 +144,15 @@ kube.user.deploy.oauth2:
       oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
       upstream: ${OAUTH2_PROXY_UPSTREAM}
       email-domain: "${OAUTH2_PROXY_EMAIL_DOMAINS}"
+kube.user.deploy.nginx:
+  deployment: ${NGINX_NAME}
+  chart: ingress-nginx/ingress-nginx
 kube.user.deploy.certs:
   deployment: ${CERT_MANAGER_NAME}
   chart: jetstack/cert-manager
   values:
     installCRDs: true
   version: v1.13.3
-kube.user.deploy.nginx:
-  deployment: ${NGINX_NAME}
-  chart: ingress-nginx/ingress-nginx
 kube.user.deploy.sage_ingress:
   deployment: ${APP_INGRESS_NAME}
   chart: ./kube/ingress
