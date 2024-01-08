@@ -34,7 +34,6 @@ app.iam.create_role:
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
-
 db.rds.create_db_instance:
   AllocatedStorage: 5
   DBInstanceClass: ${DB_INSTANCE_CLASS}
@@ -112,6 +111,9 @@ kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
   cluster_name: ${EKS_CLUSTER_NAME}
+kube.user.deploy.sage_app:
+  deployment: ${APP_NAME}
+  chart: ./kube/app
 kube.user.deploy.oauth2:
   deployment: ${OAUTH2_PROXY_NAME}
   chart: oauth2-proxy/oauth2-proxy
@@ -138,11 +140,9 @@ kube.user.deploy.certs:
   values:
     installCRDs: true
   version: v1.13.3
-kube.user.deploy.sage:
+kube.user.deploy.sage_ingress:
   deployment: ${APP_NAME}
-  chart: ./kube
-  overrides:
-    DB_HOST: postgres-db-service.c5e8mgqyznzj.us-west-2.rds.amazonaws.com
+  chart: ./kube/ingress
 ---
 db:
   - app

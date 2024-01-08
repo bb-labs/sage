@@ -5,7 +5,10 @@ verify_ssl = true
 
 [packages]
 awyes = "*"
+boto3 = "*"
+pyyaml = "*"
 docker = "*"
+PyJWT = "*"
 pbxproj = {editable = true, git = "https://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@github.com/bb-labs/mod-pbxproj"}
 
 [requires]

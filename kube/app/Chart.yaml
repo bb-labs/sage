@@ -1,4 +1,4 @@
 apiVersion: v1
-name: sage-cluster
+name: sage-app
 version: 0.1.0
 description: Helm chart for Sage Kubernetes deployment
