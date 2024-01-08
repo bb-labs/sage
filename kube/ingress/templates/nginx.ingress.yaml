@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.APP_INGRESS_NAME }}
   annotations:
     nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
     cert-manager.io/issuer: "{{ .Values.CERT_ISSUER_NAME }}"
 spec:
