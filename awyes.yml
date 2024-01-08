@@ -34,11 +34,24 @@ app.iam.create_role:
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
+db.rds.create_db_parameter_group:
+  DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
+  DBParameterGroupFamily: postgres15
+  Description: Sage parameter group, turns
+db.rds.modify_db_parameter_group:
+  DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
+  Parameters:
+    - ParameterName: rds.force_ssl
+      ParameterValue: "0"
+      ApplyMethod: immediate
+db.rds.describe_db_parameter_groups:
+  DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
 db.rds.create_db_instance:
-  AllocatedStorage: 5
+  AllocatedStorage: 20
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${POSTGRES_DB}
   DBInstanceIdentifier: ${APP_NAME}-${DB_SERVICE_NAME}
+  DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
@@ -111,7 +124,7 @@ kube.user.init:
   account_id: ${AWS_ACCOUNT_ID}
   region: ${AWS_REGION}
   cluster_name: ${EKS_CLUSTER_NAME}
-kube.user.deploy.sage_app:
+kube.user.deploy.sage:
   deployment: ${APP_NAME}
   chart: ./kube/app
 kube.user.deploy.oauth2:
@@ -131,22 +144,25 @@ kube.user.deploy.oauth2:
       oidc-issuer-url: ${OAUTH2_PROXY_OIDC_ISSUER_URL}
       upstream: ${OAUTH2_PROXY_UPSTREAM}
       email-domain: "${OAUTH2_PROXY_EMAIL_DOMAINS}"
-kube.user.deploy.nginx:
-  deployment: ${NGINX_NAME}
-  chart: ingress-nginx/ingress-nginx
 kube.user.deploy.certs:
   deployment: ${CERT_MANAGER_NAME}
   chart: jetstack/cert-manager
   values:
     installCRDs: true
   version: v1.13.3
+kube.user.deploy.nginx:
+  deployment: ${NGINX_NAME}
+  chart: ingress-nginx/ingress-nginx
 kube.user.deploy.sage_ingress:
-  deployment: ${APP_NAME}
+  deployment: ${APP_INGRESS_NAME}
   chart: ./kube/ingress
 ---
 db:
   - app
   - db
+
+docker:
+  - docker
 
 kube:
   - docker

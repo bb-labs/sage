@@ -11,10 +11,11 @@ services:
       - ${APP_PORT}:${APP_PORT}
     env_file:
       - .env
+    environment:
+      - DB_HOST=${DB_SERVICE_NAME}
     entrypoint: ["./entrypoint.dev.sh"]
-
   ${DB_SERVICE_NAME}:
-    image: ${DB_REPO}:${DB_IMAGE_TAG}
+    image: ${DB_ENGINE}:${DB_IMAGE_TAG}
     container_name: ${DB_SERVICE_NAME}
     env_file:
       - .env

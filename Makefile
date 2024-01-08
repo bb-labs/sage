@@ -2,10 +2,10 @@ include .env
 export
 
 db-wipe:
-	psql ${DB_REPO}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "delete from users where true"
+	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "delete from users where true"
 
 db-dump:
-	psql ${DB_REPO}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
+	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
 
 build:
 	envsubst < docker-compose.dev.yml | docker compose -f - build

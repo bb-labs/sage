@@ -20,12 +20,18 @@ extension AuthModel {
                 let headers: HPACKHeaders = ["Authorization": "Bearer \(authToken)",
                                              "X-Auth-Token": String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)]
                 
-                guard let userResponse = try? await SageService.shared.client.createUser(CreateUserRequest.with {
-                    $0.user.id = appleCredentials.user
-                    $0.user.name = appleCredentials.fullName?.description ?? ""
-                    $0.user.email = appleCredentials.email ?? ""
-                }, callOptions: CallOptions(customMetadata: headers))
-                else { return }
+                var userResponse: CreateUserResponse
+                do {
+                    userResponse = try await SageService.shared.client.createUser(CreateUserRequest.with {
+                        $0.user.id = appleCredentials.user
+                        $0.user.name = appleCredentials.fullName?.description ?? ""
+                        $0.user.email = appleCredentials.email ?? ""
+                    }, callOptions: CallOptions(customMetadata: headers))
+                }
+                catch let error {
+                    print(error)
+                    return
+                }
                 
                 UserModel.shared.user = userResponse.user
             }
