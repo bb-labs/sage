@@ -16,9 +16,9 @@ extension AuthModel {
 
             Task {
                 // Create user account, sending all info separately to generate true credentials w/ refresh
-                let authToken = String(decoding: appleCredentials.identityToken!, as: UTF8.self)
-                let headers: HPACKHeaders = ["Authorization": "Bearer \(authToken)",
-                                             "X-Auth-Token": String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)]
+                let idToken = String(decoding: appleCredentials.identityToken!, as: UTF8.self)
+                let authCode = String(decoding: appleCredentials.authorizationCode!, as: UTF8.self)
+                let headers: HPACKHeaders = ["Authorization": "Bearer \(idToken)", "X-Auth-Code": authCode]
                 
                 var userResponse: CreateUserResponse
                 do {
