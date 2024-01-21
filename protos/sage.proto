@@ -5,16 +5,23 @@ option go_package = "github.com/bb-labs/sage/back/pb";
 // // // // // // // // // // // //
 // Sage
 // // // // // // // // // // // //
+message Token {
+  string id_token = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+}
+
 message User {
-  string id = 1;
-  string name = 2;
-  string email = 3;
-  double rating = 4;
-  Gender gender = 5;
-  int32 birthday = 6;
-  string video_url = 7;
-  Location location = 8;
-  Preferences preferences = 9;
+  Token token = 1;
+  string id = 2;
+  string name = 3;
+  string email = 4;
+  double rating = 5;
+  Gender gender = 6;
+  int32 birthday = 7;
+  string video_url = 8;
+  Location location = 9;
+  Preferences preferences = 10;
 }
 
 message CreateUserRequest { User user = 1; }

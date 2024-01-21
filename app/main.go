@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 
+	"github.com/bb-labs/corner"
 	"github.com/bb-labs/sage/pb"
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
@@ -32,9 +33,10 @@ func main() {
 	defer dbc.Close()
 
 	// Create the db schema
-	for _, model := range []interface{}{(*pb.User)(nil)} {
+	for _, model := range []interface{}{(*pb.User)(nil), (*pb.Token)(nil)} {
 		err := dbc.Model(model).CreateTable(&orm.CreateTableOptions{
-			IfNotExists: true,
+			IfNotExists:   true,
+			FKConstraints: true,
 		})
 		if err != nil {
 			log.Fatalf("failed to create table: %v", err)
@@ -47,11 +49,15 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	server := grpc.NewServer()
+	server := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			corner.AuthInterceptor(),
+		),
+	)
 	pb.RegisterSageServer(server, &SageServer{dbc: dbc})
 	reflection.Register(server)
 
-	log.Printf("server listening at %v", listener.Addr())
+	log.Printf("server is listening at %v", listener.Addr())
 	if err := server.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

@@ -81,11 +81,9 @@ def init(account_id, region, cluster_name):
     subprocess.run(["kubectl", "apply", "-f", "./kube/auth.yaml"])
 
     # Grab vendor charts
-    OAUTH2_CHART_URL = "https://oauth2-proxy.github.io/manifests"
     NGINX_CHART_URL = "https://kubernetes.github.io/ingress-nginx"
     CERT_MANAGER_CHART_URL = "https://charts.jetstack.io"
 
-    subprocess.run(["helm", "repo", "add", "oauth2-proxy", OAUTH2_CHART_URL])
     subprocess.run(["helm", "repo", "add", "ingress-nginx", NGINX_CHART_URL])
     subprocess.run(["helm", "repo", "add", "jetstack", CERT_MANAGER_CHART_URL])
 

@@ -1,0 +1,59 @@
+user {
+  id: "1"
+  name: "John Doe"
+  email: "johndoe@gmail.com"
+  rating: 95
+  gender: MAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+}
+
+user {
+  id: "2"
+  name: "Jane Doe"
+  email: "janedoe@gmail.com"
+  rating: 77
+  gender: WOMAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+}
+
+user {
+  id: "3"
+  name: "John Smith"
+  email: "johnsmith@gmail.com"
+  rating: 23
+  gender: MAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+}
+
+user {
+  id: "4"
+  name: "Jane Smith"
+  email: "janesmith@gmail.com"
+  rating: 44
+  gender: WOMAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+}
+
+user {
+  id: "5"
+  name: "John Wayne"
+  email: "johnwayne@gmail.com"
+  rating: 10
+  gender: MAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+}
+
+user {
+  id: "6"
+  name: "Jane Wayne"
+  email: "janewayne@gmail.com"
+  rating: 15
+  gender: HUMAN
+  birthday: 631152000
+  video_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+}

@@ -25,6 +25,8 @@ class SageAuthClientInterceptor: ClientInterceptor<CreateUserRequest, CreateUser
         switch part {
         case let .metadata(headers):
             print("< Received headers: \(headers)")
+        case let .end(status, trailers):
+          print("< Response stream closed with status: '\(status)' and trailers: \(trailers)")
         default:
             break
         }

@@ -115,49 +115,94 @@ extension Proximity: CaseIterable {
 /// // // // // // // // // // // //
 /// Sage
 /// // // // // // // // // // // //
+struct Token {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var idToken: String = String()
+
+  var accessToken: String = String()
+
+  var refreshToken: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct User {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  var token: Token {
+    get {return _storage._token ?? Token()}
+    set {_uniqueStorage()._token = newValue}
+  }
+  /// Returns true if `token` has been explicitly set.
+  var hasToken: Bool {return _storage._token != nil}
+  /// Clears the value of `token`. Subsequent reads from it will return its default value.
+  mutating func clearToken() {_uniqueStorage()._token = nil}
 
-  var name: String = String()
+  var id: String {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
 
-  var email: String = String()
+  var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
-  var rating: Double = 0
+  var email: String {
+    get {return _storage._email}
+    set {_uniqueStorage()._email = newValue}
+  }
 
-  var gender: Gender = .man
+  var rating: Double {
+    get {return _storage._rating}
+    set {_uniqueStorage()._rating = newValue}
+  }
 
-  var birthday: Int32 = 0
+  var gender: Gender {
+    get {return _storage._gender}
+    set {_uniqueStorage()._gender = newValue}
+  }
 
-  var videoURL: String = String()
+  var birthday: Int32 {
+    get {return _storage._birthday}
+    set {_uniqueStorage()._birthday = newValue}
+  }
+
+  var videoURL: String {
+    get {return _storage._videoURL}
+    set {_uniqueStorage()._videoURL = newValue}
+  }
 
   var location: Location {
-    get {return _location ?? Location()}
-    set {_location = newValue}
+    get {return _storage._location ?? Location()}
+    set {_uniqueStorage()._location = newValue}
   }
   /// Returns true if `location` has been explicitly set.
-  var hasLocation: Bool {return self._location != nil}
+  var hasLocation: Bool {return _storage._location != nil}
   /// Clears the value of `location`. Subsequent reads from it will return its default value.
-  mutating func clearLocation() {self._location = nil}
+  mutating func clearLocation() {_uniqueStorage()._location = nil}
 
   var preferences: Preferences {
-    get {return _preferences ?? Preferences()}
-    set {_preferences = newValue}
+    get {return _storage._preferences ?? Preferences()}
+    set {_uniqueStorage()._preferences = newValue}
   }
   /// Returns true if `preferences` has been explicitly set.
-  var hasPreferences: Bool {return self._preferences != nil}
+  var hasPreferences: Bool {return _storage._preferences != nil}
   /// Clears the value of `preferences`. Subsequent reads from it will return its default value.
-  mutating func clearPreferences() {self._preferences = nil}
+  mutating func clearPreferences() {_uniqueStorage()._preferences = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _location: Location? = nil
-  fileprivate var _preferences: Preferences? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct CreateUserRequest {
@@ -388,6 +433,7 @@ struct PresignedURLResponse {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Gender: @unchecked Sendable {}
 extension Proximity: @unchecked Sendable {}
+extension Token: @unchecked Sendable {}
 extension User: @unchecked Sendable {}
 extension CreateUserRequest: @unchecked Sendable {}
 extension CreateUserResponse: @unchecked Sendable {}
@@ -421,18 +467,12 @@ extension Proximity: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "User"
+extension Token: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "Token"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "name"),
-    3: .same(proto: "email"),
-    4: .same(proto: "rating"),
-    5: .same(proto: "gender"),
-    6: .same(proto: "birthday"),
-    7: .standard(proto: "video_url"),
-    8: .same(proto: "location"),
-    9: .same(proto: "preferences"),
+    1: .standard(proto: "id_token"),
+    2: .standard(proto: "access_token"),
+    3: .standard(proto: "refresh_token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -441,65 +481,171 @@ extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.email) }()
-      case 4: try { try decoder.decodeSingularDoubleField(value: &self.rating) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.gender) }()
-      case 6: try { try decoder.decodeSingularInt32Field(value: &self.birthday) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.videoURL) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._location) }()
-      case 9: try { try decoder.decodeSingularMessageField(value: &self._preferences) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.idToken) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.accessToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.refreshToken) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    if !self.idToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.idToken, fieldNumber: 1)
     }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    if !self.accessToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.accessToken, fieldNumber: 2)
     }
-    if !self.email.isEmpty {
-      try visitor.visitSingularStringField(value: self.email, fieldNumber: 3)
+    if !self.refreshToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.refreshToken, fieldNumber: 3)
     }
-    if self.rating != 0 {
-      try visitor.visitSingularDoubleField(value: self.rating, fieldNumber: 4)
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Token, rhs: Token) -> Bool {
+    if lhs.idToken != rhs.idToken {return false}
+    if lhs.accessToken != rhs.accessToken {return false}
+    if lhs.refreshToken != rhs.refreshToken {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension User: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "User"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "token"),
+    2: .same(proto: "id"),
+    3: .same(proto: "name"),
+    4: .same(proto: "email"),
+    5: .same(proto: "rating"),
+    6: .same(proto: "gender"),
+    7: .same(proto: "birthday"),
+    8: .standard(proto: "video_url"),
+    9: .same(proto: "location"),
+    10: .same(proto: "preferences"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _token: Token? = nil
+    var _id: String = String()
+    var _name: String = String()
+    var _email: String = String()
+    var _rating: Double = 0
+    var _gender: Gender = .man
+    var _birthday: Int32 = 0
+    var _videoURL: String = String()
+    var _location: Location? = nil
+    var _preferences: Preferences? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _token = source._token
+      _id = source._id
+      _name = source._name
+      _email = source._email
+      _rating = source._rating
+      _gender = source._gender
+      _birthday = source._birthday
+      _videoURL = source._videoURL
+      _location = source._location
+      _preferences = source._preferences
     }
-    if self.gender != .man {
-      try visitor.visitSingularEnumField(value: self.gender, fieldNumber: 5)
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
     }
-    if self.birthday != 0 {
-      try visitor.visitSingularInt32Field(value: self.birthday, fieldNumber: 6)
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._token) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._email) }()
+        case 5: try { try decoder.decodeSingularDoubleField(value: &_storage._rating) }()
+        case 6: try { try decoder.decodeSingularEnumField(value: &_storage._gender) }()
+        case 7: try { try decoder.decodeSingularInt32Field(value: &_storage._birthday) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._videoURL) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._location) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._preferences) }()
+        default: break
+        }
+      }
     }
-    if !self.videoURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.videoURL, fieldNumber: 7)
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._token {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 2)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 3)
+      }
+      if !_storage._email.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._email, fieldNumber: 4)
+      }
+      if _storage._rating != 0 {
+        try visitor.visitSingularDoubleField(value: _storage._rating, fieldNumber: 5)
+      }
+      if _storage._gender != .man {
+        try visitor.visitSingularEnumField(value: _storage._gender, fieldNumber: 6)
+      }
+      if _storage._birthday != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._birthday, fieldNumber: 7)
+      }
+      if !_storage._videoURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._videoURL, fieldNumber: 8)
+      }
+      try { if let v = _storage._location {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+      try { if let v = _storage._preferences {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
     }
-    try { if let v = self._location {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
-    try { if let v = self._preferences {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.email != rhs.email {return false}
-    if lhs.rating != rhs.rating {return false}
-    if lhs.gender != rhs.gender {return false}
-    if lhs.birthday != rhs.birthday {return false}
-    if lhs.videoURL != rhs.videoURL {return false}
-    if lhs._location != rhs._location {return false}
-    if lhs._preferences != rhs._preferences {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._token != rhs_storage._token {return false}
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._email != rhs_storage._email {return false}
+        if _storage._rating != rhs_storage._rating {return false}
+        if _storage._gender != rhs_storage._gender {return false}
+        if _storage._birthday != rhs_storage._birthday {return false}
+        if _storage._videoURL != rhs_storage._videoURL {return false}
+        if _storage._location != rhs_storage._location {return false}
+        if _storage._preferences != rhs_storage._preferences {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

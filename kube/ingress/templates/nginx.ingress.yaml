@@ -3,8 +3,8 @@ kind: Ingress
 metadata:
   name: {{ .Values.APP_INGRESS_NAME }}
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Code, X-Auth-Refresh, Authorization
     cert-manager.io/issuer: "{{ .Values.CERT_ISSUER_NAME }}"
 spec:
   ingressClassName: {{ .Values.NGINX_INGRESS_NAME }}
@@ -23,27 +23,3 @@ spec:
                 name: {{ .Values.APP_SERVICE_NAME }}
                 port:
                   number: {{ .Values.APP_PORT }}
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ .Values.OAUTH2_PROXY_INGRESS_NAME }}
-  annotations:
-    cert-manager.io/issuer: "{{ .Values.CERT_ISSUER_NAME }}"
-spec:
-  ingressClassName: {{ .Values.NGINX_INGRESS_NAME }}
-  tls:
-    - hosts:
-        - {{ .Values.APP_DOMAIN }}
-      secretName: {{ .Values.CERT_INGRESS_CERTIFICATE }}
-  rules:
-    - host: {{ .Values.APP_DOMAIN }}
-      http:
-        paths:
-          - path: /oauth2
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.OAUTH2_PROXY_NAME }}
-                port:
-                  number: {{ .Values.OAUTH2_PROXY_PORT }}
