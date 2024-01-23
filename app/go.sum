@@ -1,5 +1,5 @@
-github.com/bb-labs/corner v0.1.0 h1:/Egij41yccLokp4EUgJarKoOvt02WB8IlW6FwODnZFY=
-github.com/bb-labs/corner v0.1.0/go.mod h1:rqeJuT1ZX9swttkK/eAReUnoNxmrL1E5CEwBeICc4co=
+github.com/bb-labs/corner v0.1.10 h1:+5oyD5OBO2w5tvC4JsJaK2dSwSCY72u30D0HAi4aFmo=
+github.com/bb-labs/corner v0.1.10/go.mod h1:rqeJuT1ZX9swttkK/eAReUnoNxmrL1E5CEwBeICc4co=
 github.com/coreos/go-oidc/v3 v3.9.0 h1:0J/ogVOd4y8P0f0xUh8l9t07xRP/d8tccvjHl2dcsSo=
 github.com/coreos/go-oidc/v3 v3.9.0/go.mod h1:rTKz2PYwftcrtoCzV5g5kvfJoWcm0Mk8AF8y1iAQro4=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=

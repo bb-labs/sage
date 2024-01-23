@@ -9,9 +9,10 @@ docker.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 
+app.user.apple_client_secret:
 app.iam.create_role:
   RoleName: ${AWS_ROLE_NAME}
-  Description: Role for sage kubernetes node
+  Description: Role for sage aws app
   AssumeRolePolicyDocument: >
     {
       "Version": "2012-10-17",
@@ -23,7 +24,8 @@ app.iam.create_role:
               "ec2.amazonaws.com",
               "eks.amazonaws.com",
               "route53.amazonaws.com",
-              "rds.amazonaws.com"
+              "rds.amazonaws.com",
+              "ssm.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"
@@ -36,8 +38,8 @@ db.iam.attach_role_policy.rds:
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
 db.rds.create_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
-  DBParameterGroupFamily: postgres15
-  Description: Sage parameter group, turns
+  DBParameterGroupFamily: ${DB_PARAMETER_GROUP_FAMILY}
+  Description: Sage parameter group
 db.rds.modify_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   Parameters:
@@ -55,6 +57,43 @@ db.rds.create_db_instance:
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
+
+turn.iam.get_role:
+  RoleName: ${AWS_ROLE_NAME}
+turn.iam.create_instance_profile:
+  InstanceProfileName: ${TURN_INSTANCE_PROFILE_NAME}
+turn.iam.add_role_to_instance_profile:
+  InstanceProfileName: ${TURN_INSTANCE_PROFILE_NAME}
+  RoleName: ${AWS_ROLE_NAME}
+turn.iam.attach_role_policy.ssm:
+  RoleName: ${AWS_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
+turn.ec2r.create_instances:
+  ImageId: ${TURN_AMI_ID}
+  InstanceType: ${TURN_INSTANCE_TYPE}
+  MaxCount: 1
+  MinCount: 1
+  IamInstanceProfile:
+    Name: ${TURN_INSTANCE_PROFILE_NAME}
+turn.ec2_waiter.wait:
+  InstanceIds:
+    - $(turn.ec2r.create_instances.0.id)
+turn.ssm.send_command:
+  DocumentName: AWS-RunShellScript
+  InstanceIds:
+    - $(turn.ec2r.create_instances.0.id)
+  Parameters:
+    commands:
+      - "ls -lah"
+turn.ssm_waiter.wait:
+  CommandId: $(turn.ssm.send_command.Command.CommandId)
+  InstanceId: $(turn.ec2r.create_instances.0.id)
+  WaiterConfig:
+    Delay: 3
+    MaxAttempts: 3
+turn.ssm.get_command_invocation:
+  CommandId: $(turn.ssm.send_command.Command.CommandId)
+  InstanceId: $(turn.ec2r.create_instances.0.id)
 
 kube.iam.create_policy.dns:
   PolicyName: ${EKS_DNS_POLICY_NAME}
@@ -151,3 +190,6 @@ kube:
   - docker
   - app
   - kube
+
+turn:
+  - turn

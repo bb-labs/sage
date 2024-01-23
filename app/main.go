@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net"
@@ -20,6 +21,9 @@ type SageServer struct {
 }
 
 func main() {
+	// Create context
+	ctx := context.Background()
+
 	// Create a context, set up logging
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
@@ -49,9 +53,16 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
+	// Add the apple oauth2 provider
+	appleProvider, err := corner.NewProvider(ctx, corner.AppleProviderURL, os.Getenv("APPLE_BUNDLE_ID"), os.Getenv("APPLE_CLIENT_SECRET"))
+	if err != nil {
+		log.Fatalf("failed to create apple provider: %v", err)
+	}
+
+	// Create the grpc server
 	server := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			corner.AuthInterceptor(),
+			corner.AuthInterceptor(appleProvider),
 		),
 	)
 	pb.RegisterSageServer(server, &SageServer{dbc: dbc})

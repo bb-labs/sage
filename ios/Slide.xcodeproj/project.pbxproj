@@ -30,19 +30,26 @@
 		8B39CEFD29CD9C4400DB250E /* fleeing.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEFC29CD9C4400DB250E /* fleeing.json */; };
 		8B39CEFF29CD9E0F00DB250E /* swaying.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B39CEFE29CD9E0F00DB250E /* swaying.json */; };
 		8B530E6929EFD46F0031D7DE /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 8B530E6829EFD46F0031D7DE /* WebRTC */; };
-		8B54697C29A16A6D00648205 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* CameraView.swift */; };
-		8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */; };
+		8B54697C29A16A6D00648205 /* VideoProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697B29A16A6D00648205 /* VideoProfileView.swift */; };
+		8B54697F29A16B6F00648205 /* VideoProfileCaptureButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54697E29A16B6F00648205 /* VideoProfileCaptureButtonView.swift */; };
 		8B54698229A16BF600648205 /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B54698129A16BF600648205 /* CameraModel.swift */; };
-		8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469BF29A1848A00648205 /* CameraCaptureView.swift */; };
-		8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C129A1855400648205 /* CameraLiveView.swift */; };
-		8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */; };
+		8B5469C029A1848A00648205 /* VideoProfileCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469BF29A1848A00648205 /* VideoProfileCaptureView.swift */; };
+		8B5469C229A1855400648205 /* VideoProfileLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C129A1855400648205 /* VideoProfileLiveView.swift */; };
+		8B5469C429A1BEED00648205 /* VideoProfileCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* VideoProfileCaptureSettingsView.swift */; };
 		8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */; };
 		8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */; };
 		8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */; };
 		8B89FE0529DE8C240051F0D5 /* DoubleChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0429DE8C240051F0D5 /* DoubleChevronView.swift */; };
 		8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */; };
 		8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */; };
-		8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */; };
+		8B8CE7F92B5E342200268AD2 /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */; };
+		8B8CE7FB2B5E343900268AD2 /* WebRTCMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */; };
+		8B8CE7FE2B5E345700268AD2 /* WebRTCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */; };
+		8B8CE8002B5E348100268AD2 /* WebRTCPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */; };
+		8B8CE8022B5E349F00268AD2 /* WebRTCSignalingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8012B5E349F00268AD2 /* WebRTCSignalingModel.swift */; };
+		8B8CE8052B5E35C100268AD2 /* VideoChatPeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8042B5E35C100268AD2 /* VideoChatPeerView.swift */; };
+		8B8CE8072B5E360B00268AD2 /* VideoChatSelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8062B5E360B00268AD2 /* VideoChatSelfView.swift */; };
+		8B8CE8092B5E361D00268AD2 /* VideoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8082B5E361D00268AD2 /* VideoChatView.swift */; };
 		8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */; };
 		8BB1933729778E2E00EC5967 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1933629778E2E00EC5967 /* Assets.xcassets */; };
 		8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1934829778E2E00EC5967 /* SlideTests.swift */; };
@@ -58,7 +65,7 @@
 		8BC872882B47FAA300A8B9E5 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8BC872872B47FAA300A8B9E5 /* protoc-gen-grpc-swift */; };
 		8BC8728A2B4A394400A8B9E5 /* SageInterceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
-		8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */; };
+		8BE75D9A29DBD7BA00A503A4 /* VideoProfileExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */; };
 		AFD64813B24417F010BB8C55 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00814E53913687B691F1BE3C /* sage.grpc.swift */; };
 		B0A3416CA4F2801C862A2D3A /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72421A84013382E89BB7DC /* sage.pb.swift */; };
 		D6264876B24A64E63EE44105 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72421A84013382E89BB7DC /* sage.pb.swift */; };
@@ -83,7 +90,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00814E53913687B691F1BE3C /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.grpc.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
+		00814E53913687B691F1BE3C /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -101,19 +108,26 @@
 		8B39CEF929CD90F800DB250E /* authentic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = authentic.json; sourceTree = "<group>"; };
 		8B39CEFC29CD9C4400DB250E /* fleeing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fleeing.json; sourceTree = "<group>"; };
 		8B39CEFE29CD9E0F00DB250E /* swaying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swaying.json; sourceTree = "<group>"; };
-		8B54697B29A16A6D00648205 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureButton.swift; sourceTree = "<group>"; };
+		8B54697B29A16A6D00648205 /* VideoProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileView.swift; sourceTree = "<group>"; };
+		8B54697E29A16B6F00648205 /* VideoProfileCaptureButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileCaptureButtonView.swift; sourceTree = "<group>"; };
 		8B54698129A16BF600648205 /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
-		8B5469BF29A1848A00648205 /* CameraCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureView.swift; sourceTree = "<group>"; };
-		8B5469C129A1855400648205 /* CameraLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLiveView.swift; sourceTree = "<group>"; };
-		8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureSettingsView.swift; sourceTree = "<group>"; };
+		8B5469BF29A1848A00648205 /* VideoProfileCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileCaptureView.swift; sourceTree = "<group>"; };
+		8B5469C129A1855400648205 /* VideoProfileLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileLiveView.swift; sourceTree = "<group>"; };
+		8B5469C329A1BEED00648205 /* VideoProfileCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileCaptureSettingsView.swift; sourceTree = "<group>"; };
 		8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionsView.swift; sourceTree = "<group>"; };
 		8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronView.swift; sourceTree = "<group>"; };
 		8B89FE0429DE8C240051F0D5 /* DoubleChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleChevronView.swift; sourceTree = "<group>"; };
 		8B89FE0829DE8D070051F0D5 /* NextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
-		8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumScheduleView.swift; sourceTree = "<group>"; };
+		8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
+		8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMediaModel.swift; sourceTree = "<group>"; };
+		8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCModel.swift; sourceTree = "<group>"; };
+		8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCPeerModel.swift; sourceTree = "<group>"; };
+		8B8CE8012B5E349F00268AD2 /* WebRTCSignalingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalingModel.swift; sourceTree = "<group>"; };
+		8B8CE8042B5E35C100268AD2 /* VideoChatPeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChatPeerView.swift; sourceTree = "<group>"; };
+		8B8CE8062B5E360B00268AD2 /* VideoChatSelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChatSelfView.swift; sourceTree = "<group>"; };
+		8B8CE8082B5E361D00268AD2 /* VideoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChatView.swift; sourceTree = "<group>"; };
 		8BA879AE29B5B6CF00B3FEBD /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		8BB1932F29778E2D00EC5967 /* Slide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1933229778E2D00EC5967 /* SlideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideApp.swift; sourceTree = "<group>"; };
@@ -128,8 +142,8 @@
 		8BC8727B2B47EDFD00A8B9E5 /* SageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageService.swift; sourceTree = "<group>"; };
 		8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageInterceptors.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExplanationView.swift; sourceTree = "<group>"; };
-		EA72421A84013382E89BB7DC /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileExplanationView.swift; sourceTree = "<group>"; };
+		EA72421A84013382E89BB7DC /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,14 +191,14 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
-		8B317E6529DE562D006C9AC9 /* SignUp */ = {
+		8B317E6529DE562D006C9AC9 /* Register */ = {
 			isa = PBXGroup;
 			children = (
 				8B14942329A84FC4001497FE /* AuthView.swift */,
 				8B2FDB2829C4365F00C18123 /* ProfileCreationView.swift */,
 				8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */,
 			);
-			path = SignUp;
+			path = Register;
 			sourceTree = "<group>";
 		};
 		8B32E5582A1AE6A70066FD7B /* Auth */ = {
@@ -204,17 +218,17 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		8B54697D29A16AC600648205 /* Camera */ = {
+		8B54697D29A16AC600648205 /* VideoProfile */ = {
 			isa = PBXGroup;
 			children = (
-				8B54697B29A16A6D00648205 /* CameraView.swift */,
-				8BE75D9929DBD7BA00A503A4 /* CameraExplanationView.swift */,
-				8B5469C329A1BEED00648205 /* CameraCaptureSettingsView.swift */,
-				8B54697E29A16B6F00648205 /* CameraCaptureButton.swift */,
-				8B5469BF29A1848A00648205 /* CameraCaptureView.swift */,
-				8B5469C129A1855400648205 /* CameraLiveView.swift */,
+				8B54697B29A16A6D00648205 /* VideoProfileView.swift */,
+				8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */,
+				8B5469C329A1BEED00648205 /* VideoProfileCaptureSettingsView.swift */,
+				8B54697E29A16B6F00648205 /* VideoProfileCaptureButtonView.swift */,
+				8B5469BF29A1848A00648205 /* VideoProfileCaptureView.swift */,
+				8B5469C129A1855400648205 /* VideoProfileLiveView.swift */,
 			);
-			path = Camera;
+			path = VideoProfile;
 			sourceTree = "<group>";
 		};
 		8B6EAB092A354158001BC68E /* Camera */ = {
@@ -243,6 +257,28 @@
 				8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */,
 			);
 			path = Molecules;
+			sourceTree = "<group>";
+		};
+		8B8CE7F72B5E340B00268AD2 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */,
+				8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */,
+				8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */,
+				8B8CE8012B5E349F00268AD2 /* WebRTCSignalingModel.swift */,
+				8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
+		8B8CE8032B5E358D00268AD2 /* VideoChat */ = {
+			isa = PBXGroup;
+			children = (
+				8B8CE8042B5E35C100268AD2 /* VideoChatPeerView.swift */,
+				8B8CE8062B5E360B00268AD2 /* VideoChatSelfView.swift */,
+				8B8CE8082B5E361D00268AD2 /* VideoChatView.swift */,
+			);
+			path = VideoChat;
 			sourceTree = "<group>";
 		};
 		8BB1932629778E2D00EC5967 = {
@@ -299,6 +335,7 @@
 		8BB1936129778ED000EC5967 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B8CE7F72B5E340B00268AD2 /* WebRTC */,
 				8B6EAB0A2A35417F001BC68E /* Signup */,
 				8B6EAB092A354158001BC68E /* Camera */,
 				8BE335B42A32F33500160DE4 /* Match */,
@@ -311,11 +348,11 @@
 		8BB1936229778ED300EC5967 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8BDCC54F29E7AB2C00F81DD1 /* Settings */,
 				8B89FDFE29DE89740051F0D5 /* Molecules */,
-				8B317E6529DE562D006C9AC9 /* SignUp */,
+				8B317E6529DE562D006C9AC9 /* Register */,
 				8B2FDAF629C3F34B00C18123 /* Intro */,
-				8B54697D29A16AC600648205 /* Camera */,
+				8B8CE8032B5E358D00268AD2 /* VideoChat */,
+				8B54697D29A16AC600648205 /* VideoProfile */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -347,14 +384,6 @@
 				8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		8BDCC54F29E7AB2C00F81DD1 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				8B89FE0E29DEA1D70051F0D5 /* PremiumScheduleView.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
@@ -509,25 +538,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B54697F29A16B6F00648205 /* CameraCaptureButton.swift in Sources */,
+				8B54697F29A16B6F00648205 /* VideoProfileCaptureButtonView.swift in Sources */,
 				8B54698229A16BF600648205 /* CameraModel.swift in Sources */,
-				8B5469C429A1BEED00648205 /* CameraCaptureSettingsView.swift in Sources */,
+				8B8CE8022B5E349F00268AD2 /* WebRTCSignalingModel.swift in Sources */,
+				8B5469C429A1BEED00648205 /* VideoProfileCaptureSettingsView.swift in Sources */,
 				8B14943229A85D31001497FE /* IntroModel.swift in Sources */,
 				8BA879AF29B5B6CF00B3FEBD /* AuthModel.swift in Sources */,
 				8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */,
 				8B14943829A87C61001497FE /* KeyChain.swift in Sources */,
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
+				8B8CE8002B5E348100268AD2 /* WebRTCPeerModel.swift in Sources */,
 				8BC8727C2B47EDFD00A8B9E5 /* SageService.swift in Sources */,
-				8BE75D9A29DBD7BA00A503A4 /* CameraExplanationView.swift in Sources */,
-				8B89FE0F29DEA1D70051F0D5 /* PremiumScheduleView.swift in Sources */,
+				8BE75D9A29DBD7BA00A503A4 /* VideoProfileExplanationView.swift in Sources */,
 				8BC8728A2B4A394400A8B9E5 /* SageInterceptors.swift in Sources */,
-				8B54697C29A16A6D00648205 /* CameraView.swift in Sources */,
+				8B8CE8052B5E35C100268AD2 /* VideoChatPeerView.swift in Sources */,
+				8B54697C29A16A6D00648205 /* VideoProfileView.swift in Sources */,
 				8BC836102980B8D600FEE6E1 /* SlideView.swift in Sources */,
 				8B14942F29A85C6C001497FE /* UserModel.swift in Sources */,
+				8B8CE7F92B5E342200268AD2 /* WebRTCControlsModel.swift in Sources */,
 				8B2FDB1329C4125C00C18123 /* WelcomeCardView.swift in Sources */,
-				8B5469C229A1855400648205 /* CameraLiveView.swift in Sources */,
+				8B8CE7FB2B5E343900268AD2 /* WebRTCMediaModel.swift in Sources */,
+				8B5469C229A1855400648205 /* VideoProfileLiveView.swift in Sources */,
 				8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */,
-				8B5469C029A1848A00648205 /* CameraCaptureView.swift in Sources */,
+				8B5469C029A1848A00648205 /* VideoProfileCaptureView.swift in Sources */,
 				8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */,
 				8B32E5572A15F73B0066FD7B /* CallModel.swift in Sources */,
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
@@ -536,6 +569,9 @@
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
 				8B89FE0529DE8C240051F0D5 /* DoubleChevronView.swift in Sources */,
 				8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */,
+				8B8CE8092B5E361D00268AD2 /* VideoChatView.swift in Sources */,
+				8B8CE8072B5E360B00268AD2 /* VideoChatSelfView.swift in Sources */,
+				8B8CE7FE2B5E345700268AD2 /* WebRTCModel.swift in Sources */,
 				8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */,
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,

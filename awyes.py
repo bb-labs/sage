@@ -1,8 +1,11 @@
 import os
+import jwt
+import time
 import json
 import boto3
 import yaml
 import docker
+import pathlib
 import itertools
 import subprocess
 
@@ -96,9 +99,34 @@ def tag():
     )
 
 
-user = {"deploy": deploy, "init": init, "binaries": binaries, "tag": tag}
+def apple_client_secret():
+    return jwt.encode(
+        {
+            "iss": os.environ["APPLE_TEAM_ID"],
+            "iat": int(time.time()),
+            "exp": int(time.time()) + 86400 * 180,  # 180 days
+            "aud": "https://appleid.apple.com",
+            "sub": os.environ["APPLE_BUNDLE_ID"],
+        },
+        pathlib.Path(os.environ["APPLE_KEY_PATH"]).read_bytes(),
+        algorithm="ES256",
+        headers={"kid": os.environ["APPLE_KEY_ID"], "alg": "ES256"},
+    )
+
+
+user = {
+    "deploy": deploy,
+    "init": init,
+    "binaries": binaries,
+    "tag": tag,
+    "apple_client_secret": apple_client_secret,
+}
+ssm = boto3.client("ssm")
+ssm_waiter = ssm.get_waiter("command_executed")
 iam = boto3.client("iam")
 ec2 = boto3.client("ec2")
+ec2r = boto3.resource("ec2")
+ec2_waiter = ec2.get_waiter("instance_status_ok")
 eks = boto3.client("eks")
 rds = boto3.client("rds")
 route53 = boto3.client("route53")
