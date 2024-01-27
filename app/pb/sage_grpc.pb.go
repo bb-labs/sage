@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Sage_CreateUser_FullMethodName = "/Sage/CreateUser"
+	Sage_CreateUser_FullMethodName  = "/Sage/CreateUser"
+	Sage_MessageUser_FullMethodName = "/Sage/MessageUser"
 )
 
 // SageClient is the client API for Sage service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SageClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	MessageUser(ctx context.Context, opts ...grpc.CallOption) (Sage_MessageUserClient, error)
 }
 
 type sageClient struct {
@@ -46,11 +48,43 @@ func (c *sageClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts
 	return out, nil
 }
 
+func (c *sageClient) MessageUser(ctx context.Context, opts ...grpc.CallOption) (Sage_MessageUserClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Sage_ServiceDesc.Streams[0], Sage_MessageUser_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &sageMessageUserClient{stream}
+	return x, nil
+}
+
+type Sage_MessageUserClient interface {
+	Send(*MessageUserRequest) error
+	Recv() (*Message, error)
+	grpc.ClientStream
+}
+
+type sageMessageUserClient struct {
+	grpc.ClientStream
+}
+
+func (x *sageMessageUserClient) Send(m *MessageUserRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *sageMessageUserClient) Recv() (*Message, error) {
+	m := new(Message)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // SageServer is the server API for Sage service.
 // All implementations must embed UnimplementedSageServer
 // for forward compatibility
 type SageServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	MessageUser(Sage_MessageUserServer) error
 	mustEmbedUnimplementedSageServer()
 }
 
@@ -60,6 +94,9 @@ type UnimplementedSageServer struct {
 
 func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedSageServer) MessageUser(Sage_MessageUserServer) error {
+	return status.Errorf(codes.Unimplemented, "method MessageUser not implemented")
 }
 func (UnimplementedSageServer) mustEmbedUnimplementedSageServer() {}
 
@@ -92,6 +129,32 @@ func _Sage_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Sage_MessageUser_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(SageServer).MessageUser(&sageMessageUserServer{stream})
+}
+
+type Sage_MessageUserServer interface {
+	Send(*Message) error
+	Recv() (*MessageUserRequest, error)
+	grpc.ServerStream
+}
+
+type sageMessageUserServer struct {
+	grpc.ServerStream
+}
+
+func (x *sageMessageUserServer) Send(m *Message) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *sageMessageUserServer) Recv() (*MessageUserRequest, error) {
+	m := new(MessageUserRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // Sage_ServiceDesc is the grpc.ServiceDesc for Sage service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -104,6 +167,13 @@ var Sage_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Sage_CreateUser_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "MessageUser",
+			Handler:       _Sage_MessageUser_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "sage.proto",
 }

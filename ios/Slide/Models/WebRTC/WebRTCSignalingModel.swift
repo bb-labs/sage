@@ -9,7 +9,7 @@ extension WebRTCModel {
             switch message {
             case .success(.data(let data)):
                 do {
-                    let request = try SignalingRequest(serializedData: data)
+                    let request = try ConnectUsersRequest(serializedData: data)
                     
                     switch request.message {
                     case .sdp(let sdp):

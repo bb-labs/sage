@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05114FCFA2B8FF47D1E12E2E /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72421A84013382E89BB7DC /* sage.pb.swift */; };
-		6745470A81B4DB52FC5D7186 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00814E53913687B691F1BE3C /* sage.grpc.swift */; };
+		0F3C448EAE87420A7B5B3A9E /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4984363979D3E63CEB97A97 /* sage.grpc.swift */; };
+		43D74E0F9E06D7E4EB907F83 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A4D72BC7BA3EA1E220ABC /* sage.pb.swift */; };
+		85034E508073ED51787551D9 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A4D72BC7BA3EA1E220ABC /* sage.pb.swift */; };
+		882346609D0E320586B534A1 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4984363979D3E63CEB97A97 /* sage.grpc.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -66,10 +68,8 @@
 		8BC8728A2B4A394400A8B9E5 /* SageInterceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* VideoProfileExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */; };
-		AFD64813B24417F010BB8C55 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00814E53913687B691F1BE3C /* sage.grpc.swift */; };
-		B0A3416CA4F2801C862A2D3A /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72421A84013382E89BB7DC /* sage.pb.swift */; };
-		D6264876B24A64E63EE44105 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA72421A84013382E89BB7DC /* sage.pb.swift */; };
-		F2704F05ADC9B9C7DBA6816C /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00814E53913687B691F1BE3C /* sage.grpc.swift */; };
+		E4E04DD1810D13DBE07AD156 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4984363979D3E63CEB97A97 /* sage.grpc.swift */; };
+		EB0B4C16BCFCB242ACF8E7D9 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2A4D72BC7BA3EA1E220ABC /* sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +90,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00814E53913687B691F1BE3C /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -143,7 +142,8 @@
 		8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageInterceptors.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileExplanationView.swift; sourceTree = "<group>"; };
-		EA72421A84013382E89BB7DC /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		B4984363979D3E63CEB97A97 /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.grpc.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
+		DE2A4D72BC7BA3EA1E220ABC /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,8 +389,8 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				EA72421A84013382E89BB7DC /* sage.pb.swift */,
-				00814E53913687B691F1BE3C /* sage.grpc.swift */,
+				DE2A4D72BC7BA3EA1E220ABC /* sage.pb.swift */,
+				B4984363979D3E63CEB97A97 /* sage.grpc.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -575,8 +575,8 @@
 				8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */,
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
-				B0A3416CA4F2801C862A2D3A /* sage.pb.swift in Sources */,
-				6745470A81B4DB52FC5D7186 /* sage.grpc.swift in Sources */,
+				85034E508073ED51787551D9 /* sage.pb.swift in Sources */,
+				0F3C448EAE87420A7B5B3A9E /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,8 +585,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				05114FCFA2B8FF47D1E12E2E /* sage.pb.swift in Sources */,
-				AFD64813B24417F010BB8C55 /* sage.grpc.swift in Sources */,
+				43D74E0F9E06D7E4EB907F83 /* sage.pb.swift in Sources */,
+				882346609D0E320586B534A1 /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,8 +596,8 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				D6264876B24A64E63EE44105 /* sage.pb.swift in Sources */,
-				F2704F05ADC9B9C7DBA6816C /* sage.grpc.swift in Sources */,
+				EB0B4C16BCFCB242ACF8E7D9 /* sage.pb.swift in Sources */,
+				E4E04DD1810D13DBE07AD156 /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

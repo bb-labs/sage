@@ -3,7 +3,7 @@ syntax = "proto3";
 option go_package = "github.com/bb-labs/sage/back/pb";
 
 // // // // // // // // // // // //
-// Sage
+// Models
 // // // // // // // // // // // //
 message Token {
   string id_token = 1;
@@ -12,16 +12,15 @@ message Token {
 }
 
 message User {
-  Token token = 1;
-  string id = 2;
-  string name = 3;
-  string email = 4;
-  double rating = 5;
-  Gender gender = 6;
-  int32 birthday = 7;
-  string video_url = 8;
-  Location location = 9;
-  Preferences preferences = 10;
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  double rating = 4;
+  Gender gender = 5;
+  int32 birthday = 6;
+  string video_url = 7;
+  Location location = 8;
+  Preferences preferences = 9;
 }
 
 message CreateUserRequest { User user = 1; }
@@ -41,46 +40,60 @@ enum Proximity {
 }
 
 message Location {
-  string type = 1;
-  int32 latitude = 2;
-  int32 longitude = 3;
+  int32 lat = 1;
+  int32 long = 2;
 }
 
 message Preferences {
   int32 age_min = 1;
   int32 age_max = 2;
-  repeated Gender gender = 3;
-  Proximity proximity = 4;
+  Proximity proximity = 3;
+  repeated Gender gender = 4;
 }
 
 // // // // // // // // // // // //
-// WebRTC
+// Connectivity & Messaging
 // // // // // // // // // // // //
-message RouteRequest {
-  string id = 1;
-  string other_id = 2;
+message MessageUserRequest {
+  User recipient = 1;
+  repeated Message messages = 2;
 }
 
-message SDPRequest {
+message Message {
+  oneof data {
+    RTCMessage rtc = 1;
+    ChatMessage chat = 2;
+  }
+}
+
+message ChatMessage {
+  string message = 1;
+  int32 timestamp = 2;
+}
+
+message RTCMessage {
+  oneof format {
+    SDP sdp = 1;
+    ICE ice = 2;
+  }
+}
+
+message SDP {
   string message = 1;
   int32 type = 2;
   string description = 3;
 }
 
-message ICERequest {
-  SDPRequest sdp = 1;
+message ICE {
+  SDP sdp = 1;
   string stream_id = 2;
   int32 line_index = 3;
   string server_url = 4;
 }
 
-message SignalingRequest {
-  oneof message {
-    SDPRequest sdp = 1;
-    ICERequest ice = 2;
-  }
-}
-
+// // // // // // // // // // // //
+// Presigned URL
+// // // // // // // // // // // //
 message PresignedURLRequest {
   string action = 1;
   string file_name = 2;
@@ -96,4 +109,5 @@ message PresignedURLResponse {
 // // // // // // // // // // // //
 service Sage {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc MessageUser(stream MessageUserRequest) returns (stream Message) {}
 }

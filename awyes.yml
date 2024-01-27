@@ -1,15 +1,3 @@
-docker.image.build:
-  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
-  path: app
-  dockerfile: Dockerfile
-docker.image.push:
-  repository: ${DOCKER_REGISTRY}/${APP_REPO}
-  tag: ${APP_IMAGE_TAG}
-  auth_config:
-    username: ${DOCKER_HUB_USERNAME}
-    password: ${DOCKER_HUB_PASSWORD}
-
-app.user.apple_client_secret:
 app.iam.create_role:
   RoleName: ${AWS_ROLE_NAME}
   Description: Role for sage aws app
@@ -32,6 +20,17 @@ app.iam.create_role:
         }
       ]
     }
+app.image.build:
+  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
+  path: app
+  dockerfile: Dockerfile
+app.image.push:
+  repository: ${DOCKER_REGISTRY}/${APP_REPO}
+  tag: ${APP_IMAGE_TAG}
+  auth_config:
+    username: ${DOCKER_HUB_USERNAME}
+    password: ${DOCKER_HUB_PASSWORD}
+app.user.apple_client_secret:
 
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
