@@ -23,6 +23,21 @@ services:
       - ${DB_SERVICE_NAME}:/data/${DB_SERVICE_NAME}
     ports:
       - ${DB_PORT}:${DB_PORT}
+  ${WSS_SERVICE_NAME}:
+    image: ${WSS_SERVICE_NAME}
+    container_name: ${WSS_SERVICE_NAME}
+    depends_on:
+      - ${DB_SERVICE_NAME}
+    build: wss
+    volumes:
+      - ./wss:/${WSS_SERVICE_NAME}
+    ports:
+      - ${WSS_PORT}:${WSS_PORT}
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=${DB_SERVICE_NAME}
+    entrypoint: ["./entrypoint.dev.sh"]
 
 volumes:
   ${DB_SERVICE_NAME}:

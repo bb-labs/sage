@@ -20,8 +20,8 @@ type SageServer struct {
 	pb.UnimplementedSageServer
 	dbc *pg.DB
 
-	Mutex sync.RWMutex
-	Inbox map[string]chan *pb.Message
+	mutex sync.RWMutex
+	inbox map[string]chan *pb.Message
 }
 
 func main() {
@@ -51,12 +51,6 @@ func main() {
 		}
 	}
 
-	// Create the server
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-
 	// Add the apple oauth2 provider
 	appleProvider, err := corner.NewProvider(ctx, corner.AppleProviderURL, os.Getenv("APPLE_BUNDLE_ID"), os.Getenv("APPLE_CLIENT_SECRET"))
 	if err != nil {
@@ -72,9 +66,20 @@ func main() {
 		server.GracefulStop()
 	}()
 
-	pb.RegisterSageServer(server, &SageServer{dbc: dbc})
+	// Register the server
+	pb.RegisterSageServer(server, &SageServer{
+		dbc:   dbc,
+		inbox: make(map[string]chan *pb.Message),
+	})
 	reflection.Register(server)
 
+	// Create the tcp connection
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	// And serve
 	log.Printf("server is listening at %v", listener.Addr())
 	if err := server.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)

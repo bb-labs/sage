@@ -1,16 +1,29 @@
 
 import SwiftUI
+import WebRTC
 
-struct CameraVideoChatView: View {
-    @EnvironmentObject var cameraModel: CameraModel
-    @EnvironmentObject var webRTCModel: WebRTCModel
-    @EnvironmentObject var userModel: UserModel
+struct VideoChatView: View {
+    @ObservedObject var webRTCModel: WebRTCModel
     
     var body: some View {
-        CameraVideoChatPeerView()
+        CameraVideoChatPeerView(webRTCModel: webRTCModel)
             .ignoresSafeArea(.all, edges: .all)
             .overlay {
-                CameraVideoChatSelfView()
+                CameraVideoChatSelfView(webRTCModel: webRTCModel)
+            }
+            .overlay {
+                HStack {
+                    Button("Offer") {
+                        webRTCModel.offer()
+                    }
+                    Button("Answer") {
+                        webRTCModel.answer()
+                    }
+                    Button("Video") {
+                        webRTCModel.setTrackEnabled(RTCVideoTrack.self, isEnabled: true)
+                        webRTCModel.renderRemoteVideo()
+                    }
+                }
             }
     }
 }

@@ -6,7 +6,7 @@ import AVFoundation
 import AVKit
 
 struct CameraVideoChatSelfView: UIViewRepresentable {
-    @EnvironmentObject var webRTCModel: WebRTCModel
+    @ObservedObject var webRTCModel: WebRTCModel
         
     func makeUIView(context: Context) -> some UIView {
         let bounds = UIScreen.main.bounds

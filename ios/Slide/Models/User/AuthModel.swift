@@ -4,7 +4,7 @@ import AuthenticationServices
 import NIOHPACK
 import GRPC
 
-extension AuthModel {
+extension UserModel {
     func requestAppleScopes(_ request: ASAuthorizationAppleIDRequest){
         request.requestedScopes = [.fullName, .email]
     }
@@ -33,7 +33,7 @@ extension AuthModel {
                     return
                 }
                 
-                UserModel.shared.user = userResponse.user
+                user = userResponse.user
             }
         case .failure(let error):
             print("Authorization failed: \(error.localizedDescription)")

@@ -2,9 +2,10 @@
 import Foundation
 import WebRTC
 
-class WebRTCModel: NSObject, ObservableObject {    
-    // WebRTC internals
+class WebRTCModel: NSObject, ObservableObject {
     let streamId = "sage-stream"
+    let messenger = SageService.shared.client.makeMessageUserCall()
+    let recipient: User
     
     public static let peerFactory: RTCPeerConnectionFactory = {
         RTCInitializeSSL()
@@ -27,7 +28,7 @@ class WebRTCModel: NSObject, ObservableObject {
     public var localVideoRender: RTCMTLVideoView?
     public var remoteVideoRender: RTCMTLVideoView?
     
-    override init() {
+    init(_ user: User) {
         // Config setup
         let config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302",
@@ -47,9 +48,13 @@ class WebRTCModel: NSObject, ObservableObject {
             fatalError("Could not create new RTCPeerConnection")
         }
         
+        self.recipient = user
         self.peerConnection = peerConnection
         super.init()
         self.peerConnection.delegate = self
+        
+        // Listen for WebRTC messages
+        self.listen()
         
         // Audio
         let audioConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
@@ -62,7 +67,7 @@ class WebRTCModel: NSObject, ObservableObject {
             try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue)
             try self.rtcAudioSession.setMode(AVAudioSession.Mode.voiceChat.rawValue)
         } catch let error {
-            debugPrint("Error changing AVAudioSession category: \(error)")
+            fatalError("Error changing AVAudioSession category: \(error)")
         }
         self.rtcAudioSession.unlockForConfiguration()
 

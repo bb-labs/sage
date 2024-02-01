@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bb-labs/corner"
 	"github.com/bb-labs/sage/pb"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc/codes"
@@ -24,31 +23,36 @@ func (s *SageServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (
 }
 
 func (s *SageServer) MessageUser(stream pb.Sage_MessageUserServer) error {
-	errs, ctx := errgroup.WithContext(stream.Context())
-	userID := ctx.Value(corner.AuthTokenHeader).(string)
+	errs, _ := errgroup.WithContext(stream.Context())
+	userID := "1234"
 
 	// Retrieve messages from inbox
 	errs.Go(func() error {
-		s.Mutex.Lock()
-		if _, ok := s.Inbox[userID]; !ok {
-			s.Inbox[userID] = make(chan *pb.Message)
+		s.mutex.Lock()
+		if _, ok := s.inbox[userID]; !ok {
+			s.inbox[userID] = make(chan *pb.Message)
 		}
-		s.Mutex.Unlock()
+		s.mutex.Unlock()
 
-		for {
-			select {
-			case <-ctx.Done():
-			case message := <-s.Inbox[userID]:
-				if s, ok := status.FromError(stream.Send(message)); ok {
-					switch s.Code() {
-					case codes.OK:
-					case codes.Unavailable, codes.Canceled, codes.DeadlineExceeded:
-					default:
-						return s.Err()
-					}
-				}
+		for message := range s.inbox[userID] {
+			log.Println("Sending message to user: ", len(message.String()))
+
+			s, ok := status.FromError(stream.Send(message))
+			if !ok {
+				log.Println("Failed to send message to user: ", s.Err())
+			}
+
+			log.Println("Sent message to user: ", s.Code(), s.Err())
+
+			switch s.Code() {
+			case codes.OK:
+			case codes.Unavailable, codes.Canceled, codes.DeadlineExceeded:
+			default:
+				return s.Err()
 			}
 		}
+
+		return nil
 	})
 
 	// Store incoming messages in user inboxes
@@ -59,16 +63,16 @@ func (s *SageServer) MessageUser(stream pb.Sage_MessageUserServer) error {
 				return err
 			}
 
-			recID := request.GetRecipient().GetId()
+			recID := "1234"
 
-			s.Mutex.Lock()
-			if _, ok := s.Inbox[recID]; !ok {
-				s.Inbox[recID] = make(chan *pb.Message)
+			s.mutex.Lock()
+			if _, ok := s.inbox[recID]; !ok {
+				s.inbox[recID] = make(chan *pb.Message)
 			}
 			for _, message := range request.GetMessages() {
-				s.Inbox[recID] <- message
+				s.inbox[recID] <- message
 			}
-			s.Mutex.Unlock()
+			s.mutex.Unlock()
 		}
 	})
 
