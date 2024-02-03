@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		100D4C67991CB540C92A2FE7 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD143BEAE871DE44A3197C1 /* sage.grpc.swift */; };
-		19A34109BC63046F0850A789 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A954E5382BBF37B3805DCF5 /* sage.pb.swift */; };
-		48C04783B8D610D960A134E0 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD143BEAE871DE44A3197C1 /* sage.grpc.swift */; };
-		4A30466F8ACC73BEB1CF8429 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A954E5382BBF37B3805DCF5 /* sage.pb.swift */; };
+		0BD34D98866429A65E9398E8 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF04A019C726DB5E5ECF0BF /* sage.grpc.swift */; };
+		21BB4288B33C0D33D8B3A265 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482D4BDBB4E8DA7C5EAC7282 /* sage.pb.swift */; };
+		5AE64B1192E26406C456CEE4 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF04A019C726DB5E5ECF0BF /* sage.grpc.swift */; };
 		8B14942429A84FC4001497FE /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942329A84FC4001497FE /* AuthView.swift */; };
 		8B14942F29A85C6C001497FE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14942E29A85C6C001497FE /* UserModel.swift */; };
 		8B14943229A85D31001497FE /* IntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14943129A85D31001497FE /* IntroModel.swift */; };
@@ -37,6 +36,8 @@
 		8B5469C029A1848A00648205 /* VideoProfileCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469BF29A1848A00648205 /* VideoProfileCaptureView.swift */; };
 		8B5469C229A1855400648205 /* VideoProfileLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C129A1855400648205 /* VideoProfileLiveView.swift */; };
 		8B5469C429A1BEED00648205 /* VideoProfileCaptureSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5469C329A1BEED00648205 /* VideoProfileCaptureSettingsView.swift */; };
+		8B822D0F2B6B67D400BCF213 /* SageSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B822D0E2B6B67D400BCF213 /* SageSocket.swift */; };
+		8B822D112B6B6A1D00BCF213 /* WebRTCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B822D102B6B6A1D00BCF213 /* WebRTCModel.swift */; };
 		8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */; };
 		8B89FE0029DE89810051F0D5 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */; };
 		8B89FE0229DE8A8A0051F0D5 /* ChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */; };
@@ -45,7 +46,6 @@
 		8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */; };
 		8B8CE7F92B5E342200268AD2 /* WebRTCControlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */; };
 		8B8CE7FB2B5E343900268AD2 /* WebRTCMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */; };
-		8B8CE7FE2B5E345700268AD2 /* WebRTCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */; };
 		8B8CE8002B5E348100268AD2 /* WebRTCPeerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */; };
 		8B8CE8052B5E35C100268AD2 /* VideoChatPeerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8042B5E35C100268AD2 /* VideoChatPeerView.swift */; };
 		8B8CE8072B5E360B00268AD2 /* VideoChatSelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8CE8062B5E360B00268AD2 /* VideoChatSelfView.swift */; };
@@ -66,8 +66,9 @@
 		8BC8728A2B4A394400A8B9E5 /* SageInterceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */; };
 		8BE4DA6629BD263200A3051D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE4DA6529BD263200A3051D /* SplashView.swift */; };
 		8BE75D9A29DBD7BA00A503A4 /* VideoProfileExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */; };
-		8C554B17995FAC16506F6F11 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A954E5382BBF37B3805DCF5 /* sage.pb.swift */; };
-		987B45969083FB0FEDB35648 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD143BEAE871DE44A3197C1 /* sage.grpc.swift */; };
+		8D814AF09A13BCD75B561591 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482D4BDBB4E8DA7C5EAC7282 /* sage.pb.swift */; };
+		9F6D4A6CB05EE8258FB7DEBC /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF04A019C726DB5E5ECF0BF /* sage.grpc.swift */; };
+		B91F444E8850EFF08C5CE6E0 /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482D4BDBB4E8DA7C5EAC7282 /* sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +89,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A954E5382BBF37B3805DCF5 /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		482D4BDBB4E8DA7C5EAC7282 /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.pb.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		4BF04A019C726DB5E5ECF0BF /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = sage.grpc.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
 		8B14942129A84F6D001497FE /* Slide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slide.entitlements; sourceTree = "<group>"; };
 		8B14942329A84FC4001497FE /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		8B14942E29A85C6C001497FE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -111,6 +113,8 @@
 		8B5469BF29A1848A00648205 /* VideoProfileCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileCaptureView.swift; sourceTree = "<group>"; };
 		8B5469C129A1855400648205 /* VideoProfileLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileLiveView.swift; sourceTree = "<group>"; };
 		8B5469C329A1BEED00648205 /* VideoProfileCaptureSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileCaptureSettingsView.swift; sourceTree = "<group>"; };
+		8B822D0E2B6B67D400BCF213 /* SageSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageSocket.swift; sourceTree = "<group>"; };
+		8B822D102B6B6A1D00BCF213 /* WebRTCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCModel.swift; sourceTree = "<group>"; };
 		8B89FDFC29DE889B0051F0D5 /* SelectOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionsView.swift; sourceTree = "<group>"; };
 		8B89FDFF29DE89810051F0D5 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		8B89FE0129DE8A8A0051F0D5 /* ChevronView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronView.swift; sourceTree = "<group>"; };
@@ -119,7 +123,6 @@
 		8B89FE0C29DE8F940051F0D5 /* ProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInputView.swift; sourceTree = "<group>"; };
 		8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCControlsModel.swift; sourceTree = "<group>"; };
 		8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCMediaModel.swift; sourceTree = "<group>"; };
-		8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCModel.swift; sourceTree = "<group>"; };
 		8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCPeerModel.swift; sourceTree = "<group>"; };
 		8B8CE8042B5E35C100268AD2 /* VideoChatPeerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChatPeerView.swift; sourceTree = "<group>"; };
 		8B8CE8062B5E360B00268AD2 /* VideoChatSelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChatSelfView.swift; sourceTree = "<group>"; };
@@ -139,7 +142,6 @@
 		8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageInterceptors.swift; sourceTree = "<group>"; };
 		8BE4DA6529BD263200A3051D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8BE75D9929DBD7BA00A503A4 /* VideoProfileExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProfileExplanationView.swift; sourceTree = "<group>"; };
-		ABD143BEAE871DE44A3197C1 /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,7 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				8B8CE7F82B5E342200268AD2 /* WebRTCControlsModel.swift */,
-				8B8CE7FD2B5E345700268AD2 /* WebRTCModel.swift */,
+				8B822D102B6B6A1D00BCF213 /* WebRTCModel.swift */,
 				8B8CE7FF2B5E348100268AD2 /* WebRTCPeerModel.swift */,
 				8B8CE7FA2B5E343900268AD2 /* WebRTCMediaModel.swift */,
 			);
@@ -367,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				8BC8727B2B47EDFD00A8B9E5 /* SageService.swift */,
+				8B822D0E2B6B67D400BCF213 /* SageSocket.swift */,
 				8BC872892B4A394400A8B9E5 /* SageInterceptors.swift */,
 			);
 			path = Network;
@@ -375,8 +378,8 @@
 		8BE335B22A1B3D0A00160DE4 /* Protos */ = {
 			isa = PBXGroup;
 			children = (
-				4A954E5382BBF37B3805DCF5 /* sage.pb.swift */,
-				ABD143BEAE871DE44A3197C1 /* sage.grpc.swift */,
+				482D4BDBB4E8DA7C5EAC7282 /* sage.pb.swift */,
+				4BF04A019C726DB5E5ECF0BF /* sage.grpc.swift */,
 			);
 			path = Protos;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				8BC8360E2980B8D600FEE6E1 /* SlideApp.swift in Sources */,
 				8B8CE8002B5E348100268AD2 /* WebRTCPeerModel.swift in Sources */,
 				8BC8727C2B47EDFD00A8B9E5 /* SageService.swift in Sources */,
+				8B822D0F2B6B67D400BCF213 /* SageSocket.swift in Sources */,
 				8BE75D9A29DBD7BA00A503A4 /* VideoProfileExplanationView.swift in Sources */,
 				8BC8728A2B4A394400A8B9E5 /* SageInterceptors.swift in Sources */,
 				8B8CE8052B5E35C100268AD2 /* VideoChatPeerView.swift in Sources */,
@@ -551,16 +555,16 @@
 				8B89FE0929DE8D070051F0D5 /* NextButtonView.swift in Sources */,
 				8B89FDFD29DE889B0051F0D5 /* SelectOptionsView.swift in Sources */,
 				8B22682F29BE5718009EC60F /* WelcomeView.swift in Sources */,
+				8B822D112B6B6A1D00BCF213 /* WebRTCModel.swift in Sources */,
 				8B89FE0529DE8C240051F0D5 /* DoubleChevronView.swift in Sources */,
 				8B2FDB2929C4365F00C18123 /* ProfileCreationView.swift in Sources */,
 				8B8CE8092B5E361D00268AD2 /* VideoChatView.swift in Sources */,
 				8B8CE8072B5E360B00268AD2 /* VideoChatSelfView.swift in Sources */,
-				8B8CE7FE2B5E345700268AD2 /* WebRTCModel.swift in Sources */,
 				8B2FDB2329C417BF00C18123 /* LottieView.swift in Sources */,
 				8B89FE0D29DE8F940051F0D5 /* ProfileInputView.swift in Sources */,
 				8B14942429A84FC4001497FE /* AuthView.swift in Sources */,
-				4A30466F8ACC73BEB1CF8429 /* sage.pb.swift in Sources */,
-				48C04783B8D610D960A134E0 /* sage.grpc.swift in Sources */,
+				21BB4288B33C0D33D8B3A265 /* sage.pb.swift in Sources */,
+				0BD34D98866429A65E9398E8 /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,8 +573,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC836062980B7EF00FEE6E1 /* SlideTests.swift in Sources */,
-				19A34109BC63046F0850A789 /* sage.pb.swift in Sources */,
-				987B45969083FB0FEDB35648 /* sage.grpc.swift in Sources */,
+				8D814AF09A13BCD75B561591 /* sage.pb.swift in Sources */,
+				5AE64B1192E26406C456CEE4 /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,8 +584,8 @@
 			files = (
 				8BC836082980B7FC00FEE6E1 /* SlideUITestsLaunchTests.swift in Sources */,
 				8BC836072980B7F800FEE6E1 /* SlideUITests.swift in Sources */,
-				8C554B17995FAC16506F6F11 /* sage.pb.swift in Sources */,
-				100D4C67991CB540C92A2FE7 /* sage.grpc.swift in Sources */,
+				B91F444E8850EFF08C5CE6E0 /* sage.pb.swift in Sources */,
+				9F6D4A6CB05EE8258FB7DEBC /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

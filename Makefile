@@ -50,3 +50,7 @@ proto:
 		--go_opt=paths=source_relative \
 		--go-grpc_out=app/pb \
 		--go-grpc_opt=paths=source_relative
+	
+	protoc sage.proto -I=protos \
+		--go_out=wss/pb \
+		--go_opt=paths=source_relative

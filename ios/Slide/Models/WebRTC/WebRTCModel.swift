@@ -4,8 +4,8 @@ import WebRTC
 
 class WebRTCModel: NSObject, ObservableObject {
     let streamId = "sage-stream"
-    let messenger = SageService.shared.client.makeMessageUserCall()
     let recipient: User
+    let signalingClient = WSSClient()
     
     public static let peerFactory: RTCPeerConnectionFactory = {
         RTCInitializeSSL()
@@ -53,8 +53,9 @@ class WebRTCModel: NSObject, ObservableObject {
         super.init()
         self.peerConnection.delegate = self
         
-        // Listen for WebRTC messages
+        // Starting listening
         self.listen()
+        
         
         // Audio
         let audioConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)

@@ -6,7 +6,6 @@ import (
 	"log"
 	"net"
 	"os"
-	"sync"
 
 	"github.com/bb-labs/corner"
 	"github.com/bb-labs/sage/pb"
@@ -19,9 +18,6 @@ import (
 type SageServer struct {
 	pb.UnimplementedSageServer
 	dbc *pg.DB
-
-	mutex sync.RWMutex
-	inbox map[string]chan *pb.Message
 }
 
 func main() {
@@ -60,17 +56,13 @@ func main() {
 	// Create the grpc server
 	server := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(corner.AuthInterceptor(appleProvider)),
-		grpc.ChainStreamInterceptor(),
 	)
 	defer func() {
 		server.GracefulStop()
 	}()
 
 	// Register the server
-	pb.RegisterSageServer(server, &SageServer{
-		dbc:   dbc,
-		inbox: make(map[string]chan *pb.Message),
-	})
+	pb.RegisterSageServer(server, &SageServer{dbc: dbc})
 	reflection.Register(server)
 
 	// Create the tcp connection

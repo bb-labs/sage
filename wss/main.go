@@ -14,10 +14,11 @@ func main() {
 
 	// Initialize the hub
 	hub := NewHub(websocket.Upgrader{})
+	go hub.Run()
 
 	// Setup route to connect users
-	router.POST("/connect", hub.ConnectUsers(hub, "1234", "5678"))
+	router.GET("/connect", hub.ConnectUsers())
 
 	// Run the server
-	router.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
+	router.Run(fmt.Sprintf(":%s", os.Getenv("WSS_PORT")))
 }

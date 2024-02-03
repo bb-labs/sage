@@ -14,6 +14,7 @@ services:
     environment:
       - DB_HOST=${DB_SERVICE_NAME}
     entrypoint: ["./entrypoint.dev.sh"]
+
   ${DB_SERVICE_NAME}:
     image: ${DB_ENGINE}:${DB_IMAGE_TAG}
     container_name: ${DB_SERVICE_NAME}
@@ -23,6 +24,7 @@ services:
       - ${DB_SERVICE_NAME}:/data/${DB_SERVICE_NAME}
     ports:
       - ${DB_PORT}:${DB_PORT}
+
   ${WSS_SERVICE_NAME}:
     image: ${WSS_SERVICE_NAME}
     container_name: ${WSS_SERVICE_NAME}
@@ -43,4 +45,4 @@ volumes:
   ${DB_SERVICE_NAME}:
 
 networks:
-  sage:
+  ${APP_NAME}:

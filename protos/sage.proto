@@ -54,33 +54,9 @@ message Preferences {
 // // // // // // // // // // // //
 // Connectivity & Messaging
 // // // // // // // // // // // //
-message MessageUserRequest {
-  User recipient = 1;
-  repeated Message messages = 2;
-}
-
-message Message {
-  oneof data {
-    RTCMessage rtc = 1;
-    ChatMessage chat = 2;
-  }
-}
-
-message ChatMessage {
-  string message = 1;
-  int32 timestamp = 2;
-}
-
-message RTCMessage {
-  oneof format {
-    SDP sdp = 1;
-    ICE ice = 2;
-  }
-}
-
 message SDP {
-  string message = 1;
-  int32 type = 2;
+  int32 type = 1;
+  string message = 2;
   string description = 3;
 }
 
@@ -89,6 +65,13 @@ message ICE {
   string stream_id = 2;
   int32 line_index = 3;
   string server_url = 4;
+}
+
+message SignalingRequest {
+  oneof message {
+    SDP sdp = 1;
+    ICE ice = 2;
+  }
 }
 
 // // // // // // // // // // // //
@@ -109,5 +92,4 @@ message PresignedURLResponse {
 // // // // // // // // // // // //
 service Sage {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
-  rpc MessageUser(stream MessageUserRequest) returns (stream Message) {}
 }

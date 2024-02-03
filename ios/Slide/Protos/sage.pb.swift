@@ -253,155 +253,14 @@ struct Preferences {
 /// // // // // // // // // // // //
 /// Connectivity & Messaging
 /// // // // // // // // // // // //
-struct MessageUserRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var recipient: User {
-    get {return _recipient ?? User()}
-    set {_recipient = newValue}
-  }
-  /// Returns true if `recipient` has been explicitly set.
-  var hasRecipient: Bool {return self._recipient != nil}
-  /// Clears the value of `recipient`. Subsequent reads from it will return its default value.
-  mutating func clearRecipient() {self._recipient = nil}
-
-  var messages: [Message] = []
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _recipient: User? = nil
-}
-
-struct Message {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var data: Message.OneOf_Data? = nil
-
-  var rtc: RTCMessage {
-    get {
-      if case .rtc(let v)? = data {return v}
-      return RTCMessage()
-    }
-    set {data = .rtc(newValue)}
-  }
-
-  var chat: ChatMessage {
-    get {
-      if case .chat(let v)? = data {return v}
-      return ChatMessage()
-    }
-    set {data = .chat(newValue)}
-  }
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  enum OneOf_Data: Equatable {
-    case rtc(RTCMessage)
-    case chat(ChatMessage)
-
-  #if !swift(>=4.1)
-    static func ==(lhs: Message.OneOf_Data, rhs: Message.OneOf_Data) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.rtc, .rtc): return {
-        guard case .rtc(let l) = lhs, case .rtc(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.chat, .chat): return {
-        guard case .chat(let l) = lhs, case .chat(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  init() {}
-}
-
-struct ChatMessage {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var message: String = String()
-
-  var timestamp: Int32 = 0
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct RTCMessage {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var format: RTCMessage.OneOf_Format? = nil
-
-  var sdp: SDP {
-    get {
-      if case .sdp(let v)? = format {return v}
-      return SDP()
-    }
-    set {format = .sdp(newValue)}
-  }
-
-  var ice: ICE {
-    get {
-      if case .ice(let v)? = format {return v}
-      return ICE()
-    }
-    set {format = .ice(newValue)}
-  }
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  enum OneOf_Format: Equatable {
-    case sdp(SDP)
-    case ice(ICE)
-
-  #if !swift(>=4.1)
-    static func ==(lhs: RTCMessage.OneOf_Format, rhs: RTCMessage.OneOf_Format) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.sdp, .sdp): return {
-        guard case .sdp(let l) = lhs, case .sdp(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.ice, .ice): return {
-        guard case .ice(let l) = lhs, case .ice(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  init() {}
-}
-
 struct SDP {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var message: String = String()
-
   var type: Int32 = 0
+
+  var message: String = String()
 
   var description_p: String = String()
 
@@ -435,6 +294,58 @@ struct ICE {
   init() {}
 
   fileprivate var _sdp: SDP? = nil
+}
+
+struct SignalingRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var message: SignalingRequest.OneOf_Message? = nil
+
+  var sdp: SDP {
+    get {
+      if case .sdp(let v)? = message {return v}
+      return SDP()
+    }
+    set {message = .sdp(newValue)}
+  }
+
+  var ice: ICE {
+    get {
+      if case .ice(let v)? = message {return v}
+      return ICE()
+    }
+    set {message = .ice(newValue)}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum OneOf_Message: Equatable {
+    case sdp(SDP)
+    case ice(ICE)
+
+  #if !swift(>=4.1)
+    static func ==(lhs: SignalingRequest.OneOf_Message, rhs: SignalingRequest.OneOf_Message) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.sdp, .sdp): return {
+        guard case .sdp(let l) = lhs, case .sdp(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.ice, .ice): return {
+        guard case .ice(let l) = lhs, case .ice(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  init() {}
 }
 
 /// // // // // // // // // // // //
@@ -486,14 +397,10 @@ extension CreateUserRequest: @unchecked Sendable {}
 extension CreateUserResponse: @unchecked Sendable {}
 extension Location: @unchecked Sendable {}
 extension Preferences: @unchecked Sendable {}
-extension MessageUserRequest: @unchecked Sendable {}
-extension Message: @unchecked Sendable {}
-extension Message.OneOf_Data: @unchecked Sendable {}
-extension ChatMessage: @unchecked Sendable {}
-extension RTCMessage: @unchecked Sendable {}
-extension RTCMessage.OneOf_Format: @unchecked Sendable {}
 extension SDP: @unchecked Sendable {}
 extension ICE: @unchecked Sendable {}
+extension SignalingRequest: @unchecked Sendable {}
+extension SignalingRequest.OneOf_Message: @unchecked Sendable {}
 extension PresignedURLRequest: @unchecked Sendable {}
 extension PresignedURLResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
@@ -805,231 +712,11 @@ extension Preferences: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   }
 }
 
-extension MessageUserRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "MessageUserRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "recipient"),
-    2: .same(proto: "messages"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._recipient) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._recipient {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    if !self.messages.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: MessageUserRequest, rhs: MessageUserRequest) -> Bool {
-    if lhs._recipient != rhs._recipient {return false}
-    if lhs.messages != rhs.messages {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "Message"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "rtc"),
-    2: .same(proto: "chat"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: RTCMessage?
-        var hadOneofValue = false
-        if let current = self.data {
-          hadOneofValue = true
-          if case .rtc(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.data = .rtc(v)
-        }
-      }()
-      case 2: try {
-        var v: ChatMessage?
-        var hadOneofValue = false
-        if let current = self.data {
-          hadOneofValue = true
-          if case .chat(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.data = .chat(v)
-        }
-      }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.data {
-    case .rtc?: try {
-      guard case .rtc(let v)? = self.data else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }()
-    case .chat?: try {
-      guard case .chat(let v)? = self.data else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Message, rhs: Message) -> Bool {
-    if lhs.data != rhs.data {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "ChatMessage"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "message"),
-    2: .same(proto: "timestamp"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.message) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.timestamp) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.message.isEmpty {
-      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
-    }
-    if self.timestamp != 0 {
-      try visitor.visitSingularInt32Field(value: self.timestamp, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: ChatMessage, rhs: ChatMessage) -> Bool {
-    if lhs.message != rhs.message {return false}
-    if lhs.timestamp != rhs.timestamp {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension RTCMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "RTCMessage"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "sdp"),
-    2: .same(proto: "ice"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: SDP?
-        var hadOneofValue = false
-        if let current = self.format {
-          hadOneofValue = true
-          if case .sdp(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.format = .sdp(v)
-        }
-      }()
-      case 2: try {
-        var v: ICE?
-        var hadOneofValue = false
-        if let current = self.format {
-          hadOneofValue = true
-          if case .ice(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.format = .ice(v)
-        }
-      }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.format {
-    case .sdp?: try {
-      guard case .sdp(let v)? = self.format else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }()
-    case .ice?: try {
-      guard case .ice(let v)? = self.format else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: RTCMessage, rhs: RTCMessage) -> Bool {
-    if lhs.format != rhs.format {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension SDP: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "SDP"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "message"),
-    2: .same(proto: "type"),
+    1: .same(proto: "type"),
+    2: .same(proto: "message"),
     3: .same(proto: "description"),
   ]
 
@@ -1039,8 +726,8 @@ extension SDP: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.message) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.type) }()
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.message) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       default: break
       }
@@ -1048,11 +735,11 @@ extension SDP: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, 
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.message.isEmpty {
-      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
-    }
     if self.type != 0 {
-      try visitor.visitSingularInt32Field(value: self.type, fieldNumber: 2)
+      try visitor.visitSingularInt32Field(value: self.type, fieldNumber: 1)
+    }
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 2)
     }
     if !self.description_p.isEmpty {
       try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
@@ -1061,8 +748,8 @@ extension SDP: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, 
   }
 
   static func ==(lhs: SDP, rhs: SDP) -> Bool {
-    if lhs.message != rhs.message {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.message != rhs.message {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1118,6 +805,76 @@ extension ICE: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, 
     if lhs.streamID != rhs.streamID {return false}
     if lhs.lineIndex != rhs.lineIndex {return false}
     if lhs.serverURL != rhs.serverURL {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SignalingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SignalingRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "sdp"),
+    2: .same(proto: "ice"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: SDP?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .sdp(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .sdp(v)
+        }
+      }()
+      case 2: try {
+        var v: ICE?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .ice(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .ice(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.message {
+    case .sdp?: try {
+      guard case .sdp(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .ice?: try {
+      guard case .ice(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SignalingRequest, rhs: SignalingRequest) -> Bool {
+    if lhs.message != rhs.message {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

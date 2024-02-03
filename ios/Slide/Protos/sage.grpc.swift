@@ -24,11 +24,6 @@ internal protocol SageClientProtocol: GRPCClient {
     _ request: CreateUserRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<CreateUserRequest, CreateUserResponse>
-
-  func messageUser(
-    callOptions: CallOptions?,
-    handler: @escaping (Message) -> Void
-  ) -> BidirectionalStreamingCall<MessageUserRequest, Message>
 }
 
 extension SageClientProtocol {
@@ -51,27 +46,6 @@ extension SageClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeCreateUserInterceptors() ?? []
-    )
-  }
-
-  /// Bidirectional streaming call to MessageUser
-  ///
-  /// Callers should use the `send` method on the returned object to send messages
-  /// to the server. The caller should send an `.end` after the final message has been sent.
-  ///
-  /// - Parameters:
-  ///   - callOptions: Call options.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ClientStreamingCall` with futures for the metadata and status.
-  internal func messageUser(
-    callOptions: CallOptions? = nil,
-    handler: @escaping (Message) -> Void
-  ) -> BidirectionalStreamingCall<MessageUserRequest, Message> {
-    return self.makeBidirectionalStreamingCall(
-      path: SageClientMetadata.Methods.messageUser.path,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeMessageUserInterceptors() ?? [],
-      handler: handler
     )
   }
 }
@@ -145,10 +119,6 @@ internal protocol SageAsyncClientProtocol: GRPCClient {
     _ request: CreateUserRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<CreateUserRequest, CreateUserResponse>
-
-  func makeMessageUserCall(
-    callOptions: CallOptions?
-  ) -> GRPCAsyncBidirectionalStreamingCall<MessageUserRequest, Message>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -172,16 +142,6 @@ extension SageAsyncClientProtocol {
       interceptors: self.interceptors?.makeCreateUserInterceptors() ?? []
     )
   }
-
-  internal func makeMessageUserCall(
-    callOptions: CallOptions? = nil
-  ) -> GRPCAsyncBidirectionalStreamingCall<MessageUserRequest, Message> {
-    return self.makeAsyncBidirectionalStreamingCall(
-      path: SageClientMetadata.Methods.messageUser.path,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeMessageUserInterceptors() ?? []
-    )
-  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -195,30 +155,6 @@ extension SageAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeCreateUserInterceptors() ?? []
-    )
-  }
-
-  internal func messageUser<RequestStream>(
-    _ requests: RequestStream,
-    callOptions: CallOptions? = nil
-  ) -> GRPCAsyncResponseStream<Message> where RequestStream: Sequence, RequestStream.Element == MessageUserRequest {
-    return self.performAsyncBidirectionalStreamingCall(
-      path: SageClientMetadata.Methods.messageUser.path,
-      requests: requests,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeMessageUserInterceptors() ?? []
-    )
-  }
-
-  internal func messageUser<RequestStream>(
-    _ requests: RequestStream,
-    callOptions: CallOptions? = nil
-  ) -> GRPCAsyncResponseStream<Message> where RequestStream: AsyncSequence & Sendable, RequestStream.Element == MessageUserRequest {
-    return self.performAsyncBidirectionalStreamingCall(
-      path: SageClientMetadata.Methods.messageUser.path,
-      requests: requests,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeMessageUserInterceptors() ?? []
     )
   }
 }
@@ -244,9 +180,6 @@ internal protocol SageClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'createUser'.
   func makeCreateUserInterceptors() -> [ClientInterceptor<CreateUserRequest, CreateUserResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'messageUser'.
-  func makeMessageUserInterceptors() -> [ClientInterceptor<MessageUserRequest, Message>]
 }
 
 internal enum SageClientMetadata {
@@ -255,7 +188,6 @@ internal enum SageClientMetadata {
     fullName: "Sage",
     methods: [
       SageClientMetadata.Methods.createUser,
-      SageClientMetadata.Methods.messageUser,
     ]
   )
 
@@ -264,12 +196,6 @@ internal enum SageClientMetadata {
       name: "CreateUser",
       path: "/Sage/CreateUser",
       type: GRPCCallType.unary
-    )
-
-    internal static let messageUser = GRPCMethodDescriptor(
-      name: "MessageUser",
-      path: "/Sage/MessageUser",
-      type: GRPCCallType.bidirectionalStreaming
     )
   }
 }
@@ -283,8 +209,6 @@ internal protocol SageProvider: CallHandlerProvider {
   var interceptors: SageServerInterceptorFactoryProtocol? { get }
 
   func createUser(request: CreateUserRequest, context: StatusOnlyCallContext) -> EventLoopFuture<CreateUserResponse>
-
-  func messageUser(context: StreamingResponseCallContext<Message>) -> EventLoopFuture<(StreamEvent<MessageUserRequest>) -> Void>
 }
 
 extension SageProvider {
@@ -308,15 +232,6 @@ extension SageProvider {
         userFunction: self.createUser(request:context:)
       )
 
-    case "MessageUser":
-      return BidirectionalStreamingServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<MessageUserRequest>(),
-        responseSerializer: ProtobufSerializer<Message>(),
-        interceptors: self.interceptors?.makeMessageUserInterceptors() ?? [],
-        observerFactory: self.messageUser(context:)
-      )
-
     default:
       return nil
     }
@@ -337,12 +252,6 @@ internal protocol SageAsyncProvider: CallHandlerProvider, Sendable {
     request: CreateUserRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> CreateUserResponse
-
-  func messageUser(
-    requestStream: GRPCAsyncRequestStream<MessageUserRequest>,
-    responseStream: GRPCAsyncResponseStreamWriter<Message>,
-    context: GRPCAsyncServerCallContext
-  ) async throws
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -373,15 +282,6 @@ extension SageAsyncProvider {
         wrapping: { try await self.createUser(request: $0, context: $1) }
       )
 
-    case "MessageUser":
-      return GRPCAsyncServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<MessageUserRequest>(),
-        responseSerializer: ProtobufSerializer<Message>(),
-        interceptors: self.interceptors?.makeMessageUserInterceptors() ?? [],
-        wrapping: { try await self.messageUser(requestStream: $0, responseStream: $1, context: $2) }
-      )
-
     default:
       return nil
     }
@@ -393,10 +293,6 @@ internal protocol SageServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'createUser'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeCreateUserInterceptors() -> [ServerInterceptor<CreateUserRequest, CreateUserResponse>]
-
-  /// - Returns: Interceptors to use when handling 'messageUser'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeMessageUserInterceptors() -> [ServerInterceptor<MessageUserRequest, Message>]
 }
 
 internal enum SageServerMetadata {
@@ -405,7 +301,6 @@ internal enum SageServerMetadata {
     fullName: "Sage",
     methods: [
       SageServerMetadata.Methods.createUser,
-      SageServerMetadata.Methods.messageUser,
     ]
   )
 
@@ -414,12 +309,6 @@ internal enum SageServerMetadata {
       name: "CreateUser",
       path: "/Sage/CreateUser",
       type: GRPCCallType.unary
-    )
-
-    internal static let messageUser = GRPCMethodDescriptor(
-      name: "MessageUser",
-      path: "/Sage/MessageUser",
-      type: GRPCCallType.bidirectionalStreaming
     )
   }
 }

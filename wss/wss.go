@@ -2,72 +2,141 @@ package main
 
 import (
 	"log"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
 
-// Hub maintains an inbox for all clients and routes messages
-type Hub struct {
-	// All incoming messages from the clients.
-	Inbox map[string]chan []byte
+// ID is a user's unique identifier
+type ID string
 
-	Upgrader websocket.Upgrader
+// Message holds a recipient and some bytes
+type Message struct {
+	recipient ID
+	data      []byte
 }
 
-// NewHub creates a new hub
+func NewMessage(recipient ID, data []byte) *Message {
+	return &Message{recipient: recipient, data: data}
+}
+
+// Hub maintains an inbox for all clients and routes messages
+type Hub struct {
+	mutex   sync.Mutex
+	clients map[ID]*Client
+
+	wire       chan *Message
+	connect    chan *Client
+	disconnect chan *Client
+
+	upgrader websocket.Upgrader
+}
+
 func NewHub(upgrader websocket.Upgrader) *Hub {
 	return &Hub{
-		Inbox:    make(map[string]chan []byte),
-		Upgrader: upgrader,
+		upgrader:   upgrader,
+		clients:    make(map[ID]*Client),
+		connect:    make(chan *Client),
+		disconnect: make(chan *Client),
 	}
 }
 
-// ConnectUsers connects two users
-func (h *Hub) ConnectUsers(hub *Hub, sID, rID string) func(*gin.Context) {
+// Client is a user connected to the hub
+type Client struct {
+	user      ID
+	recipient ID
+	inbox     chan []byte
+	conn      *websocket.Conn
+}
+
+func NewClient(userID, recipientID ID, conn *websocket.Conn) *Client {
+	return &Client{
+		user:      userID,
+		recipient: recipientID,
+		conn:      conn,
+		inbox:     make(chan []byte),
+	}
+}
+
+// Run starts the hub: connecting and disconnecting clients, and routing messages
+func (h *Hub) Run() {
+	for {
+		select {
+		case client := <-h.connect:
+			h.mutex.Lock()
+			h.clients[client.user] = client
+			h.mutex.Unlock()
+		case client := <-h.disconnect:
+			if _, ok := h.clients[client.user]; ok {
+				h.mutex.Lock()
+				close(h.clients[client.user].inbox)
+				delete(h.clients, client.user)
+				h.mutex.Unlock()
+			}
+		case message := <-h.wire:
+			if _, ok := h.clients[message.recipient]; ok {
+				h.clients[message.recipient].inbox <- message.data
+			}
+		}
+	}
+}
+
+// ConnectUsers connects a user to the hub
+func (h *Hub) ConnectUsers() func(*gin.Context) {
 	return func(ctx *gin.Context) {
 		// Upgrade the connection
-		conn, err := h.Upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
+		conn, err := h.upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 		if err != nil {
-			conn.Close()
+			log.Println("error upgrading connection:", err)
 			return
 		}
 
-		go h.connect(conn, sID, rID)
+		// Get the user and recipient
+		user := ID(ctx.Request.Header.Get("user"))
+		recipient := ID(ctx.Request.Header.Get("recipient"))
+
+		// Store the connection
+		client := NewClient(user, recipient, conn)
+		h.connect <- client
+
+		// Start message loops
+		go h.message(client)
 	}
 }
 
-// connect facilitates reading and writing messages between two users
-func (h *Hub) connect(conn *websocket.Conn, sID, rID string) {
-	defer func() { conn.Close() }()
-
-	// Read client messages, store them in the recipient's inbox
+// message facilitates reading / writing with the client
+func (h *Hub) message(client *Client) {
+	// Read client messages and route them to the hub
 	go func() {
+		defer func() {
+			h.disconnect <- client
+			client.conn.Close()
+		}()
+
 		for {
-			_, message, err := conn.ReadMessage()
+			_, message, err := client.conn.ReadMessage()
 			if err != nil {
-				log.Printf("error: %v", err)
-				return
+				log.Printf("error reading message: %v", err)
+				break
 			}
 
-			if _, ok := h.Inbox[rID]; !ok {
-				h.Inbox[rID] = make(chan []byte)
-			}
-
-			h.Inbox[rID] <- message
+			h.wire <- NewMessage(client.recipient, message)
 		}
 	}()
 
 	// Send messages to the client from their inbox
 	go func() {
-		for message := range h.Inbox[sID] {
-			err := conn.WriteMessage(websocket.BinaryMessage, message)
+		defer func() {
+			client.conn.Close()
+		}()
+
+		for message := range client.inbox {
+			err := client.conn.WriteMessage(websocket.BinaryMessage, message)
 			if err != nil {
-				log.Printf("error: %v", err)
+				log.Printf("error writing message: %v", err)
 				return
 			}
-
-			conn.WriteMessage(websocket.BinaryMessage, message)
 		}
 	}()
 }
