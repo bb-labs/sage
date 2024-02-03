@@ -2,10 +2,10 @@
 import Foundation
 import WebRTC
 
-class WebRTCModel: NSObject, ObservableObject {
+class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
     let streamId = "sage-stream"
-    let recipient: User
-    let signalingClient = WSSClient()
+    var socket: URLSessionWebSocketTask?
+    var peerConnection: RTCPeerConnection?
     
     public static let peerFactory: RTCPeerConnectionFactory = {
         RTCInitializeSSL()
@@ -14,7 +14,6 @@ class WebRTCModel: NSObject, ObservableObject {
         return RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
     }()
     
-    public let peerConnection: RTCPeerConnection
     public let rtcAudioSession =  RTCAudioSession.sharedInstance()
     public let audioQueue = DispatchQueue(label: "audio")
     public let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
@@ -28,7 +27,9 @@ class WebRTCModel: NSObject, ObservableObject {
     public var localVideoRender: RTCMTLVideoView?
     public var remoteVideoRender: RTCMTLVideoView?
     
-    init(_ user: User) {
+    init(_ sender: User, _ recipient: User) {
+        super.init()
+        
         // Config setup
         let config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302",
@@ -48,12 +49,16 @@ class WebRTCModel: NSObject, ObservableObject {
             fatalError("Could not create new RTCPeerConnection")
         }
         
-        self.recipient = user
+        // Initialize instance vars
         self.peerConnection = peerConnection
-        super.init()
-        self.peerConnection.delegate = self
+        self.peerConnection?.delegate = self
         
-        // Starting listening
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        var urlRequest = URLRequest(url: URL(string: "ws://10.0.0.40:3001/connect")!)
+        urlRequest.addValue(sender.id, forHTTPHeaderField: "sender")
+        urlRequest.addValue(recipient.id, forHTTPHeaderField: "recipient")
+        self.socket = urlSession.webSocketTask(with: urlRequest)
+        self.socket?.resume()
         self.listen()
         
         
@@ -61,7 +66,7 @@ class WebRTCModel: NSObject, ObservableObject {
         let audioConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
         let audioSource = WebRTCModel.peerFactory.audioSource(with: audioConstraints)
         let audioTrack = WebRTCModel.peerFactory.audioTrack(with: audioSource, trackId: "audio0")
-        self.peerConnection.add(audioTrack, streamIds: [streamId])
+        self.peerConnection?.add(audioTrack, streamIds: [streamId])
 
         self.rtcAudioSession.lockForConfiguration()
         do {
@@ -77,11 +82,11 @@ class WebRTCModel: NSObject, ObservableObject {
         self.videoCapturer = RTCCameraVideoCapturer(delegate: videoSource)
         let videoTrack = WebRTCModel.peerFactory.videoTrack(with: videoSource, trackId: "video0")
         self.localVideoTrack = videoTrack
-        self.peerConnection.add(videoTrack, streamIds: [streamId])
-        self.remoteVideoTrack = self.peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
+        self.peerConnection?.add(videoTrack, streamIds: [streamId])
+        self.remoteVideoTrack = self.peerConnection?.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
 
         // Data
-        guard let dataChannel = self.peerConnection.dataChannel(forLabel: "WebRTCData", configuration: RTCDataChannelConfiguration()) else {
+        guard let dataChannel = self.peerConnection?.dataChannel(forLabel: "WebRTCData", configuration: RTCDataChannelConfiguration()) else {
             debugPrint("Warning: Couldn't create data channel.")
             return
         }

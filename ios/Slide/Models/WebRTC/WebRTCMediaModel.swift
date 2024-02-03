@@ -41,7 +41,7 @@ extension WebRTCModel: RTCDataChannelDelegate {
     }
     
     func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool) {
-        peerConnection.transceivers
+        peerConnection?.transceivers
             .compactMap { return $0.sender.track as? T }
             .forEach { $0.isEnabled = isEnabled }
     }

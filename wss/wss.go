@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// ID is a user's unique identifier
+// ID is a sender's unique identifier
 type ID string
 
 // Message holds a recipient and some bytes
@@ -36,6 +36,7 @@ type Hub struct {
 func NewHub(upgrader websocket.Upgrader) *Hub {
 	return &Hub{
 		upgrader:   upgrader,
+		wire:       make(chan *Message),
 		clients:    make(map[ID]*Client),
 		connect:    make(chan *Client),
 		disconnect: make(chan *Client),
@@ -44,16 +45,16 @@ func NewHub(upgrader websocket.Upgrader) *Hub {
 
 // Client is a user connected to the hub
 type Client struct {
-	user      ID
+	sender    ID
 	recipient ID
 	inbox     chan []byte
 	conn      *websocket.Conn
 }
 
-func NewClient(userID, recipientID ID, conn *websocket.Conn) *Client {
+func NewClient(sender, recipient ID, conn *websocket.Conn) *Client {
 	return &Client{
-		user:      userID,
-		recipient: recipientID,
+		sender:    sender,
+		recipient: recipient,
 		conn:      conn,
 		inbox:     make(chan []byte),
 	}
@@ -65,13 +66,13 @@ func (h *Hub) Run() {
 		select {
 		case client := <-h.connect:
 			h.mutex.Lock()
-			h.clients[client.user] = client
+			h.clients[client.sender] = client
 			h.mutex.Unlock()
 		case client := <-h.disconnect:
-			if _, ok := h.clients[client.user]; ok {
+			if _, ok := h.clients[client.sender]; ok {
 				h.mutex.Lock()
-				close(h.clients[client.user].inbox)
-				delete(h.clients, client.user)
+				close(h.clients[client.sender].inbox)
+				delete(h.clients, client.sender)
 				h.mutex.Unlock()
 			}
 		case message := <-h.wire:
@@ -82,27 +83,25 @@ func (h *Hub) Run() {
 	}
 }
 
-// ConnectUsers connects a user to the hub
-func (h *Hub) ConnectUsers() func(*gin.Context) {
-	return func(ctx *gin.Context) {
-		// Upgrade the connection
-		conn, err := h.upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
-		if err != nil {
-			log.Println("error upgrading connection:", err)
-			return
-		}
-
-		// Get the user and recipient
-		user := ID(ctx.Request.Header.Get("user"))
-		recipient := ID(ctx.Request.Header.Get("recipient"))
-
-		// Store the connection
-		client := NewClient(user, recipient, conn)
-		h.connect <- client
-
-		// Start message loops
-		go h.message(client)
+// ConnectUsers connects a sender to the hub
+func (h *Hub) ConnectUsers(ctx *gin.Context) {
+	// Upgrade the connection
+	conn, err := h.upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
+	if err != nil {
+		log.Println("error upgrading connection:", err)
+		return
 	}
+
+	// Get the sender and recipient
+	sender := ID(ctx.Request.Header.Get("sender"))
+	recipient := ID(ctx.Request.Header.Get("recipient"))
+
+	// Store the connection
+	client := NewClient(sender, recipient, conn)
+	h.connect <- client
+
+	// Start message loops
+	go h.message(client)
 }
 
 // message facilitates reading / writing with the client

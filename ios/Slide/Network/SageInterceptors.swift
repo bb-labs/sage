@@ -10,7 +10,7 @@ class SageCreateUserAuthInterceptor: ClientInterceptor<CreateUserRequest, Create
     ) {
         switch part {
         case let .metadata(headers):
-            print("> Starting '\(context.path)' RPC, headers: \(headers)")
+            break
         default:
             break
         }
@@ -24,9 +24,9 @@ class SageCreateUserAuthInterceptor: ClientInterceptor<CreateUserRequest, Create
     ) {
         switch part {
         case let .metadata(headers):
-            print("< Received headers: \(headers)")
+            break
         case let .end(status, trailers):
-          print("< Response stream closed with status: '\(status)' and trailers: \(trailers)")
+            break
         default:
             break
         }
