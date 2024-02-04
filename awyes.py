@@ -37,9 +37,11 @@ def deploy(
     value_args = list(
         itertools.chain(
             *[
-                ["--set-json", f"{k}={json.dumps(v)}"]
-                if isinstance(v, dict)
-                else ["--set", f"{k}={v}"]
+                (
+                    ["--set-json", f"{k}={json.dumps(v)}"]
+                    if isinstance(v, dict)
+                    else ["--set", f"{k}={v}"]
+                )
                 for k, v in ({**values, **overrides}).items()
             ]
         )
@@ -99,6 +101,11 @@ def tag():
     )
 
 
+def load_file(path):
+    with open(path, "r") as file:
+        return file.read()
+
+
 def apple_client_secret():
     return jwt.encode(
         {
@@ -120,6 +127,7 @@ user = {
     "binaries": binaries,
     "tag": tag,
     "apple_client_secret": apple_client_secret,
+    "load_file": load_file,
 }
 ssm = boto3.client("ssm")
 ssm_waiter = ssm.get_waiter("command_executed")

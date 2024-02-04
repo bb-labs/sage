@@ -67,6 +67,27 @@ turn.iam.add_role_to_instance_profile:
 turn.iam.attach_role_policy.ssm:
   RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
+turn.ec2.create_security_group:
+  GroupName: ${TURN_SECURITY_GROUP_NAME}
+  Description: Sage turn server security group
+turn.ec2.authorize_security_group_ingress:
+  GroupName: ${TURN_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: 3478
+      ToPort: 3478
+      IpProtocol: udp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+    - FromPort: 3478
+      ToPort: 3478
+      IpProtocol: tcp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+    - FromPort: 49152
+      ToPort: 65535
+      IpProtocol: udp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
 turn.ec2r.create_instances:
   ImageId: ${TURN_AMI_ID}
   InstanceType: ${TURN_INSTANCE_TYPE}
@@ -74,7 +95,12 @@ turn.ec2r.create_instances:
   MinCount: 1
   IamInstanceProfile:
     Name: ${TURN_INSTANCE_PROFILE_NAME}
+  SecurityGroups:
+    - ${TURN_SECURITY_GROUP_NAME}
 turn.ec2_waiter.wait:
+  InstanceIds:
+    - $(turn.ec2r.create_instances.0.id)
+turn.ec2.describe_instances:
   InstanceIds:
     - $(turn.ec2r.create_instances.0.id)
 turn.ssm.send_command:
@@ -83,13 +109,21 @@ turn.ssm.send_command:
     - $(turn.ec2r.create_instances.0.id)
   Parameters:
     commands:
-      - "ls -lah"
+      - "sudo apt-get update"
+      - "sudo apt-get -y upgrade"
+      - "sudo apt-get -y install coturn"
+      - "echo 'TURNSERVER_ENABLED=1' | sudo tee /etc/default/coturn"
+      - "echo 'external-ip=$(turn.ec2.describe_instances.Reservations.0.Instances.0.PublicIpAddress)' | sudo tee /etc/turnserver.conf"
+      - "echo 'realm=$(turn.ec2.describe_instances.Reservations.0.Instances.0.PublicDnsName)' | sudo tee -a /etc/turnserver.conf"
+      - "echo 'user=test:test123' | sudo tee -a /etc/turnserver.conf"
+      - "echo 'lt-cred-mech' | sudo tee -a /etc/turnserver.conf"
+      - "sudo systemctl start coturn"
 turn.ssm_waiter.wait:
   CommandId: $(turn.ssm.send_command.Command.CommandId)
   InstanceId: $(turn.ec2r.create_instances.0.id)
   WaiterConfig:
-    Delay: 3
-    MaxAttempts: 3
+    Delay: 15
+    MaxAttempts: 10
 turn.ssm.get_command_invocation:
   CommandId: $(turn.ssm.send_command.Command.CommandId)
   InstanceId: $(turn.ec2r.create_instances.0.id)
