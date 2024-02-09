@@ -1,4 +1,4 @@
-app.iam.create_role:
+aws.iam.create_role:
   RoleName: ${AWS_ROLE_NAME}
   Description: Role for sage aws app
   AssumeRolePolicyDocument: >
@@ -20,17 +20,31 @@ app.iam.create_role:
         }
       ]
     }
-app.image.build:
-  tag: ${DOCKER_REGISTRY}/${APP_REPO}:${APP_IMAGE_TAG}
+
+app.user.tag:
+app.image.build.tag:
+  tag: $(app.user.tag)
   path: app
   dockerfile: Dockerfile
-app.image.push:
+app.image.push.tag:
   repository: ${DOCKER_REGISTRY}/${APP_REPO}
-  tag: ${APP_IMAGE_TAG}
+  tag: $(app.user.tag)
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 app.user.apple_client_secret:
+
+wss.user.tag:
+wss.image.build.tag:
+  tag: $(wss.user.tag)
+  path: wss
+  dockerfile: Dockerfile
+wss.image.push.tag:
+  repository: ${DOCKER_REGISTRY}/${WSS_REPO}
+  tag: $(wss.user.tag)
+  auth_config:
+    username: ${DOCKER_HUB_USERNAME}
+    password: ${DOCKER_HUB_PASSWORD}
 
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
@@ -47,12 +61,28 @@ db.rds.modify_db_parameter_group:
       ApplyMethod: immediate
 db.rds.describe_db_parameter_groups:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
+db.ec2.create_security_group:
+  GroupName: ${DB_SECURITY_GROUP_NAME}
+  Description: Sage db security group
+db.ec2.authorize_security_group_ingress:
+  GroupName: ${DB_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: ${DB_PORT}
+      ToPort: ${DB_PORT}
+      IpProtocol: tcp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+db.ec2.describe_security_groups:
+  GroupNames:
+    - ${DB_SECURITY_GROUP_NAME}
 db.rds.create_db_instance:
   AllocatedStorage: 20
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${POSTGRES_DB}
   DBInstanceIdentifier: ${APP_NAME}-${DB_SERVICE_NAME}
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
+  VpcSecurityGroupIds:
+    - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
@@ -103,6 +133,11 @@ turn.ec2_waiter.wait:
 turn.ec2.describe_instances:
   InstanceIds:
     - $(turn.ec2r.create_instances.0.id)
+turn.ec2.allocate_address:
+  Domain: vpc
+turn.ec2.associate_address:
+  InstanceId: $(turn.ec2r.create_instances.0.id)
+  AllocationId: $(turn.ec2.allocate_address.AllocationId)
 turn.ssm.send_command:
   DocumentName: AWS-RunShellScript
   InstanceIds:
@@ -113,8 +148,8 @@ turn.ssm.send_command:
       - "sudo apt-get -y upgrade"
       - "sudo apt-get -y install coturn"
       - "echo 'TURNSERVER_ENABLED=1' | sudo tee /etc/default/coturn"
-      - "echo 'external-ip=$(turn.ec2.describe_instances.Reservations.0.Instances.0.PublicIpAddress)' | sudo tee /etc/turnserver.conf"
-      - "echo 'realm=$(turn.ec2.describe_instances.Reservations.0.Instances.0.PublicDnsName)' | sudo tee -a /etc/turnserver.conf"
+      - "echo 'external-ip=$(turn.ec2.allocate_address.PublicIp)' | sudo tee /etc/turnserver.conf"
+      - "echo 'realm=${TURN_DOMAIN}' | sudo tee -a /etc/turnserver.conf"
       - "echo 'user=test:test123' | sudo tee -a /etc/turnserver.conf"
       - "echo 'lt-cred-mech' | sudo tee -a /etc/turnserver.conf"
       - "sudo systemctl start coturn"
@@ -127,102 +162,3 @@ turn.ssm_waiter.wait:
 turn.ssm.get_command_invocation:
   CommandId: $(turn.ssm.send_command.Command.CommandId)
   InstanceId: $(turn.ec2r.create_instances.0.id)
-
-kube.iam.create_policy.dns:
-  PolicyName: ${EKS_DNS_POLICY_NAME}
-  PolicyDocument: >
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Action": "route53:*",
-          "Resource": "*"
-        }
-      ]
-    }
-kube.iam.get_role:
-  RoleName: ${AWS_ROLE_NAME}
-kube.iam.attach_role_policy.dns:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::${AWS_ACCOUNT_ID}:policy/${EKS_DNS_POLICY_NAME}
-kube.iam.attach_role_policy.eks_cluster:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-kube.iam.attach_role_policy.eks_worker:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
-kube.iam.attach_role_policy.ec2:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
-kube.iam.attach_role_policy.cni:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
-kube.ec2.describe_vpcs:
-kube.ec2.describe_subnets:
-  Filters:
-    - Name: vpc-id
-      Values:
-        - $(kube.ec2.describe_vpcs.Vpcs.0.VpcId)
-kube.ec2.describe_security_groups:
-  GroupNames:
-    - default
-kube.eks.create_cluster:
-  name: ${EKS_CLUSTER_NAME}
-  version: "${EKS_VERSION}"
-  roleArn: $(kube.iam.get_role.Role.Arn)
-  resourcesVpcConfig:
-    securityGroupIds:
-      - $(kube.ec2.describe_security_groups.SecurityGroups.0.GroupId)
-    subnetIds:
-      - $(kube.ec2.describe_subnets.Subnets.0.SubnetId)
-      - $(kube.ec2.describe_subnets.Subnets.1.SubnetId)
-      - $(kube.ec2.describe_subnets.Subnets.2.SubnetId)
-      - $(kube.ec2.describe_subnets.Subnets.3.SubnetId)
-    endpointPublicAccess: true
-kube.eks_waiter.wait:
-  name: ${EKS_CLUSTER_NAME}
-kube.eks.create_nodegroup:
-  clusterName: ${EKS_CLUSTER_NAME}
-  nodegroupName: ${EKS_NODE_GROUP_NAME}
-  nodeRole: $(kube.iam.get_role.Role.Arn)
-  subnets:
-    - $(kube.ec2.describe_subnets.Subnets.0.SubnetId)
-    - $(kube.ec2.describe_subnets.Subnets.1.SubnetId)
-    - $(kube.ec2.describe_subnets.Subnets.2.SubnetId)
-    - $(kube.ec2.describe_subnets.Subnets.3.SubnetId)
-kube.user.binaries:
-kube.user.init:
-  account_id: ${AWS_ACCOUNT_ID}
-  region: ${AWS_REGION}
-  cluster_name: ${EKS_CLUSTER_NAME}
-kube.user.deploy.sage:
-  deployment: ${APP_NAME}
-  chart: ./kube/app
-kube.user.deploy.nginx:
-  deployment: ${NGINX_NAME}
-  chart: ingress-nginx/ingress-nginx
-kube.user.deploy.certs:
-  deployment: ${CERT_MANAGER_NAME}
-  chart: jetstack/cert-manager
-  values:
-    installCRDs: true
-  version: v1.13.3
-kube.user.deploy.ingress:
-  deployment: ${APP_INGRESS_NAME}
-  chart: ./kube/ingress
----
-db:
-  - app
-  - db
-
-docker:
-  - docker
-
-kube:
-  - docker
-  - app
-  - kube
-
-turn:
-  - turn
