@@ -29,12 +29,9 @@ def save_ios_protos(files):
 
 
 def tag():
-    print(
-        "Why arent you capturing this?",
-        subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True
-        ),
-    )
+    # silence all safe.directory warnings
+    subprocess.run(["git", "config", "--global", "--add", "safe.directory", "*"])
+
     return (
         subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True)
         .stdout.decode("utf-8")
