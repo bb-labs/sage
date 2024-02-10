@@ -14,7 +14,7 @@ jobs:
         run: |
           echo "Current directory: $PWD"
           echo "Files in current directory: $(ls -A)"
-          echo "Files in github workspace: $(ls -A /github/workspace/)"
+          echo "Files in github workspace: $(ls -A $GITHUB_WORKSPACE)"
 
       - name: Run awyes action to build and push images
         uses: bb-labs/awyes@main
