@@ -29,6 +29,12 @@ def save_ios_protos(files):
 
 
 def tag():
+    print(
+        "Why arent you capturing this?",
+        subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True
+        ),
+    )
     return (
         subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True)
         .stdout.decode("utf-8")
