@@ -10,12 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get your bearings
-        run: |
-          echo "Current directory: $PWD"
-          echo "Files in current directory: $(ls -A)"
-          echo "Files in github workspace: $(ls -A $GITHUB_WORKSPACE)"
-
       - name: Run awyes action to build and push images
         uses: bb-labs/awyes@main
         with:
