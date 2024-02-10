@@ -20,32 +20,36 @@ aws.iam.create_role:
         }
       ]
     }
-
-app.user.tag:
-app.image.build.tag:
-  tag: $(app.user.tag)
+---
+repo.user.tag:
+---
+app.user.save_ios_protos:
+  files:
+    - sage.pb.swift
+    - sage.grpc.swift
+app.user.apple_client_secret:
+app.image.build:
+  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(repo.user.tag)
   path: app
   dockerfile: Dockerfile
-app.image.push.tag:
-  repository: ${DOCKER_REGISTRY}/${APP_REPO}
-  tag: $(app.user.tag)
+app.image.push:
+  repository: ${DOCKER_REGISTRY}/${APP_NAME}
+  tag: $(repo.user.tag)
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
-app.user.apple_client_secret:
-
-wss.user.tag:
-wss.image.build.tag:
-  tag: $(wss.user.tag)
+---
+wss.image.build:
+  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:$(repo.user.tag)
   path: wss
   dockerfile: Dockerfile
-wss.image.push.tag:
-  repository: ${DOCKER_REGISTRY}/${WSS_REPO}
-  tag: $(wss.user.tag)
+wss.image.push:
+  repository: ${DOCKER_REGISTRY}/${WSS_NAME}
+  tag: $(repo.user.tag)
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
-
+---
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
@@ -79,14 +83,14 @@ db.rds.create_db_instance:
   AllocatedStorage: 20
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${POSTGRES_DB}
-  DBInstanceIdentifier: ${APP_NAME}-${DB_SERVICE_NAME}
+  DBInstanceIdentifier: ${APP_NAME}-${DB_NAME}
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   VpcSecurityGroupIds:
     - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
-
+---
 turn.iam.get_role:
   RoleName: ${AWS_ROLE_NAME}
 turn.iam.create_instance_profile:

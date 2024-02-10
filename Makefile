@@ -1,10 +1,10 @@
 include .env
 export
 
-db-wipe:
+drop:
 	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "delete from users where true"
 
-db-dump:
+select:
 	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
 
 build:
@@ -12,26 +12,15 @@ build:
 
 up: down
 	envsubst < docker-compose.dev.yml | docker compose -f - up --build
-	
-shell:
-	docker exec -it $(container) bash
 
 down:
 	envsubst < docker-compose.dev.yml | docker compose -f - down --remove-orphans
 
+shell:
+	docker exec -it $(container) bash
+
 logs:
 	envsubst < docker-compose.dev.yml | docker compose -f - logs $(service)
-
-release:
-	gh workflow run 'Sage CI/CD'
-
-kube-status:
-	kubectl --kubeconfig kube/config get po -o wide
-	kubectl --kubeconfig kube/config get svc
-	kubectl --kubeconfig kube/config get endpoints -A 
-	kubectl --kubeconfig kube/config get ingress -A
-	kubectl --kubeconfig kube/config get issuer -A
-	kubectl --kubeconfig kube/config get certificate -A
 
 clean: down
 	docker system prune -af
@@ -42,8 +31,7 @@ proto:
 		--swift_out=ios/Slide/Protos \
 		--grpc-swift_out=ios/Slide/Protos
 	
-	pipenv run python ios/proto.py sage.pb.swift
-	pipenv run python ios/proto.py sage.grpc.swift
+	awyes --no-verbose save_ios_protos
 
 	protoc sage.proto -I=protos \
 		--go_out=app/pb \

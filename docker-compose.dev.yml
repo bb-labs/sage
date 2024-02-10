@@ -1,27 +1,27 @@
 services:
-  ${APP_SERVICE_NAME}:
-    image: ${APP_SERVICE_NAME}
-    container_name: ${APP_SERVICE_NAME}
+  ${APP_NAME}:
+    image: ${APP_NAME}
+    container_name: ${APP_NAME}
     depends_on:
-      - ${DB_SERVICE_NAME}
+      - ${DB_NAME}
     build: app
     volumes:
-      - ./app:/${APP_SERVICE_NAME}
+      - ./app:/${APP_NAME}
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
       - .env
     environment:
-      - DB_HOST=${DB_SERVICE_NAME}
+      - DB_HOST=${DB_NAME}
     entrypoint: ["./entrypoint.dev.sh"]
 
-  ${DB_SERVICE_NAME}:
+  ${DB_NAME}:
     image: ${DB_ENGINE}:${DB_IMAGE_TAG}
-    container_name: ${DB_SERVICE_NAME}
+    container_name: ${DB_NAME}
     env_file:
       - .env
     volumes:
-      - ${DB_SERVICE_NAME}:/data/${DB_SERVICE_NAME}
+      - ${DB_NAME}:/data/${DB_NAME}
     ports:
       - ${DB_PORT}:${DB_PORT}
 
@@ -29,7 +29,7 @@ services:
     image: ${WSS_SERVICE_NAME}
     container_name: ${WSS_SERVICE_NAME}
     depends_on:
-      - ${DB_SERVICE_NAME}
+      - ${DB_NAME}
     build: wss
     volumes:
       - ./wss:/${WSS_SERVICE_NAME}
@@ -38,11 +38,11 @@ services:
     env_file:
       - .env
     environment:
-      - DB_HOST=${DB_SERVICE_NAME}
+      - DB_HOST=${DB_NAME}
     entrypoint: ["./entrypoint.dev.sh"]
 
 volumes:
-  ${DB_SERVICE_NAME}:
+  ${DB_NAME}:
 
 networks:
   ${APP_NAME}:

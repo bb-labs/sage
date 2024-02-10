@@ -1,0 +1,16 @@
+name: Push Images
+
+on: [push]
+
+jobs:
+  deploy:
+    name: Build and push tagged images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run awyes action to build and push images
+        uses: bb-labs/awyes@main
+        with:
+          action: repo app.image.* wss.image.*

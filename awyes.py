@@ -3,8 +3,29 @@ import jwt
 import time
 import boto3
 import docker
+import pbxproj
+import pbxproj.pbxextensions
 import pathlib
 import subprocess
+
+
+def save_ios_protos(files):
+    project = pbxproj.XcodeProject.load("ios/Slide.xcodeproj/project.pbxproj")
+
+    # Add protos
+    proto_group = project.get_groups_by_name("Protos").pop()
+
+    for proto in files:
+        proto_file = project.get_files_by_name(proto, parent=proto_group)
+
+        if proto_file:
+            project.remove_file_by_id(proto_file.pop().get_id())
+
+        project.add_file(
+            proto, parent=proto_group, tree=pbxproj.pbxextensions.TreeType.GROUP
+        )
+
+    project.save()
 
 
 def tag():
@@ -45,4 +66,8 @@ route53 = boto3.client("route53")
 
 elb = boto3.client("elbv2")
 
-image = docker.from_env().images
+image = None
+try:
+    image = docker.from_env().images
+except Exception:
+    print("WARN: Docker not found")
