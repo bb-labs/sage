@@ -17,6 +17,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Get your tag
+        run: |
+          echo "The tag is $(git status)"
+          echo "Why not? $(git rev-parse --short HEAD)"
+
       - name: Run awyes action to build and push images
         uses: bb-labs/awyes@main
         with:
