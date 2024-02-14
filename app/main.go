@@ -53,9 +53,12 @@ func main() {
 		log.Fatalf("failed to create apple provider: %v", err)
 	}
 
+	// Create a new corner instance
+	corner := corner.New(appleProvider)
+
 	// Create the grpc server
 	server := grpc.NewServer(
-		grpc.ChainUnaryInterceptor(corner.AuthInterceptor(appleProvider)),
+		grpc.ChainUnaryInterceptor(corner.UnaryServerInterceptor),
 	)
 	defer func() {
 		server.GracefulStop()
