@@ -423,7 +423,7 @@ db.ec2.describe_security_groups:
   GroupNames:
     - ${DB_SECURITY_GROUP_NAME}
 db.rds.create_db_instance:
-  AllocatedStorage: 20
+  AllocatedStorage: ${DB_ALLOCATED_STORAGE}
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${DB_NAME}
   DBInstanceIdentifier: ${DB_NAME}-instance
