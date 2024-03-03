@@ -102,7 +102,7 @@ cluster.ecs.create_cluster:
   clusterName: ${CLUSTER_NAME}
 ---
 app.image.build:
-  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(aws.user.tago_repo)
+  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(repo.user.get_latest_repo_revision)
   path: app
   dockerfile: Dockerfile
 app.image.push:
@@ -194,7 +194,7 @@ app.ecs.update_service:
   forceNewDeployment: true
 ---
 wss.image.build:
-  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
+  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:$(repo.user.get_latest_repo_revision)
   path: wss
   dockerfile: Dockerfile
 wss.image.push:
