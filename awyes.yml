@@ -38,9 +38,18 @@ sage.iam.create_role:
         }
       ]
     }
-sage.iam.attach_role_policy:
+sage.logs.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+sage.ssm.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
+sage.secrets.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/SecretsManagerReadWrite
+sage.kms.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/service-role/ROSAKMSProviderPolicy
 sage.iam.get_role:
   RoleName: ${SAGE_ROLE_NAME}
 sage.acm.request_certificate:
@@ -163,8 +172,8 @@ app.ecs.register_task_definition:
     - name: ${APP_NAME}
       image: ${DOCKER_REGISTRY}/${APP_NAME}:c1c95e0
       secrets:
-        - name: POSTGRES_USER
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USER
+        - name: POSTGRES_USERNAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USERNAME
         - name: POSTGRES_PASSWORD
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_PASSWORD
         - name: POSTGRES_DB
@@ -365,5 +374,5 @@ db.rds.create_db_instance:
   VpcSecurityGroupIds:
     - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
-  MasterUsername: ${POSTGRES_USER}
+  MasterUsername: ${POSTGRES_USERNAME}
   MasterUserPassword: ${POSTGRES_PASSWORD}
