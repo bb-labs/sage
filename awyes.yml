@@ -50,6 +50,9 @@ sage.secrets.iam.attach_role_policy:
 sage.kms.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/service-role/ROSAKMSProviderPolicy
+sage.rds.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
 sage.iam.get_role:
   RoleName: ${SAGE_ROLE_NAME}
 sage.acm.request_certificate:
@@ -292,6 +295,23 @@ wss.ecs.register_task_definition:
   containerDefinitions:
     - name: ${WSS_NAME}
       image: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
+      secrets:
+        - name: POSTGRES_USERNAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_DB
+        - name: DB_HOST
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
+        - name: DB_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PORT
+        - name: APPLE_BUNDLE_ID
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_BUNDLE_ID
+        - name: APPLE_CLIENT_SECRET
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_CLIENT_SECRET
+        - name: WSS_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/WSS_PORT
       logConfiguration:
         logDriver: awslogs
         options:
@@ -336,9 +356,6 @@ wss.ecs.update_service:
   taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   forceNewDeployment: true
 ---
-db.iam.attach_role_policy.rds:
-  RoleName: ${SAGE_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
 db.rds.create_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   DBParameterGroupFamily: ${DB_PARAMETER_GROUP_FAMILY}
@@ -376,3 +393,16 @@ db.rds.create_db_instance:
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USERNAME}
   MasterUserPassword: ${POSTGRES_PASSWORD}
+db.rds_waiter.wait:
+  DBInstanceIdentifier: ${APP_NAME}-${DB_NAME}
+db.route53.change_resource_record_sets:
+  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${DB_DOMAIN}
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(db.rds.create_db_instance.Endpoint.Address)

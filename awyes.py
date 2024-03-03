@@ -10,19 +10,21 @@ import subprocess
 
 ecs = boto3.client("ecs")
 ssm = boto3.client("ssm")
-ssm_waiter = ssm.get_waiter("command_executed")
 iam = boto3.client("iam")
 acm = boto3.client("acm")
-acm_waiter = acm.get_waiter("certificate_validated")
 ec2 = boto3.client("ec2")
 ec2r = boto3.resource("ec2")
-ec2_waiter = ec2.get_waiter("instance_status_ok")
 rds = boto3.client("rds")
 route53 = boto3.client("route53")
-route53_waiter = route53.get_waiter("resource_record_sets_changed")
 elb = boto3.client("elbv2")
-elb_waiter = elb.get_waiter("load_balancer_available")
 secrets = boto3.client("secretsmanager")
+
+ssm_waiter = ssm.get_waiter("command_executed")
+acm_waiter = acm.get_waiter("certificate_validated")
+ec2_waiter = ec2.get_waiter("instance_status_ok")
+rds_waiter = rds.get_waiter("db_instance_available")
+elb_waiter = elb.get_waiter("load_balancer_available")
+
 image = None
 try:
     image = docker.from_env().images
