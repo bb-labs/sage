@@ -81,6 +81,9 @@ def apple_client_secret(team_id, bundle_id, key_id, key_bytes):
 
 def put_env():
     for key, value in os.environ.items():
+        if key.startswith("AWS") or key.startswith("SSM"):
+            continue
+
         ssm.put_parameter(
             Name=key,
             Value=value,
