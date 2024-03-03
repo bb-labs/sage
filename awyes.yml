@@ -3,17 +3,20 @@ repo.user.get_latest_repo_revision:
 apple.user.save_ios_protos:
   - sage.pb.swift
   - sage.grpc.swift
-apple.user.read_file_as_bytes:
-  path: certs/AuthKey_2AH2XL345Z.p8
 apple.user.apple_client_secret:
   team_id: ${APPLE_TEAM_ID}
   bundle_id: ${APPLE_BUNDLE_ID}
   key_id: ${APPLE_KEY_ID}
-  key_bytes: $(apple.user.read_file_as_bytes)
+  key_path: certs/AuthKey_2AH2XL345Z.p8
+apple.ssm.put_parameter:
+  Name: APPLE_CLIENT_SECRET
+  Value: $(apple.user.apple_client_secret)
+  Type: SecureString
+  Overwrite: true
 ---
 sage.user.put_env:
 sage.iam.create_role:
-  RoleName: ${AWS_ROLE_NAME}
+  RoleName: ${SAGE_ROLE_NAME}
   Description: Role for sage aws app
   AssumeRolePolicyDocument: >
     {
@@ -36,10 +39,10 @@ sage.iam.create_role:
       ]
     }
 sage.iam.attach_role_policy:
-  RoleName: ${AWS_ROLE_NAME}
+  RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
 sage.iam.get_role:
-  RoleName: ${AWS_ROLE_NAME}
+  RoleName: ${SAGE_ROLE_NAME}
 sage.acm.request_certificate:
   DomainName: ${SAGE_DOMAIN}
   ValidationMethod: DNS
@@ -82,13 +85,13 @@ sage.ec2.describe_subnets:
       Values:
         - $(sage.ec2.describe_vpcs.Vpcs.0.VpcId)
 sage.ec2.create_security_group:
-  GroupName: ${AWS_SECURITY_GROUP_NAME}
+  GroupName: ${SAGE_SECURITY_GROUP_NAME}
   Description: Sage security group
 sage.ec2.describe_security_groups:
   GroupNames:
-    - ${AWS_SECURITY_GROUP_NAME}
+    - ${SAGE_SECURITY_GROUP_NAME}
 sage.ec2.authorize_security_group_ingress:
-  GroupName: ${AWS_SECURITY_GROUP_NAME}
+  GroupName: ${SAGE_SECURITY_GROUP_NAME}
   IpPermissions:
     - FromPort: 443
       ToPort: 443
@@ -133,6 +136,18 @@ app.elb_waiter.wait:
 app.elb.describe_load_balancers:
   Names:
     - ${APP_LOAD_BALANCER_NAME}
+app.route53.change_resource_record_sets:
+  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${APP_DOMAIN}
+          Type: A
+          AliasTarget:
+            HostedZoneId: $(app.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
+            DNSName: $(app.elb.describe_load_balancers.LoadBalancers.0.DNSName)
+            EvaluateTargetHealth: false
 app.elb.create_listener:
   LoadBalancerArn: $(app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
   Protocol: ${LOAD_BALANCER_PROTOCOL}
@@ -148,13 +163,27 @@ app.ecs.register_task_definition:
     - name: ${APP_NAME}
       image: ${DOCKER_REGISTRY}/${APP_NAME}:c1c95e0
       secrets:
-        - name: ${APPLE_SECRET_NAME}
-          valueFrom: ${APPLE_SECRET_NAME}
+        - name: POSTGRES_USER
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_DB
+        - name: DB_HOST
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
+        - name: DB_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PORT
+        - name: APPLE_BUNDLE_ID
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_BUNDLE_ID
+        - name: APPLE_CLIENT_SECRET
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_CLIENT_SECRET
+        - name: APP_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APP_PORT
       logConfiguration:
         logDriver: awslogs
         options:
           awslogs-group: ${APP_NAME}-logs
-          awslogs-region: ${AWS_REGION}
+          awslogs-region: ${SAGE_REGION}
           awslogs-stream-prefix: ${APP_NAME}
           awslogs-create-group: "true"
       portMappings:
@@ -228,6 +257,18 @@ wss.elb_waiter.wait:
 wss.elb.describe_load_balancers:
   Names:
     - ${WSS_LOAD_BALANCER_NAME}
+wss.route53.change_resource_record_sets:
+  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${WSS_DOMAIN}
+          Type: A
+          AliasTarget:
+            HostedZoneId: $(wss.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
+            DNSName: $(wss.elb.describe_load_balancers.LoadBalancers.0.DNSName)
+            EvaluateTargetHealth: false
 wss.elb.create_listener:
   LoadBalancerArn: $(wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
   Protocol: ${LOAD_BALANCER_PROTOCOL}
@@ -246,7 +287,7 @@ wss.ecs.register_task_definition:
         logDriver: awslogs
         options:
           awslogs-group: ${WSS_NAME}-logs
-          awslogs-region: ${AWS_REGION}
+          awslogs-region: ${SAGE_REGION}
           awslogs-stream-prefix: ${WSS_NAME}
           awslogs-create-group: "true"
       portMappings:
@@ -287,7 +328,7 @@ wss.ecs.update_service:
   forceNewDeployment: true
 ---
 db.iam.attach_role_policy.rds:
-  RoleName: ${AWS_ROLE_NAME}
+  RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
 db.rds.create_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}

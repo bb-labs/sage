@@ -64,7 +64,7 @@ def read_file_as_bytes(path):
     return pathlib.Path(path).read_bytes()
 
 
-def apple_client_secret(team_id, bundle_id, key_id, key_bytes):
+def apple_client_secret(team_id, bundle_id, key_id, key_path):
     return jwt.encode(
         {
             "iss": team_id,
@@ -73,7 +73,7 @@ def apple_client_secret(team_id, bundle_id, key_id, key_bytes):
             "aud": "https://appleid.apple.com",
             "sub": bundle_id,
         },
-        key_bytes,
+        pathlib.Path(key_path).read_bytes(),
         algorithm="ES256",
         headers={"kid": key_id, "alg": "ES256"},
     )
