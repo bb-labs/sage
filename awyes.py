@@ -33,7 +33,7 @@ except:
     print("WARN: Docker not found")
 
 
-def save_protos(files):
+def save_ios_protos(files):
     project = pbxproj.XcodeProject.load("ios/Slide.xcodeproj/project.pbxproj")
 
     # Add protos

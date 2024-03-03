@@ -41,17 +41,17 @@ env.db.host.ssm.put_parameter:
   Overwrite: true
 env.db.port.ssm.put_parameter:
   Name: DB_PORT
-  Value: ${DB_PORT}
+  Value: "${DB_PORT}"
   Type: SecureString
   Overwrite: true
 env.app.port.ssm.put_parameter:
   Name: APP_PORT
-  Value: ${APP_PORT}
+  Value: "${APP_PORT}"
   Type: SecureString
   Overwrite: true
 env.wss.port.ssm.put_parameter:
   Name: WSS_PORT
-  Value: ${WSS_PORT}
+  Value: "${WSS_PORT}"
   Type: SecureString
   Overwrite: true
 ---
@@ -426,7 +426,7 @@ db.rds.create_db_instance:
   AllocatedStorage: 20
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${DB_NAME}
-  DBInstanceIdentifier: ${APP_NAME}-${DB_NAME}
+  DBInstanceIdentifier: ${DB_NAME}-instance
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   VpcSecurityGroupIds:
     - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)

@@ -2,6 +2,9 @@ name: Deploy AWS resources
 
 on:
   workflow_dispatch:
+    inputs:
+      action:
+        required: true
 
 jobs:
   deploy:
@@ -26,4 +29,4 @@ jobs:
           TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
           TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
-          action: repo apple sage cluster app wss db
+          action: ${{github.event.inputs.action}}
