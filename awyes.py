@@ -3,6 +3,7 @@ import jwt
 import time
 import boto3
 import docker
+import dotenv
 import pbxproj
 import pbxproj.pbxextensions
 import pathlib
@@ -62,10 +63,6 @@ def get_latest_repo_revision():
     )
 
 
-def read_file_as_bytes(path):
-    return pathlib.Path(path).read_bytes()
-
-
 def apple_client_secret(team_id, bundle_id, key_id, key_path):
     return jwt.encode(
         {
@@ -79,16 +76,3 @@ def apple_client_secret(team_id, bundle_id, key_id, key_path):
         algorithm="ES256",
         headers={"kid": key_id, "alg": "ES256"},
     )
-
-
-def put_env():
-    for key, value in os.environ.items():
-        if key.startswith("AWS") or key.startswith("SSM"):
-            continue
-
-        ssm.put_parameter(
-            Name=key,
-            Value=value,
-            Type="SecureString",
-            Overwrite=True,
-        )

@@ -8,13 +8,53 @@ apple.user.apple_client_secret:
   bundle_id: ${APPLE_BUNDLE_ID}
   key_id: ${APPLE_KEY_ID}
   key_path: certs/AuthKey_2AH2XL345Z.p8
-apple.ssm.put_parameter:
+apple.bundle_id.ssm.put_parameter:
+  Name: APPLE_BUNDLE_ID
+  Value: ${APPLE_BUNDLE_ID}
+  Type: SecureString
+  Overwrite: true
+apple.client_secret.ssm.put_parameter:
   Name: APPLE_CLIENT_SECRET
   Value: $(apple.user.apple_client_secret)
   Type: SecureString
   Overwrite: true
 ---
-sage.user.put_env:
+env.db.user.ssm.put_parameter:
+  Name: DB_USERNAME
+  Value: ${DB_USERNAME}
+  Type: SecureString
+  Overwrite: true
+env.db.pass.ssm.put_parameter:
+  Name: DB_PASSWORD
+  Value: ${DB_PASSWORD}
+  Type: SecureString
+  Overwrite: true
+env.db.name.ssm.put_parameter:
+  Name: DB_NAME
+  Value: ${DB_NAME}
+  Type: SecureString
+  Overwrite: true
+env.db.host.ssm.put_parameter:
+  Name: DB_HOST
+  Value: ${DB_DOMAIN}
+  Type: SecureString
+  Overwrite: true
+env.db.port.ssm.put_parameter:
+  Name: DB_PORT
+  Value: ${DB_PORT}
+  Type: SecureString
+  Overwrite: true
+env.app.port.ssm.put_parameter:
+  Name: APP_PORT
+  Value: ${APP_PORT}
+  Type: SecureString
+  Overwrite: true
+env.wss.port.ssm.put_parameter:
+  Name: WSS_PORT
+  Value: ${WSS_PORT}
+  Type: SecureString
+  Overwrite: true
+---
 sage.iam.create_role:
   RoleName: ${SAGE_ROLE_NAME}
   Description: Role for sage aws app
@@ -175,12 +215,12 @@ app.ecs.register_task_definition:
     - name: ${APP_NAME}
       image: ${DOCKER_REGISTRY}/${APP_NAME}:c1c95e0
       secrets:
-        - name: POSTGRES_USERNAME
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USERNAME
-        - name: POSTGRES_PASSWORD
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_PASSWORD
-        - name: POSTGRES_DB
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_DB
+        - name: DB_USERNAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PASSWORD
+        - name: DB_NAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_NAME
         - name: DB_HOST
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
         - name: DB_PORT
@@ -296,12 +336,12 @@ wss.ecs.register_task_definition:
     - name: ${WSS_NAME}
       image: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
       secrets:
-        - name: POSTGRES_USERNAME
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_USERNAME
-        - name: POSTGRES_PASSWORD
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_PASSWORD
-        - name: POSTGRES_DB
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/POSTGRES_DB
+        - name: DB_USERNAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PASSWORD
+        - name: DB_NAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_NAME
         - name: DB_HOST
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
         - name: DB_PORT
@@ -385,14 +425,14 @@ db.ec2.describe_security_groups:
 db.rds.create_db_instance:
   AllocatedStorage: 20
   DBInstanceClass: ${DB_INSTANCE_CLASS}
-  DBName: ${POSTGRES_DB}
+  DBName: ${DB_NAME}
   DBInstanceIdentifier: ${APP_NAME}-${DB_NAME}
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   VpcSecurityGroupIds:
     - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
-  MasterUsername: ${POSTGRES_USERNAME}
-  MasterUserPassword: ${POSTGRES_PASSWORD}
+  MasterUsername: ${DB_USERNAME}
+  MasterUserPassword: ${DB_PASSWORD}
 db.rds_waiter.wait:
   DBInstanceIdentifier: ${APP_NAME}-${DB_NAME}
 db.route53.change_resource_record_sets:

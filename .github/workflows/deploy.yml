@@ -21,9 +21,9 @@ jobs:
       - name: Run awyes actions
         uses: bb-labs/awyes@main
         env:
-          POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
           TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
-          action: repo apple.user.apple_client_secret apple.ssm sage cluster app wss db
+          action: repo apple sage cluster app wss db

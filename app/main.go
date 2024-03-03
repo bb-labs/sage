@@ -29,9 +29,9 @@ func main() {
 
 	// Connect to db
 	dbc := pg.Connect(&pg.Options{
-		User:     os.Getenv("POSTGRES_USER"),
-		Password: os.Getenv("POSTGRES_PASSWORD"),
-		Database: os.Getenv("POSTGRES_DB"),
+		User:     os.Getenv("DB_USERNAME"),
+		Password: os.Getenv("DB_PASSWORD"),
+		Database: os.Getenv("DB_NAME"),
 		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT")),
 	})
 	defer dbc.Close()
