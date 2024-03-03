@@ -8,7 +8,7 @@ import pbxproj.pbxextensions
 import pathlib
 import subprocess
 
-ecs = boto3.client('ecs')
+ecs = boto3.client("ecs")
 ssm = boto3.client("ssm")
 ssm_waiter = ssm.get_waiter("command_executed")
 iam = boto3.client("iam")
@@ -77,3 +77,13 @@ def apple_client_secret(team_id, bundle_id, key_id, key_bytes):
         algorithm="ES256",
         headers={"kid": key_id, "alg": "ES256"},
     )
+
+
+def put_env():
+    for key, value in os.environ.items():
+        ssm.put_parameter(
+            Name=key,
+            Value=value,
+            Type="SecureString",
+            Overwrite=True,
+        )
