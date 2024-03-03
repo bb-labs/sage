@@ -213,7 +213,7 @@ app.ecs.register_task_definition:
   family: ${APP_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${APP_NAME}
-      image: ${DOCKER_REGISTRY}/${APP_NAME}:c1c95e0
+      image: ${DOCKER_REGISTRY}/${APP_NAME}:ccfb2fa
       secrets:
         - name: DB_USERNAME
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
@@ -334,7 +334,7 @@ wss.ecs.register_task_definition:
   family: ${WSS_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${WSS_NAME}
-      image: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
+      image: ${DOCKER_REGISTRY}/${WSS_NAME}:ccfb2fa
       secrets:
         - name: DB_USERNAME
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
