@@ -435,6 +435,8 @@ db.rds.create_db_instance:
   MasterUserPassword: ${DB_PASSWORD}
 db.rds_waiter.wait:
   DBInstanceIdentifier: ${DB_NAME}-instance
+db.rds.describe_db_instances:
+  DBInstanceIdentifier: ${DB_NAME}-instance
 db.route53.change_resource_record_sets:
   HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
@@ -445,4 +447,4 @@ db.route53.change_resource_record_sets:
           Type: CNAME
           TTL: 300
           ResourceRecords:
-            - Value: $(db.rds.create_db_instance.Endpoint.Address)
+            - Value: $(db.rds.describe_db_instances.DBInstances.0.Endpoint.Address)
