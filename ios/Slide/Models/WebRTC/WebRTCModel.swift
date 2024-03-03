@@ -33,9 +33,8 @@ class WebRTCModel: NSObject, ObservableObject, URLSessionDelegate {
         // Config setup
         let config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings: [
-            "stun:34.220.183.21:3478",
-            "turn:34.220.183.21:3478"
-        ], username: "test", credential: "test123")]
+            "turns:us.relay.metered.ca:443"
+        ], username: "1d7ba96a3d2ca30baf5da400", credential: "xNAVuzNdr+UsPM5O")]
         config.sdpSemantics = .unifiedPlan
         config.continualGatheringPolicy = .gatherContinually
         

@@ -1,3 +1,19 @@
+repo.user.get_latest_repo_revision:
+---
+apple.user.save_ios_protos:
+  - sage.pb.swift
+  - sage.grpc.swift
+apple.user.read_file_as_bytes:
+  path: certs/AuthKey_2AH2XL345Z.p8
+apple.user.apple_client_secret:
+  team_id: ${APPLE_TEAM_ID}
+  bundle_id: ${APPLE_BUNDLE_ID}
+  key_id: ${APPLE_KEY_ID}
+  key_bytes: $(apple.user.read_file_as_bytes)
+apple.secrets.create_secret:
+  Name: ${APPLE_SECRET_NAME}
+  SecretString: $(apple.user.apple_client_secret)
+---
 aws.iam.create_role:
   RoleName: ${AWS_ROLE_NAME}
   Description: Role for sage aws app
@@ -10,7 +26,8 @@ aws.iam.create_role:
           "Principal": { 
             "Service": [
               "ec2.amazonaws.com",
-              "eks.amazonaws.com",
+              "ecs.amazonaws.com",
+              "ecs-tasks.amazonaws.com",
               "route53.amazonaws.com",
               "rds.amazonaws.com",
               "ssm.amazonaws.com"
@@ -20,35 +37,253 @@ aws.iam.create_role:
         }
       ]
     }
+aws.iam.attach_role_policy:
+  RoleName: ${AWS_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+aws.iam.get_role:
+  RoleName: ${AWS_ROLE_NAME}
+aws.acm.request_certificate:
+  DomainName: ${SAGE_DOMAIN}
+  ValidationMethod: DNS
+  SubjectAlternativeNames:
+    - ${WSS_DOMAIN}
+    - ${APP_DOMAIN}
+aws.acm.describe_certificate:
+  CertificateArn: $(aws.acm.request_certificate.CertificateArn)
+aws.route53.list_hosted_zones_by_name:
+  DNSName: ${SAGE_DOMAIN}
+aws.route53.change_resource_record_sets:
+  HostedZoneId: $(aws.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.0.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.0.ResourceRecord.Value)
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.1.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.1.ResourceRecord.Value)
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.2.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(aws.acm.describe_certificate.Certificate.DomainValidationOptions.2.ResourceRecord.Value)
+aws.ec2.describe_vpcs:
+aws.ec2.describe_subnets:
+  Filters:
+    - Name: vpc-id
+      Values:
+        - $(aws.ec2.describe_vpcs.Vpcs.0.VpcId)
+aws.ec2.create_security_group:
+  GroupName: ${AWS_SECURITY_GROUP_NAME}
+  Description: Sage security group
+aws.ec2.describe_security_groups:
+  GroupNames:
+    - ${AWS_SECURITY_GROUP_NAME}
+aws.ec2.authorize_security_group_ingress:
+  GroupName: ${AWS_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: 443
+      ToPort: 443
+      IpProtocol: TCP
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
 ---
-repo.user.tag:
+cluster.ecs.create_cluster:
+  clusterName: ${CLUSTER_NAME}
 ---
-app.user.save_ios_protos:
-  files:
-    - sage.pb.swift
-    - sage.grpc.swift
-app.user.apple_client_secret:
 app.image.build:
-  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(repo.user.tag)
+  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(aws.user.tago_repo)
   path: app
   dockerfile: Dockerfile
 app.image.push:
   repository: ${DOCKER_REGISTRY}/${APP_NAME}
-  tag: $(repo.user.tag)
+  tag: $(repo.user.get_latest_repo_revision)
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
+app.elb.create_target_group:
+  Name: ${APP_TARGET_GROUP_NAME}
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  TargetType: ${APP_TARGET_GROUP_TYPE}
+  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  VpcId: $(aws.ec2.describe_vpcs.Vpcs.0.VpcId)
+app.elb.create_load_balancer:
+  Name: ${APP_LOAD_BALANCER_NAME}
+  Subnets:
+    - $(aws.ec2.describe_subnets.Subnets.0.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.1.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.2.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.3.SubnetId)
+  SecurityGroups:
+    - $(aws.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+  Scheme: ${LOAD_BALANCER_SCHEME}
+  Type: ${LOAD_BALANCER_TYPE}
+app.elb_waiter.wait:
+  Names:
+    - ${APP_LOAD_BALANCER_NAME}
+app.elb.describe_load_balancers:
+  Names:
+    - ${APP_LOAD_BALANCER_NAME}
+app.elb.create_listener:
+  LoadBalancerArn: $(app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(aws.acm.request_certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+app.ecs.register_task_definition:
+  family: ${APP_TASK_DEFINITION_NAME}
+  containerDefinitions:
+    - name: ${APP_NAME}
+      image: ${DOCKER_REGISTRY}/${APP_NAME}:c1c95e0
+      logConfiguration:
+        logDriver: awslogs
+        options:
+          awslogs-group: ${APP_NAME}-logs
+          awslogs-region: ${AWS_REGION}
+          awslogs-stream-prefix: ${APP_NAME}
+          awslogs-create-group: "true"
+      portMappings:
+        - containerPort: ${APP_PORT}
+          protocol: tcp
+          appProtocol: ${APP_PROTOCOL}
+  executionRoleArn: $(aws.iam.get_role.Role.Arn)
+  taskRoleArn: $(aws.iam.get_role.Role.Arn)
+  networkMode: awsvpc
+  requiresCompatibilities:
+    - FARGATE
+  cpu: "${APP_CPU}"
+  memory: "${APP_MEMORY}"
+app.ecs.create_service:
+  serviceName: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${APP_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${APP_NAME}
+      containerPort: ${APP_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets:
+        - $(aws.ec2.describe_subnets.Subnets.0.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.1.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.2.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.3.SubnetId)
+      securityGroups:
+        - $(aws.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+app.ecs.update_service:
+  service: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true
 ---
 wss.image.build:
-  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:$(repo.user.tag)
+  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
   path: wss
   dockerfile: Dockerfile
 wss.image.push:
   repository: ${DOCKER_REGISTRY}/${WSS_NAME}
-  tag: $(repo.user.tag)
+  tag: $(repo.user.get_latest_repo_revision)
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
+wss.elb.create_target_group:
+  Name: ${WSS_TARGET_GROUP_NAME}
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  TargetType: ${WSS_TARGET_GROUP_TYPE}
+  VpcId: $(aws.ec2.describe_vpcs.Vpcs.0.VpcId)
+wss.elb.create_load_balancer:
+  Name: ${WSS_LOAD_BALANCER_NAME}
+  Subnets:
+    - $(aws.ec2.describe_subnets.Subnets.0.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.1.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.2.SubnetId)
+    - $(aws.ec2.describe_subnets.Subnets.3.SubnetId)
+  SecurityGroups:
+    - $(aws.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+  Scheme: ${LOAD_BALANCER_SCHEME}
+  Type: ${LOAD_BALANCER_TYPE}
+wss.elb_waiter.wait:
+  Names:
+    - ${WSS_LOAD_BALANCER_NAME}
+wss.elb.describe_load_balancers:
+  Names:
+    - ${WSS_LOAD_BALANCER_NAME}
+wss.elb.create_listener:
+  LoadBalancerArn: $(wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(aws.acm.request_certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+wss.ecs.register_task_definition:
+  family: ${WSS_TASK_DEFINITION_NAME}
+  containerDefinitions:
+    - name: ${WSS_NAME}
+      image: ${DOCKER_REGISTRY}/${WSS_NAME}:c1c95e0
+      logConfiguration:
+        logDriver: awslogs
+        options:
+          awslogs-group: ${WSS_NAME}-logs
+          awslogs-region: ${AWS_REGION}
+          awslogs-stream-prefix: ${WSS_NAME}
+          awslogs-create-group: "true"
+      portMappings:
+        - containerPort: ${WSS_PORT}
+          protocol: tcp
+          appProtocol: ${WSS_PROTOCOL}
+  executionRoleArn: $(aws.iam.get_role.Role.Arn)
+  taskRoleArn: $(aws.iam.get_role.Role.Arn)
+  networkMode: awsvpc
+  requiresCompatibilities:
+    - FARGATE
+  cpu: "${WSS_CPU}"
+  memory: "${WSS_MEMORY}"
+wss.ecs.create_service:
+  serviceName: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${WSS_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${WSS_NAME}
+      containerPort: ${WSS_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets:
+        - $(aws.ec2.describe_subnets.Subnets.0.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.1.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.2.SubnetId)
+        - $(aws.ec2.describe_subnets.Subnets.3.SubnetId)
+      securityGroups:
+        - $(aws.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+wss.ecs.update_service:
+  service: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true
 ---
 db.iam.attach_role_policy.rds:
   RoleName: ${AWS_ROLE_NAME}
@@ -90,79 +325,3 @@ db.rds.create_db_instance:
   Engine: ${DB_ENGINE}
   MasterUsername: ${POSTGRES_USER}
   MasterUserPassword: ${POSTGRES_PASSWORD}
----
-turn.iam.get_role:
-  RoleName: ${AWS_ROLE_NAME}
-turn.iam.create_instance_profile:
-  InstanceProfileName: ${TURN_INSTANCE_PROFILE_NAME}
-turn.iam.add_role_to_instance_profile:
-  InstanceProfileName: ${TURN_INSTANCE_PROFILE_NAME}
-  RoleName: ${AWS_ROLE_NAME}
-turn.iam.attach_role_policy.ssm:
-  RoleName: ${AWS_ROLE_NAME}
-  PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
-turn.ec2.create_security_group:
-  GroupName: ${TURN_SECURITY_GROUP_NAME}
-  Description: Sage turn server security group
-turn.ec2.authorize_security_group_ingress:
-  GroupName: ${TURN_SECURITY_GROUP_NAME}
-  IpPermissions:
-    - FromPort: 3478
-      ToPort: 3478
-      IpProtocol: udp
-      IpRanges:
-        - CidrIp: "0.0.0.0/0"
-    - FromPort: 3478
-      ToPort: 3478
-      IpProtocol: tcp
-      IpRanges:
-        - CidrIp: "0.0.0.0/0"
-    - FromPort: 49152
-      ToPort: 65535
-      IpProtocol: udp
-      IpRanges:
-        - CidrIp: "0.0.0.0/0"
-turn.ec2r.create_instances:
-  ImageId: ${TURN_AMI_ID}
-  InstanceType: ${TURN_INSTANCE_TYPE}
-  MaxCount: 1
-  MinCount: 1
-  IamInstanceProfile:
-    Name: ${TURN_INSTANCE_PROFILE_NAME}
-  SecurityGroups:
-    - ${TURN_SECURITY_GROUP_NAME}
-turn.ec2_waiter.wait:
-  InstanceIds:
-    - $(turn.ec2r.create_instances.0.id)
-turn.ec2.describe_instances:
-  InstanceIds:
-    - $(turn.ec2r.create_instances.0.id)
-turn.ec2.allocate_address:
-  Domain: vpc
-turn.ec2.associate_address:
-  InstanceId: $(turn.ec2r.create_instances.0.id)
-  AllocationId: $(turn.ec2.allocate_address.AllocationId)
-turn.ssm.send_command:
-  DocumentName: AWS-RunShellScript
-  InstanceIds:
-    - $(turn.ec2r.create_instances.0.id)
-  Parameters:
-    commands:
-      - "sudo apt-get update"
-      - "sudo apt-get -y upgrade"
-      - "sudo apt-get -y install coturn"
-      - "echo 'TURNSERVER_ENABLED=1' | sudo tee /etc/default/coturn"
-      - "echo 'external-ip=$(turn.ec2.allocate_address.PublicIp)' | sudo tee /etc/turnserver.conf"
-      - "echo 'realm=${TURN_DOMAIN}' | sudo tee -a /etc/turnserver.conf"
-      - "echo 'user=test:test123' | sudo tee -a /etc/turnserver.conf"
-      - "echo 'lt-cred-mech' | sudo tee -a /etc/turnserver.conf"
-      - "sudo systemctl start coturn"
-turn.ssm_waiter.wait:
-  CommandId: $(turn.ssm.send_command.Command.CommandId)
-  InstanceId: $(turn.ec2r.create_instances.0.id)
-  WaiterConfig:
-    Delay: 15
-    MaxAttempts: 10
-turn.ssm.get_command_invocation:
-  CommandId: $(turn.ssm.send_command.Command.CommandId)
-  InstanceId: $(turn.ec2r.create_instances.0.id)

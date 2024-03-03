@@ -8,8 +8,29 @@ import pbxproj.pbxextensions
 import pathlib
 import subprocess
 
+ecs = boto3.client('ecs')
+ssm = boto3.client("ssm")
+ssm_waiter = ssm.get_waiter("command_executed")
+iam = boto3.client("iam")
+acm = boto3.client("acm")
+acm_waiter = acm.get_waiter("certificate_validated")
+ec2 = boto3.client("ec2")
+ec2r = boto3.resource("ec2")
+ec2_waiter = ec2.get_waiter("instance_status_ok")
+rds = boto3.client("rds")
+route53 = boto3.client("route53")
+route53_waiter = route53.get_waiter("resource_record_sets_changed")
+elb = boto3.client("elbv2")
+elb_waiter = elb.get_waiter("load_balancer_available")
+secrets = boto3.client("secretsmanager")
+image = None
+try:
+    image = docker.from_env().images
+except:
+    print("WARN: Docker not found")
 
-def save_ios_protos(files):
+
+def save_protos(files):
     project = pbxproj.XcodeProject.load("ios/Slide.xcodeproj/project.pbxproj")
 
     # Add protos
@@ -28,7 +49,7 @@ def save_ios_protos(files):
     project.save()
 
 
-def tag():
+def get_latest_repo_revision():
     # silence all safe.directory warnings
     subprocess.run(["git", "config", "--global", "--add", "safe.directory", "*"])
 
@@ -39,38 +60,20 @@ def tag():
     )
 
 
-def apple_client_secret():
+def read_file_as_bytes(path):
+    return pathlib.Path(path).read_bytes()
+
+
+def apple_client_secret(team_id, bundle_id, key_id, key_bytes):
     return jwt.encode(
         {
-            "iss": os.environ["APPLE_TEAM_ID"],
+            "iss": team_id,
             "iat": int(time.time()),
             "exp": int(time.time()) + 86400 * 180,  # 180 days
             "aud": "https://appleid.apple.com",
-            "sub": os.environ["APPLE_BUNDLE_ID"],
+            "sub": bundle_id,
         },
-        pathlib.Path(os.environ["APPLE_KEY_PATH"]).read_bytes(),
+        key_bytes,
         algorithm="ES256",
-        headers={"kid": os.environ["APPLE_KEY_ID"], "alg": "ES256"},
+        headers={"kid": key_id, "alg": "ES256"},
     )
-
-
-ssm = boto3.client("ssm")
-ssm_waiter = ssm.get_waiter("command_executed")
-
-iam = boto3.client("iam")
-
-ec2 = boto3.client("ec2")
-ec2r = boto3.resource("ec2")
-ec2_waiter = ec2.get_waiter("instance_status_ok")
-
-rds = boto3.client("rds")
-
-route53 = boto3.client("route53")
-
-elb = boto3.client("elbv2")
-
-image = None
-try:
-    image = docker.from_env().images
-except Exception:
-    print("WARN: Docker not found")
