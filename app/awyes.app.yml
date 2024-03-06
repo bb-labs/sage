@@ -1,0 +1,127 @@
+env.db.user.ssm.put_parameter:
+  Name: DB_USERNAME
+  Value: ${DB_USERNAME}
+  Type: SecureString
+  Overwrite: true
+env.db.pass.ssm.put_parameter:
+  Name: DB_PASSWORD
+  Value: ${DB_PASSWORD}
+  Type: SecureString
+  Overwrite: true
+env.db.name.ssm.put_parameter:
+  Name: DB_NAME
+  Value: ${DB_NAME}
+  Type: SecureString
+  Overwrite: true
+env.db.host.ssm.put_parameter:
+  Name: DB_HOST
+  Value: ${DB_DOMAIN}
+  Type: SecureString
+  Overwrite: true
+env.db.port.ssm.put_parameter:
+  Name: DB_PORT
+  Value: "${DB_PORT}"
+  Type: SecureString
+  Overwrite: true
+env.app.port.ssm.put_parameter:
+  Name: APP_PORT
+  Value: "${APP_CONTAINER_PORT}"
+  Type: SecureString
+  Overwrite: true
+---
+app.image.build:
+  tag: ${DOCKER_REGISTRY}/${APP_NAME}:$(repo.user.get_latest_repo_revision)
+  path: app
+  dockerfile: Dockerfile
+app.image.push:
+  repository: ${DOCKER_REGISTRY}/${APP_NAME}
+  tag: $(repo.user.get_latest_repo_revision)
+  auth_config:
+    username: ${DOCKER_HUB_USERNAME}
+    password: ${DOCKER_HUB_PASSWORD}
+app.ec2.create_security_group:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  Description: Sage app security group
+app.ec2.authorize_security_group_ingress:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: ${APP_CONTAINER_PORT}
+      ToPort: ${APP_CONTAINER_PORT}
+      IpProtocol: tcp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+app.ec2.describe_security_groups:
+  GroupNames:
+    - ${APP_SECURITY_GROUP_NAME}
+app.elb.create_target_group:
+  Name: ${APP_TARGET_GROUP_NAME}
+  Protocol: ${APP_TARGET_GROUP_PROTOCOL}
+  TargetType: ${APP_TARGET_GROUP_TYPE}
+  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL_VERSION}
+  Port: ${APP_CONTAINER_PORT}
+  VpcId: $(cluster.ec2.describe_vpcs.Vpcs.0.VpcId)
+app.ecs.register_task_definition:
+  family: ${APP_CONTAINER_TASK_DEFINITION_NAME}
+  containerDefinitions:
+    - name: ${APP_NAME}
+      image: ${DOCKER_REGISTRY}/${APP_NAME}:ccfb2fa
+      secrets:
+        - name: DB_USERNAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PASSWORD
+        - name: DB_NAME
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_NAME
+        - name: DB_HOST
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
+        - name: DB_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PORT
+        - name: APPLE_BUNDLE_ID
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_BUNDLE_ID
+        - name: APPLE_CLIENT_SECRET
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_CLIENT_SECRET
+        - name: APP_PORT
+          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APP_PORT
+      logConfiguration:
+        logDriver: awslogs
+        options:
+          awslogs-group: ${APP_NAME}-logs
+          awslogs-region: ${SAGE_REGION}
+          awslogs-stream-prefix: ${APP_NAME}
+          awslogs-create-group: "true"
+      portMappings:
+        - containerPort: ${APP_CONTAINER_PORT}
+          protocol: ${APP_CONTAINER_PROTOCOL}
+          appProtocol: ${APP_CONTAINER_PROTOCOL_VERSION}
+  executionRoleArn: $(sage.iam.get_role.Role.Arn)
+  taskRoleArn: $(sage.iam.get_role.Role.Arn)
+  networkMode: awsvpc
+  requiresCompatibilities:
+    - FARGATE
+  cpu: "${APP_CONTAINER_CPU}"
+  memory: "${APP_CONTAINER_MEMORY}"
+app.ecs.create_service:
+  serviceName: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${APP_CONTAINER_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${APP_NAME}
+      containerPort: ${APP_CONTAINER_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets:
+        - $(sage.ec2.describe_subnets.Subnets.0.SubnetId)
+        - $(sage.ec2.describe_subnets.Subnets.1.SubnetId)
+        - $(sage.ec2.describe_subnets.Subnets.2.SubnetId)
+        - $(sage.ec2.describe_subnets.Subnets.3.SubnetId)
+      securityGroups:
+        - $(app.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+app.ecs.update_service:
+  service: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true

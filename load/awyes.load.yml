@@ -1,0 +1,68 @@
+load.ec2.create_security_group:
+  GroupName: ${LOAD_SECURITY_GROUP_NAME}
+  Description: Sage security group
+load.ec2.describe_security_groups:
+  GroupNames:
+    - ${LOAD_SECURITY_GROUP_NAME}
+load.ec2.authorize_security_group_ingress:
+  GroupName: ${LOAD_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: ${LOAD_BALANCER_PORT}
+      ToPort: ${LOAD_BALANCER_PORT}
+      IpProtocol: ${LOAD_BALANCER_IP_PROTOCOL}
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+---
+load.app.elb.create_load_balancer:
+  Name: ${APP_LOAD_BALANCER_NAME}
+  Subnets:
+    - $(cluster.ec2.describe_subnets.Subnets.0.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.1.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.2.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.3.SubnetId)
+  SecurityGroups:
+    - $(load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+  Scheme: ${LOAD_BALANCER_SCHEME}
+  Type: ${LOAD_BALANCER_TYPE}
+load.app.elb_waiter.wait:
+  Names:
+    - ${APP_LOAD_BALANCER_NAME}
+load.app.elb.describe_load_balancers:
+  Names:
+    - ${APP_LOAD_BALANCER_NAME}
+load.app.elb.create_listener:
+  LoadBalancerArn: $(load.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(certs.acm.request_certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(load.app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+---
+wss.elb.create_load_balancer:
+  Name: ${WSS_LOAD_BALANCER_NAME}
+  Subnets:
+    - $(cluster.ec2.describe_subnets.Subnets.0.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.1.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.2.SubnetId)
+    - $(cluster.ec2.describe_subnets.Subnets.3.SubnetId)
+  SecurityGroups:
+    - $(load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+  Scheme: ${LOAD_BALANCER_SCHEME}
+  Type: ${LOAD_BALANCER_TYPE}
+wss.elb_waiter.wait:
+  Names:
+    - ${WSS_LOAD_BALANCER_NAME}
+wss.elb.describe_load_balancers:
+  Names:
+    - ${WSS_LOAD_BALANCER_NAME}
+wss.elb.create_listener:
+  LoadBalancerArn: $(wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(certs.acm.request_certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)

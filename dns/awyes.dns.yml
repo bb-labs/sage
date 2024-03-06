@@ -1,0 +1,69 @@
+dns.route53.list_hosted_zones_by_name:
+  DNSName: ${SAGE_DOMAIN}
+---
+dns.route53.change_resource_record_sets:
+  HostedZoneId: $(dns.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      # sage.dating
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.0.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.0.ResourceRecord.Value)
+      # app.sage.dating
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.1.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.1.ResourceRecord.Value)
+      # wss.sage.dating
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.2.ResourceRecord.Name)
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.2.ResourceRecord.Value)
+---
+dns.load.wss.route53.change_resource_record_sets:
+  HostedZoneId: $(dns.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${WSS_DOMAIN}
+          Type: A
+          AliasTarget:
+            HostedZoneId: $(wss.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
+            DNSName: $(wss.elb.describe_load_balancers.LoadBalancers.0.DNSName)
+            EvaluateTargetHealth: false
+---
+dns.load.app.route53.change_resource_record_sets:
+  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${APP_DOMAIN}
+          Type: A
+          AliasTarget:
+            HostedZoneId: $(load.app.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
+            DNSName: $(load.app.elb.describe_load_balancers.LoadBalancers.0.DNSName)
+            EvaluateTargetHealth: false
+---
+dns.db.route53.change_resource_record_sets:
+  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes:
+      - Action: UPSERT
+        ResourceRecordSet:
+          Name: ${DB_DOMAIN}
+          Type: CNAME
+          TTL: 300
+          ResourceRecords:
+            - Value: $(db.rds.describe_db_instances.DBInstances.0.Endpoint.Address)

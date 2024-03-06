@@ -1,0 +1,48 @@
+cluster.ec2.describe_vpcs:
+cluster.ec2.describe_subnets:
+  Filters:
+    - Name: vpc-id
+      Values:
+        - $(cluster.ec2.describe_vpcs.Vpcs.0.VpcId)
+cluster.iam.create_role:
+  RoleName: ${SAGE_ROLE_NAME}
+  Description: Role for sage aws app
+  AssumeRolePolicyDocument: >
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": { 
+            "Service": [
+              "ec2.amazonaws.com",
+              "ecs.amazonaws.com",
+              "ecs-tasks.amazonaws.com",
+              "route53.amazonaws.com",
+              "rds.amazonaws.com",
+              "ssm.amazonaws.com"
+            ]
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+cluster.logs.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+cluster.ssm.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
+cluster.secrets.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/SecretsManagerReadWrite
+cluster.kms.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/service-role/ROSAKMSProviderPolicy
+cluster.rds.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
+cluster.iam.get_role:
+  RoleName: ${SAGE_ROLE_NAME}
+cluster.ecs.create_cluster:
+  clusterName: ${CLUSTER_NAME}
