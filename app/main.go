@@ -57,9 +57,7 @@ func main() {
 	corner := corner.New(appleProvider)
 
 	// Create the grpc server
-	server := grpc.NewServer(
-		grpc.ChainUnaryInterceptor(corner.UnaryServerInterceptor),
-	)
+	server := grpc.NewServer(grpc.ChainUnaryInterceptor(corner.UnaryServerInterceptor))
 	defer func() {
 		server.GracefulStop()
 	}()

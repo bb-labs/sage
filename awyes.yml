@@ -46,12 +46,12 @@ env.db.port.ssm.put_parameter:
   Overwrite: true
 env.app.port.ssm.put_parameter:
   Name: APP_PORT
-  Value: "${APP_PORT}"
+  Value: "${APP_CONTAINER_PORT}"
   Type: SecureString
   Overwrite: true
 env.wss.port.ssm.put_parameter:
   Name: WSS_PORT
-  Value: "${WSS_PORT}"
+  Value: "${WSS_CONTAINER_PORT}"
   Type: SecureString
   Overwrite: true
 ---
@@ -164,12 +164,26 @@ app.image.push:
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
+app.ec2.create_security_group:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  Description: Sage app security group
+app.ec2.authorize_security_group_ingress:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: ${APP_CONTAINER_PORT}
+      ToPort: ${APP_CONTAINER_PORT}
+      IpProtocol: tcp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+app.ec2.describe_security_groups:
+  GroupNames:
+    - ${APP_SECURITY_GROUP_NAME}
 app.elb.create_target_group:
   Name: ${APP_TARGET_GROUP_NAME}
-  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Protocol: ${APP_TARGET_GROUP_PROTOCOL}
   TargetType: ${APP_TARGET_GROUP_TYPE}
-  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL}
-  Port: ${LOAD_BALANCER_PORT}
+  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL_VERSION}
+  Port: ${APP_CONTAINER_PORT}
   VpcId: $(sage.ec2.describe_vpcs.Vpcs.0.VpcId)
 app.elb.create_load_balancer:
   Name: ${APP_LOAD_BALANCER_NAME}
@@ -210,7 +224,7 @@ app.elb.create_listener:
     - Type: forward
       TargetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
 app.ecs.register_task_definition:
-  family: ${APP_TASK_DEFINITION_NAME}
+  family: ${APP_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${APP_NAME}
       image: ${DOCKER_REGISTRY}/${APP_NAME}:ccfb2fa
@@ -239,25 +253,25 @@ app.ecs.register_task_definition:
           awslogs-stream-prefix: ${APP_NAME}
           awslogs-create-group: "true"
       portMappings:
-        - containerPort: ${APP_PORT}
-          protocol: tcp
-          appProtocol: ${APP_PROTOCOL}
+        - containerPort: ${APP_CONTAINER_PORT}
+          protocol: ${APP_CONTAINER_PROTOCOL}
+          appProtocol: ${APP_CONTAINER_PROTOCOL_VERSION}
   executionRoleArn: $(sage.iam.get_role.Role.Arn)
   taskRoleArn: $(sage.iam.get_role.Role.Arn)
   networkMode: awsvpc
   requiresCompatibilities:
     - FARGATE
-  cpu: "${APP_CPU}"
-  memory: "${APP_MEMORY}"
+  cpu: "${APP_CONTAINER_CPU}"
+  memory: "${APP_CONTAINER_MEMORY}"
 app.ecs.create_service:
   serviceName: ${APP_NAME}
   cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
   taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
-  desiredCount: ${APP_TASK_COUNT}
+  desiredCount: ${APP_CONTAINER_TASK_COUNT}
   loadBalancers:
     - targetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
       containerName: ${APP_NAME}
-      containerPort: ${APP_PORT}
+      containerPort: ${APP_CONTAINER_PORT}
   launchType: FARGATE
   networkConfiguration:
     awsvpcConfiguration:
@@ -267,7 +281,7 @@ app.ecs.create_service:
         - $(sage.ec2.describe_subnets.Subnets.2.SubnetId)
         - $(sage.ec2.describe_subnets.Subnets.3.SubnetId)
       securityGroups:
-        - $(sage.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+        - $(app.ec2.describe_security_groups.SecurityGroups.0.GroupId)
       assignPublicIp: ENABLED
 app.ecs.update_service:
   service: ${APP_NAME}
@@ -285,11 +299,25 @@ wss.image.push:
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
+wss.ec2.create_security_group:
+  GroupName: ${WSS_SECURITY_GROUP_NAME}
+  Description: Sage wss security group
+wss.ec2.authorize_security_group_ingress:
+  GroupName: ${WSS_SECURITY_GROUP_NAME}
+  IpPermissions:
+    - FromPort: ${WSS_CONTAINER_PORT}
+      ToPort: ${WSS_CONTAINER_PORT}
+      IpProtocol: tcp
+      IpRanges:
+        - CidrIp: "0.0.0.0/0"
+wss.ec2.describe_security_groups:
+  GroupNames:
+    - ${WSS_SECURITY_GROUP_NAME}
 wss.elb.create_target_group:
   Name: ${WSS_TARGET_GROUP_NAME}
-  Protocol: ${LOAD_BALANCER_PROTOCOL}
-  ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL}
-  Port: ${LOAD_BALANCER_PORT}
+  Protocol: ${WSS_TARGET_GROUP_PROTOCOL}
+  ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL_VERSION}
+  Port: ${WSS_CONTAINER_PORT}
   TargetType: ${WSS_TARGET_GROUP_TYPE}
   VpcId: $(sage.ec2.describe_vpcs.Vpcs.0.VpcId)
 wss.elb.create_load_balancer:
@@ -331,7 +359,7 @@ wss.elb.create_listener:
     - Type: forward
       TargetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
 wss.ecs.register_task_definition:
-  family: ${WSS_TASK_DEFINITION_NAME}
+  family: ${WSS_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${WSS_NAME}
       image: ${DOCKER_REGISTRY}/${WSS_NAME}:ccfb2fa
@@ -360,25 +388,25 @@ wss.ecs.register_task_definition:
           awslogs-stream-prefix: ${WSS_NAME}
           awslogs-create-group: "true"
       portMappings:
-        - containerPort: ${WSS_PORT}
-          protocol: tcp
-          appProtocol: ${WSS_PROTOCOL}
+        - containerPort: ${WSS_CONTAINER_PORT}
+          protocol: ${WSS_CONTAINER_PROTOCOL}
+          appProtocol: ${WSS_CONTAINER_PROTOCOL_VERSION}
   executionRoleArn: $(sage.iam.get_role.Role.Arn)
   taskRoleArn: $(sage.iam.get_role.Role.Arn)
   networkMode: awsvpc
   requiresCompatibilities:
     - FARGATE
-  cpu: "${WSS_CPU}"
-  memory: "${WSS_MEMORY}"
+  cpu: "${WSS_CONTAINER_CPU}"
+  memory: "${WSS_CONTAINER_MEMORY}"
 wss.ecs.create_service:
   serviceName: ${WSS_NAME}
   cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
   taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
-  desiredCount: ${WSS_TASK_COUNT}
+  desiredCount: ${WSS_CONTAINER_TASK_COUNT}
   loadBalancers:
     - targetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
       containerName: ${WSS_NAME}
-      containerPort: ${WSS_PORT}
+      containerPort: ${WSS_CONTAINER_PORT}
   launchType: FARGATE
   networkConfiguration:
     awsvpcConfiguration:
@@ -388,7 +416,7 @@ wss.ecs.create_service:
         - $(sage.ec2.describe_subnets.Subnets.2.SubnetId)
         - $(sage.ec2.describe_subnets.Subnets.3.SubnetId)
       securityGroups:
-        - $(sage.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+        - $(wss.ec2.describe_security_groups.SecurityGroups.0.GroupId)
       assignPublicIp: ENABLED
 wss.ecs.update_service:
   service: ${WSS_NAME}

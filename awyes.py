@@ -1,9 +1,7 @@
-import os
 import jwt
 import time
 import boto3
 import docker
-import dotenv
 import pbxproj
 import pbxproj.pbxextensions
 import pathlib
