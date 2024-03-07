@@ -23,7 +23,7 @@ image = None
 try:
     image = docker.from_env().images
 except:
-    print("WARN: Docker not found")
+    pass
 
 
 def get_latest_repo_revision():
