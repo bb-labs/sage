@@ -1,14 +1,11 @@
-name: Deploy AWS resources
+name: Initialize AWS resources
 
 on:
   workflow_dispatch:
-    inputs:
-      action:
-        required: true
 
 jobs:
   deploy:
-    name: Deploy AWS resources
+    name: Initialize all AWS resources
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +18,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Run awyes actions
+      - name: Run awyes actions to initialize resources
         uses: bb-labs/awyes@main
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -29,4 +26,7 @@ jobs:
           TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
           TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
-          action: ${{github.event.inputs.action}}
+          action: |
+            ^cluster \
+            ^app \
+            ^wss \

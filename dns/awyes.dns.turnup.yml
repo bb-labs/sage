@@ -1,8 +1,8 @@
-dns.route53.list_hosted_zones_by_name:
+dns.turnup.route53.list_hosted_zones_by_name:
   DNSName: ${SAGE_DOMAIN}
 ---
-dns.route53.change_resource_record_sets:
-  HostedZoneId: $(dns.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+dns.turnup.route53.change_resource_record_sets:
+  HostedZoneId: $(dns.turnup.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:
       # sage.dating
@@ -30,8 +30,8 @@ dns.route53.change_resource_record_sets:
           ResourceRecords:
             - Value: $(certs.acm.describe_certificate.Certificate.DomainValidationOptions.2.ResourceRecord.Value)
 ---
-dns.load.wss.route53.change_resource_record_sets:
-  HostedZoneId: $(dns.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+dns.turnup.load.wss.route53.change_resource_record_sets:
+  HostedZoneId: $(dns.turnup.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:
       - Action: UPSERT
@@ -43,7 +43,7 @@ dns.load.wss.route53.change_resource_record_sets:
             DNSName: $(wss.elb.describe_load_balancers.LoadBalancers.0.DNSName)
             EvaluateTargetHealth: false
 ---
-dns.load.app.route53.change_resource_record_sets:
+dns.turnup.load.app.route53.change_resource_record_sets:
   HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:
@@ -56,7 +56,7 @@ dns.load.app.route53.change_resource_record_sets:
             DNSName: $(load.app.elb.describe_load_balancers.LoadBalancers.0.DNSName)
             EvaluateTargetHealth: false
 ---
-dns.db.route53.change_resource_record_sets:
+dns.turnup.db.route53.change_resource_record_sets:
   HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:

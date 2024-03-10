@@ -1,0 +1,14 @@
+certs.turnup.acm.request_certificate:
+  DomainName: ${SAGE_DOMAIN}
+  ValidationMethod: DNS
+  SubjectAlternativeNames:
+    - ${WSS_DOMAIN}
+    - ${APP_DOMAIN}
+certs.turnup.acm.certificate_validated.wait:
+  CertificateArn: $(certs.turnup.acm.request_certificate.CertificateArn)
+certs.turnup.acm.list_certificates:
+certs.turnup.local.filter_certificates:
+  certs: $(certs.turnup.acm.list_certificates.CertificateSummaryList)
+  domain: ${SAGE_DOMAIN}
+certs.turnup.acm.describe_certificate:
+  CertificateArn: $(certs.turnup.local.filter_certificates.CertificateArn)

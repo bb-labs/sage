@@ -1,0 +1,21 @@
+auth.local.apple_client_secret:
+  team_id: ${APPLE_TEAM_ID}
+  bundle_id: ${APPLE_BUNDLE_ID}
+  key_id: ${APPLE_KEY_ID}
+  key_path: auth/AuthKey_2AH2XL345Z.p8
+auth.apple.client_secret.ssm.put_parameter:
+  Name: APPLE_CLIENT_SECRET
+  Value: $(apple.local.apple_client_secret)
+  Type: SecureString
+  Overwrite: true
+---
+auth.db.user.ssm.put_parameter:
+  Name: DB_USERNAME
+  Value: ${DB_USERNAME}
+  Type: SecureString
+  Overwrite: true
+auth.db.pass.ssm.put_parameter:
+  Name: DB_PASSWORD
+  Value: ${DB_PASSWORD}
+  Type: SecureString
+  Overwrite: true

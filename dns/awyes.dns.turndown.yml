@@ -1,0 +1,16 @@
+dns.turndown.route53.list_hosted_zones_by_name:
+  DNSName: ${SAGE_DOMAIN}
+---
+dns.turndown.route53.list_resource_record_sets:
+  HostedZoneId: $(dns.turndown.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+dns.turndown.local.filter_resource_record_sets_for_deletion:
+  records: $(dns.turndown.route53.list_resource_record_sets.ResourceRecordSets)
+  types:
+    - A
+    - CNAME
+dns.turndown.route53.change_resource_record_sets:
+  HostedZoneId: $(dns.turndown.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  ChangeBatch:
+    Changes: $(dns.turndown.local.filter_resource_record_sets_for_deletion)
+dns.turndown.record_sets_changed.wait:
+  Id: $(dns.turndown.route53.change_resource_record_sets.ChangeInfo.Id)

@@ -1,41 +1,39 @@
-db.rds.create_db_parameter_group:
+db.turnup.rds.create_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   DBParameterGroupFamily: ${DB_PARAMETER_GROUP_FAMILY}
   Description: Sage parameter group
-db.rds.modify_db_parameter_group:
+db.turnup.rds.modify_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   Parameters:
     - ParameterName: rds.force_ssl
       ParameterValue: "0"
       ApplyMethod: immediate
-db.rds.describe_db_parameter_groups:
+db.turnup.rds.describe_db_parameter_groups:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
-db.ec2.create_security_group:
+db.turnup.ec2.create_security_group:
   GroupName: ${DB_SECURITY_GROUP_NAME}
   Description: Sage db security group
-db.ec2.authorize_security_group_ingress:
+db.turnup.ec2.authorize_security_group_ingress:
   GroupName: ${DB_SECURITY_GROUP_NAME}
-  IpPermissions:
-    - FromPort: ${DB_PORT}
-      ToPort: ${DB_PORT}
-      IpProtocol: tcp
-      IpRanges:
-        - CidrIp: "0.0.0.0/0"
-db.ec2.describe_security_groups:
+  ToPort: ${DB_PORT}
+  FromPort: ${DB_PORT}
+  CidrIp: ${DB_REACHABLE_CIDR_BLOCK}
+  IpProtocol: ${DB_IP_PROTOCOL}
+db.turnup.ec2.describe_security_groups:
   GroupNames:
     - ${DB_SECURITY_GROUP_NAME}
-db.rds.create_db_instance:
+db.turnup.rds.create_db_instance:
   AllocatedStorage: ${DB_ALLOCATED_STORAGE}
   DBInstanceClass: ${DB_INSTANCE_CLASS}
   DBName: ${DB_NAME}
-  DBInstanceIdentifier: ${DB_NAME}-instance
+  DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   VpcSecurityGroupIds:
-    - $(db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+    - $(db.turnup.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
   MasterUsername: ${DB_USERNAME}
   MasterUserPassword: ${DB_PASSWORD}
-db.rds_waiter.wait:
-  DBInstanceIdentifier: ${DB_NAME}-instance
-db.rds.describe_db_instances:
-  DBInstanceIdentifier: ${DB_NAME}-instance
+db.turnup.rds_instance_availiable.wait:
+  DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}
+db.turnup.rds.describe_db_instances:
+  DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}

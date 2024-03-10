@@ -5,33 +5,30 @@ import subprocess
 ecs = boto3.client("ecs")
 ssm = boto3.client("ssm")
 iam = boto3.client("iam")
-acm = boto3.client("acm")
 ec2 = boto3.client("ec2")
-ec2r = boto3.resource("ec2")
-rds = boto3.client("rds")
-route53 = boto3.client("route53")
-elb = boto3.client("elbv2")
 secrets = boto3.client("secretsmanager")
 
+ecs_tasks_stopped = ecs.get_waiter("tasks_stopped")
 ssm_waiter = ssm.get_waiter("command_executed")
-acm_waiter = acm.get_waiter("certificate_validated")
 ec2_waiter = ec2.get_waiter("instance_status_ok")
-rds_waiter = rds.get_waiter("db_instance_available")
-elb_waiter = elb.get_waiter("load_balancer_available")
 
-image = None
+
+route53 = boto3.client("route53")
+record_sets_changed = route53.get_waiter("resource_record_sets_changed")
+
+acm = boto3.client("acm")
+certificate_validated = acm.get_waiter("certificate_validated")
+
+elb = boto3.client("elbv2")
+load_balancer_deleted = elb.get_waiter("load_balancers_deleted")
+load_balancer_available = elb.get_waiter("load_balancer_available")
+
+rds = boto3.client("rds")
+rds_instance_deleted = rds.get_waiter("db_instance_deleted")
+rds_instance_availiable = rds.get_waiter("db_instance_available")
+
+image = {"build": lambda: "unimplemented", "push": lambda: "unimplemented"}
 try:
     image = docker.from_env().images
 except:
     pass
-
-
-def get_latest_repo_revision():
-    # silence all safe.directory warnings
-    subprocess.run(["git", "config", "--global", "--add", "safe.directory", "*"])
-
-    return (
-        subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True)
-        .stdout.decode("utf-8")
-        .strip()
-    )

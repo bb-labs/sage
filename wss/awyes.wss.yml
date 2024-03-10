@@ -1,62 +1,29 @@
-env.wss.port.ssm.put_parameter:
-  Name: WSS_PORT
-  Value: "${WSS_CONTAINER_PORT}"
-  Type: SecureString
-  Overwrite: true
----
 wss.image.build:
-  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:$(repo.user.get_latest_repo_revision)
+  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:${WSS_IMAGE_TAG}
   path: wss
   dockerfile: Dockerfile
 wss.image.push:
   repository: ${DOCKER_REGISTRY}/${WSS_NAME}
-  tag: $(repo.user.get_latest_repo_revision)
+  tag: ${WSS_IMAGE_TAG}
   auth_config:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
-wss.ec2.create_security_group:
-  GroupName: ${WSS_SECURITY_GROUP_NAME}
-  Description: Sage wss security group
-wss.ec2.authorize_security_group_ingress:
-  GroupName: ${WSS_SECURITY_GROUP_NAME}
-  IpPermissions:
-    - FromPort: ${WSS_CONTAINER_PORT}
-      ToPort: ${WSS_CONTAINER_PORT}
-      IpProtocol: tcp
-      IpRanges:
-        - CidrIp: "0.0.0.0/0"
-wss.ec2.describe_security_groups:
-  GroupNames:
-    - ${WSS_SECURITY_GROUP_NAME}
-wss.elb.create_target_group:
-  Name: ${WSS_TARGET_GROUP_NAME}
-  Protocol: ${WSS_TARGET_GROUP_PROTOCOL}
-  ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL_VERSION}
-  Port: ${WSS_CONTAINER_PORT}
-  TargetType: ${WSS_TARGET_GROUP_TYPE}
-  VpcId: $(sage.ec2.describe_vpcs.Vpcs.0.VpcId)
+---
 wss.ecs.register_task_definition:
   family: ${WSS_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${WSS_NAME}
-      image: ${DOCKER_REGISTRY}/${WSS_NAME}:ccfb2fa
+      image: ${DOCKER_REGISTRY}/${WSS_NAME}:${WSS_IMAGE_TAG}
+      environmentFiles:
+        - value: ${ENV_FILE_PATH}
+          type: s3
       secrets:
         - name: DB_USERNAME
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_USERNAME
         - name: DB_PASSWORD
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PASSWORD
-        - name: DB_NAME
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_NAME
-        - name: DB_HOST
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_HOST
-        - name: DB_PORT
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/DB_PORT
-        - name: APPLE_BUNDLE_ID
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_BUNDLE_ID
         - name: APPLE_CLIENT_SECRET
           valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/APPLE_CLIENT_SECRET
-        - name: WSS_PORT
-          valueFrom: arn:aws:ssm:${SAGE_REGION}:${SAGE_ACCOUNT_ID}:parameter/WSS_PORT
       logConfiguration:
         logDriver: awslogs
         options:
@@ -68,35 +35,10 @@ wss.ecs.register_task_definition:
         - containerPort: ${WSS_CONTAINER_PORT}
           protocol: ${WSS_CONTAINER_PROTOCOL}
           appProtocol: ${WSS_CONTAINER_PROTOCOL_VERSION}
-  executionRoleArn: $(sage.iam.get_role.Role.Arn)
-  taskRoleArn: $(sage.iam.get_role.Role.Arn)
+  executionRoleArn: $(role.iam.get_role.Role.Arn)
+  taskRoleArn: $(role.iam.get_role.Role.Arn)
   networkMode: awsvpc
   requiresCompatibilities:
     - FARGATE
   cpu: "${WSS_CONTAINER_CPU}"
   memory: "${WSS_CONTAINER_MEMORY}"
-wss.ecs.create_service:
-  serviceName: ${WSS_NAME}
-  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
-  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
-  desiredCount: ${WSS_CONTAINER_TASK_COUNT}
-  loadBalancers:
-    - targetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
-      containerName: ${WSS_NAME}
-      containerPort: ${WSS_CONTAINER_PORT}
-  launchType: FARGATE
-  networkConfiguration:
-    awsvpcConfiguration:
-      subnets:
-        - $(sage.ec2.describe_subnets.Subnets.0.SubnetId)
-        - $(sage.ec2.describe_subnets.Subnets.1.SubnetId)
-        - $(sage.ec2.describe_subnets.Subnets.2.SubnetId)
-        - $(sage.ec2.describe_subnets.Subnets.3.SubnetId)
-      securityGroups:
-        - $(wss.ec2.describe_security_groups.SecurityGroups.0.GroupId)
-      assignPublicIp: ENABLED
-wss.ecs.update_service:
-  service: ${WSS_NAME}
-  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
-  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
-  forceNewDeployment: true

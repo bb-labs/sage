@@ -1,0 +1,6 @@
+certs.turndown.acm.list_certificates:
+certs.turndown.local.filter_certificates:
+  certs: $(certs.turndown.acm.list_certificates.CertificateSummaryList)
+  domain: ${SAGE_DOMAIN}
+certs.turndown.acm.delete_certificate:
+  CertificateArn: $(certs.turndown.local.filter_certificates.CertificateArn)

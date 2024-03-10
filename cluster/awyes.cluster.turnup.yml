@@ -1,0 +1,54 @@
+cluster.turnup.ecs.create_cluster:
+  clusterName: ${CLUSTER_NAME}
+---
+app.ecs.create_service:
+  serviceName: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${APP_CONTAINER_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${APP_NAME}
+      containerPort: ${APP_CONTAINER_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets:
+        - $(infra.ec2.describe_subnets.Subnets.0.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.1.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.2.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.3.SubnetId)
+      securityGroups:
+        - $(app.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+app.ecs.update_service:
+  service: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true
+---
+wss.ecs.create_service:
+  serviceName: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${WSS_CONTAINER_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${WSS_NAME}
+      containerPort: ${WSS_CONTAINER_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets:
+        - $(infra.ec2.describe_subnets.Subnets.0.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.1.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.2.SubnetId)
+        - $(infra.ec2.describe_subnets.Subnets.3.SubnetId)
+      securityGroups:
+        - $(wss.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+wss.ecs.update_service:
+  service: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true
