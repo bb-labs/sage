@@ -4,3 +4,5 @@ infra.ec2.describe_subnets:
     - Name: vpc-id
       Values:
         - $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
+infra.local.get_subnet_ids:
+  subnets: $(infra.ec2.describe_subnets.Subnets)

@@ -9,6 +9,22 @@ app.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 ---
+app.turnup.elb.create_target_group:
+  Port: ${APP_CONTAINER_PORT}
+  Name: ${APP_TARGET_GROUP_NAME}
+  TargetType: ${APP_TARGET_GROUP_TYPE}
+  Protocol: ${APP_TARGET_GROUP_PROTOCOL}
+  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL_VERSION}
+  VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
+app.turnup.elb.create_listener:
+  LoadBalancerArn: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(certs.local.filter_certificates.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(app.turnup.elb.create_target_group.TargetGroups.0.TargetGroupArn)
 app.ecs.register_task_definition:
   family: ${APP_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:

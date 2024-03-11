@@ -1,0 +1,45 @@
+security.turnup.load.ec2.create_security_group:
+  GroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
+  Description: Sage generic load balancer security group
+security.turnup.load.ec2.describe_security_groups:
+  GroupNames:
+    - ${LOAD_BALANCER_SECURITY_GROUP_NAME}
+security.turnup.load.ec2.authorize_security_group_ingress:
+  ToPort: ${LOAD_BALANCER_PORT}
+  FromPort: ${LOAD_BALANCER_PORT}
+  IpProtocol: ${LOAD_BALANCER_IP_PROTOCOL}
+  CidrIp: ${LOAD_BALANCER_REACHABLE_EVERYWHERE}
+  GroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
+---
+security.turnup.app.ec2.create_security_group:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  Description: Sage app security group
+security.turnup.app.ec2.describe_security_groups:
+  GroupNames:
+    - ${APP_SECURITY_GROUP_NAME}
+security.turnup.app.ec2.authorize_security_group_ingress:
+  GroupName: ${APP_SECURITY_GROUP_NAME}
+  SourceSecurityGroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
+---
+security.turnup.wss.ec2.create_security_group:
+  GroupName: ${WSS_SECURITY_GROUP_NAME}
+  Description: Sage wss security group
+security.turnup.wss.ec2.describe_security_groups:
+  GroupNames:
+    - ${WSS_SECURITY_GROUP_NAME}
+security.turnup.wss.ec2.authorize_security_group_ingress:
+  GroupName: ${WSS_SECURITY_GROUP_NAME}
+  SourceSecurityGroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
+---
+security.turnup.db.ec2.create_security_group:
+  GroupName: ${DB_SECURITY_GROUP_NAME}
+  Description: Sage db security group
+security.turnup.db.ec2.describe_security_groups:
+  GroupNames:
+    - ${DB_SECURITY_GROUP_NAME}
+security.turnup.db.ec2.authorize_security_group_ingress:
+  GroupName: ${DB_SECURITY_GROUP_NAME}
+  ToPort: ${DB_PORT}
+  FromPort: ${DB_PORT}
+  CidrIp: ${DB_REACHABLE_CIDR_BLOCK}
+  IpProtocol: ${DB_IP_PROTOCOL}

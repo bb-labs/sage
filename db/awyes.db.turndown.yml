@@ -6,5 +6,3 @@ db.turndown.rds_instance_deleted.wait:
   DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}
 db.turndown.rds.delete_db_parameter_group:
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
-db.turndown.ec2.delete_security_group:
-  GroupName: ${DB_SECURITY_GROUP_NAME}
