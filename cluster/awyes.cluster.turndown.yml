@@ -1,18 +1,2 @@
-cluster.turndown.app.ecs.delete_service:
-  cluster: ${CLUSTER_NAME}
-  service: ${APP_NAME}
-  force: true
----
-cluster.turndown.wss.ecs.delete_service:
-  cluster: ${CLUSTER_NAME}
-  service: ${WSS_NAME}
-  force: true
----
-cluster.turndown.ecs.list_tasks:
-  cluster: ${CLUSTER_NAME}
-cluster.turndown.ecs_tasks_stopped.wait:
-  cluster: ${CLUSTER_NAME}
-  tasks: $(cluster.turndown.ecs.list_tasks.taskArns)
----
 cluster.turndown.ecs.delete_cluster:
   cluster: ${CLUSTER_NAME}

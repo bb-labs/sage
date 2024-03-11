@@ -9,23 +9,23 @@ wss.image.push:
     username: ${DOCKER_HUB_USERNAME}
     password: ${DOCKER_HUB_PASSWORD}
 ---
-load.turnup.wss.elb.create_target_group:
+wss.turnup.elb.create_target_group:
   Port: ${WSS_CONTAINER_PORT}
   Name: ${WSS_TARGET_GROUP_NAME}
   TargetType: ${WSS_TARGET_GROUP_TYPE}
   Protocol: ${WSS_TARGET_GROUP_PROTOCOL}
   ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL_VERSION}
   VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
-load.turnup.wss.elb.create_listener:
-  LoadBalancerArn: $(load.turnup.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+wss.turnup.elb.create_listener:
+  LoadBalancerArn: $(wss.turnup.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
   Protocol: ${LOAD_BALANCER_PROTOCOL}
   Port: ${LOAD_BALANCER_PORT}
   Certificates:
     - CertificateArn: $(certs.turnup.acm.describe_certificate.Certificate.CertificateArn)
   DefaultActions:
     - Type: forward
-      TargetGroupArn: $(load.turnup.wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
-wss.ecs.register_task_definition:
+      TargetGroupArn: $(wss.turnup.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+wss.turnup.ecs.register_task_definition:
   family: ${WSS_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${WSS_NAME}
@@ -58,3 +58,24 @@ wss.ecs.register_task_definition:
     - FARGATE
   cpu: "${WSS_CONTAINER_CPU}"
   memory: "${WSS_CONTAINER_MEMORY}"
+wss.turnup.ecs.create_service:
+  serviceName: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${WSS_CONTAINER_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(wss.turnup.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${WSS_NAME}
+      containerPort: ${WSS_CONTAINER_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets: $(infra.local.get_subnet_ids)
+      securityGroups:
+        - $(wss.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+wss.turnup.ecs.update_service:
+  service: ${WSS_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(wss.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true

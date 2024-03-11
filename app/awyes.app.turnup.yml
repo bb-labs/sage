@@ -17,15 +17,15 @@ app.turnup.elb.create_target_group:
   ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL_VERSION}
   VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
 app.turnup.elb.create_listener:
-  LoadBalancerArn: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  LoadBalancerArn: $(load.turnup.app.turnup.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
   Protocol: ${LOAD_BALANCER_PROTOCOL}
   Port: ${LOAD_BALANCER_PORT}
   Certificates:
-    - CertificateArn: $(certs.local.filter_certificates.CertificateArn)
+    - CertificateArn: $(certs.turnup.acm.describe_certificate.Certificate.CertificateArn)
   DefaultActions:
     - Type: forward
       TargetGroupArn: $(app.turnup.elb.create_target_group.TargetGroups.0.TargetGroupArn)
-app.ecs.register_task_definition:
+app.turnup.ecs.register_task_definition:
   family: ${APP_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${APP_NAME}
@@ -58,3 +58,24 @@ app.ecs.register_task_definition:
     - FARGATE
   cpu: "${APP_CONTAINER_CPU}"
   memory: "${APP_CONTAINER_MEMORY}"
+app.turnup.ecs.create_service:
+  serviceName: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  desiredCount: ${APP_CONTAINER_TASK_COUNT}
+  loadBalancers:
+    - targetGroupArn: $(app.turnup.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+      containerName: ${APP_NAME}
+      containerPort: ${APP_CONTAINER_PORT}
+  launchType: FARGATE
+  networkConfiguration:
+    awsvpcConfiguration:
+      subnets: $(infra.local.get_subnet_ids)
+      securityGroups:
+        - $(app.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+      assignPublicIp: ENABLED
+app.turnup.ecs.update_service:
+  service: ${APP_NAME}
+  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(app.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  forceNewDeployment: true
