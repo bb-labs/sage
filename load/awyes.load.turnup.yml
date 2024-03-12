@@ -2,17 +2,17 @@ load.turnup.app.elb.create_load_balancer:
   Name: ${APP_LOAD_BALANCER_NAME}
   Subnets: $(infra.local.get_subnet_ids)
   SecurityGroups:
-    - $(security.turnup.load.describe_security_groups.SecurityGroups.0.GroupId)
+    - $(security.turnup.load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Scheme: ${LOAD_BALANCER_SCHEME}
   Type: ${LOAD_BALANCER_TYPE}
-load.turnup.app.elb_waiter.wait:
+load.turnup.app.load_balancer_available.wait:
   Names:
     - ${APP_LOAD_BALANCER_NAME}
 load.turnup.app.elb.describe_load_balancers:
   Names:
     - ${APP_LOAD_BALANCER_NAME}
 load.turnup.app.route53.change_resource_record_sets:
-  HostedZoneId: $(dns.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  HostedZoneId: $(dns.turnup.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:
       - Action: UPSERT
@@ -23,15 +23,17 @@ load.turnup.app.route53.change_resource_record_sets:
             HostedZoneId: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
             DNSName: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.DNSName)
             EvaluateTargetHealth: false
+load.turnup.app.record_sets_changed.wait:
+  Id: $(load.turnup.app.route53.change_resource_record_sets.ChangeInfo.Id)
 ---
 load.turnup.wss.elb.create_load_balancer:
   Name: ${WSS_LOAD_BALANCER_NAME}
   Subnets: $(infra.local.get_subnet_ids)
   SecurityGroups:
-    - $(security.turnup.load.describe_security_groups.SecurityGroups.0.GroupId)
+    - $(security.turnup.load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Scheme: ${LOAD_BALANCER_SCHEME}
   Type: ${LOAD_BALANCER_TYPE}
-load.turnup.wss.elb_waiter.wait:
+load.turnup.wss.load_balancer_available.wait:
   Names:
     - ${WSS_LOAD_BALANCER_NAME}
 load.turnup.wss.elb.describe_load_balancers:
@@ -49,3 +51,5 @@ load.turnup.wss.route53.change_resource_record_sets:
             HostedZoneId: $(load.turnup.wss.elb.describe_load_balancers.LoadBalancers.0.CanonicalHostedZoneId)
             DNSName: $(load.turnup.wss.elb.describe_load_balancers.LoadBalancers.0.DNSName)
             EvaluateTargetHealth: false
+load.turnup.wss.record_sets_changed.wait:
+  Id: $(load.turnup.wss.route53.change_resource_record_sets.ChangeInfo.Id)

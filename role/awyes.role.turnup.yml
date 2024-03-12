@@ -1,6 +1,6 @@
-role.iam.create_role:
+role.turnup.iam.create_role:
   RoleName: ${SAGE_ROLE_NAME}
-  Description: Role for sage aws app
+  Description: Role for Sage on AWS
   AssumeRolePolicyDocument: >
     {
       "Version": "2012-10-17",
@@ -21,20 +21,20 @@ role.iam.create_role:
         }
       ]
     }
-role.logs.iam.attach_role_policy:
+role.turnup.logs.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
-role.ssm.iam.attach_role_policy:
+role.turnup.ssm.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess
-role.secrets.iam.attach_role_policy:
+role.turnup.secrets.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/SecretsManagerReadWrite
-role.kms.iam.attach_role_policy:
+role.turnup.kms.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/service-role/ROSAKMSProviderPolicy
-role.rds.iam.attach_role_policy:
+role.turnup.rds.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
-role.iam.get_role:
+role.turnup.iam.get_role:
   RoleName: ${SAGE_ROLE_NAME}

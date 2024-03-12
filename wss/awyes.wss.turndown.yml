@@ -1,10 +1,10 @@
-load.turndown.wss.elb.describe_listeners:
-  LoadBalancerArn: $(load.turndown.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
-load.turndown.wss.elb.describe_target_groups:
-  LoadBalancerArn: $(load.turndown.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
-load.turndown.wss.elb.delete_target_group:
-  TargetGroupArn: $(load.turndown.wss.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
-load.turndown.wss.ec2.delete_security_group:
+wss.turndown.elb.describe_listeners:
+  LoadBalancerArn: $(wss.turndown.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+wss.turndown.elb.describe_target_groups:
+  LoadBalancerArn: $(wss.turndown.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+wss.turndown.elb.delete_target_group:
+  TargetGroupArn: $(wss.turndown.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
+wss.turndown.ec2.delete_security_group:
   GroupName: ${WSS_SECURITY_GROUP_NAME}
-load.turndown.wss.elb.delete_listener:
-  ListenerArn: $(load.turndown.wss.elb.describe_listeners.Listeners.0.ListenerArn)
+wss.turndown.elb.delete_listener:
+  ListenerArn: $(wss.turndown.elb.describe_listeners.Listeners.0.ListenerArn)
