@@ -1,0 +1,2 @@
+s3.turndown.s3.delete_bucket:
+  Bucket: ${S3_BUCKET_NAME}

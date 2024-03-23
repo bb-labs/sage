@@ -1,0 +1,28 @@
+s3.turnup.s3.create_bucket:
+  Bucket: ${S3_BUCKET_NAME}
+  CreateBucketConfiguration:
+    LocationConstraint: ${SAGE_REGION}
+s3.turnup.bucket_exists.wait:
+  Bucket: ${S3_BUCKET_NAME}
+s3.turnup.s3.put_public_access_block:
+  Bucket: ${S3_BUCKET_NAME}
+  PublicAccessBlockConfiguration:
+    BlockPublicAcls: false
+    IgnorePublicAcls: false
+    BlockPublicPolicy: false
+    RestrictPublicBuckets: false
+s3.turnup.s3.put_bucket_policy:
+  Bucket: ${S3_BUCKET_NAME}
+  Policy: >
+    {
+      "Version":"2012-10-17",
+      "Statement":[
+        {
+          "Sid":"PublicRead",
+          "Effect":"Allow",
+          "Principal": "*",
+          "Action":["s3:GetObject"],
+          "Resource":["${S3_ARN_PREFIX}:::${S3_BUCKET_NAME}/*"]
+        }
+      ]
+    }

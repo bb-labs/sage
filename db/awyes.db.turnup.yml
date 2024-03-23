@@ -17,7 +17,7 @@ db.turnup.rds.create_db_instance:
   DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}
   DBParameterGroupName: ${DB_PARAMETER_GROUP_NAME}
   VpcSecurityGroupIds:
-    - $(db.turnup.ec2.describe_security_groups.SecurityGroups.0.GroupId)
+    - $(security.turnup.db.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Engine: ${DB_ENGINE}
   MasterUsername: ${DB_USERNAME}
   MasterUserPassword: ${DB_PASSWORD}
@@ -26,7 +26,7 @@ db.turnup.rds_instance_availiable.wait:
 db.turnup.rds.describe_db_instances:
   DBInstanceIdentifier: ${DB_INSTANCE_IDENTIFIER}
 db.turnup.route53.change_resource_record_sets:
-  HostedZoneId: $(sage.route53.list_hosted_zones_by_name.HostedZones.0.Id)
+  HostedZoneId: $(dns.turnup.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
     Changes:
       - Action: UPSERT
@@ -35,4 +35,6 @@ db.turnup.route53.change_resource_record_sets:
           Type: CNAME
           TTL: 300
           ResourceRecords:
-            - Value: $(db.rds.describe_db_instances.DBInstances.0.Endpoint.Address)
+            - Value: $(db.turnup.rds.describe_db_instances.DBInstances.0.Endpoint.Address)
+db.turnup.record_sets_changed.wait:
+  Id: $(db.turnup.route53.change_resource_record_sets.ChangeInfo.Id)

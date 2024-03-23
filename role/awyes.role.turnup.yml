@@ -14,7 +14,8 @@ role.turnup.iam.create_role:
               "ecs-tasks.amazonaws.com",
               "route53.amazonaws.com",
               "rds.amazonaws.com",
-              "ssm.amazonaws.com"
+              "ssm.amazonaws.com",
+              "s3.amazonaws.com"
             ]
           },
           "Action": "sts:AssumeRole"
@@ -24,6 +25,9 @@ role.turnup.iam.create_role:
 role.turnup.logs.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+role.turnup.s3.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonS3FullAccess
 role.turnup.ssm.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess

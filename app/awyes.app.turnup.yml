@@ -31,7 +31,7 @@ app.turnup.ecs.register_task_definition:
     - name: ${APP_NAME}
       image: ${DOCKER_REGISTRY}/${APP_NAME}:${APP_IMAGE_TAG}
       environmentFiles:
-        - value: ${ENV_FILE_PATH}
+        - value: ${ENV_PATH}
           type: s3
       secrets:
         - name: DB_USERNAME
