@@ -51,8 +51,8 @@ wss.turnup.ecs.register_task_definition:
         - containerPort: ${WSS_CONTAINER_PORT}
           protocol: ${WSS_CONTAINER_PROTOCOL}
           appProtocol: ${WSS_CONTAINER_PROTOCOL_VERSION}
-  executionRoleArn: $(role.iam.get_role.Role.Arn)
-  taskRoleArn: $(role.iam.get_role.Role.Arn)
+  executionRoleArn: $(role.turnup.iam.get_role)
+  taskRoleArn: $(role.turnup.iam.get_role)
   networkMode: awsvpc
   requiresCompatibilities:
     - FARGATE

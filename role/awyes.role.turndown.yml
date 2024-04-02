@@ -1,6 +1,12 @@
 role.turndown.logs.iam.detach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+role.turndown.lambda.iam.detach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AWSLambda_FullAccess
+role.turndown.s3.iam.detach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonS3FullAccess
 role.turndown.ssm.iam.detach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonSSMFullAccess

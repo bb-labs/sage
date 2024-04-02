@@ -14,6 +14,8 @@ role.turnup.iam.create_role:
               "ecs-tasks.amazonaws.com",
               "route53.amazonaws.com",
               "rds.amazonaws.com",
+              "lambda.amazonaws.com",
+              "secretsmanager.amazonaws.com",
               "ssm.amazonaws.com",
               "s3.amazonaws.com"
             ]
@@ -25,6 +27,9 @@ role.turnup.iam.create_role:
 role.turnup.logs.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2
+role.turnup.lambda.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AWSLambda_FullAccess
 role.turnup.s3.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonS3FullAccess
