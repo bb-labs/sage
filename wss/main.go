@@ -18,11 +18,7 @@ func main() {
 	router := gin.Default()
 
 	// Add the apple oauth2 provider
-	skipAuthChecks, err := strconv.ParseBool(os.Getenv("APPLE_SKIP_AUTH_CHECKS"))
-	if err != nil {
-		log.Fatalf("failed to parse skipAuth bool: %v", err)
-	}
-
+	skipAuthChecks, _ := strconv.ParseBool(os.Getenv("APPLE_SKIP_AUTH_CHECKS"))
 	appleProvider, err := corner.NewAppleProvider(ctx, corner.Config{
 		ClientID:     os.Getenv("APPLE_BUNDLE_ID"),
 		ClientSecret: os.Getenv("APPLE_CLIENT_SECRET"),
