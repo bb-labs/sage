@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 
 	"github.com/bb-labs/corner"
 	"github.com/bb-labs/sage/pb"
@@ -32,7 +33,7 @@ func main() {
 		User:     os.Getenv("DB_USERNAME"),
 		Password: os.Getenv("DB_PASSWORD"),
 		Database: os.Getenv("DB_NAME"),
-		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT")),
+		Addr:     fmt.Sprintf("%s:%s", os.Getenv("DB_DOMAIN"), os.Getenv("DB_PORT")),
 	})
 	defer dbc.Close()
 
@@ -48,16 +49,25 @@ func main() {
 	}
 
 	// Add the apple oauth2 provider
-	appleProvider, err := corner.NewProvider(ctx, corner.AppleProviderURL, os.Getenv("APPLE_BUNDLE_ID"), os.Getenv("APPLE_CLIENT_SECRET"))
+	skipAuthChecks, err := strconv.ParseBool(os.Getenv("APPLE_SKIP_AUTH_CHECKS"))
+	if err != nil {
+		log.Fatalf("failed to parse skipAuth bool: %v", err)
+	}
+
+	appleProvider, err := corner.NewAppleProvider(ctx, corner.Config{
+		ClientID:     os.Getenv("APPLE_BUNDLE_ID"),
+		ClientSecret: os.Getenv("APPLE_CLIENT_SECRET"),
+		SkipChecks:   skipAuthChecks,
+	})
 	if err != nil {
 		log.Fatalf("failed to create apple provider: %v", err)
 	}
 
 	// Create a new corner instance
-	corner := corner.New(appleProvider)
+	cb := corner.New(appleProvider)
 
 	// Create the grpc server
-	server := grpc.NewServer(grpc.ChainUnaryInterceptor(corner.UnaryServerInterceptor))
+	server := grpc.NewServer(grpc.ChainUnaryInterceptor(cb.UnaryServerInterceptor))
 	defer func() {
 		server.GracefulStop()
 	}()
@@ -67,7 +77,7 @@ func main() {
 	reflection.Register(server)
 
 	// Create the tcp connection
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_PORT")))
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_CONTAINER_PORT")))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

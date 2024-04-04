@@ -1,4 +1,4 @@
-include ./env/.env
+include .env
 export
 
 drop:
@@ -6,6 +6,10 @@ drop:
 
 select:
 	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
+
+deps:
+	cd app; go get github.com/bb-labs/corner; go mod tidy
+	cd wss; go get github.com/bb-labs/corner; go mod tidy
 
 build:
 	envsubst < docker-compose.dev.yml | docker compose -f - build

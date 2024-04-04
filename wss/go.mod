@@ -3,7 +3,7 @@ module github.com/bb-labs/sage/wss
 go 1.20
 
 require (
-	github.com/bb-labs/corner v0.2.0
+	github.com/bb-labs/corner v0.2.7
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gorilla/websocket v1.5.1
 	google.golang.org/protobuf v1.32.0
