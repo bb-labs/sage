@@ -70,7 +70,7 @@ wss.turnup.ecs.create_service:
   launchType: FARGATE
   networkConfiguration:
     awsvpcConfiguration:
-      subnets: $(infra.local.get_subnet_ids)
+      subnets: $(infra.get_subnet_ids)
       securityGroups:
         - $(wss.ec2.describe_security_groups.SecurityGroups.0.GroupId)
       assignPublicIp: ENABLED

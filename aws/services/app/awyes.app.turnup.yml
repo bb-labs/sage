@@ -1,3 +1,7 @@
+app.bump.patch.read_text: ${ENV_PATH}
+app.turnup.minor.bump: MINOR
+app.turnup.major.bump: MAJOR
+
 app.image.build:
   tag: ${DOCKER_REGISTRY}/${APP_NAME}:${APP_IMAGE_TAG}
   path: app
@@ -70,7 +74,7 @@ app.turnup.ecs.create_service:
   launchType: FARGATE
   networkConfiguration:
     awsvpcConfiguration:
-      subnets: $(infra.local.get_subnet_ids)
+      subnets: $(infra.get_subnet_ids)
       securityGroups:
         - $(app.ec2.describe_security_groups.SecurityGroups.0.GroupId)
       assignPublicIp: ENABLED

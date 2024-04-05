@@ -4,18 +4,18 @@ certs.turnup.acm.request_certificate:
   SubjectAlternativeNames:
     - ${WSS_DOMAIN}
     - ${APP_DOMAIN}
-certs.turnup.local.sleep: 120
+certs.turnup.sleep: 120
 certs.turnup.acm.list_certificates:
-certs.local.filter_certificates:
+certs.filter_certificates:
   certs: $(certs.turnup.acm.list_certificates.CertificateSummaryList)
   domain: ${SAGE_DOMAIN}
 certs.turnup.acm.describe_certificate:
-  CertificateArn: $(certs.local.filter_certificates.CertificateArn)
-certs.turnup.local.prepare_record_sets_for_upsertion:
+  CertificateArn: $(certs.filter_certificates.CertificateArn)
+certs.turnup.prepare_record_sets_for_upsertion:
   records: $(certs.turnup.acm.describe_certificate.Certificate.DomainValidationOptions)
 certs.turnup.route53.change_resource_record_sets:
   HostedZoneId: $(dns.turnup.route53.list_hosted_zones_by_name.HostedZones.0.Id)
   ChangeBatch:
-    Changes: $(certs.turnup.local.prepare_record_sets_for_upsertion)
+    Changes: $(certs.turnup.prepare_record_sets_for_upsertion)
 certs.turnup.acm.certificate_validated.wait:
-  CertificateArn: $(certs.local.filter_certificates.CertificateArn)
+  CertificateArn: $(certs.filter_certificates.CertificateArn)

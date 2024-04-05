@@ -11,7 +11,7 @@ import (
 func (s *SageServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	log.Printf("Received: %v", in)
 
-	_, err := s.dbc.Model(in.GetUser()).Insert()
+	_, err := s.DB.Model(in.GetUser()).Insert()
 	if err != nil {
 		return nil, fmt.Errorf("failed to insert user: %v", err)
 	}

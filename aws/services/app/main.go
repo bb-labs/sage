@@ -18,7 +18,7 @@ import (
 
 type SageServer struct {
 	pb.UnimplementedSageServer
-	dbc *pg.DB
+	*pg.DB
 }
 
 func main() {
@@ -69,7 +69,7 @@ func main() {
 	}()
 
 	// Register the server
-	pb.RegisterSageServer(server, &SageServer{dbc: dbc})
+	pb.RegisterSageServer(server, &SageServer{DB: dbc})
 	reflection.Register(server)
 
 	// Create the tcp connection

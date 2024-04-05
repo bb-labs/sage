@@ -1,6 +1,6 @@
 load.turnup.app.elb.create_load_balancer:
   Name: ${APP_LOAD_BALANCER_NAME}
-  Subnets: $(infra.local.get_subnet_ids)
+  Subnets: $(infra.get_subnet_ids)
   SecurityGroups:
     - $(security.turnup.load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Scheme: ${LOAD_BALANCER_SCHEME}
@@ -28,7 +28,7 @@ load.turnup.app.record_sets_changed.wait:
 ---
 load.turnup.wss.elb.create_load_balancer:
   Name: ${WSS_LOAD_BALANCER_NAME}
-  Subnets: $(infra.local.get_subnet_ids)
+  Subnets: $(infra.get_subnet_ids)
   SecurityGroups:
     - $(security.turnup.load.ec2.describe_security_groups.SecurityGroups.0.GroupId)
   Scheme: ${LOAD_BALANCER_SCHEME}

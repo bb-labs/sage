@@ -1,0 +1,9 @@
+app.bump.patch.semver.bump_patch: ${APP_IMAGE_TAG}
+app.bump.patch.read_text: ${ENV_PATH}
+app.bump.patch.re.sub:
+  pattern: "APP_IMAGE_TAG=(.*)"
+  repl: 'APP_IMAGE_TAG="$(app.bump.patch.semver.bump_patch)"'
+  string: $(app.bump.patch.read_text)
+app.bump.patch.write_text:
+  path: ${ENV_PATH}
+  data: $(app.bump.patch.re.sub)

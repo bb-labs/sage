@@ -1,7 +1,9 @@
+import re
 import time
 import boto3
 import base64
 import docker
+import semver
 import pathlib
 
 ssm = boto3.client("ssm")
@@ -46,4 +48,7 @@ except:
 sleep = lambda seconds: time.sleep(seconds)
 read_text = lambda path: pathlib.Path(path).read_text()
 read_bytes = lambda path: pathlib.Path(path).read_bytes()
+write_text = lambda path, data: pathlib.Path(path).write_text(data)
+write_bytes = lambda path, data: pathlib.Path(path).write_bytes(data)
 b64decode = lambda data: base64.b64decode(data).decode()
+b64encode = lambda data: base64.b64encode(data.encode()).decode()
