@@ -1,0 +1,29 @@
+wss.bump.patch.semver.bump_patch: ${WSS_IMAGE_TAG}
+wss.bump.patch.read_text: ${ENV_PATH}
+wss.bump.patch.re.sub:
+  pattern: ${WSS_IMAGE_PATTERN}
+  repl: 'WSS_IMAGE_TAG="$(wss.bump.patch.semver.bump_patch)"'
+  string: $(wss.bump.patch.read_text)
+wss.bump.patch.write_text:
+  path: ${ENV_PATH}
+  data: $(wss.bump.patch.re.sub)
+---
+wss.bump.minor.semver.bump_minor: ${WSS_IMAGE_TAG}
+wss.bump.minor.read_text: ${ENV_PATH}
+wss.bump.minor.re.sub:
+  pattern: ${WSS_IMAGE_PATTERN}
+  repl: 'WSS_IMAGE_TAG="$(wss.bump.minor.semver.bump_minor)"'
+  string: $(wss.bump.minor.read_text)
+wss.bump.minor.write_text:
+  path: ${ENV_PATH}
+  data: $(wss.bump.minor.re.sub)
+---
+wss.bump.major.semver.bump_major: ${WSS_IMAGE_TAG}
+wss.bump.major.read_text: ${ENV_PATH}
+wss.bump.major.re.sub:
+  pattern: ${WSS_IMAGE_PATTERN}
+  repl: 'WSS_IMAGE_TAG="$(wss.bump.major.semver.bump_major)"'
+  string: $(wss.bump.major.read_text)
+wss.bump.major.write_text:
+  path: ${ENV_PATH}
+  data: $(wss.bump.major.re.sub)
