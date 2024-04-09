@@ -7,8 +7,10 @@ import semver
 import pathlib
 
 ssm = boto3.client("ssm")
+ecr = boto3.client("ecr")
 iam = boto3.client("iam")
 secrets = boto3.client("secretsmanager")
+
 
 lmda = boto3.client("lambda")
 function_active = lmda.get_waiter("function_active_v2")
@@ -22,8 +24,6 @@ ecs_tasks_stopped = ecs.get_waiter("tasks_stopped")
 
 ec2 = boto3.client("ec2")
 ec2_waiter = ec2.get_waiter("instance_status_ok")
-
-ecr = boto3.client("ecr")
 
 route53 = boto3.client("route53")
 record_sets_changed = route53.get_waiter("resource_record_sets_changed")

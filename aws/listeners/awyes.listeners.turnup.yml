@@ -1,0 +1,19 @@
+listeners.turnup.app.elb.create_listener:
+  LoadBalancerArn: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(certs.turnup.acm.describe_certificate.Certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(targets.turnup.app.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
+---
+listeners.turnup.wss.elb.create_listener:
+  LoadBalancerArn: $(load.turnup.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
+  Protocol: ${LOAD_BALANCER_PROTOCOL}
+  Port: ${LOAD_BALANCER_PORT}
+  Certificates:
+    - CertificateArn: $(certs.turnup.acm.describe_certificate.Certificate.CertificateArn)
+  DefaultActions:
+    - Type: forward
+      TargetGroupArn: $(targets.turnup.wss.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)

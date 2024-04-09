@@ -1,0 +1,6 @@
+repos.turnup.secrets.ecr.create_repository:
+  repositoryName: ${SECRETS_ECR_REPO_NAME}
+repos.turnup.app.ecr.create_repository:
+  repositoryName: ${APP_ECR_REPO_NAME}
+repos.turnup.wss.ecr.create_repository:
+  repositoryName: ${WSS_ECR_REPO_NAME}

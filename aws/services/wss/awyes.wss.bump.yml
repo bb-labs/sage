@@ -27,3 +27,14 @@ wss.bump.major.re.sub:
 wss.bump.major.write_text:
   path: ${ENV_PATH}
   data: $(wss.bump.major.re.sub)
+---
+wss.image.build:
+  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:${WSS_IMAGE_TAG}
+  path: wss
+  dockerfile: Dockerfile
+wss.image.push:
+  repository: ${DOCKER_REGISTRY}/${WSS_NAME}
+  tag: ${WSS_IMAGE_TAG}
+  auth_config:
+    username: ${DOCKER_HUB_USERNAME}
+    password: ${DOCKER_HUB_PASSWORD}

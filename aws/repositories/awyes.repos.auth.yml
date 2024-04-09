@@ -1,0 +1,6 @@
+repos.auth.ecr.get_authorization_token:
+repos.auth.b64decode: $(repos.auth.ecr.get_authorization_token.authorizationData.0.authorizationToken)
+repos.auth.re.sub:
+  pattern: "^${SAGE_AWS_USER}:"
+  repl: ""
+  string: $(repos.auth.b64decode)

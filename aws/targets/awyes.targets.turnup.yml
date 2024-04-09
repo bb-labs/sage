@@ -1,0 +1,21 @@
+targets.turnup.app.elb.create_target_group:
+  Port: ${APP_CONTAINER_PORT}
+  Name: ${APP_TARGET_GROUP_NAME}
+  TargetType: ${APP_TARGET_GROUP_TYPE}
+  Protocol: ${APP_TARGET_GROUP_PROTOCOL}
+  ProtocolVersion: ${APP_TARGET_GROUP_PROTOCOL_VERSION}
+  VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
+targets.turnup.app.elb.describe_target_groups:
+  Names:
+    - ${APP_TARGET_GROUP_NAME}
+---
+targets.turnup.wss.elb.create_target_group:
+  Port: ${WSS_CONTAINER_PORT}
+  Name: ${WSS_TARGET_GROUP_NAME}
+  TargetType: ${WSS_TARGET_GROUP_TYPE}
+  Protocol: ${WSS_TARGET_GROUP_PROTOCOL}
+  ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL_VERSION}
+  VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
+targets.turnup.wss.elb.describe_target_groups:
+  Names:
+    - ${WSS_TARGET_GROUP_NAME}
