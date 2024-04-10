@@ -1,0 +1,7 @@
+subnets.ec2.describe_subnets:
+  Filters:
+    - Name: vpc-id
+      Values:
+        - $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
+subnets.get_subnet_ids:
+  subnets: $(subnets.ec2.describe_subnets.Subnets)

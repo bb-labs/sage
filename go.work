@@ -1,6 +1,6 @@
 go 1.20
 
 use (
-	./aws/services/app
-	./aws/services/wss
+	./app
+	./wss
 )

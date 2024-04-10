@@ -1,0 +1,4 @@
+s3.turndown.env.s3.delete_bucket:
+  Bucket: ${S3_ENV_BUCKET_NAME}
+s3.turndown.reels.s3.delete_bucket:
+  Bucket: ${S3_REELS_BUCKET_NAME}
