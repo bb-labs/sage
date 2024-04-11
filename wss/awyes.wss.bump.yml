@@ -1,7 +1,7 @@
 wss.bump.patch.semver.bump_patch: ${WSS_IMAGE_TAG}
 wss.bump.patch.read_text: ${ENV_PATH}
 wss.bump.patch.re.sub:
-  pattern: ${WSS_IMAGE_PATTERN}
+  pattern: "WSS_IMAGE_TAG=(.*)"
   repl: 'WSS_IMAGE_TAG="$(wss.bump.patch.semver.bump_patch)"'
   string: $(wss.bump.patch.read_text)
 wss.bump.patch.write_text:
@@ -11,7 +11,7 @@ wss.bump.patch.write_text:
 wss.bump.minor.semver.bump_minor: ${WSS_IMAGE_TAG}
 wss.bump.minor.read_text: ${ENV_PATH}
 wss.bump.minor.re.sub:
-  pattern: ${WSS_IMAGE_PATTERN}
+  pattern: "WSS_IMAGE_TAG=(.*)"
   repl: 'WSS_IMAGE_TAG="$(wss.bump.minor.semver.bump_minor)"'
   string: $(wss.bump.minor.read_text)
 wss.bump.minor.write_text:
@@ -21,20 +21,9 @@ wss.bump.minor.write_text:
 wss.bump.major.semver.bump_major: ${WSS_IMAGE_TAG}
 wss.bump.major.read_text: ${ENV_PATH}
 wss.bump.major.re.sub:
-  pattern: ${WSS_IMAGE_PATTERN}
+  pattern: "WSS_IMAGE_TAG=(.*)"
   repl: 'WSS_IMAGE_TAG="$(wss.bump.major.semver.bump_major)"'
   string: $(wss.bump.major.read_text)
 wss.bump.major.write_text:
   path: ${ENV_PATH}
   data: $(wss.bump.major.re.sub)
----
-wss.image.build:
-  tag: ${DOCKER_REGISTRY}/${WSS_NAME}:${WSS_IMAGE_TAG}
-  path: wss
-  dockerfile: Dockerfile
-wss.image.push:
-  repository: ${DOCKER_REGISTRY}/${WSS_NAME}
-  tag: ${WSS_IMAGE_TAG}
-  auth_config:
-    username: ${DOCKER_HUB_USERNAME}
-    password: ${DOCKER_HUB_PASSWORD}

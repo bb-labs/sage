@@ -15,6 +15,7 @@ targets.turnup.wss.elb.create_target_group:
   TargetType: ${WSS_TARGET_GROUP_TYPE}
   Protocol: ${WSS_TARGET_GROUP_PROTOCOL}
   ProtocolVersion: ${WSS_TARGET_GROUP_PROTOCOL_VERSION}
+  HealthCheckPath: ${WSS_TARGET_GROUP_HEALTH_CHECK_PATH}
   VpcId: $(infra.ec2.describe_vpcs.Vpcs.0.VpcId)
 targets.turnup.wss.elb.describe_target_groups:
   Names:

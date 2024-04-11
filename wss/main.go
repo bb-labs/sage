@@ -31,15 +31,17 @@ func main() {
 	// Create a new corner instance
 	cb := corner.New(appleProvider)
 
-	// Add authentication middleware
-	router.Use(cb.GinAuthenticator)
-
 	// Initialize the hub
 	hub := NewHub(websocket.Upgrader{})
 	go hub.Run()
 
-	// Setup route to connect users
-	router.GET("/connect", hub.ConnectUsers)
+	// Routes
+	public := router.Group("/")
+	public.GET("/health", func(c *gin.Context) { c.JSON(200, gin.H{"status": "healthy!"}) })
+
+	private := router.Group("/")
+	private.Use(cb.GinAuthenticator)
+	private.GET("/connect", hub.ConnectUsers)
 
 	// Run the server
 	router.Run(fmt.Sprintf(":%s", os.Getenv("WSS_CONTAINER_PORT")))

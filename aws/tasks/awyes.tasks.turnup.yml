@@ -31,6 +31,9 @@ tasks.turnup.app.ecs.register_task_definition:
     - FARGATE
   cpu: "${APP_CONTAINER_CPU}"
   memory: "${APP_CONTAINER_MEMORY}"
+  runtimePlatform:
+    cpuArchitecture: ${APP_CONTAINER_ARCHITECTURE}
+    operatingSystemFamily: ${APP_CONTAINER_OS_FAMILY}
 ---
 tasks.turnup.wss.ecs.register_task_definition:
   family: ${WSS_CONTAINER_TASK_DEFINITION_NAME}
@@ -65,3 +68,6 @@ tasks.turnup.wss.ecs.register_task_definition:
     - FARGATE
   cpu: "${WSS_CONTAINER_CPU}"
   memory: "${WSS_CONTAINER_MEMORY}"
+  runtimePlatform:
+    cpuArchitecture: ${WSS_CONTAINER_ARCHITECTURE}
+    operatingSystemFamily: ${WSS_CONTAINER_OS_FAMILY}

@@ -1,11 +1,11 @@
-service.update.app.ecs.update_service:
+services.update.app.ecs.update_service:
   service: ${APP_NAME}
-  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
-  taskDefinition: $(app.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  cluster: $(cluster.turnup.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(tasks.turnup.app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   forceNewDeployment: true
 ---
-service.update.wss.ecs.update_service:
+services.update.wss.ecs.update_service:
   service: ${WSS_NAME}
-  cluster: $(cluster.ecs.create_cluster.cluster.clusterArn)
-  taskDefinition: $(wss.turnup.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
+  cluster: $(cluster.turnup.ecs.create_cluster.cluster.clusterArn)
+  taskDefinition: $(tasks.turnup.wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   forceNewDeployment: true

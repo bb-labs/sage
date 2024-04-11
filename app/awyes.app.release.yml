@@ -1,6 +1,7 @@
 app.release.image.build:
   tag: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${APP_ECR_REPO_NAME}:${APP_IMAGE_TAG}
-  path: aws/services/app
+  path: ${APP_PATH}
+  platform: ${APP_IMAGE_PLATFORM}
   dockerfile: Dockerfile
 app.release.image.push:
   repository: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${APP_ECR_REPO_NAME}

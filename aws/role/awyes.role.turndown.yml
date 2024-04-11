@@ -19,5 +19,8 @@ role.turndown.kms.iam.detach_role_policy:
 role.turndown.rds.iam.detach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/AmazonRDSFullAccess
+role.turndown.ec2.iam.detach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
 role.turndown.iam.delete_role:
   RoleName: ${SAGE_ROLE_NAME}

@@ -24,6 +24,9 @@ role.turnup.iam.create_role:
         }
       ]
     }
+role.turnup.ec2.iam.attach_role_policy:
+  RoleName: ${SAGE_ROLE_NAME}
+  PolicyArn: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
 role.turnup.logs.iam.attach_role_policy:
   RoleName: ${SAGE_ROLE_NAME}
   PolicyArn: arn:aws:iam::aws:policy/CloudWatchFullAccessV2

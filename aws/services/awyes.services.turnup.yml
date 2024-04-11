@@ -4,7 +4,7 @@ services.turnup.app.ecs.create_service:
   taskDefinition: $(tasks.turnup.app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   desiredCount: ${APP_CONTAINER_TASK_COUNT}
   loadBalancers:
-    - targetGroupArn: $(targets.turnup.app.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+    - targetGroupArn: $(targets.turnup.app.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
       containerName: ${APP_NAME}
       containerPort: ${APP_CONTAINER_PORT}
   launchType: FARGATE
@@ -21,7 +21,7 @@ services.turnup.wss.ecs.create_service:
   taskDefinition: $(tasks.turnup.wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   desiredCount: ${WSS_CONTAINER_TASK_COUNT}
   loadBalancers:
-    - targetGroupArn: $(targets.turnup.wss.elb.create_target_group.TargetGroups.0.TargetGroupArn)
+    - targetGroupArn: $(targets.turnup.wss.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
       containerName: ${WSS_NAME}
       containerPort: ${WSS_CONTAINER_PORT}
   launchType: FARGATE
