@@ -1,10 +1,21 @@
-name: Custom awyes action
+name: Arbitrary awyes action
 
 on:
   workflow_dispatch:
     inputs:
       action:
+        description: The action to perform
         required: true
+      dryrun:
+        description: Dryrun mode
+        type: boolean
+        required: false
+        default: false
+      verbose:
+        description: Verbose mode
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   deploy:
@@ -30,3 +41,5 @@ jobs:
           TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
           action: ${{github.event.inputs.action}}
+          dryrun: ${{github.event.inputs.dryrun}}
+          verbose: ${{github.event.inputs.verbose}}
