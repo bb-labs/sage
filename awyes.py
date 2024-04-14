@@ -21,6 +21,7 @@ object_exists = s3.get_waiter("object_exists")
 
 ecs = boto3.client("ecs")
 ecs_tasks_stopped = ecs.get_waiter("tasks_stopped")
+ecs_services_stable = ecs.get_waiter("services_stable")
 
 ec2 = boto3.client("ec2")
 ec2_waiter = ec2.get_waiter("instance_status_ok")

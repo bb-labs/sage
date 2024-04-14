@@ -1,11 +1,11 @@
-name: Initialize AWS resources
+name: Turndown AWS resources
 
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Initialize all AWS resources
+    name: Teardown all AWS resources
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,13 +20,18 @@ jobs:
 
       - name: Run awyes actions to initialize resources
         uses: bb-labs/awyes@main
-        env:
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
-          TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
           action: |
-            ^cluster \
-            ^app \
-            ^wss \
+            ^services.turndown \
+            ^listeners.turndown \
+            ^targets.turndown \
+            ^cluster.turndown \
+            ^load.turndown \
+            ^secrets.turndown \
+            ^repos.turndown \
+            ^env.turndown \
+            ^s3.turndown \
+            ^db.turndown \
+            ^security.turndown \
+            ^certs.turndown \
+            ^role.turndown \
