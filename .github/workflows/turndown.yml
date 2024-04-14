@@ -18,7 +18,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Run awyes actions to initialize resources
+      - name: Run awyes actions to teardown resources
         uses: bb-labs/awyes@main
         with:
           action: |
