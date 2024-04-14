@@ -3,7 +3,7 @@ FROM public.ecr.aws/lambda/python:3.12
 # Copy requirements.txt
 COPY . ${LAMBDA_TASK_ROOT}
 
-# RUN ls -la
+RUN ls -la
 # # Install the specified packages
 # RUN pip install -r requirements.txt
 
