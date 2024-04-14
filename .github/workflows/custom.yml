@@ -1,4 +1,4 @@
-name: Run a custom awyes action
+name: Custom awyes action
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy AWS resources
+    name: ${{github.event.inputs.action}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,6 +20,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
+
+      - name: List files in the repository
+        run: ls -R
 
       - name: Run awyes actions
         uses: bb-labs/awyes@main
