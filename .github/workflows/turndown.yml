@@ -21,17 +21,4 @@ jobs:
       - name: Run awyes actions to teardown resources
         uses: bb-labs/awyes@main
         with:
-          action: |
-            ^services.turndown \
-            ^listeners.turndown \
-            ^targets.turndown \
-            ^cluster.turndown \
-            ^load.turndown \
-            ^secrets.turndown \
-            ^repos.turndown \
-            ^env.turndown \
-            ^s3.turndown \
-            ^db.turndown \
-            ^security.turndown \
-            ^certs.turndown \
-            ^role.turndown
+          action: ^services.turndown ^listeners.turndown ^targets.turndown ^cluster.turndown ^load.turndown ^secrets.turndown ^repos.turndown ^env.turndown ^s3.turndown ^db.turndown ^security.turndown ^certs.turndown ^role.turndown
