@@ -30,3 +30,4 @@ jobs:
           TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
           action: ${{github.event.inputs.action}}
+          verbose: true
