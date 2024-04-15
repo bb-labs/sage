@@ -22,7 +22,7 @@ on:
 
 jobs:
   deploy:
-    name: ${{github.event.inputs.action}}
+    name: Versioning ${{github.event.inputs.image}} image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
