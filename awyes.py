@@ -57,5 +57,5 @@ b64encode = lambda data: base64.b64encode(data.encode()).decode()
 gitcommit = lambda message: subprocess.call(["git", "commit", "-am", message])
 gitpush = lambda: subprocess.call(["git", "push"])
 gitsafe = lambda: subprocess.call(
-    ["git", "config", "--global", "add", "safe.directory", "/"]
+    ["git", "config", "--global", "add", "safe.directory", "/github/workspace"]
 )
