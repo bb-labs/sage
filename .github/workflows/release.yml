@@ -1,4 +1,4 @@
-name: Version Image
+name: Release Version
 
 on:
   workflow_dispatch:
@@ -10,14 +10,6 @@ on:
         options:
           - app
           - wss
-      bump:
-        type: choice
-        required: true
-        description: Bump type
-        options:
-          - major
-          - minor
-          - patch
 
 jobs:
   deploy:
@@ -34,21 +26,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Create new image version
+      - name: Update service with new image version
         uses: bb-labs/awyes@main
         env:
           SECRETS_LAMBDA_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
           APP_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
           WSS_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
         with:
-          action: ^images.version.${{github.event.inputs.image}}
-
-      - name: Push the new image to ECR
-        uses: bb-labs/awyes@main
-        with:
-          action: ^images.turnup.${{github.event.inputs.image}}
-
-      - name: Sync env in s3
-        uses: bb-labs/awyes@main
-        with:
-          action: ^env.turnup
+          action: ^services.update.${{github.event.inputs.image}}
