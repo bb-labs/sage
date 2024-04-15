@@ -43,3 +43,8 @@ jobs:
           WSS_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
         with:
           action: ^images.version.${{github.event.inputs.image}}
+
+      - name: Push changes
+        uses: bb-labs/awyes@main
+        with:
+          action: ^images.turnup.${{github.event.inputs.image}}
