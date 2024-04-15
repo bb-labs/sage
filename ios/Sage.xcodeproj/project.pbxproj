@@ -7,32 +7,79 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B09E5102BCCFB1700A36C88 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5232D92BCCF38700161FF0 /* SwiftProtobuf */; };
+		8B09E5112BCCFB1700A36C88 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5232DA2BCCF38700161FF0 /* SwiftProtobufPluginLibrary */; };
+		8B09E5122BCCFB1700A36C88 /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5232DB2BCCF38700161FF0 /* protoc-gen-swift */; };
+		8B09E5132BCCFB1700A36C88 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7E9A912BCCF547008A20E2 /* CGRPCZlib */; };
+		8B09E5142BCCFB1700A36C88 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7E9A922BCCF547008A20E2 /* GRPC */; };
+		8B09E5152BCCFB1700A36C88 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7E9A932BCCF547008A20E2 /* GRPCReflectionService */; };
+		8B09E5162BCCFB1700A36C88 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7E9A942BCCF547008A20E2 /* _GRPCCore */; };
+		8B09E5172BCCFB1700A36C88 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7E9A952BCCF547008A20E2 /* protoc-gen-grpc-swift */; };
+		8B09E5192BCCFDBC00A36C88 /* SageUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B09E5182BCCFDBC00A36C88 /* SageUserViewModel.swift */; };
+		8B5232D12BCCE71900161FF0 /* SageUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5232D02BCCE71900161FF0 /* SageUserModel.swift */; };
+		8BDE2B7D2BCCF9B50048BD31 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B7C2BCCF9B50048BD31 /* SwiftProtobuf */; };
+		8BDE2B7F2BCCF9B50048BD31 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B7E2BCCF9B50048BD31 /* SwiftProtobufPluginLibrary */; };
+		8BDE2B812BCCF9B50048BD31 /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B802BCCF9B50048BD31 /* protoc-gen-swift */; };
+		8BDE2B832BCCF9BF0048BD31 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B822BCCF9BF0048BD31 /* CGRPCZlib */; };
+		8BDE2B852BCCF9BF0048BD31 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B842BCCF9BF0048BD31 /* GRPC */; };
+		8BDE2B872BCCF9BF0048BD31 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B862BCCF9BF0048BD31 /* GRPCReflectionService */; };
+		8BDE2B892BCCF9BF0048BD31 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B882BCCF9BF0048BD31 /* _GRPCCore */; };
+		8BDE2B8B2BCCF9BF0048BD31 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE2B8A2BCCF9BF0048BD31 /* protoc-gen-grpc-swift */; };
 		8BF4F8972BCCE34900DE9702 /* SageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4F8962BCCE34900DE9702 /* SageApp.swift */; };
 		8BF4F8992BCCE34900DE9702 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4F8982BCCE34900DE9702 /* ContentView.swift */; };
 		8BF4F89B2BCCE34A00DE9702 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */; };
-		8BF4F89F2BCCE34A00DE9702 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */; };
+		C93C43D79D0671229C571AA4 /* sage.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3E4C0B9952F83808A32854 /* sage.grpc.swift */; };
+		CBA64E14AB3F2C13328B2EEE /* sage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368847568419DE2706C6438D /* sage.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B3E4C0B9952F83808A32854 /* sage.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.grpc.swift; sourceTree = "<group>"; };
+		368847568419DE2706C6438D /* sage.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sage.pb.swift; sourceTree = "<group>"; };
+		8B09E5182BCCFDBC00A36C88 /* SageUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageUserViewModel.swift; sourceTree = "<group>"; };
+		8B5232D02BCCE71900161FF0 /* SageUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageUserModel.swift; sourceTree = "<group>"; };
 		8BF4F8932BCCE34900DE9702 /* Sage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF4F8962BCCE34900DE9702 /* SageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageApp.swift; sourceTree = "<group>"; };
 		8BF4F8982BCCE34900DE9702 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BF4F89C2BCCE34A00DE9702 /* Sage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sage.entitlements; sourceTree = "<group>"; };
-		8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8BF4F8902BCCE34900DE9702 /* Frameworks */ = {
+		8BDE2B692BCCF8960048BD31 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B09E5172BCCFB1700A36C88 /* protoc-gen-grpc-swift in Frameworks */,
+				8B09E5162BCCFB1700A36C88 /* _GRPCCore in Frameworks */,
+				8B09E5152BCCFB1700A36C88 /* GRPCReflectionService in Frameworks */,
+				8B09E5142BCCFB1700A36C88 /* GRPC in Frameworks */,
+				8B09E5132BCCFB1700A36C88 /* CGRPCZlib in Frameworks */,
+				8B09E5122BCCFB1700A36C88 /* protoc-gen-swift in Frameworks */,
+				8B09E5112BCCFB1700A36C88 /* SwiftProtobufPluginLibrary in Frameworks */,
+				8B09E5102BCCFB1700A36C88 /* SwiftProtobuf in Frameworks */,
+				8BDE2B7F2BCCF9B50048BD31 /* SwiftProtobufPluginLibrary in Frameworks */,
+				8BDE2B852BCCF9BF0048BD31 /* GRPC in Frameworks */,
+				8BDE2B832BCCF9BF0048BD31 /* CGRPCZlib in Frameworks */,
+				8BDE2B872BCCF9BF0048BD31 /* GRPCReflectionService in Frameworks */,
+				8BDE2B892BCCF9BF0048BD31 /* _GRPCCore in Frameworks */,
+				8BDE2B7D2BCCF9B50048BD31 /* SwiftProtobuf in Frameworks */,
+				8BDE2B8B2BCCF9BF0048BD31 /* protoc-gen-grpc-swift in Frameworks */,
+				8BDE2B812BCCF9B50048BD31 /* protoc-gen-swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B5232D62BCCF2E700161FF0 /* Protos */ = {
+			isa = PBXGroup;
+			children = (
+				368847568419DE2706C6438D /* sage.pb.swift */,
+				1B3E4C0B9952F83808A32854 /* sage.grpc.swift */,
+			);
+			path = Protos;
+			sourceTree = "<group>";
+		};
 		8BF4F88A2BCCE34900DE9702 = {
 			isa = PBXGroup;
 			children = (
@@ -52,21 +99,15 @@
 		8BF4F8952BCCE34900DE9702 /* Sage */ = {
 			isa = PBXGroup;
 			children = (
+				8B5232D62BCCF2E700161FF0 /* Protos */,
 				8BF4F8962BCCE34900DE9702 /* SageApp.swift */,
+				8B5232D02BCCE71900161FF0 /* SageUserModel.swift */,
+				8B09E5182BCCFDBC00A36C88 /* SageUserViewModel.swift */,
 				8BF4F8982BCCE34900DE9702 /* ContentView.swift */,
 				8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */,
 				8BF4F89C2BCCE34A00DE9702 /* Sage.entitlements */,
-				8BF4F89D2BCCE34A00DE9702 /* Preview Content */,
 			);
 			path = Sage;
-			sourceTree = "<group>";
-		};
-		8BF4F89D2BCCE34A00DE9702 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,14 +118,32 @@
 			buildConfigurationList = 8BF4F8A22BCCE34A00DE9702 /* Build configuration list for PBXNativeTarget "Sage" */;
 			buildPhases = (
 				8BF4F88F2BCCE34900DE9702 /* Sources */,
-				8BF4F8902BCCE34900DE9702 /* Frameworks */,
 				8BF4F8912BCCE34900DE9702 /* Resources */,
+				8BDE2B692BCCF8960048BD31 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Sage;
+			packageProductDependencies = (
+				8B5232D92BCCF38700161FF0 /* SwiftProtobuf */,
+				8B5232DA2BCCF38700161FF0 /* SwiftProtobufPluginLibrary */,
+				8B5232DB2BCCF38700161FF0 /* protoc-gen-swift */,
+				8B7E9A912BCCF547008A20E2 /* CGRPCZlib */,
+				8B7E9A922BCCF547008A20E2 /* GRPC */,
+				8B7E9A932BCCF547008A20E2 /* GRPCReflectionService */,
+				8B7E9A942BCCF547008A20E2 /* _GRPCCore */,
+				8B7E9A952BCCF547008A20E2 /* protoc-gen-grpc-swift */,
+				8BDE2B7C2BCCF9B50048BD31 /* SwiftProtobuf */,
+				8BDE2B7E2BCCF9B50048BD31 /* SwiftProtobufPluginLibrary */,
+				8BDE2B802BCCF9B50048BD31 /* protoc-gen-swift */,
+				8BDE2B822BCCF9BF0048BD31 /* CGRPCZlib */,
+				8BDE2B842BCCF9BF0048BD31 /* GRPC */,
+				8BDE2B862BCCF9BF0048BD31 /* GRPCReflectionService */,
+				8BDE2B882BCCF9BF0048BD31 /* _GRPCCore */,
+				8BDE2B8A2BCCF9BF0048BD31 /* protoc-gen-grpc-swift */,
+			);
 			productName = Sage;
 			productReference = 8BF4F8932BCCE34900DE9702 /* Sage.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +172,10 @@
 				Base,
 			);
 			mainGroup = 8BF4F88A2BCCE34900DE9702;
+			packageReferences = (
+				8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+			);
 			productRefGroup = 8BF4F8942BCCE34900DE9702 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +190,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF4F89F2BCCE34A00DE9702 /* Preview Assets.xcassets in Resources */,
 				8BF4F89B2BCCE34A00DE9702 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,8 +201,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5232D12BCCE71900161FF0 /* SageUserModel.swift in Sources */,
 				8BF4F8992BCCE34900DE9702 /* ContentView.swift in Sources */,
 				8BF4F8972BCCE34900DE9702 /* SageApp.swift in Sources */,
+				8B09E5192BCCFDBC00A36C88 /* SageUserViewModel.swift in Sources */,
+				CBA64E14AB3F2C13328B2EEE /* sage.pb.swift in Sources */,
+				C93C43D79D0671229C571AA4 /* sage.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +335,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sage/Sage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sage/Preview Content\"";
+				DEVELOPMENT_TEAM = NLVNJY4FVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -305,7 +371,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sage/Sage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sage/Preview Content\"";
+				DEVELOPMENT_TEAM = NLVNJY4FVT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -355,6 +421,108 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.26.0;
+			};
+		};
+		8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.22.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B5232D92BCCF38700161FF0 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		8B5232DA2BCCF38700161FF0 /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		8B5232DB2BCCF38700161FF0 /* protoc-gen-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = "protoc-gen-swift";
+		};
+		8B7E9A912BCCF547008A20E2 /* CGRPCZlib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = CGRPCZlib;
+		};
+		8B7E9A922BCCF547008A20E2 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		8B7E9A932BCCF547008A20E2 /* GRPCReflectionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPCReflectionService;
+		};
+		8B7E9A942BCCF547008A20E2 /* _GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = _GRPCCore;
+		};
+		8B7E9A952BCCF547008A20E2 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
+		};
+		8BDE2B7C2BCCF9B50048BD31 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		8BDE2B7E2BCCF9B50048BD31 /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		8BDE2B802BCCF9B50048BD31 /* protoc-gen-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B5232D82BCCF38700161FF0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = "protoc-gen-swift";
+		};
+		8BDE2B822BCCF9BF0048BD31 /* CGRPCZlib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = CGRPCZlib;
+		};
+		8BDE2B842BCCF9BF0048BD31 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		8BDE2B862BCCF9BF0048BD31 /* GRPCReflectionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPCReflectionService;
+		};
+		8BDE2B882BCCF9BF0048BD31 /* _GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = _GRPCCore;
+		};
+		8BDE2B8A2BCCF9BF0048BD31 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B7E9A902BCCF547008A20E2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BF4F88B2BCCE34900DE9702 /* Project object */;
 }

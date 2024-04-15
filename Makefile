@@ -32,10 +32,10 @@ clean: down
 
 proto:
 	protoc sage.proto -I=protos \
-		--swift_out=ios/Slide/Protos \
-		--grpc-swift_out=ios/Slide/Protos
+		--swift_out=ios/Sage/Protos \
+		--grpc-swift_out=ios/Sage/Protos
 	
-	awyes --no-verbose save_ios_protos
+	awyes save_ios_protos
 
 	protoc sage.proto -I=protos \
 		--go_out=app/pb \

@@ -3,7 +3,7 @@ import pbxproj.pbxextensions
 
 
 def save_ios_protos(files):
-    project = pbxproj.XcodeProject.load("ios/Slide.xcodeproj/project.pbxproj")
+    project = pbxproj.XcodeProject.load("ios/Sage.xcodeproj/project.pbxproj")
 
     # Add protos
     proto_group = project.get_groups_by_name("Protos").pop()

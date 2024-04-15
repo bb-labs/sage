@@ -1,3 +1,4 @@
-proto.user.save_ios_protos:
-  - sage.pb.swift
-    sage.grpc.swift
+proto.save_ios_protos:
+  files:
+    - sage.pb.swift
+    - sage.grpc.swift
