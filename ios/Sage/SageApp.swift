@@ -1,6 +1,6 @@
 //
-//  SageAppApp.swift
-//  SageApp
+//  SageApp.swift
+//  Sage
 //
 //  Created by Truman Purnell on 4/14/24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SageAppApp: App {
+struct SageApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

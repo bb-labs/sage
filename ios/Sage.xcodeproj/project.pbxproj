@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B6DEF4E2BCCE08E0071403D /* SageAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DEF4D2BCCE08E0071403D /* SageAppApp.swift */; };
-		8B6DEF502BCCE08E0071403D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DEF4F2BCCE08E0071403D /* ContentView.swift */; };
-		8B6DEF522BCCE08F0071403D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DEF512BCCE08F0071403D /* Assets.xcassets */; };
-		8B6DEF562BCCE08F0071403D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DEF552BCCE08F0071403D /* Preview Assets.xcassets */; };
+		8BF4F8972BCCE34900DE9702 /* SageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4F8962BCCE34900DE9702 /* SageApp.swift */; };
+		8BF4F8992BCCE34900DE9702 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4F8982BCCE34900DE9702 /* ContentView.swift */; };
+		8BF4F89B2BCCE34A00DE9702 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */; };
+		8BF4F89F2BCCE34A00DE9702 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8B6DEF4A2BCCE08E0071403D /* SageApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SageApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B6DEF4D2BCCE08E0071403D /* SageAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageAppApp.swift; sourceTree = "<group>"; };
-		8B6DEF4F2BCCE08E0071403D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8B6DEF512BCCE08F0071403D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8B6DEF532BCCE08F0071403D /* SageApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SageApp.entitlements; sourceTree = "<group>"; };
-		8B6DEF552BCCE08F0071403D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8BF4F8932BCCE34900DE9702 /* Sage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BF4F8962BCCE34900DE9702 /* SageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SageApp.swift; sourceTree = "<group>"; };
+		8BF4F8982BCCE34900DE9702 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8BF4F89C2BCCE34A00DE9702 /* Sage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sage.entitlements; sourceTree = "<group>"; };
+		8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8B6DEF472BCCE08E0071403D /* Frameworks */ = {
+		8BF4F8902BCCE34900DE9702 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,38 +33,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8B6DEF412BCCE08E0071403D = {
+		8BF4F88A2BCCE34900DE9702 = {
 			isa = PBXGroup;
 			children = (
-				8B6DEF4C2BCCE08E0071403D /* SageApp */,
-				8B6DEF4B2BCCE08E0071403D /* Products */,
+				8BF4F8952BCCE34900DE9702 /* Sage */,
+				8BF4F8942BCCE34900DE9702 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8B6DEF4B2BCCE08E0071403D /* Products */ = {
+		8BF4F8942BCCE34900DE9702 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8B6DEF4A2BCCE08E0071403D /* SageApp.app */,
+				8BF4F8932BCCE34900DE9702 /* Sage.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8B6DEF4C2BCCE08E0071403D /* SageApp */ = {
+		8BF4F8952BCCE34900DE9702 /* Sage */ = {
 			isa = PBXGroup;
 			children = (
-				8B6DEF4D2BCCE08E0071403D /* SageAppApp.swift */,
-				8B6DEF4F2BCCE08E0071403D /* ContentView.swift */,
-				8B6DEF512BCCE08F0071403D /* Assets.xcassets */,
-				8B6DEF532BCCE08F0071403D /* SageApp.entitlements */,
-				8B6DEF542BCCE08F0071403D /* Preview Content */,
+				8BF4F8962BCCE34900DE9702 /* SageApp.swift */,
+				8BF4F8982BCCE34900DE9702 /* ContentView.swift */,
+				8BF4F89A2BCCE34A00DE9702 /* Assets.xcassets */,
+				8BF4F89C2BCCE34A00DE9702 /* Sage.entitlements */,
+				8BF4F89D2BCCE34A00DE9702 /* Preview Content */,
 			);
-			path = SageApp;
+			path = Sage;
 			sourceTree = "<group>";
 		};
-		8B6DEF542BCCE08F0071403D /* Preview Content */ = {
+		8BF4F89D2BCCE34A00DE9702 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				8B6DEF552BCCE08F0071403D /* Preview Assets.xcassets */,
+				8BF4F89E2BCCE34A00DE9702 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -72,39 +72,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B6DEF492BCCE08E0071403D /* SageApp */ = {
+		8BF4F8922BCCE34900DE9702 /* Sage */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B6DEF592BCCE08F0071403D /* Build configuration list for PBXNativeTarget "SageApp" */;
+			buildConfigurationList = 8BF4F8A22BCCE34A00DE9702 /* Build configuration list for PBXNativeTarget "Sage" */;
 			buildPhases = (
-				8B6DEF462BCCE08E0071403D /* Sources */,
-				8B6DEF472BCCE08E0071403D /* Frameworks */,
-				8B6DEF482BCCE08E0071403D /* Resources */,
+				8BF4F88F2BCCE34900DE9702 /* Sources */,
+				8BF4F8902BCCE34900DE9702 /* Frameworks */,
+				8BF4F8912BCCE34900DE9702 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = SageApp;
-			productName = SageApp;
-			productReference = 8B6DEF4A2BCCE08E0071403D /* SageApp.app */;
+			name = Sage;
+			productName = Sage;
+			productReference = 8BF4F8932BCCE34900DE9702 /* Sage.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8B6DEF422BCCE08E0071403D /* Project object */ = {
+		8BF4F88B2BCCE34900DE9702 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					8B6DEF492BCCE08E0071403D = {
+					8BF4F8922BCCE34900DE9702 = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
-			buildConfigurationList = 8B6DEF452BCCE08E0071403D /* Build configuration list for PBXProject "SageApp" */;
+			buildConfigurationList = 8BF4F88E2BCCE34900DE9702 /* Build configuration list for PBXProject "Sage" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -112,42 +112,42 @@
 				en,
 				Base,
 			);
-			mainGroup = 8B6DEF412BCCE08E0071403D;
-			productRefGroup = 8B6DEF4B2BCCE08E0071403D /* Products */;
+			mainGroup = 8BF4F88A2BCCE34900DE9702;
+			productRefGroup = 8BF4F8942BCCE34900DE9702 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B6DEF492BCCE08E0071403D /* SageApp */,
+				8BF4F8922BCCE34900DE9702 /* Sage */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8B6DEF482BCCE08E0071403D /* Resources */ = {
+		8BF4F8912BCCE34900DE9702 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B6DEF562BCCE08F0071403D /* Preview Assets.xcassets in Resources */,
-				8B6DEF522BCCE08F0071403D /* Assets.xcassets in Resources */,
+				8BF4F89F2BCCE34A00DE9702 /* Preview Assets.xcassets in Resources */,
+				8BF4F89B2BCCE34A00DE9702 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8B6DEF462BCCE08E0071403D /* Sources */ = {
+		8BF4F88F2BCCE34900DE9702 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B6DEF502BCCE08E0071403D /* ContentView.swift in Sources */,
-				8B6DEF4E2BCCE08E0071403D /* SageAppApp.swift in Sources */,
+				8BF4F8992BCCE34900DE9702 /* ContentView.swift in Sources */,
+				8BF4F8972BCCE34900DE9702 /* SageApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		8B6DEF572BCCE08F0071403D /* Debug */ = {
+		8BF4F8A02BCCE34A00DE9702 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -208,7 +208,7 @@
 			};
 			name = Debug;
 		};
-		8B6DEF582BCCE08F0071403D /* Release */ = {
+		8BF4F8A12BCCE34A00DE9702 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -261,15 +261,15 @@
 			};
 			name = Release;
 		};
-		8B6DEF5A2BCCE08F0071403D /* Debug */ = {
+		8BF4F8A32BCCE34A00DE9702 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SageApp/SageApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sage/Sage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SageApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sage/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -287,7 +287,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dating.sage.SageApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dating.sage.Sage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -297,15 +297,15 @@
 			};
 			name = Debug;
 		};
-		8B6DEF5B2BCCE08F0071403D /* Release */ = {
+		8BF4F8A42BCCE34A00DE9702 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SageApp/SageApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sage/Sage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SageApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sage/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -323,7 +323,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dating.sage.SageApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dating.sage.Sage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -336,25 +336,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8B6DEF452BCCE08E0071403D /* Build configuration list for PBXProject "SageApp" */ = {
+		8BF4F88E2BCCE34900DE9702 /* Build configuration list for PBXProject "Sage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8B6DEF572BCCE08F0071403D /* Debug */,
-				8B6DEF582BCCE08F0071403D /* Release */,
+				8BF4F8A02BCCE34A00DE9702 /* Debug */,
+				8BF4F8A12BCCE34A00DE9702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B6DEF592BCCE08F0071403D /* Build configuration list for PBXNativeTarget "SageApp" */ = {
+		8BF4F8A22BCCE34A00DE9702 /* Build configuration list for PBXNativeTarget "Sage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8B6DEF5A2BCCE08F0071403D /* Debug */,
-				8B6DEF5B2BCCE08F0071403D /* Release */,
+				8BF4F8A32BCCE34A00DE9702 /* Debug */,
+				8BF4F8A42BCCE34A00DE9702 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8B6DEF422BCCE08E0071403D /* Project object */;
+	rootObject = 8BF4F88B2BCCE34900DE9702 /* Project object */;
 }

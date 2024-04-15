@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SageApp
+//  Sage
 //
 //  Created by Truman Purnell on 4/14/24.
 //
@@ -13,7 +13,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Hello, smorld!")
         }
         .padding()
     }
