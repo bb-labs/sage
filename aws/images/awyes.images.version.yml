@@ -1,0 +1,35 @@
+images.version.app.semver.bump_${APP_IMAGE_TAG_BUMP}: ${APP_IMAGE_TAG}
+images.version.app.read_text: ${ENV_PATH}
+images.version.app.re.sub:
+  pattern: "APP_IMAGE_TAG=(.*)"
+  repl: 'APP_IMAGE_TAG="$(images.version.app.semver.bump_${APP_IMAGE_TAG_BUMP})"'
+  string: $(images.version.app.read_text)
+images.version.app.write_text:
+  path: ${ENV_PATH}
+  data: $(images.version.app.re.sub)
+images.version.app.gitcommit: "Bumped ${APP_NAME} to [${APP_IMAGE_TAG}]"
+images.version.app.gitpush:
+---
+images.version.wss.semver.bump_${WSS_IMAGE_TAG_BUMP}: ${WSS_IMAGE_TAG}
+images.version.wss.read_text: ${ENV_PATH}
+images.version.wss.re.sub:
+  pattern: "WSS_IMAGE_TAG=(.*)"
+  repl: 'WSS_IMAGE_TAG="$(images.version.wss.semver.bump_${WSS_IMAGE_TAG_BUMP})"'
+  string: $(images.version.wss.read_text)
+images.version.wss.write_text:
+  path: ${ENV_PATH}
+  data: $(images.version.wss.re.sub)
+images.version.wss.gitcommit: "Bumped ${WSS_NAME} to [${WSS_IMAGE_TAG}]"
+images.version.wss.gitpush:
+---
+images.version.secrets.semver.bump_${SECRETS_LAMBDA_IMAGE_TAG_BUMP}: ${SECRETS_LAMBDA_IMAGE_TAG}
+images.version.secrets.read_text: ${ENV_PATH}
+images.version.secrets.re.sub:
+  pattern: "SECRETS_LAMBDA_IMAGE_TAG=(.*)"
+  repl: 'SECRETS_LAMBDA_IMAGE_TAG="$(images.version.secrets.semver.bump_${SECRETS_LAMBDA_IMAGE_TAG_BUMP})"'
+  string: $(images.version.secrets.read_text)
+images.version.secrets.write_text:
+  path: ${ENV_PATH}
+  data: $(images.version.secrets.re.sub)
+images.version.secrets.gitcommit: "Bumped ${SECRETS_LAMBDA_NAME} to [${SECRETS_LAMBDA_IMAGE_TAG}]"
+images.version.secrets.gitpush:
