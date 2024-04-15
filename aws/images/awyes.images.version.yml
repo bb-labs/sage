@@ -7,6 +7,7 @@ images.version.app.re.sub:
 images.version.app.write_text:
   path: ${ENV_PATH}
   data: $(images.version.app.re.sub)
+images.version.app.gitsafe:
 images.version.app.gitcommit: "Bump ${APP_NAME} to [${APP_IMAGE_TAG}]"
 images.version.app.gitpush:
 ---
@@ -19,6 +20,7 @@ images.version.wss.re.sub:
 images.version.wss.write_text:
   path: ${ENV_PATH}
   data: $(images.version.wss.re.sub)
+images.version.wss.gitsafe:
 images.version.wss.gitcommit: "Bump ${WSS_NAME} to [${WSS_IMAGE_TAG}]"
 images.version.wss.gitpush:
 ---
@@ -31,5 +33,6 @@ images.version.secrets.re.sub:
 images.version.secrets.write_text:
   path: ${ENV_PATH}
   data: $(images.version.secrets.re.sub)
+images.version.secrets.gitsafe:
 images.version.secrets.gitcommit: "Bump ${SECRETS_LAMBDA_NAME} to [${SECRETS_LAMBDA_IMAGE_TAG}]"
 images.version.secrets.gitpush:
