@@ -1,0 +1,45 @@
+name: Version Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        type: choice
+        required: true
+        description: Image name
+        options:
+          - app
+          - wss
+          - secrets
+      bump:
+        type: choice
+        required: true
+        description: Bump type
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  deploy:
+    name: ${{github.event.inputs.action}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Run awyes actions
+        uses: bb-labs/awyes@main
+        env:
+          SECRETS_LAMBDA_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
+          APP_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
+          WSS_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
+        with:
+          action: ^images.version.${{github.event.inputs.image}}
