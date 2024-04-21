@@ -21,16 +21,6 @@ security.turnup.app.ec2.authorize_security_group_ingress:
   GroupName: ${APP_SECURITY_GROUP_NAME}
   SourceSecurityGroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
 ---
-security.turnup.wss.ec2.create_security_group:
-  GroupName: ${WSS_SECURITY_GROUP_NAME}
-  Description: Sage wss security group
-security.turnup.wss.ec2.describe_security_groups:
-  GroupNames:
-    - ${WSS_SECURITY_GROUP_NAME}
-security.turnup.wss.ec2.authorize_security_group_ingress:
-  GroupName: ${WSS_SECURITY_GROUP_NAME}
-  SourceSecurityGroupName: ${LOAD_BALANCER_SECURITY_GROUP_NAME}
----
 security.turnup.db.ec2.create_security_group:
   GroupName: ${DB_SECURITY_GROUP_NAME}
   Description: Sage db security group

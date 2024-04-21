@@ -3,9 +3,3 @@ services.update.app.ecs.update_service:
   cluster: $(cluster.turnup.ecs.create_cluster.cluster.clusterArn)
   taskDefinition: $(tasks.turnup.app.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
   forceNewDeployment: true
----
-services.update.wss.ecs.update_service:
-  service: ${WSS_NAME}
-  cluster: $(cluster.turnup.ecs.create_cluster.cluster.clusterArn)
-  taskDefinition: $(tasks.turnup.wss.ecs.register_task_definition.taskDefinition.taskDefinitionArn)
-  forceNewDeployment: true

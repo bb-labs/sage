@@ -6,12 +6,3 @@ load.turndown.app.elb.delete_load_balancer:
 load.turndown.app.load_balancer_deleted.wait:
   LoadBalancerArns:
     - $(load.turndown.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
----
-load.turndown.wss.elb.describe_load_balancers:
-  Names:
-    - ${WSS_LOAD_BALANCER_NAME}
-load.turndown.wss.elb.delete_load_balancer:
-  LoadBalancerArn: $(load.turndown.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
-load.turndown.wss.load_balancer_deleted.wait:
-  LoadBalancerArns:
-    - $(load.turndown.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)

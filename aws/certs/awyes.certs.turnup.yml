@@ -2,7 +2,6 @@ certs.turnup.acm.request_certificate:
   DomainName: ${SAGE_DOMAIN}
   ValidationMethod: DNS
   SubjectAlternativeNames:
-    - ${WSS_DOMAIN}
     - ${APP_DOMAIN}
 certs.turnup.sleep: 120
 certs.turnup.acm.list_certificates:

@@ -2,8 +2,3 @@ listeners.turndown.app.elb.describe_listeners:
   LoadBalancerArn: $(load.turnup.app.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
 listeners.turndown.app.elb.delete_listener:
   ListenerArn: $(listeners.turndown.app.elb.describe_listeners.Listeners.0.ListenerArn)
----
-listeners.turndown.wss.elb.describe_listeners:
-  LoadBalancerArn: $(load.turnup.wss.elb.describe_load_balancers.LoadBalancers.0.LoadBalancerArn)
-listeners.turndown.wss.elb.delete_listener:
-  ListenerArn: $(listeners.turndown.wss.elb.describe_listeners.Listeners.0.ListenerArn)

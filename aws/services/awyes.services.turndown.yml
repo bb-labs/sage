@@ -2,8 +2,4 @@ services.turndown.app.ecs.delete_service:
   cluster: ${CLUSTER_NAME}
   service: ${APP_NAME}
   force: true
----
-services.turndown.wss.ecs.delete_service:
-  cluster: ${CLUSTER_NAME}
-  service: ${WSS_NAME}
-  force: true
+  

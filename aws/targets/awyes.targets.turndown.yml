@@ -3,8 +3,3 @@ targets.turndown.app.elb.describe_target_groups:
     - ${APP_TARGET_GROUP_NAME}
 targets.turndown.app.elb.delete_target_group:
   TargetGroupArn: $(targets.turndown.app.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)
-targets.turndown.wss.elb.describe_target_groups:
-  Names:
-    - ${WSS_TARGET_GROUP_NAME}
-targets.turndown.wss.elb.delete_target_group:
-  TargetGroupArn: $(targets.turndown.wss.elb.describe_target_groups.TargetGroups.0.TargetGroupArn)

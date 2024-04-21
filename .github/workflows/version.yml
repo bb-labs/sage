@@ -9,7 +9,6 @@ on:
         description: Image name
         options:
           - app
-          - wss
       bump:
         type: choice
         required: true
@@ -39,7 +38,6 @@ jobs:
         env:
           SECRETS_LAMBDA_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
           APP_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
-          WSS_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
         with:
           action: ^images.version.${{github.event.inputs.image}}
 

@@ -10,18 +10,6 @@ images.turnup.app.image.push:
     username: ${SAGE_AWS_USER}
     password: $(repos.auth.re.sub)
 ---
-images.turnup.wss.image.build:
-  tag: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${WSS_ECR_REPO_NAME}:${WSS_IMAGE_TAG}
-  path: ${WSS_PATH}
-  platform: ${WSS_IMAGE_PLATFORM}
-  dockerfile: Dockerfile
-images.turnup.wss.image.push:
-  repository: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${WSS_ECR_REPO_NAME}
-  tag: ${WSS_IMAGE_TAG}
-  auth_config:
-    username: ${SAGE_AWS_USER}
-    password: $(repos.auth.re.sub)
----
 images.turnup.secrets.image.build:
   tag: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${SECRETS_ECR_REPO_NAME}:${SECRETS_LAMBDA_IMAGE_TAG}
   path: ${SECRETS_LAMBDA_PATH}

@@ -4,10 +4,3 @@ tasks.turndown.app.deregister_task_definitions:
   taskDefinitions: $(tasks.turndown.app.ecs.list_task_definitions.taskDefinitionArns)
 tasks.turndown.app.ecs.delete_task_definitions:
   taskDefinitions: $(tasks.turndown.app.ecs.list_task_definitions.taskDefinitionArns)
----
-tasks.turndown.wss.ecs.list_task_definitions:
-  familyPrefix: ${WSS_CONTAINER_TASK_DEFINITION_NAME}
-tasks.turndown.wss.deregister_task_definitions:
-  taskDefinitions: $(tasks.turndown.wss.ecs.list_task_definitions.taskDefinitionArns)
-tasks.turndown.wss.ecs.delete_task_definitions:
-  taskDefinitions: $(tasks.turndown.wss.ecs.list_task_definitions.taskDefinitionArns)

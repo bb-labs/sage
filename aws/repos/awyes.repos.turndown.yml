@@ -13,11 +13,3 @@ repos.turndown.app.ecr.batch_delete_image:
   imageIds: $(repos.turndown.app.ecr.list_images.imageIds)
 repos.turndown.app.ecr.delete_repository:
   repositoryName: ${APP_ECR_REPO_NAME}
----
-repos.turndown.wss.ecr.list_images:
-  repositoryName: ${WSS_ECR_REPO_NAME}
-repos.turndown.wss.ecr.batch_delete_image:
-  repositoryName: ${WSS_ECR_REPO_NAME}
-  imageIds: $(repos.turndown.wss.ecr.list_images.imageIds)
-repos.turndown.wss.ecr.delete_repository:
-  repositoryName: ${WSS_ECR_REPO_NAME}

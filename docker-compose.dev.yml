@@ -33,26 +33,6 @@ services:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=password
 
-  ${WSS_NAME}:
-    image: ${WSS_NAME}
-    container_name: ${WSS_NAME}
-    depends_on:
-      - ${DB_NAME}
-    build: ${WSS_PATH}
-    volumes:
-      - ./${WSS_PATH}:/${WSS_NAME}
-    ports:
-      - ${WSS_CONTAINER_PORT}:${WSS_CONTAINER_PORT}
-    env_file:
-      - ${ENV_PATH}
-    environment:
-      - DB_DOMAIN=${DB_NAME}
-      - DB_USERNAME=username
-      - DB_PASSWORD=password
-      - APPLE_SKIP_AUTH_CHECKS=true
-      - APPLE_CLIENT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-    entrypoint: ["./entrypoint.dev.sh"]
-
 volumes:
   ${DB_NAME}:
 

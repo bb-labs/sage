@@ -9,9 +9,3 @@ images.turndown.app.ecr.list_images:
 images.turndown.app.ecr.batch_delete_image:
   repositoryName: ${APP_ECR_REPO_NAME}
   imageIds: $(images.turndown.app.ecr.list_images.imageIds)
----
-images.turndown.wss.ecr.list_images:
-  repositoryName: ${WSS_ECR_REPO_NAME}
-images.turndown.wss.ecr.batch_delete_image:
-  repositoryName: ${WSS_ECR_REPO_NAME}
-  imageIds: $(images.turndown.wss.ecr.list_images.imageIds)

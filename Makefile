@@ -9,7 +9,6 @@ select:
 
 deps:
 	cd ${APP_PATH}; go get github.com/bb-labs/corner; go mod tidy
-	cd ${WSS_PATH}; go get github.com/bb-labs/corner; go mod tidy
 
 build:
 	envsubst < docker-compose.dev.yml | docker compose -f - build
@@ -31,18 +30,11 @@ clean: down
 	docker volume prune -af
 
 proto:
-	protoc sage.proto -I=protos \
-		--swift_out=ios/Sage/Protos \
-		--grpc-swift_out=ios/Sage/Protos
-	
-	awyes save_ios_protos
+	protoc sage.proto --dart_out=grpc:app/pb
 
-	protoc sage.proto -I=protos \
+	protoc sage.proto \
 		--go_out=app/pb \
 		--go_opt=paths=source_relative \
 		--go-grpc_out=app/pb \
 		--go-grpc_opt=paths=source_relative
 	
-	protoc sage.proto -I=protos \
-		--go_out=wss/pb \
-		--go_opt=paths=source_relative
