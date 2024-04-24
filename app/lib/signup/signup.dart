@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:app/user/signup/signup_logo_view.dart';
-import 'package:app/user/signup/signup_legal_view.dart';
-import 'package:app/user/signup/signup_animation_view.dart';
-import 'package:app/user/signup/signup_login_services_view.dart';
+import 'package:app/signup/logo.dart';
+import 'package:app/signup/legal.dart';
+import 'package:app/signup/animation.dart';
+import 'package:app/signup/services.dart';
 
 class SageSignUp extends StatelessWidget {
   const SageSignUp({super.key});
