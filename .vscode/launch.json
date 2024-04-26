@@ -8,24 +8,21 @@
       "name": "app",
       "cwd": "app",
       "request": "launch",
-      "type": "dart",
-      "toolArgs": ["--dart-define-from-file", "../.env"]
+      "type": "dart"
     },
     {
       "name": "app (profile mode)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile",
-      "toolArgs": ["--dart-define-from-file", "../.env"]
+      "flutterMode": "profile"
     },
     {
       "name": "app (release mode)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release",
-      "toolArgs": ["--dart-define-from-file", "../.env"]
+      "flutterMode": "release"
     }
   ]
 }

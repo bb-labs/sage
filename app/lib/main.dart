@@ -1,12 +1,18 @@
+import 'package:app/app.dart';
 import 'package:grpc/grpc.dart';
 import 'package:app/pb/sage.pbgrpc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:app/signup/signup.dart';
-
 class SageClientSingleton {
   late SageClient client;
+
+  static final SageClientSingleton _instance =
+      SageClientSingleton._privateConstructor();
+
+  factory SageClientSingleton() {
+    return _instance;
+  }
 
   SageClientSingleton._privateConstructor() {
     const bool isProduction = bool.fromEnvironment('dart.vm.product');
@@ -23,26 +29,8 @@ class SageClientSingleton {
 
     client = SageClient(channel);
   }
-
-  static final SageClientSingleton instance =
-      SageClientSingleton._privateConstructor();
 }
 
 void main() {
   runApp(const ProviderScope(child: SageApp()));
-}
-
-class SageApp extends StatelessWidget {
-  const SageApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: SageSignUp(),
-        ),
-      ),
-    );
-  }
 }

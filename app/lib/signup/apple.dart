@@ -21,14 +21,14 @@ class SageAppleSignup extends StatelessWidget {
           ],
         );
 
-        final response = await SageClientSingleton.instance.client.createUser(
-          CreateUserRequest(
-            user: User(
-              email: credential.email,
-              name: credential.givenName,
-            ),
-          ),
-        );
+        final response = await SageClientSingleton().client.createUser(
+              CreateUserRequest(
+                user: User(
+                  email: credential.email,
+                  name: credential.givenName,
+                ),
+              ),
+            );
 
         print(response.user);
       },
