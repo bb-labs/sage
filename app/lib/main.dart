@@ -18,7 +18,7 @@ class SageClientSingleton {
     const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
     final channel = ClientChannel(
-      isProduction ? 'app.sage.dating' : 'localhost',
+      isProduction ? 'app.sage.dating' : '192.168.1.132',
       port: isProduction ? 443 : 3000,
       options: const ChannelOptions(
         credentials: isProduction
