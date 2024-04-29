@@ -13,14 +13,15 @@ message Token {
 
 message User {
   string id = 1;
-  string name = 2;
-  string email = 3;
-  double rating = 4;
-  Gender gender = 5;
-  int32 birthday = 6;
-  string video_url = 7;
-  Location location = 8;
-  Preferences preferences = 9;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  double rating = 5;
+  Gender gender = 6;
+  int32 birthday = 7;
+  string video_url = 8;
+  Location location = 9;
+  Preferences preferences = 10;
 }
 
 message CreateUserRequest { User user = 1; }

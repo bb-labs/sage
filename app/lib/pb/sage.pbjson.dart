@@ -64,24 +64,26 @@ const User$json = {
   '1': 'User',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
-    {'1': 'rating', '3': 4, '4': 1, '5': 1, '10': 'rating'},
-    {'1': 'gender', '3': 5, '4': 1, '5': 14, '6': '.Gender', '10': 'gender'},
-    {'1': 'birthday', '3': 6, '4': 1, '5': 5, '10': 'birthday'},
-    {'1': 'video_url', '3': 7, '4': 1, '5': 9, '10': 'videoUrl'},
-    {'1': 'location', '3': 8, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
-    {'1': 'preferences', '3': 9, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
+    {'1': 'first_name', '3': 2, '4': 1, '5': 9, '10': 'firstName'},
+    {'1': 'last_name', '3': 3, '4': 1, '5': 9, '10': 'lastName'},
+    {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'rating', '3': 5, '4': 1, '5': 1, '10': 'rating'},
+    {'1': 'gender', '3': 6, '4': 1, '5': 14, '6': '.Gender', '10': 'gender'},
+    {'1': 'birthday', '3': 7, '4': 1, '5': 5, '10': 'birthday'},
+    {'1': 'video_url', '3': 8, '4': 1, '5': 9, '10': 'videoUrl'},
+    {'1': 'location', '3': 9, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
+    {'1': 'preferences', '3': 10, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
   ],
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
-    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWVtYWlsGAMgAS'
-    'gJUgVlbWFpbBIWCgZyYXRpbmcYBCABKAFSBnJhdGluZxIfCgZnZW5kZXIYBSABKA4yBy5HZW5k'
-    'ZXJSBmdlbmRlchIaCghiaXJ0aGRheRgGIAEoBVIIYmlydGhkYXkSGwoJdmlkZW9fdXJsGAcgAS'
-    'gJUgh2aWRlb1VybBIlCghsb2NhdGlvbhgIIAEoCzIJLkxvY2F0aW9uUghsb2NhdGlvbhIuCgtw'
-    'cmVmZXJlbmNlcxgJIAEoCzIMLlByZWZlcmVuY2VzUgtwcmVmZXJlbmNlcw==');
+    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIdCgpmaXJzdF9uYW1lGAIgASgJUglmaXJzdE5hbWUSGw'
+    'oJbGFzdF9uYW1lGAMgASgJUghsYXN0TmFtZRIUCgVlbWFpbBgEIAEoCVIFZW1haWwSFgoGcmF0'
+    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgASgOMgcuR2VuZGVyUgZnZW5kZXISGgoIYm'
+    'lydGhkYXkYByABKAVSCGJpcnRoZGF5EhsKCXZpZGVvX3VybBgIIAEoCVIIdmlkZW9VcmwSJQoI'
+    'bG9jYXRpb24YCSABKAsyCS5Mb2NhdGlvblIIbG9jYXRpb24SLgoLcHJlZmVyZW5jZXMYCiABKA'
+    'syDC5QcmVmZXJlbmNlc1ILcHJlZmVyZW5jZXM=');
 
 @$core.Deprecated('Use createUserRequestDescriptor instead')
 const CreateUserRequest$json = {
