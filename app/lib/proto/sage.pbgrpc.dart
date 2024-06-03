@@ -21,6 +21,10 @@ export 'sage.pb.dart';
 
 @$pb.GrpcServiceName('Sage')
 class SageClient extends $grpc.Client {
+  static final _$getUser = $grpc.ClientMethod<$0.GetUserRequest, $0.GetUserResponse>(
+      '/Sage/GetUser',
+      ($0.GetUserRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetUserResponse.fromBuffer(value));
   static final _$createUser = $grpc.ClientMethod<$0.CreateUserRequest, $0.CreateUserResponse>(
       '/Sage/CreateUser',
       ($0.CreateUserRequest value) => value.writeToBuffer(),
@@ -32,6 +36,10 @@ class SageClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
+  $grpc.ResponseFuture<$0.GetUserResponse> getUser($0.GetUserRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getUser, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.CreateUserResponse> createUser($0.CreateUserRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createUser, request, options: options);
   }
@@ -42,6 +50,13 @@ abstract class SageServiceBase extends $grpc.Service {
   $core.String get $name => 'Sage';
 
   SageServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.GetUserRequest, $0.GetUserResponse>(
+        'GetUser',
+        getUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetUserRequest.fromBuffer(value),
+        ($0.GetUserResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateUserRequest, $0.CreateUserResponse>(
         'CreateUser',
         createUser_Pre,
@@ -51,9 +66,14 @@ abstract class SageServiceBase extends $grpc.Service {
         ($0.CreateUserResponse value) => value.writeToBuffer()));
   }
 
+  $async.Future<$0.GetUserResponse> getUser_Pre($grpc.ServiceCall call, $async.Future<$0.GetUserRequest> request) async {
+    return getUser(call, await request);
+  }
+
   $async.Future<$0.CreateUserResponse> createUser_Pre($grpc.ServiceCall call, $async.Future<$0.CreateUserRequest> request) async {
     return createUser(call, await request);
   }
 
+  $async.Future<$0.GetUserResponse> getUser($grpc.ServiceCall call, $0.GetUserRequest request);
   $async.Future<$0.CreateUserResponse> createUser($grpc.ServiceCall call, $0.CreateUserRequest request);
 }

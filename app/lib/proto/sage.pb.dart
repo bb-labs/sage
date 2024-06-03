@@ -382,6 +382,108 @@ class CreateUserResponse extends $pb.GeneratedMessage {
   User ensureUser() => $_ensure(0);
 }
 
+class GetUserRequest extends $pb.GeneratedMessage {
+  factory GetUserRequest({
+    $core.String? id,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    return $result;
+  }
+  GetUserRequest._() : super();
+  factory GetUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetUserRequest', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserRequest clone() => GetUserRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserRequest copyWith(void Function(GetUserRequest) updates) => super.copyWith((message) => updates(message as GetUserRequest)) as GetUserRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetUserRequest create() => GetUserRequest._();
+  GetUserRequest createEmptyInstance() => create();
+  static $pb.PbList<GetUserRequest> createRepeated() => $pb.PbList<GetUserRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserRequest>(create);
+  static GetUserRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetUserResponse extends $pb.GeneratedMessage {
+  factory GetUserResponse({
+    User? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
+  GetUserResponse._() : super();
+  factory GetUserResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetUserResponse', createEmptyInstance: create)
+    ..aOM<User>(1, _omitFieldNames ? '' : 'user', subBuilder: User.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserResponse clone() => GetUserResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserResponse copyWith(void Function(GetUserResponse) updates) => super.copyWith((message) => updates(message as GetUserResponse)) as GetUserResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetUserResponse create() => GetUserResponse._();
+  GetUserResponse createEmptyInstance() => create();
+  static $pb.PbList<GetUserResponse> createRepeated() => $pb.PbList<GetUserResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserResponse>(create);
+  static GetUserResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  User get user => $_getN(0);
+  @$pb.TagNumber(1)
+  set user(User v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUser() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUser() => clearField(1);
+  @$pb.TagNumber(1)
+  User ensureUser() => $_ensure(0);
+}
+
 class Location extends $pb.GeneratedMessage {
   factory Location({
     $core.int? lat,

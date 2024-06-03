@@ -3,7 +3,7 @@ module github.com/bb-labs/sage
 go 1.20
 
 require (
-	github.com/bb-labs/corner v0.2.15
+	github.com/bb-labs/corner v0.3.3
 	github.com/go-pg/pg/v10 v10.12.0
 	google.golang.org/grpc v1.60.1
 	google.golang.org/protobuf v1.32.0

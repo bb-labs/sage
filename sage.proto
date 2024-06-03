@@ -26,6 +26,8 @@ message User {
 
 message CreateUserRequest { User user = 1; }
 message CreateUserResponse { User user = 1; }
+message GetUserRequest { string id = 1; }
+message GetUserResponse { User user = 1; }
 
 enum Gender {
   MAN = 0;
@@ -93,5 +95,6 @@ message PresignedURLResponse {
 // Service
 // // // // // // // // // // // //
 service Sage {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 }

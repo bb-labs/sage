@@ -403,6 +403,100 @@ func (x *CreateUserResponse) GetUser() *User {
 	return nil
 }
 
+type GetUserRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GetUserRequest) Reset() {
+	*x = GetUserRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sage_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserRequest) ProtoMessage() {}
+
+func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sage_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
+func (*GetUserRequest) Descriptor() ([]byte, []int) {
+	return file_sage_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetUserRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetUserResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	User *User `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+}
+
+func (x *GetUserResponse) Reset() {
+	*x = GetUserResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sage_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserResponse) ProtoMessage() {}
+
+func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sage_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserResponse.ProtoReflect.Descriptor instead.
+func (*GetUserResponse) Descriptor() ([]byte, []int) {
+	return file_sage_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetUserResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 type Location struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -415,7 +509,7 @@ type Location struct {
 func (x *Location) Reset() {
 	*x = Location{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[4]
+		mi := &file_sage_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -428,7 +522,7 @@ func (x *Location) String() string {
 func (*Location) ProtoMessage() {}
 
 func (x *Location) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[4]
+	mi := &file_sage_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -441,7 +535,7 @@ func (x *Location) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Location.ProtoReflect.Descriptor instead.
 func (*Location) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{4}
+	return file_sage_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Location) GetLat() int32 {
@@ -472,7 +566,7 @@ type Preferences struct {
 func (x *Preferences) Reset() {
 	*x = Preferences{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[5]
+		mi := &file_sage_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -485,7 +579,7 @@ func (x *Preferences) String() string {
 func (*Preferences) ProtoMessage() {}
 
 func (x *Preferences) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[5]
+	mi := &file_sage_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -498,7 +592,7 @@ func (x *Preferences) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Preferences.ProtoReflect.Descriptor instead.
 func (*Preferences) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{5}
+	return file_sage_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Preferences) GetAgeMin() int32 {
@@ -545,7 +639,7 @@ type SDP struct {
 func (x *SDP) Reset() {
 	*x = SDP{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[6]
+		mi := &file_sage_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -558,7 +652,7 @@ func (x *SDP) String() string {
 func (*SDP) ProtoMessage() {}
 
 func (x *SDP) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[6]
+	mi := &file_sage_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -571,7 +665,7 @@ func (x *SDP) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SDP.ProtoReflect.Descriptor instead.
 func (*SDP) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{6}
+	return file_sage_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *SDP) GetType() int32 {
@@ -609,7 +703,7 @@ type ICE struct {
 func (x *ICE) Reset() {
 	*x = ICE{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[7]
+		mi := &file_sage_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -622,7 +716,7 @@ func (x *ICE) String() string {
 func (*ICE) ProtoMessage() {}
 
 func (x *ICE) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[7]
+	mi := &file_sage_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -635,7 +729,7 @@ func (x *ICE) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ICE.ProtoReflect.Descriptor instead.
 func (*ICE) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{7}
+	return file_sage_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ICE) GetSdp() *SDP {
@@ -681,7 +775,7 @@ type SignalingRequest struct {
 func (x *SignalingRequest) Reset() {
 	*x = SignalingRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[8]
+		mi := &file_sage_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -694,7 +788,7 @@ func (x *SignalingRequest) String() string {
 func (*SignalingRequest) ProtoMessage() {}
 
 func (x *SignalingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[8]
+	mi := &file_sage_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -707,7 +801,7 @@ func (x *SignalingRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SignalingRequest.ProtoReflect.Descriptor instead.
 func (*SignalingRequest) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{8}
+	return file_sage_proto_rawDescGZIP(), []int{10}
 }
 
 func (m *SignalingRequest) GetMessage() isSignalingRequest_Message {
@@ -762,7 +856,7 @@ type PresignedURLRequest struct {
 func (x *PresignedURLRequest) Reset() {
 	*x = PresignedURLRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[9]
+		mi := &file_sage_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -775,7 +869,7 @@ func (x *PresignedURLRequest) String() string {
 func (*PresignedURLRequest) ProtoMessage() {}
 
 func (x *PresignedURLRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[9]
+	mi := &file_sage_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -788,7 +882,7 @@ func (x *PresignedURLRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PresignedURLRequest.ProtoReflect.Descriptor instead.
 func (*PresignedURLRequest) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{9}
+	return file_sage_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *PresignedURLRequest) GetAction() string {
@@ -817,7 +911,7 @@ type PresignedURLResponse struct {
 func (x *PresignedURLResponse) Reset() {
 	*x = PresignedURLResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_sage_proto_msgTypes[10]
+		mi := &file_sage_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -830,7 +924,7 @@ func (x *PresignedURLResponse) String() string {
 func (*PresignedURLResponse) ProtoMessage() {}
 
 func (x *PresignedURLResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sage_proto_msgTypes[10]
+	mi := &file_sage_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -843,7 +937,7 @@ func (x *PresignedURLResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PresignedURLResponse.ProtoReflect.Descriptor instead.
 func (*PresignedURLResponse) Descriptor() ([]byte, []int) {
-	return file_sage_proto_rawDescGZIP(), []int{10}
+	return file_sage_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *PresignedURLResponse) GetUrl() string {
@@ -895,6 +989,11 @@ var file_sage_proto_rawDesc = []byte{
 	0x05, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x2f, 0x0a, 0x12,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
 	0x73, 0x65, 0x12, 0x19, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x05, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x20, 0x0a,
+	0x0e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x2c, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x19, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x05, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x30, 0x0a,
 	0x08, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6c, 0x61, 0x74,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x6c, 0x61, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6c,
@@ -943,7 +1042,10 @@ var file_sage_proto_rawDesc = []byte{
 	0x48, 0x4f, 0x4f, 0x44, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x43, 0x49, 0x54, 0x59, 0x10, 0x01,
 	0x12, 0x09, 0x0a, 0x05, 0x4d, 0x45, 0x54, 0x52, 0x4f, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x53,
 	0x54, 0x41, 0x54, 0x45, 0x10, 0x03, 0x12, 0x0b, 0x0a, 0x07, 0x43, 0x4f, 0x55, 0x4e, 0x54, 0x52,
-	0x59, 0x10, 0x04, 0x32, 0x3f, 0x0a, 0x04, 0x53, 0x61, 0x67, 0x65, 0x12, 0x37, 0x0a, 0x0a, 0x43,
+	0x59, 0x10, 0x04, 0x32, 0x6f, 0x0a, 0x04, 0x53, 0x61, 0x67, 0x65, 0x12, 0x2e, 0x0a, 0x07, 0x47,
+	0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0f, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x43,
 	0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x12, 0x2e, 0x43, 0x72, 0x65, 0x61,
 	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
@@ -965,7 +1067,7 @@ func file_sage_proto_rawDescGZIP() []byte {
 }
 
 var file_sage_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_sage_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_sage_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_sage_proto_goTypes = []interface{}{
 	(Gender)(0),                  // 0: Gender
 	(Proximity)(0),               // 1: Proximity
@@ -973,33 +1075,38 @@ var file_sage_proto_goTypes = []interface{}{
 	(*User)(nil),                 // 3: User
 	(*CreateUserRequest)(nil),    // 4: CreateUserRequest
 	(*CreateUserResponse)(nil),   // 5: CreateUserResponse
-	(*Location)(nil),             // 6: Location
-	(*Preferences)(nil),          // 7: Preferences
-	(*SDP)(nil),                  // 8: SDP
-	(*ICE)(nil),                  // 9: ICE
-	(*SignalingRequest)(nil),     // 10: SignalingRequest
-	(*PresignedURLRequest)(nil),  // 11: PresignedURLRequest
-	(*PresignedURLResponse)(nil), // 12: PresignedURLResponse
+	(*GetUserRequest)(nil),       // 6: GetUserRequest
+	(*GetUserResponse)(nil),      // 7: GetUserResponse
+	(*Location)(nil),             // 8: Location
+	(*Preferences)(nil),          // 9: Preferences
+	(*SDP)(nil),                  // 10: SDP
+	(*ICE)(nil),                  // 11: ICE
+	(*SignalingRequest)(nil),     // 12: SignalingRequest
+	(*PresignedURLRequest)(nil),  // 13: PresignedURLRequest
+	(*PresignedURLResponse)(nil), // 14: PresignedURLResponse
 }
 var file_sage_proto_depIdxs = []int32{
 	0,  // 0: User.gender:type_name -> Gender
-	6,  // 1: User.location:type_name -> Location
-	7,  // 2: User.preferences:type_name -> Preferences
+	8,  // 1: User.location:type_name -> Location
+	9,  // 2: User.preferences:type_name -> Preferences
 	3,  // 3: CreateUserRequest.user:type_name -> User
 	3,  // 4: CreateUserResponse.user:type_name -> User
-	1,  // 5: Preferences.proximity:type_name -> Proximity
-	0,  // 6: Preferences.gender:type_name -> Gender
-	8,  // 7: ICE.sdp:type_name -> SDP
-	8,  // 8: SignalingRequest.sdp:type_name -> SDP
-	9,  // 9: SignalingRequest.ice:type_name -> ICE
-	11, // 10: PresignedURLResponse.request:type_name -> PresignedURLRequest
-	4,  // 11: Sage.CreateUser:input_type -> CreateUserRequest
-	5,  // 12: Sage.CreateUser:output_type -> CreateUserResponse
-	12, // [12:13] is the sub-list for method output_type
-	11, // [11:12] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	3,  // 5: GetUserResponse.user:type_name -> User
+	1,  // 6: Preferences.proximity:type_name -> Proximity
+	0,  // 7: Preferences.gender:type_name -> Gender
+	10, // 8: ICE.sdp:type_name -> SDP
+	10, // 9: SignalingRequest.sdp:type_name -> SDP
+	11, // 10: SignalingRequest.ice:type_name -> ICE
+	13, // 11: PresignedURLResponse.request:type_name -> PresignedURLRequest
+	6,  // 12: Sage.GetUser:input_type -> GetUserRequest
+	4,  // 13: Sage.CreateUser:input_type -> CreateUserRequest
+	7,  // 14: Sage.GetUser:output_type -> GetUserResponse
+	5,  // 15: Sage.CreateUser:output_type -> CreateUserResponse
+	14, // [14:16] is the sub-list for method output_type
+	12, // [12:14] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_sage_proto_init() }
@@ -1057,7 +1164,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Location); i {
+			switch v := v.(*GetUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1069,7 +1176,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Preferences); i {
+			switch v := v.(*GetUserResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1081,7 +1188,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SDP); i {
+			switch v := v.(*Location); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1093,7 +1200,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ICE); i {
+			switch v := v.(*Preferences); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1105,7 +1212,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SignalingRequest); i {
+			switch v := v.(*SDP); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1117,7 +1224,7 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PresignedURLRequest); i {
+			switch v := v.(*ICE); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1129,6 +1236,30 @@ func file_sage_proto_init() {
 			}
 		}
 		file_sage_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SignalingRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sage_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PresignedURLRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sage_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PresignedURLResponse); i {
 			case 0:
 				return &v.state
@@ -1141,7 +1272,7 @@ func file_sage_proto_init() {
 			}
 		}
 	}
-	file_sage_proto_msgTypes[8].OneofWrappers = []interface{}{
+	file_sage_proto_msgTypes[10].OneofWrappers = []interface{}{
 		(*SignalingRequest_Sdp)(nil),
 		(*SignalingRequest_Ice)(nil),
 	}
@@ -1151,7 +1282,7 @@ func file_sage_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_sage_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

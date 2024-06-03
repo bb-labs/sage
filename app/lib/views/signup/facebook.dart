@@ -13,9 +13,7 @@ class SageFacebookSignup extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 75, vertical: 17),
-      onPressed: () {
-        print("Sign in with Facebook");
-      },
+      onPressed: () {},
     );
   }
 }

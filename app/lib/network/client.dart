@@ -1,6 +1,6 @@
-import 'package:app/auth.dart';
 import 'package:grpc/grpc.dart';
-import 'package:app/pb/sage.pbgrpc.dart';
+import 'package:app/network/interceptors/auth.dart';
+import 'package:app/proto/sage.pbgrpc.dart';
 
 class SageClientSingleton {
   static final SageClientSingleton _instance =
@@ -16,7 +16,7 @@ class SageClientSingleton {
     const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
     final channel = ClientChannel(
-      isProduction ? 'app.sage.dating' : '192.168.1.132',
+      isProduction ? 'app.sage.dating' : '192.168.7.61',
       port: isProduction ? 443 : 3000,
       options: const ChannelOptions(
         credentials: isProduction

@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	Sage_GetUser_FullMethodName    = "/Sage/GetUser"
 	Sage_CreateUser_FullMethodName = "/Sage/CreateUser"
 )
 
@@ -26,6 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SageClient interface {
+	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 }
 
@@ -35,6 +37,15 @@ type sageClient struct {
 
 func NewSageClient(cc grpc.ClientConnInterface) SageClient {
 	return &sageClient{cc}
+}
+
+func (c *sageClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, Sage_GetUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *sageClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
@@ -50,6 +61,7 @@ func (c *sageClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts
 // All implementations must embed UnimplementedSageServer
 // for forward compatibility
 type SageServer interface {
+	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	mustEmbedUnimplementedSageServer()
 }
@@ -58,6 +70,9 @@ type SageServer interface {
 type UnimplementedSageServer struct {
 }
 
+func (UnimplementedSageServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
 func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
@@ -72,6 +87,24 @@ type UnsafeSageServer interface {
 
 func RegisterSageServer(s grpc.ServiceRegistrar, srv SageServer) {
 	s.RegisterService(&Sage_ServiceDesc, srv)
+}
+
+func _Sage_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_GetUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Sage_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -99,6 +132,10 @@ var Sage_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "Sage",
 	HandlerType: (*SageServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUser",
+			Handler:    _Sage_GetUser_Handler,
+		},
 		{
 			MethodName: "CreateUser",
 			Handler:    _Sage_CreateUser_Handler,

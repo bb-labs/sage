@@ -109,6 +109,30 @@ const CreateUserResponse$json = {
 final $typed_data.Uint8List createUserResponseDescriptor = $convert.base64Decode(
     'ChJDcmVhdGVVc2VyUmVzcG9uc2USGQoEdXNlchgBIAEoCzIFLlVzZXJSBHVzZXI=');
 
+@$core.Deprecated('Use getUserRequestDescriptor instead')
+const GetUserRequest$json = {
+  '1': 'GetUserRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `GetUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getUserRequestDescriptor = $convert.base64Decode(
+    'Cg5HZXRVc2VyUmVxdWVzdBIOCgJpZBgBIAEoCVICaWQ=');
+
+@$core.Deprecated('Use getUserResponseDescriptor instead')
+const GetUserResponse$json = {
+  '1': 'GetUserResponse',
+  '2': [
+    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `GetUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getUserResponseDescriptor = $convert.base64Decode(
+    'Cg9HZXRVc2VyUmVzcG9uc2USGQoEdXNlchgBIAEoCzIFLlVzZXJSBHVzZXI=');
+
 @$core.Deprecated('Use locationDescriptor instead')
 const Location$json = {
   '1': 'Location',

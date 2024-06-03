@@ -11,10 +11,7 @@ class SageGoogleSignup extends StatelessWidget {
       Buttons.Google,
       padding: const EdgeInsets.symmetric(horizontal: 75, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      onPressed: () {
-        print("Sign in with Google");
-        print(String.fromEnvironment('APP_CONTAINER_PROTOCOL_VERSION'));
-      },
+      onPressed: () async {},
     );
   }
 }

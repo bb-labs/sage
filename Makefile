@@ -30,7 +30,7 @@ clean: down
 	docker volume prune -af
 
 proto:
-	protoc sage.proto --dart_out=grpc:app/lib/pb
+	protoc sage.proto --dart_out=grpc:app/lib/proto
 
 	protoc sage.proto \
 		--go_out=service/pb \
