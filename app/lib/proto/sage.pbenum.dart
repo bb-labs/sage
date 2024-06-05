@@ -30,6 +30,23 @@ class Gender extends $pb.ProtobufEnum {
   const Gender._($core.int v, $core.String n) : super(v, n);
 }
 
+class GenderPlural extends $pb.ProtobufEnum {
+  static const GenderPlural MEN = GenderPlural._(0, _omitEnumNames ? '' : 'MEN');
+  static const GenderPlural WOMEN = GenderPlural._(1, _omitEnumNames ? '' : 'WOMEN');
+  static const GenderPlural HUMANS = GenderPlural._(2, _omitEnumNames ? '' : 'HUMANS');
+
+  static const $core.List<GenderPlural> values = <GenderPlural> [
+    MEN,
+    WOMEN,
+    HUMANS,
+  ];
+
+  static final $core.Map<$core.int, GenderPlural> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static GenderPlural? valueOf($core.int value) => _byValue[value];
+
+  const GenderPlural._($core.int v, $core.String n) : super(v, n);
+}
+
 class Proximity extends $pb.ProtobufEnum {
   static const Proximity HOOD = Proximity._(0, _omitEnumNames ? '' : 'HOOD');
   static const Proximity CITY = Proximity._(1, _omitEnumNames ? '' : 'CITY');

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SageSignUpLegal extends StatelessWidget {
-  const SageSignUpLegal({super.key});
+class SageLoginLegal extends StatelessWidget {
+  const SageLoginLegal({super.key});
 
   @override
   Widget build(BuildContext context) {

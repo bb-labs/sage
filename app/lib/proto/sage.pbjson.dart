@@ -27,6 +27,20 @@ const Gender$json = {
 final $typed_data.Uint8List genderDescriptor = $convert.base64Decode(
     'CgZHZW5kZXISBwoDTUFOEAASCQoFV09NQU4QARIJCgVIVU1BThAC');
 
+@$core.Deprecated('Use genderPluralDescriptor instead')
+const GenderPlural$json = {
+  '1': 'GenderPlural',
+  '2': [
+    {'1': 'MEN', '2': 0},
+    {'1': 'WOMEN', '2': 1},
+    {'1': 'HUMANS', '2': 2},
+  ],
+};
+
+/// Descriptor for `GenderPlural`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List genderPluralDescriptor = $convert.base64Decode(
+    'CgxHZW5kZXJQbHVyYWwSBwoDTUVOEAASCQoFV09NRU4QARIKCgZIVU1BTlMQAg==');
+
 @$core.Deprecated('Use proximityDescriptor instead')
 const Proximity$json = {
   '1': 'Proximity',
@@ -68,7 +82,7 @@ const User$json = {
     {'1': 'last_name', '3': 3, '4': 1, '5': 9, '10': 'lastName'},
     {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
     {'1': 'rating', '3': 5, '4': 1, '5': 1, '10': 'rating'},
-    {'1': 'gender', '3': 6, '4': 1, '5': 14, '6': '.Gender', '10': 'gender'},
+    {'1': 'gender', '3': 6, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
     {'1': 'birthday', '3': 7, '4': 1, '5': 5, '10': 'birthday'},
     {'1': 'video_url', '3': 8, '4': 1, '5': 9, '10': 'videoUrl'},
     {'1': 'location', '3': 9, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
@@ -80,7 +94,7 @@ const User$json = {
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
     'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIdCgpmaXJzdF9uYW1lGAIgASgJUglmaXJzdE5hbWUSGw'
     'oJbGFzdF9uYW1lGAMgASgJUghsYXN0TmFtZRIUCgVlbWFpbBgEIAEoCVIFZW1haWwSFgoGcmF0'
-    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgASgOMgcuR2VuZGVyUgZnZW5kZXISGgoIYm'
+    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgAygOMgcuR2VuZGVyUgZnZW5kZXISGgoIYm'
     'lydGhkYXkYByABKAVSCGJpcnRoZGF5EhsKCXZpZGVvX3VybBgIIAEoCVIIdmlkZW9VcmwSJQoI'
     'bG9jYXRpb24YCSABKAsyCS5Mb2NhdGlvblIIbG9jYXRpb24SLgoLcHJlZmVyZW5jZXMYCiABKA'
     'syDC5QcmVmZXJlbmNlc1ILcHJlZmVyZW5jZXM=');
@@ -132,6 +146,27 @@ const GetUserResponse$json = {
 /// Descriptor for `GetUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getUserResponseDescriptor = $convert.base64Decode(
     'Cg9HZXRVc2VyUmVzcG9uc2USGQoEdXNlchgBIAEoCzIFLlVzZXJSBHVzZXI=');
+
+@$core.Deprecated('Use updateUserRequestDescriptor instead')
+const UpdateUserRequest$json = {
+  '1': 'UpdateUserRequest',
+  '2': [
+    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `UpdateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserRequestDescriptor = $convert.base64Decode(
+    'ChFVcGRhdGVVc2VyUmVxdWVzdBIZCgR1c2VyGAEgASgLMgUuVXNlclIEdXNlcg==');
+
+@$core.Deprecated('Use updateUserResponseDescriptor instead')
+const UpdateUserResponse$json = {
+  '1': 'UpdateUserResponse',
+};
+
+/// Descriptor for `UpdateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode(
+    'ChJVcGRhdGVVc2VyUmVzcG9uc2U=');
 
 @$core.Deprecated('Use locationDescriptor instead')
 const Location$json = {

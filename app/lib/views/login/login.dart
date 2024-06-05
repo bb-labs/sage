@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:app/views/signup/logo.dart';
-import 'package:app/views/signup/legal.dart';
-import 'package:app/views/signup/animation.dart';
-import 'package:app/views/signup/services.dart';
+import 'package:app/views/login/logo.dart';
+import 'package:app/views/login/legal.dart';
+import 'package:app/views/login/animation.dart';
+import 'package:app/views/login/services.dart';
 
-class SageSignUp extends StatelessWidget {
-  const SageSignUp({super.key});
+class SageLogin extends StatelessWidget {
+  const SageLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +17,18 @@ class SageSignUp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Spacer(),
-              SageSignUpLogo(),
+              SageLoginLogo(),
               Spacer(),
               Spacer(),
-              SageSignUpAnimation(),
+              SageLoginAnimation(),
               Spacer(),
               Spacer(),
               Spacer(),
               Spacer(),
               Spacer(),
-              SageSignUpLoginServices(),
+              SageLoginLoginServices(),
               SizedBox(height: 5),
-              SageSignUpLegal(),
+              SageLoginLegal(),
             ],
           ),
         ),

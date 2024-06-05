@@ -1,10 +1,10 @@
-import 'package:app/views/signup/apple.dart';
-import 'package:app/views/signup/facebook.dart';
-import 'package:app/views/signup/google.dart';
+import 'package:app/views/login/apple.dart';
+import 'package:app/views/login/facebook.dart';
+import 'package:app/views/login/google.dart';
 import 'package:flutter/material.dart';
 
-class SageSignUpLoginServices extends StatelessWidget {
-  const SageSignUpLoginServices({super.key});
+class SageLoginLoginServices extends StatelessWidget {
+  const SageLoginLoginServices({super.key});
 
   @override
   Widget build(BuildContext context) {

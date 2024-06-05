@@ -17,7 +17,7 @@ message User {
   string last_name = 3;
   string email = 4;
   double rating = 5;
-  Gender gender = 6;
+  repeated Gender gender = 6;
   int32 birthday = 7;
   string video_url = 8;
   Location location = 9;
@@ -28,11 +28,19 @@ message CreateUserRequest { User user = 1; }
 message CreateUserResponse { User user = 1; }
 message GetUserRequest { string id = 1; }
 message GetUserResponse { User user = 1; }
+message UpdateUserRequest { User user = 1; }
+message UpdateUserResponse { }
 
 enum Gender {
   MAN = 0;
   WOMAN = 1;
   HUMAN = 2;
+}
+
+enum GenderPlural {
+  MEN = 0;
+  WOMEN = 1;
+  HUMANS = 2;
 }
 
 enum Proximity {
@@ -96,5 +104,6 @@ message PresignedURLResponse {
 // // // // // // // // // // // //
 service Sage {
   rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserRequest) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 }

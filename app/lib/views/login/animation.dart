@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SageSignUpAnimation extends StatelessWidget {
-  const SageSignUpAnimation({super.key});
+class SageLoginAnimation extends StatelessWidget {
+  const SageLoginAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {

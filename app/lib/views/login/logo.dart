@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SageSignUpLogo extends StatelessWidget {
-  const SageSignUpLogo({super.key});
+class SageLoginLogo extends StatelessWidget {
+  const SageLoginLogo({super.key});
 
   @override
   Widget build(BuildContext context) {

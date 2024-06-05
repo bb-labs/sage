@@ -1,8 +1,9 @@
 import 'package:app/models/auth.dart';
 import 'package:app/models/user.dart';
-import 'package:app/network/interceptors/auth.dart';
-import 'package:app/network/client.dart';
+import 'package:app/grpc/interceptors/auth.dart';
+import 'package:app/grpc/client.dart';
 import 'package:app/proto/sage.pb.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:grpc/grpc.dart';
 import 'package:provider/provider.dart';
@@ -46,9 +47,13 @@ class SageAppleSignup extends StatelessWidget {
               ),
             );
 
-        authModel.status = AuthStatus.registering;
+        authModel.status = AuthStatus.welcome;
         userModel.user = response.user;
-        await userModel.save();
+        await userModel.store();
+
+        if (context.mounted) {
+          context.go('/intro');
+        }
       },
     );
   }

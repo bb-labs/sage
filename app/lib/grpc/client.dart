@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import 'package:app/network/interceptors/auth.dart';
+import 'package:app/grpc/interceptors/auth.dart';
 import 'package:app/proto/sage.pbgrpc.dart';
 
 class SageClientSingleton {

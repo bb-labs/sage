@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 enum AuthStatus {
   unknown,
   registering,
+  welcome,
   loggedIn,
 }
 
@@ -14,7 +15,7 @@ class AuthModel with ChangeNotifier {
     if (user.id.isEmpty) {
       _status = AuthStatus.unknown;
     } else if (!user.hasVideoUrl()) {
-      _status = AuthStatus.registering;
+      _status = AuthStatus.welcome;
     } else {
       _status = AuthStatus.loggedIn;
     }
