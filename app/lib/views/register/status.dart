@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class SageStatusCarousel extends StatelessWidget {
@@ -17,32 +18,17 @@ class SageStatusCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       items: [
-        Icon(
-          Icons.waving_hand_outlined,
+        Icons.waving_hand_outlined,
+        Icons.celebration_outlined,
+        Icons.transgender,
+        Icons.emoji_people_outlined,
+      ].mapIndexed((index, icon) {
+        return Icon(
+          icon,
           color: Colors.black,
-          size: pageIndex == 0 ? iconSize * 2 : iconSize,
-        ),
-        Icon(
-          Icons.transgender,
-          color: Colors.black,
-          size: pageIndex == 1 ? iconSize * 2 : iconSize,
-        ),
-        Icon(
-          Icons.emoji_people_outlined,
-          color: Colors.black,
-          size: pageIndex == 2 ? iconSize * 2 : iconSize,
-        ),
-        Icon(
-          Icons.celebration_outlined,
-          color: Colors.black,
-          size: pageIndex == 3 ? iconSize * 2 : iconSize,
-        ),
-        Icon(
-          Icons.location_on_outlined,
-          color: Colors.black,
-          size: pageIndex == 4 ? iconSize * 2 : iconSize,
-        ),
-      ],
+          size: pageIndex == index ? iconSize * 2 : iconSize,
+        );
+      }).toList(),
       carouselController: _carouselController,
       options: CarouselOptions(
         scrollPhysics: const NeverScrollableScrollPhysics(),

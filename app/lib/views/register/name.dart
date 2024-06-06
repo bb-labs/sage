@@ -1,15 +1,15 @@
+import 'package:app/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:protobuf/protobuf.dart';
+import 'package:provider/provider.dart';
 
-class SageWhatIsYourName extends StatefulWidget {
+class SageWhatIsYourName extends StatelessWidget {
   const SageWhatIsYourName({super.key});
 
   @override
-  State<SageWhatIsYourName> createState() => _SageWhatIsYourNameState();
-}
-
-class _SageWhatIsYourNameState extends State<SageWhatIsYourName> {
-  @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -27,12 +27,18 @@ class _SageWhatIsYourNameState extends State<SageWhatIsYourName> {
             const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: const TextField(
+              child: TextFormField(
+                initialValue: userModel.user.firstName,
+                onChanged: (value) {
+                  final newUser = userModel.user.deepCopy();
+                  newUser.firstName = value;
+                  userModel.user = newUser;
+                },
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               ),

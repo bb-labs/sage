@@ -48,15 +48,12 @@ const Proximity$json = {
     {'1': 'HOOD', '2': 0},
     {'1': 'CITY', '2': 1},
     {'1': 'METRO', '2': 2},
-    {'1': 'STATE', '2': 3},
-    {'1': 'COUNTRY', '2': 4},
   ],
 };
 
 /// Descriptor for `Proximity`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List proximityDescriptor = $convert.base64Decode(
-    'CglQcm94aW1pdHkSCAoESE9PRBAAEggKBENJVFkQARIJCgVNRVRSTxACEgkKBVNUQVRFEAMSCw'
-    'oHQ09VTlRSWRAE');
+    'CglQcm94aW1pdHkSCAoESE9PRBAAEggKBENJVFkQARIJCgVNRVRSTxAC');
 
 @$core.Deprecated('Use tokenDescriptor instead')
 const Token$json = {
@@ -83,7 +80,7 @@ const User$json = {
     {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
     {'1': 'rating', '3': 5, '4': 1, '5': 1, '10': 'rating'},
     {'1': 'gender', '3': 6, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
-    {'1': 'birthday', '3': 7, '4': 1, '5': 5, '10': 'birthday'},
+    {'1': 'birthday', '3': 7, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
     {'1': 'video_url', '3': 8, '4': 1, '5': 9, '10': 'videoUrl'},
     {'1': 'location', '3': 9, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
     {'1': 'preferences', '3': 10, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
@@ -94,10 +91,10 @@ const User$json = {
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
     'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIdCgpmaXJzdF9uYW1lGAIgASgJUglmaXJzdE5hbWUSGw'
     'oJbGFzdF9uYW1lGAMgASgJUghsYXN0TmFtZRIUCgVlbWFpbBgEIAEoCVIFZW1haWwSFgoGcmF0'
-    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgAygOMgcuR2VuZGVyUgZnZW5kZXISGgoIYm'
-    'lydGhkYXkYByABKAVSCGJpcnRoZGF5EhsKCXZpZGVvX3VybBgIIAEoCVIIdmlkZW9VcmwSJQoI'
-    'bG9jYXRpb24YCSABKAsyCS5Mb2NhdGlvblIIbG9jYXRpb24SLgoLcHJlZmVyZW5jZXMYCiABKA'
-    'syDC5QcmVmZXJlbmNlc1ILcHJlZmVyZW5jZXM=');
+    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgAygOMgcuR2VuZGVyUgZnZW5kZXISJQoIYm'
+    'lydGhkYXkYByABKAsyCS5CaXJ0aGRheVIIYmlydGhkYXkSGwoJdmlkZW9fdXJsGAggASgJUgh2'
+    'aWRlb1VybBIlCghsb2NhdGlvbhgJIAEoCzIJLkxvY2F0aW9uUghsb2NhdGlvbhIuCgtwcmVmZX'
+    'JlbmNlcxgKIAEoCzIMLlByZWZlcmVuY2VzUgtwcmVmZXJlbmNlcw==');
 
 @$core.Deprecated('Use createUserRequestDescriptor instead')
 const CreateUserRequest$json = {
@@ -180,6 +177,21 @@ const Location$json = {
 /// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
     'CghMb2NhdGlvbhIQCgNsYXQYASABKAVSA2xhdBISCgRsb25nGAIgASgFUgRsb25n');
+
+@$core.Deprecated('Use birthdayDescriptor instead')
+const Birthday$json = {
+  '1': 'Birthday',
+  '2': [
+    {'1': 'day', '3': 1, '4': 1, '5': 5, '10': 'day'},
+    {'1': 'month', '3': 2, '4': 1, '5': 5, '10': 'month'},
+    {'1': 'year', '3': 3, '4': 1, '5': 5, '10': 'year'},
+  ],
+};
+
+/// Descriptor for `Birthday`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List birthdayDescriptor = $convert.base64Decode(
+    'CghCaXJ0aGRheRIQCgNkYXkYASABKAVSA2RheRIUCgVtb250aBgCIAEoBVIFbW9udGgSEgoEeW'
+    'VhchgDIAEoBVIEeWVhcg==');
 
 @$core.Deprecated('Use preferencesDescriptor instead')
 const Preferences$json = {

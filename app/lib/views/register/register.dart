@@ -1,6 +1,8 @@
+import 'package:app/views/register/birthday.dart';
 import 'package:app/views/register/navigation.dart';
 import 'package:app/views/register/gender.dart';
 import 'package:app/views/register/name.dart';
+import 'package:app/views/register/preferences.dart';
 import 'package:app/views/register/status.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -28,6 +30,7 @@ class _SageRegistrationState extends State<SageRegistration> {
         body: Stack(
           children: [
             PageView(
+              physics: const NeverScrollableScrollPhysics(),
               onPageChanged: (newPageIndex) {
                 setState(() {
                   pageIndex = newPageIndex;
@@ -36,7 +39,9 @@ class _SageRegistrationState extends State<SageRegistration> {
               controller: _pageController,
               children: const [
                 SageWhatIsYourName(),
-                SageWhatAreYouInto(),
+                SageWhatIsYourBirthday(),
+                SageWhichGendersAreYouInto(),
+                SageWhatAreYourPreferences(),
               ],
             ),
             Column(

@@ -6,28 +6,20 @@ import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
-class SageWhatAreYouInto extends StatelessWidget {
-  const SageWhatAreYouInto({super.key});
+class SageWhichGendersAreYouInto extends StatelessWidget {
+  const SageWhichGendersAreYouInto({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var userModel = Provider.of<UserModel>(context, listen: true);
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+    return const Padding(
+      padding: EdgeInsets.all(20.0),
       child: Column(
         children: [
-          const Spacer(),
-          SageGenderSelect(
-            userModel: userModel,
-            mode: SageGenderSelectMode.identify,
-          ),
-          const SizedBox(height: 40),
-          SageGenderSelect(
-            userModel: userModel,
-            mode: SageGenderSelectMode.interested,
-          ),
-          const Spacer(),
+          Spacer(),
+          SageGenderSelect(mode: SageGenderSelectMode.identify),
+          SizedBox(height: 40),
+          SageGenderSelect(mode: SageGenderSelectMode.interested),
+          Spacer(),
         ],
       ),
     );
@@ -39,17 +31,17 @@ enum SageGenderSelectMode { identify, interested }
 class SageGenderButton extends StatelessWidget {
   const SageGenderButton({
     super.key,
-    required this.userModel,
     required this.gender,
     required this.mode,
   });
 
   final SageGenderSelectMode mode;
   final Gender gender;
-  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
+
     return ElevatedButton(
       onPressed: () {
         final newUser = userModel.user.deepCopy();
@@ -93,11 +85,9 @@ class SageGenderButton extends StatelessWidget {
 class SageGenderSelect extends StatelessWidget {
   const SageGenderSelect({
     super.key,
-    required this.userModel,
     required this.mode,
   });
 
-  final UserModel userModel;
   final SageGenderSelectMode mode;
 
   @override
@@ -122,7 +112,6 @@ class SageGenderSelect extends StatelessWidget {
           children: [Gender.WOMAN, Gender.HUMAN, Gender.MAN].map((gender) {
             return SageGenderButton(
               gender: gender,
-              userModel: userModel,
               mode: mode,
             );
           }).toList(),

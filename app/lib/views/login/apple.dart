@@ -38,8 +38,6 @@ class SageAppleSignup extends StatelessWidget {
                 user: User(
                   id: cred.userIdentifier,
                   email: cred.email,
-                  firstName: cred.givenName,
-                  lastName: cred.familyName,
                 ),
               ),
               options: CallOptions(

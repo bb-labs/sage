@@ -106,7 +106,7 @@ class User extends $pb.GeneratedMessage {
     $core.String? email,
     $core.double? rating,
     $core.Iterable<Gender>? gender,
-    $core.int? birthday,
+    Birthday? birthday,
     $core.String? videoUrl,
     Location? location,
     Preferences? preferences,
@@ -155,7 +155,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'email')
     ..a<$core.double>(5, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
     ..pc<Gender>(6, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
-    ..a<$core.int>(7, _omitFieldNames ? '' : 'birthday', $pb.PbFieldType.O3)
+    ..aOM<Birthday>(7, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
     ..aOS(8, _omitFieldNames ? '' : 'videoUrl')
     ..aOM<Location>(9, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
     ..aOM<Preferences>(10, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
@@ -232,13 +232,15 @@ class User extends $pb.GeneratedMessage {
   $core.List<Gender> get gender => $_getList(5);
 
   @$pb.TagNumber(7)
-  $core.int get birthday => $_getIZ(6);
+  Birthday get birthday => $_getN(6);
   @$pb.TagNumber(7)
-  set birthday($core.int v) { $_setSignedInt32(6, v); }
+  set birthday(Birthday v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasBirthday() => $_has(6);
   @$pb.TagNumber(7)
   void clearBirthday() => clearField(7);
+  @$pb.TagNumber(7)
+  Birthday ensureBirthday() => $_ensure(6);
 
   @$pb.TagNumber(8)
   $core.String get videoUrl => $_getSZ(7);
@@ -624,6 +626,84 @@ class Location extends $pb.GeneratedMessage {
   $core.bool hasLong() => $_has(1);
   @$pb.TagNumber(2)
   void clearLong() => clearField(2);
+}
+
+class Birthday extends $pb.GeneratedMessage {
+  factory Birthday({
+    $core.int? day,
+    $core.int? month,
+    $core.int? year,
+  }) {
+    final $result = create();
+    if (day != null) {
+      $result.day = day;
+    }
+    if (month != null) {
+      $result.month = month;
+    }
+    if (year != null) {
+      $result.year = year;
+    }
+    return $result;
+  }
+  Birthday._() : super();
+  factory Birthday.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Birthday.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Birthday', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'day', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'month', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'year', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Birthday clone() => Birthday()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Birthday copyWith(void Function(Birthday) updates) => super.copyWith((message) => updates(message as Birthday)) as Birthday;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Birthday create() => Birthday._();
+  Birthday createEmptyInstance() => create();
+  static $pb.PbList<Birthday> createRepeated() => $pb.PbList<Birthday>();
+  @$core.pragma('dart2js:noInline')
+  static Birthday getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Birthday>(create);
+  static Birthday? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get day => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set day($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasDay() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDay() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get month => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set month($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasMonth() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMonth() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get year => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set year($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasYear() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearYear() => clearField(3);
 }
 
 class Preferences extends $pb.GeneratedMessage {

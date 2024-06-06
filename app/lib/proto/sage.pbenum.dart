@@ -51,15 +51,11 @@ class Proximity extends $pb.ProtobufEnum {
   static const Proximity HOOD = Proximity._(0, _omitEnumNames ? '' : 'HOOD');
   static const Proximity CITY = Proximity._(1, _omitEnumNames ? '' : 'CITY');
   static const Proximity METRO = Proximity._(2, _omitEnumNames ? '' : 'METRO');
-  static const Proximity STATE = Proximity._(3, _omitEnumNames ? '' : 'STATE');
-  static const Proximity COUNTRY = Proximity._(4, _omitEnumNames ? '' : 'COUNTRY');
 
   static const $core.List<Proximity> values = <Proximity> [
     HOOD,
     CITY,
     METRO,
-    STATE,
-    COUNTRY,
   ];
 
   static final $core.Map<$core.int, Proximity> _byValue = $pb.ProtobufEnum.initByValue(values);
