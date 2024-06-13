@@ -5,6 +5,8 @@ PODS:
   - AppAuth/Core (1.7.4)
   - AppAuth/ExternalUserAgent (1.7.4):
     - AppAuth/Core
+  - camera_avfoundation (0.0.1):
+    - Flutter
   - FBAEMKit (16.3.1):
     - FBSDKCoreKit_Basics (= 16.3.1)
   - FBSDKCoreKit (16.3.1):
@@ -17,12 +19,25 @@ PODS:
   - flutter_facebook_auth (6.0.4):
     - FBSDKLoginKit (~> 16.3.1)
     - Flutter
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
+  - geolocator_apple (1.2.0):
+    - Flutter
+  - google_maps_flutter_ios (0.0.1):
+    - Flutter
+    - GoogleMaps (< 9.0, >= 8.4)
   - google_sign_in_ios (0.0.1):
     - AppAuth (>= 1.7.4)
     - Flutter
     - FlutterMacOS
     - GoogleSignIn (~> 7.1)
     - GTMSessionFetcher (>= 3.4.0)
+  - GoogleMaps (8.4.0):
+    - GoogleMaps/Maps (= 8.4.0)
+  - GoogleMaps/Base (8.4.0)
+  - GoogleMaps/Maps (8.4.0):
+    - GoogleMaps/Base
   - GoogleSignIn (7.1.0):
     - AppAuth (< 2.0, >= 1.7.3)
     - GTMAppAuth (< 5.0, >= 4.1.1)
@@ -43,10 +58,15 @@ PODS:
     - FlutterMacOS
   - sign_in_with_apple (0.0.1):
     - Flutter
+  - Toast (4.1.1)
 
 DEPENDENCIES:
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - Flutter (from `Flutter`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -59,15 +79,25 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
+    - GoogleMaps
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - Toast
 
 EXTERNAL SOURCES:
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
   Flutter:
     :path: Flutter
   flutter_facebook_auth:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
+  google_maps_flutter_ios:
+    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/darwin"
   path_provider_foundation:
@@ -79,19 +109,25 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 182c5b88630569df5acb672720534756c29b3358
+  camera_avfoundation: 759172d1a77ae7be0de08fc104cfb79738b8a59e
   FBAEMKit: 6c7b5eb77c96861bb59e040842c6e55bf39512ce
   FBSDKCoreKit: 5e4dd478947ab1bcc887e8cfadeae0727af1a942
   FBSDKCoreKit_Basics: cd7b5f5d1e8868c26706917919d058999ca672c3
   FBSDKLoginKit: 572cca0bc6c90067ef197187697cb3b584310c52
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_facebook_auth: c8700ab1770f3d8e5e7456220e4f3bbcdb831454
+  fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
+  geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
+  google_maps_flutter_ios: c454f18e0e22df6ac0e9f2a4df340858f5a3680c
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
+  GoogleMaps: 8939898920281c649150e0af74aa291c60f2e77d
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 

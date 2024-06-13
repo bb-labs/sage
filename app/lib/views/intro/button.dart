@@ -14,12 +14,10 @@ class SageGetStartedButton extends StatelessWidget {
       alignment: const Alignment(0, 0.75),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange,
-          foregroundColor: Colors.white,
           minimumSize: const Size(350, 50),
         ),
         onPressed: () {
-          context.go("/signup");
+          context.go("/register");
         },
         child: const Text("Get Started"),
       ),

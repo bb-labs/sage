@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SageNavigationButtons extends StatelessWidget {
   static const curve = Curves.easeInOut;
@@ -46,24 +47,22 @@ class SageNavigationButtons extends StatelessWidget {
           ),
         ),
         const Spacer(flex: 4),
-        Visibility(
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          visible: !isLastPage,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(20),
-            ),
-            onPressed: () {
-              _pageController.nextPage(duration: duration, curve: curve);
-              _carouselController.nextPage(duration: duration, curve: curve);
-            },
-            child: const Icon(
-              Icons.arrow_forward_ios_sharp,
-              color: Colors.black,
-            ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(20),
+          ),
+          onPressed: () {
+            if (isLastPage) {
+              context.go('/profile');
+              return;
+            }
+            _pageController.nextPage(duration: duration, curve: curve);
+            _carouselController.nextPage(duration: duration, curve: curve);
+          },
+          child: Icon(
+            isLastPage ? Icons.check : Icons.arrow_forward_ios_sharp,
+            color: isLastPage ? Colors.green : Colors.black,
           ),
         ),
         const Spacer(),

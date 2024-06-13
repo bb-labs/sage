@@ -1,5 +1,5 @@
-import 'package:app/views/register/age.dart';
-import 'package:app/views/register/location.dart';
+import 'package:app/views/register/preferences/age.dart';
+import 'package:app/views/register/preferences/gender.dart';
 import 'package:flutter/material.dart';
 
 class SageWhatAreYourPreferences extends StatelessWidget {
@@ -13,11 +13,13 @@ class SageWhatAreYourPreferences extends StatelessWidget {
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Spacer(flex: 7),
+            Spacer(),
+            SageGenderSelect(mode: SageGenderSelectMode.identify),
+            SizedBox(height: 40),
+            SageGenderSelect(mode: SageGenderSelectMode.interested),
+            SizedBox(height: 40),
             SageWhichAgeDoYouPrefer(),
             Spacer(),
-            SageWhatAreYourProximityPreferences(),
-            Spacer(flex: 7),
           ],
         ),
       ),

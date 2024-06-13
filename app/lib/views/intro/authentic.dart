@@ -14,29 +14,24 @@ class SageAuthenticYou extends StatelessWidget {
         padding: const EdgeInsets.all(40),
         child: Column(
           children: [
-            const Spacer(),
-            const Spacer(),
-            const Text("The Real You", style: TextStyle(fontSize: 45)),
-            const SizedBox(height: 45),
+            const Spacer(flex: 2),
+            const Text("Show 'Em the Reel You", style: TextStyle(fontSize: 45)),
             SizedBox(
               height: 300,
               child: OverflowBox(
                 minHeight: 600,
                 maxHeight: 600,
                 child: Lottie.asset(
-                  "assets/selfie.json",
+                  "assets/authentic.json",
                   frameRate: FrameRate.max,
                   reverse: true,
                 ),
               ),
             ),
             const Text(
-                "Ditch the elaborate profile. The people want reels. Just be... you.",
+                "Ditch the elaborate profile. The people just want to see... you.",
                 style: TextStyle(fontSize: 20)),
-            const Spacer(),
-            const Spacer(),
-            const Spacer(),
-            const Spacer(),
+            const Spacer(flex: 4),
           ],
         ),
       ),

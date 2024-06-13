@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class SageStatusCarousel extends StatelessWidget {
+class SageProgressCarousel extends StatelessWidget {
   static const iconSize = 15.0;
 
-  const SageStatusCarousel({
+  const SageProgressCarousel({
     super.key,
     required this.pageIndex,
     required CarouselController carouselController,
@@ -21,7 +21,7 @@ class SageStatusCarousel extends StatelessWidget {
         Icons.waving_hand_outlined,
         Icons.celebration_outlined,
         Icons.transgender,
-        Icons.emoji_people_outlined,
+        Icons.location_on_outlined,
       ].mapIndexed((index, icon) {
         return Icon(
           icon,

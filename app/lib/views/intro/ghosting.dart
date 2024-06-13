@@ -22,7 +22,7 @@ class SageKeepGhostsAway extends StatelessWidget {
                 minHeight: 600,
                 maxHeight: 600,
                 child: Lottie.asset(
-                  "assets/ghosted.json",
+                  "assets/casper.json",
                   frameRate: FrameRate.max,
                   reverse: true,
                 ),
@@ -31,8 +31,7 @@ class SageKeepGhostsAway extends StatelessWidget {
             const Text(
                 "We hate ghosting. In fact, that's why we call ourselves Sage; it keeps the ghosts away!",
                 style: TextStyle(fontSize: 20)),
-            const Spacer(),
-            const Spacer(),
+            const Spacer(flex: 2),
           ],
         ),
       ),

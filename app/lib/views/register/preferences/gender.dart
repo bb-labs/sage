@@ -6,26 +6,6 @@ import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
-class SageWhichGendersAreYouInto extends StatelessWidget {
-  const SageWhichGendersAreYouInto({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Spacer(),
-          SageGenderSelect(mode: SageGenderSelectMode.identify),
-          SizedBox(height: 40),
-          SageGenderSelect(mode: SageGenderSelectMode.interested),
-          Spacer(),
-        ],
-      ),
-    );
-  }
-}
-
 enum SageGenderSelectMode { identify, interested }
 
 class SageGenderButton extends StatelessWidget {
@@ -99,7 +79,7 @@ class SageGenderSelect extends StatelessWidget {
           child: Text(
             mode == SageGenderSelectMode.identify
                 ? 'I identify as a'
-                : 'and am interested in dating',
+                : 'interested in dating',
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

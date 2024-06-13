@@ -24,6 +24,10 @@ dependencies:
   carousel_slider: ^4.2.1
   intl: ^0.19.0
   collection: ^1.18.0
+  camera: ^0.11.0+1
+  google_maps_flutter: ^2.6.1
+  geolocator: ^12.0.0
+  fluttertoast: ^8.2.6
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
@@ -40,9 +44,9 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/go.json
     - assets/ghost.json
-    - assets/ghosted.json
-    - assets/selfie.json
-    - assets/ready.json
-    - assets/plant.json
+    - assets/record.json
+    - assets/casper.json
+    - assets/authentic.json
     - assets/sage.json

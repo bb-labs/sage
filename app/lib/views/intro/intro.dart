@@ -1,7 +1,7 @@
 import 'package:app/views/intro/button.dart';
 import 'package:app/views/intro/ghosting.dart';
 import 'package:app/views/intro/authentic.dart';
-import 'package:app/views/intro/ready.dart';
+import 'package:app/views/intro/go.dart';
 
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

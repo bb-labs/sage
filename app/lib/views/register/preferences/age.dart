@@ -15,7 +15,7 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           child: const Text(
-            "I'm looking for someone aged",
+            "between the ages of",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -28,8 +28,16 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(horizontal: 40),
           child: SliderTheme(
-            data: const SliderThemeData(
-              showValueIndicator: ShowValueIndicator.always,
+            data: SliderThemeData(
+              showValueIndicator: ShowValueIndicator.never,
+              rangeThumbShape: IndicatorRangeSliderThumbShape(
+                userModel.user.preferences.hasAgeMin()
+                    ? userModel.user.preferences.ageMin
+                    : 18,
+                userModel.user.preferences.hasAgeMax()
+                    ? userModel.user.preferences.ageMax
+                    : 40,
+              ),
             ),
             child: RangeSlider(
               values: RangeValues(
@@ -38,9 +46,9 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
                     : 18,
                 userModel.user.preferences.hasAgeMax()
                     ? userModel.user.preferences.ageMax.toDouble()
-                    : 50,
+                    : 40,
               ),
-              max: 50,
+              max: 40,
               min: 18,
               labels: RangeLabels(
                 userModel.user.preferences.ageMin.toString(),
@@ -60,5 +68,52 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class IndicatorRangeSliderThumbShape<T> extends RangeSliderThumbShape {
+  IndicatorRangeSliderThumbShape(this.start, this.end);
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
+    return const Size(15, 40);
+  }
+
+  T start;
+  T end;
+  late TextPainter labelTextPainter = TextPainter()
+    ..textDirection = TextDirection.ltr;
+
+  @override
+  void paint(
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    bool? isDiscrete,
+    bool? isEnabled,
+    bool? isOnTop,
+    TextDirection? textDirection,
+    required SliderThemeData sliderTheme,
+    Thumb? thumb,
+    bool? isPressed,
+  }) {
+    final Canvas canvas = context.canvas;
+    final Paint strokePaint = Paint()
+      ..color = sliderTheme.thumbColor ?? Colors.yellow
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+    canvas.drawCircle(center, 12, Paint()..color = Colors.white);
+    canvas.drawCircle(center, 12, strokePaint);
+    if (thumb == null) {
+      return;
+    }
+    final value = thumb == Thumb.start ? start : end;
+    labelTextPainter.text = TextSpan(
+        text: value.toString(),
+        style: const TextStyle(fontSize: 20, color: Colors.black));
+    labelTextPainter.layout();
+    labelTextPainter.paint(canvas,
+        center.translate(-labelTextPainter.width / 2, labelTextPainter.height));
   }
 }

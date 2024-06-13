@@ -32,6 +32,8 @@ class SageWhatIsYourBirthday extends StatelessWidget {
               child: SizedBox(
                 height: 200,
                 child: CupertinoDatePicker(
+                  maximumDate: DateTime.now()
+                      .subtract(Duration(days: 365 * 18 + (18 / 4).round())),
                   mode: CupertinoDatePickerMode.date,
                   initialDateTime: DateTime(
                     userModel.user.hasBirthday()

@@ -1,7 +1,10 @@
 import 'package:app/models/auth.dart';
+import 'package:app/models/camera.dart';
+import 'package:app/models/location.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
+import 'package:app/views/profile/profile.dart';
 import 'package:app/views/register/register.dart';
 
 import 'package:flutter/material.dart';
@@ -11,15 +14,20 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize user model (lookup user from storage, fetch from server, etc.)
   var userModel = UserModel();
+  var cameraModel = CameraModel();
+  var locationModel = LocationModel();
   await userModel.init();
+  await cameraModel.init();
+  await locationModel.init();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthModel(userModel.user)),
         ChangeNotifierProvider(create: (context) => userModel),
+        ChangeNotifierProvider(create: (context) => cameraModel),
+        ChangeNotifierProvider(create: (context) => locationModel),
       ],
       child: const SageApp(),
     ),
@@ -39,6 +47,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/register',
       builder: (context, state) => const SageRegistration(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const SageCreateYourProfile(),
     ),
   ],
   onException: (context, state, router) => router.go('/register'),

@@ -14,17 +14,15 @@ class SageReadyToGo extends StatelessWidget {
         padding: const EdgeInsets.all(40),
         child: Column(
           children: [
-            const Spacer(),
-            const Spacer(),
+            const Spacer(flex: 2),
             const Text("Well, Let's Go!", style: TextStyle(fontSize: 45)),
-            const SizedBox(height: 45),
             SizedBox(
               height: 300,
               child: OverflowBox(
-                minHeight: 600,
-                maxHeight: 600,
+                minHeight: 200,
+                maxHeight: 200,
                 child: Lottie.asset(
-                  "assets/ready.json",
+                  "assets/go.json",
                   frameRate: FrameRate.max,
                   reverse: true,
                 ),
@@ -33,10 +31,7 @@ class SageReadyToGo extends StatelessWidget {
             const Text(
                 "Welcome to the most authentic dating app out there. We're excited to have you!",
                 style: TextStyle(fontSize: 20)),
-            const Spacer(),
-            const Spacer(),
-            const Spacer(),
-            const Spacer(),
+            const Spacer(flex: 4),
           ],
         ),
       ),
