@@ -18,8 +18,6 @@ void main() async {
   var cameraModel = CameraModel();
   var locationModel = LocationModel();
   await userModel.init();
-  await cameraModel.init();
-  await locationModel.init();
 
   runApp(
     MultiProvider(

@@ -6,7 +6,7 @@ class SageRecordButton extends StatefulWidget {
     super.key,
     required this.onStartRecording,
     required this.onStopRecording,
-    this.size = 150,
+    this.size = 145,
   });
 
   final VoidCallback? onStartRecording;
@@ -31,28 +31,21 @@ class _RecordButtonState extends State<SageRecordButton>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GestureDetector(
-        onTapDown: (_) {
-          setState(() {
-            isRecording = true;
-          });
+      child: Listener(
+        onPointerDown: (_) {
           widget.onStartRecording?.call();
-          _controller.animateTo(1, duration: const Duration(seconds: 10));
+          _controller.repeat();
         },
-        onTapUp: (_) {
-          setState(() {
-            isRecording = false;
-          });
+        onPointerUp: (_) {
           widget.onStopRecording?.call();
-          _controller.animateTo(120);
+          _controller.reverse();
         },
         child: Lottie.asset(
           "assets/record.json",
           controller: _controller,
           width: widget.size,
           height: widget.size,
-          fit: BoxFit.fill,
-          repeat: true,
+          fit: BoxFit.contain,
           onLoaded: (composition) {
             _controller.duration = composition.duration;
           },
