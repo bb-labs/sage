@@ -4,7 +4,7 @@ import 'package:app/models/location.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
-import 'package:app/views/profile/profile.dart';
+import 'package:app/views/register/profile/reel/reel.dart';
 import 'package:app/views/register/register.dart';
 
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/profile',
-      builder: (context, state) => const SageCreateYourProfile(),
+      builder: (context, state) => const SageCreateYourReel(),
     ),
   ],
   onException: (context, state, router) => router.go('/register'),

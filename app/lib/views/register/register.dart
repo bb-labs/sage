@@ -1,8 +1,8 @@
-import 'package:app/views/profile/birthday.dart';
-import 'package:app/views/register/preferences/location.dart';
+import 'package:app/views/register/profile/birthday.dart';
+import 'package:app/views/register/profile/preferences/location.dart';
 import 'package:app/views/register/navigation.dart';
-import 'package:app/views/profile/name.dart';
-import 'package:app/views/register/preferences/preferences.dart';
+import 'package:app/views/register/profile/name.dart';
+import 'package:app/views/register/profile/preferences/preferences.dart';
 import 'package:app/views/register/progress.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';

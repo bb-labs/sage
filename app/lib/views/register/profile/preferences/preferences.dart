@@ -1,5 +1,5 @@
-import 'package:app/views/register/preferences/age.dart';
-import 'package:app/views/register/preferences/gender.dart';
+import 'package:app/views/register/profile/preferences/age.dart';
+import 'package:app/views/register/profile/preferences/gender.dart';
 import 'package:flutter/material.dart';
 
 class SageWhatAreYourPreferences extends StatelessWidget {

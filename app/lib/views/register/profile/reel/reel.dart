@@ -1,12 +1,12 @@
 import 'package:app/models/camera.dart';
-import 'package:app/views/profile/button.dart';
-import 'package:app/views/profile/camera.dart';
+import 'package:app/views/register/profile/reel/record.dart';
+import 'package:app/views/register/profile/reel/camera.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SageCreateYourProfile extends StatelessWidget {
-  const SageCreateYourProfile({super.key});
+class SageCreateYourReel extends StatelessWidget {
+  const SageCreateYourReel({super.key});
 
   @override
   Widget build(BuildContext context) {
