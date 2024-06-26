@@ -55,7 +55,7 @@ final _router = GoRouter(
       builder: (context, state) => const SageCreateYourReel(),
     ),
   ],
-  onException: (context, state, router) => router.go('/register'),
+  onException: (context, state, router) => router.go('/profile'),
   redirect: (context, state) {
     var authModel = Provider.of<AuthModel>(context, listen: false);
     if (authModel.status == AuthStatus.unknown) {

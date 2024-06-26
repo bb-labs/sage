@@ -59,6 +59,9 @@ PODS:
   - sign_in_with_apple (0.0.1):
     - Flutter
   - Toast (4.1.1)
+  - video_player_avfoundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
@@ -71,6 +74,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -106,6 +110,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sign_in_with_apple:
     :path: ".symlinks/plugins/sign_in_with_apple/ios"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/darwin"
 
 SPEC CHECKSUMS:
   AppAuth: 182c5b88630569df5acb672720534756c29b3358
@@ -128,6 +134,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
+  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
