@@ -1,6 +1,7 @@
 import 'package:app/models/auth.dart';
 import 'package:app/models/camera.dart';
 import 'package:app/models/location.dart';
+import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
@@ -28,6 +29,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => userModel),
         ChangeNotifierProvider(create: (context) => cameraModel),
         ChangeNotifierProvider(create: (context) => locationModel),
+        ChangeNotifierProvider(create: (context) => RegistrationModel()),
       ],
       child: const SageApp(),
     ),
