@@ -1,27 +1,27 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:app/models/register.dart';
+import 'package:app/views/register/profile/profile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class SageNavigationButtons extends StatelessWidget {
   static const curve = Curves.easeInOut;
   static const duration = Duration(milliseconds: 650);
 
-  const SageNavigationButtons({
-    super.key,
-    required this.isFirstPage,
-    required this.isLastPage,
-    required PageController pageController,
-    required CarouselController carouselController,
-  })  : _pageController = pageController,
-        _carouselController = carouselController;
-
-  final bool isFirstPage;
-  final bool isLastPage;
-  final PageController _pageController;
-  final CarouselController _carouselController;
+  const SageNavigationButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var registrationModel = Provider.of<RegistrationModel>(context);
+
+    final pageIndex = registrationModel.pageIndex;
+    final pageController = registrationModel.pageController;
+    final carouselController = registrationModel.carouselController;
+
+    final isFirstPage = pageIndex == 0;
+    final isLastPage = pageIndex == SageProfile.fields.length - 1;
+
     return Row(
       children: [
         const Spacer(),
@@ -36,9 +36,8 @@ class SageNavigationButtons extends StatelessWidget {
               padding: const EdgeInsets.all(20),
             ),
             onPressed: () {
-              _pageController.previousPage(duration: duration, curve: curve);
-              _carouselController.previousPage(
-                  duration: duration, curve: curve);
+              pageController.previousPage(duration: duration, curve: curve);
+              carouselController.previousPage(duration: duration, curve: curve);
             },
             child: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -57,8 +56,8 @@ class SageNavigationButtons extends StatelessWidget {
               context.go('/profile');
               return;
             }
-            _pageController.nextPage(duration: duration, curve: curve);
-            _carouselController.nextPage(duration: duration, curve: curve);
+            pageController.nextPage(duration: duration, curve: curve);
+            carouselController.nextPage(duration: duration, curve: curve);
           },
           child: Icon(
             isLastPage ? Icons.check : Icons.arrow_forward_ios_sharp,

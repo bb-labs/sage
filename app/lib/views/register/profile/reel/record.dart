@@ -19,7 +19,6 @@ class SageRecordButton extends StatefulWidget {
 
 class _RecordButtonState extends State<SageRecordButton>
     with SingleTickerProviderStateMixin {
-  bool isRecording = false;
   late final AnimationController _controller;
 
   @override
@@ -30,27 +29,33 @@ class _RecordButtonState extends State<SageRecordButton>
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Listener(
-        onPointerDown: (_) {
-          widget.onStartRecording?.call();
-          _controller.repeat();
-        },
-        onPointerUp: (_) {
-          widget.onStopRecording?.call();
-          _controller.reverse();
-        },
-        child: Lottie.asset(
-          "assets/record.json",
-          controller: _controller,
-          width: widget.size,
-          height: widget.size,
-          fit: BoxFit.contain,
-          onLoaded: (composition) {
-            _controller.duration = composition.duration;
-          },
+    return Column(
+      children: [
+        const Spacer(flex: 9),
+        Center(
+          child: Listener(
+            onPointerDown: (_) {
+              widget.onStartRecording?.call();
+              _controller.repeat();
+            },
+            onPointerUp: (_) {
+              widget.onStopRecording?.call();
+              _controller.reverse();
+            },
+            child: Lottie.asset(
+              "assets/record.json",
+              controller: _controller,
+              width: widget.size,
+              height: widget.size,
+              fit: BoxFit.contain,
+              onLoaded: (composition) {
+                _controller.duration = composition.duration;
+              },
+            ),
+          ),
         ),
-      ),
+        const Spacer(flex: 1),
+      ],
     );
   }
 

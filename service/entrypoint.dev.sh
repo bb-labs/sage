@@ -1,4 +1,4 @@
 #!/bin/bash
 
-go install github.com/cosmtrek/air@latest
+go install github.com/air-verse/air@latest
 air -c .air.dev.toml

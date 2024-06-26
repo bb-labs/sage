@@ -1,21 +1,19 @@
+import 'package:app/models/register.dart';
 import 'package:flutter/material.dart';
+
 import 'package:collection/collection.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
 
 class SageProgressCarousel extends StatelessWidget {
   static const iconSize = 15.0;
 
-  const SageProgressCarousel({
-    super.key,
-    required this.pageIndex,
-    required CarouselController carouselController,
-  }) : _carouselController = carouselController;
-
-  final int pageIndex;
-  final CarouselController _carouselController;
+  const SageProgressCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var registrationModel = Provider.of<RegistrationModel>(context);
+
     return CarouselSlider(
       items: [
         Icons.waving_hand_outlined,
@@ -26,10 +24,10 @@ class SageProgressCarousel extends StatelessWidget {
         return Icon(
           icon,
           color: Colors.black,
-          size: pageIndex == index ? iconSize * 2 : iconSize,
+          size: registrationModel.pageIndex == index ? iconSize * 2 : iconSize,
         );
       }).toList(),
-      carouselController: _carouselController,
+      carouselController: registrationModel.carouselController,
       options: CarouselOptions(
         scrollPhysics: const NeverScrollableScrollPhysics(),
         enableInfiniteScroll: false,
