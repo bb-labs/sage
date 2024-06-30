@@ -1,6 +1,6 @@
-import 'package:camera/camera.dart';
-import 'package:app/models/camera.dart';
+import 'package:app/models/player.dart';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +9,7 @@ class SageReelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cameraModel = Provider.of<CameraModel>(context);
+    var playerModel = Provider.of<PlayerModel>(context);
 
     return Column(
       children: [
@@ -25,7 +25,8 @@ class SageReelSelection extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () {
-                cameraModel.recording = XFile('');
+                playerModel.playerController.dispose();
+                playerModel.recording = XFile('');
               },
               child: const Icon(Icons.delete_outline_outlined,
                   color: Colors.black),

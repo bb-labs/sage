@@ -1,8 +1,8 @@
 import 'package:app/models/camera.dart';
-import 'package:app/views/register/hud/navigation.dart';
+import 'package:app/models/player.dart';
 import 'package:app/views/register/profile/reel/select.dart';
-import 'package:app/views/register/profile/reel/viewer.dart';
 import 'package:app/views/register/profile/reel/preview.dart';
+import 'package:app/views/register/profile/reel/player.dart';
 import 'package:app/views/register/profile/reel/record.dart';
 
 import 'package:flutter/material.dart';
@@ -14,11 +14,11 @@ class SageCreateYourReel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cameraModel = Provider.of<CameraModel>(context);
+    var playerModel = Provider.of<PlayerModel>(context);
+    var needReel = playerModel.recording.path.isEmpty;
 
     return FutureBuilder(
-        future: cameraModel.cameraController.initialize().then((value) async {
-          await cameraModel.cameraController.prepareForVideoRecording();
-        }),
+        future: needReel ? cameraModel.init() : playerModel.init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Container();
@@ -27,20 +27,16 @@ class SageCreateYourReel extends StatelessWidget {
           return Center(
             child: Stack(
               children: [
-                cameraModel.recording.path.isEmpty
-                    ? const SageCameraViewer()
-                    : const SageCameraPreview(),
-                cameraModel.recording.path.isEmpty
+                needReel ? const SageCameraPreview() : const SageVideoPlayer(),
+                needReel
                     ? SageRecordButton(
                         onStartRecording: () {
                           cameraModel.cameraController.startVideoRecording();
                         },
                         onStopRecording: () async {
-                          if (cameraModel
-                              .cameraController.value.isRecordingVideo) {
-                            var recording = await cameraModel.cameraController
-                                .stopVideoRecording();
-                            cameraModel.recording = recording;
+                          if (cameraModel.isRecording()) {
+                            var recording = await cameraModel.stopRecording();
+                            playerModel.recording = recording;
                           }
                         },
                       )

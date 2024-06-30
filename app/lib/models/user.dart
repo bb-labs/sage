@@ -14,34 +14,32 @@ class UserModel with ChangeNotifier {
   }
 
   init() async {
-    final userID = await retrieve();
+    final userID = await lookup();
 
     if (userID != null) {
       try {
-        final response = await SageClientSingleton()
+        return SageClientSingleton()
             .instance
-            .getUser(GetUserRequest(id: userID));
-        _user = response.user;
+            .getUser(GetUserRequest(id: userID))
+            .then((response) => _user = response.user);
       } catch (_) {
-        await delete();
-        return;
+        return delete();
       }
     }
   }
 
-  retrieve() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userID = prefs.getString(userKey);
-    return userID;
+  lookup() async {
+    return SharedPreferences.getInstance()
+        .then((prefs) => prefs.getString(userKey));
   }
 
   store() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(userKey, _user.id);
+    return SharedPreferences.getInstance()
+        .then((prefs) => prefs.setString(userKey, _user.id));
   }
 
   delete() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove(userKey);
+    return SharedPreferences.getInstance()
+        .then((prefs) => prefs.remove(userKey));
   }
 }

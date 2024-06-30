@@ -53,7 +53,7 @@ class SageNavigationButtons extends StatelessWidget {
           ),
           onPressed: () {
             if (isLastPage) {
-              context.go('/profile');
+              context.go('/reel');
               return;
             }
             pageController.nextPage(duration: duration, curve: curve);

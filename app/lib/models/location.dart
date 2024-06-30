@@ -1,18 +1,38 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationModel with ChangeNotifier {
-  late LocationPermission _permission;
-  late Position _position;
-
+  Position _position = Position.fromMap({'latitude': 0.0, 'longitude': 0.0});
   Position get position => _position;
   set position(Position position) {
     _position = position;
     notifyListeners();
   }
 
+  LocationPermission _permission = LocationPermission.denied;
+  LocationPermission get permission => _permission;
+  set permission(LocationPermission permission) {
+    _permission = permission;
+    notifyListeners();
+  }
+
+  final Completer<GoogleMapController> _mapController =
+      Completer<GoogleMapController>();
+  set mapController(GoogleMapController controller) {
+    if (!_mapController.isCompleted) {
+      _mapController.complete(controller);
+    }
+  }
+
   init() async {
+    if (_mapController.isCompleted) {
+      return;
+    }
+
     var serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');

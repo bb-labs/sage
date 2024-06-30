@@ -16,7 +16,6 @@ class SageAppleSignup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var authModel = Provider.of<AuthModel>(context);
     var userModel = Provider.of<UserModel>(context);
 
     return SignInButton(
@@ -45,7 +44,6 @@ class SageAppleSignup extends StatelessWidget {
               ),
             );
 
-        authModel.status = AuthStatus.welcome;
         userModel.user = response.user;
         await userModel.store();
 

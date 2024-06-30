@@ -31,7 +31,7 @@ class _RecordButtonState extends State<SageRecordButton>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Spacer(flex: 9),
+        const Spacer(flex: 10),
         Center(
           child: Listener(
             onPointerDown: (_) {
