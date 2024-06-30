@@ -55,6 +55,20 @@ const Proximity$json = {
 final $typed_data.Uint8List proximityDescriptor = $convert.base64Decode(
     'CglQcm94aW1pdHkSCAoESE9PRBAAEggKBENJVFkQARIJCgVNRVRSTxAC');
 
+@$core.Deprecated('Use actionDescriptor instead')
+const Action$json = {
+  '1': 'Action',
+  '2': [
+    {'1': 'GET', '2': 0},
+    {'1': 'PUT', '2': 1},
+    {'1': 'DELETE', '2': 2},
+  ],
+};
+
+/// Descriptor for `Action`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List actionDescriptor = $convert.base64Decode(
+    'CgZBY3Rpb24SBwoDR0VUEAASBwoDUFVUEAESCgoGREVMRVRFEAI=');
+
 @$core.Deprecated('Use tokenDescriptor instead')
 const Token$json = {
   '1': 'Token',
@@ -259,31 +273,31 @@ final $typed_data.Uint8List signalingRequestDescriptor = $convert.base64Decode(
     'ChBTaWduYWxpbmdSZXF1ZXN0EhgKA3NkcBgBIAEoCzIELlNEUEgAUgNzZHASGAoDaWNlGAIgAS'
     'gLMgQuSUNFSABSA2ljZUIJCgdtZXNzYWdl');
 
-@$core.Deprecated('Use presignedURLRequestDescriptor instead')
-const PresignedURLRequest$json = {
-  '1': 'PresignedURLRequest',
+@$core.Deprecated('Use createPresignedURLRequestDescriptor instead')
+const CreatePresignedURLRequest$json = {
+  '1': 'CreatePresignedURLRequest',
   '2': [
-    {'1': 'action', '3': 1, '4': 1, '5': 9, '10': 'action'},
+    {'1': 'action', '3': 1, '4': 1, '5': 14, '6': '.Action', '10': 'action'},
     {'1': 'file_name', '3': 2, '4': 1, '5': 9, '10': 'fileName'},
   ],
 };
 
-/// Descriptor for `PresignedURLRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List presignedURLRequestDescriptor = $convert.base64Decode(
-    'ChNQcmVzaWduZWRVUkxSZXF1ZXN0EhYKBmFjdGlvbhgBIAEoCVIGYWN0aW9uEhsKCWZpbGVfbm'
-    'FtZRgCIAEoCVIIZmlsZU5hbWU=');
+/// Descriptor for `CreatePresignedURLRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createPresignedURLRequestDescriptor = $convert.base64Decode(
+    'ChlDcmVhdGVQcmVzaWduZWRVUkxSZXF1ZXN0Eh8KBmFjdGlvbhgBIAEoDjIHLkFjdGlvblIGYW'
+    'N0aW9uEhsKCWZpbGVfbmFtZRgCIAEoCVIIZmlsZU5hbWU=');
 
-@$core.Deprecated('Use presignedURLResponseDescriptor instead')
-const PresignedURLResponse$json = {
-  '1': 'PresignedURLResponse',
+@$core.Deprecated('Use createPresignedURLResponseDescriptor instead')
+const CreatePresignedURLResponse$json = {
+  '1': 'CreatePresignedURLResponse',
   '2': [
     {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
-    {'1': 'request', '3': 2, '4': 1, '5': 11, '6': '.PresignedURLRequest', '10': 'request'},
+    {'1': 'request', '3': 2, '4': 1, '5': 11, '6': '.CreatePresignedURLRequest', '10': 'request'},
   ],
 };
 
-/// Descriptor for `PresignedURLResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List presignedURLResponseDescriptor = $convert.base64Decode(
-    'ChRQcmVzaWduZWRVUkxSZXNwb25zZRIQCgN1cmwYASABKAlSA3VybBIuCgdyZXF1ZXN0GAIgAS'
-    'gLMhQuUHJlc2lnbmVkVVJMUmVxdWVzdFIHcmVxdWVzdA==');
+/// Descriptor for `CreatePresignedURLResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createPresignedURLResponseDescriptor = $convert.base64Decode(
+    'ChpDcmVhdGVQcmVzaWduZWRVUkxSZXNwb25zZRIQCgN1cmwYASABKAlSA3VybBI0CgdyZXF1ZX'
+    'N0GAIgASgLMhouQ3JlYXRlUHJlc2lnbmVkVVJMUmVxdWVzdFIHcmVxdWVzdA==');
 

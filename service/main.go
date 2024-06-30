@@ -8,6 +8,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/bb-labs/corner"
 	"github.com/bb-labs/sage/pb"
 	"github.com/go-pg/pg/v10"
@@ -19,6 +21,7 @@ import (
 type SageServer struct {
 	pb.UnimplementedSageServer
 	*pg.DB
+	*s3.PresignClient
 }
 
 func main() {
@@ -59,6 +62,14 @@ func main() {
 		log.Fatalf("failed to create apple provider: %v", err)
 	}
 
+	// Create the s3 client, for presigned URLs
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
+	if err != nil {
+		log.Fatalf("failed to load SDK config: %v", err)
+	}
+	s3Client := s3.NewFromConfig(sdkConfig)
+	presignClient := s3.NewPresignClient(s3Client)
+
 	// Create a new corner instance
 	cb := corner.New(appleProvider)
 
@@ -69,7 +80,7 @@ func main() {
 	}()
 
 	// Register the server
-	pb.RegisterSageServer(server, &SageServer{DB: dbc})
+	pb.RegisterSageServer(server, &SageServer{DB: dbc, PresignClient: presignClient})
 	reflection.Register(server)
 
 	// Create the tcp connection

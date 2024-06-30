@@ -1050,12 +1050,9 @@ class SignalingRequest extends $pb.GeneratedMessage {
   ICE ensureIce() => $_ensure(1);
 }
 
-/// // // // // // // // // // // //
-/// Presigned URL
-/// // // // // // // // // // // //
-class PresignedURLRequest extends $pb.GeneratedMessage {
-  factory PresignedURLRequest({
-    $core.String? action,
+class CreatePresignedURLRequest extends $pb.GeneratedMessage {
+  factory CreatePresignedURLRequest({
+    Action? action,
     $core.String? fileName,
   }) {
     final $result = create();
@@ -1067,12 +1064,12 @@ class PresignedURLRequest extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  PresignedURLRequest._() : super();
-  factory PresignedURLRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory PresignedURLRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreatePresignedURLRequest._() : super();
+  factory CreatePresignedURLRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreatePresignedURLRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PresignedURLRequest', createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'action')
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreatePresignedURLRequest', createEmptyInstance: create)
+    ..e<Action>(1, _omitFieldNames ? '' : 'action', $pb.PbFieldType.OE, defaultOrMaker: Action.GET, valueOf: Action.valueOf, enumValues: Action.values)
     ..aOS(2, _omitFieldNames ? '' : 'fileName')
     ..hasRequiredFields = false
   ;
@@ -1081,27 +1078,27 @@ class PresignedURLRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  PresignedURLRequest clone() => PresignedURLRequest()..mergeFromMessage(this);
+  CreatePresignedURLRequest clone() => CreatePresignedURLRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PresignedURLRequest copyWith(void Function(PresignedURLRequest) updates) => super.copyWith((message) => updates(message as PresignedURLRequest)) as PresignedURLRequest;
+  CreatePresignedURLRequest copyWith(void Function(CreatePresignedURLRequest) updates) => super.copyWith((message) => updates(message as CreatePresignedURLRequest)) as CreatePresignedURLRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static PresignedURLRequest create() => PresignedURLRequest._();
-  PresignedURLRequest createEmptyInstance() => create();
-  static $pb.PbList<PresignedURLRequest> createRepeated() => $pb.PbList<PresignedURLRequest>();
+  static CreatePresignedURLRequest create() => CreatePresignedURLRequest._();
+  CreatePresignedURLRequest createEmptyInstance() => create();
+  static $pb.PbList<CreatePresignedURLRequest> createRepeated() => $pb.PbList<CreatePresignedURLRequest>();
   @$core.pragma('dart2js:noInline')
-  static PresignedURLRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PresignedURLRequest>(create);
-  static PresignedURLRequest? _defaultInstance;
+  static CreatePresignedURLRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreatePresignedURLRequest>(create);
+  static CreatePresignedURLRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get action => $_getSZ(0);
+  Action get action => $_getN(0);
   @$pb.TagNumber(1)
-  set action($core.String v) { $_setString(0, v); }
+  set action(Action v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasAction() => $_has(0);
   @$pb.TagNumber(1)
@@ -1117,10 +1114,10 @@ class PresignedURLRequest extends $pb.GeneratedMessage {
   void clearFileName() => clearField(2);
 }
 
-class PresignedURLResponse extends $pb.GeneratedMessage {
-  factory PresignedURLResponse({
+class CreatePresignedURLResponse extends $pb.GeneratedMessage {
+  factory CreatePresignedURLResponse({
     $core.String? url,
-    PresignedURLRequest? request,
+    CreatePresignedURLRequest? request,
   }) {
     final $result = create();
     if (url != null) {
@@ -1131,13 +1128,13 @@ class PresignedURLResponse extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  PresignedURLResponse._() : super();
-  factory PresignedURLResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory PresignedURLResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreatePresignedURLResponse._() : super();
+  factory CreatePresignedURLResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreatePresignedURLResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PresignedURLResponse', createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreatePresignedURLResponse', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'url')
-    ..aOM<PresignedURLRequest>(2, _omitFieldNames ? '' : 'request', subBuilder: PresignedURLRequest.create)
+    ..aOM<CreatePresignedURLRequest>(2, _omitFieldNames ? '' : 'request', subBuilder: CreatePresignedURLRequest.create)
     ..hasRequiredFields = false
   ;
 
@@ -1145,22 +1142,22 @@ class PresignedURLResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  PresignedURLResponse clone() => PresignedURLResponse()..mergeFromMessage(this);
+  CreatePresignedURLResponse clone() => CreatePresignedURLResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PresignedURLResponse copyWith(void Function(PresignedURLResponse) updates) => super.copyWith((message) => updates(message as PresignedURLResponse)) as PresignedURLResponse;
+  CreatePresignedURLResponse copyWith(void Function(CreatePresignedURLResponse) updates) => super.copyWith((message) => updates(message as CreatePresignedURLResponse)) as CreatePresignedURLResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static PresignedURLResponse create() => PresignedURLResponse._();
-  PresignedURLResponse createEmptyInstance() => create();
-  static $pb.PbList<PresignedURLResponse> createRepeated() => $pb.PbList<PresignedURLResponse>();
+  static CreatePresignedURLResponse create() => CreatePresignedURLResponse._();
+  CreatePresignedURLResponse createEmptyInstance() => create();
+  static $pb.PbList<CreatePresignedURLResponse> createRepeated() => $pb.PbList<CreatePresignedURLResponse>();
   @$core.pragma('dart2js:noInline')
-  static PresignedURLResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PresignedURLResponse>(create);
-  static PresignedURLResponse? _defaultInstance;
+  static CreatePresignedURLResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreatePresignedURLResponse>(create);
+  static CreatePresignedURLResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get url => $_getSZ(0);
@@ -1172,15 +1169,15 @@ class PresignedURLResponse extends $pb.GeneratedMessage {
   void clearUrl() => clearField(1);
 
   @$pb.TagNumber(2)
-  PresignedURLRequest get request => $_getN(1);
+  CreatePresignedURLRequest get request => $_getN(1);
   @$pb.TagNumber(2)
-  set request(PresignedURLRequest v) { setField(2, v); }
+  set request(CreatePresignedURLRequest v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasRequest() => $_has(1);
   @$pb.TagNumber(2)
   void clearRequest() => clearField(2);
   @$pb.TagNumber(2)
-  PresignedURLRequest ensureRequest() => $_ensure(1);
+  CreatePresignedURLRequest ensureRequest() => $_ensure(1);
 }
 
 

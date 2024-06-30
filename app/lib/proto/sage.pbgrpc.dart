@@ -33,6 +33,10 @@ class SageClient extends $grpc.Client {
       '/Sage/CreateUser',
       ($0.CreateUserRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.CreateUserResponse.fromBuffer(value));
+  static final _$createPresignedURL = $grpc.ClientMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
+      '/Sage/CreatePresignedURL',
+      ($0.CreatePresignedURLRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.CreatePresignedURLResponse.fromBuffer(value));
 
   SageClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -50,6 +54,10 @@ class SageClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.CreateUserResponse> createUser($0.CreateUserRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CreatePresignedURLResponse> createPresignedURL($0.CreatePresignedURLRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$createPresignedURL, request, options: options);
   }
 }
 
@@ -79,6 +87,13 @@ abstract class SageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.CreateUserRequest.fromBuffer(value),
         ($0.CreateUserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
+        'CreatePresignedURL',
+        createPresignedURL_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.CreatePresignedURLRequest.fromBuffer(value),
+        ($0.CreatePresignedURLResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.GetUserResponse> getUser_Pre($grpc.ServiceCall call, $async.Future<$0.GetUserRequest> request) async {
@@ -93,7 +108,12 @@ abstract class SageServiceBase extends $grpc.Service {
     return createUser(call, await request);
   }
 
+  $async.Future<$0.CreatePresignedURLResponse> createPresignedURL_Pre($grpc.ServiceCall call, $async.Future<$0.CreatePresignedURLRequest> request) async {
+    return createPresignedURL(call, await request);
+  }
+
   $async.Future<$0.GetUserResponse> getUser($grpc.ServiceCall call, $0.GetUserRequest request);
   $async.Future<$0.UpdateUserRequest> updateUser($grpc.ServiceCall call, $0.UpdateUserRequest request);
   $async.Future<$0.CreateUserResponse> createUser($grpc.ServiceCall call, $0.CreateUserRequest request);
+  $async.Future<$0.CreatePresignedURLResponse> createPresignedURL($grpc.ServiceCall call, $0.CreatePresignedURLRequest request);
 }

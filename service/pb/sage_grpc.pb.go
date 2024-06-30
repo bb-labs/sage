@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Sage_GetUser_FullMethodName    = "/Sage/GetUser"
-	Sage_UpdateUser_FullMethodName = "/Sage/UpdateUser"
-	Sage_CreateUser_FullMethodName = "/Sage/CreateUser"
+	Sage_GetUser_FullMethodName            = "/Sage/GetUser"
+	Sage_UpdateUser_FullMethodName         = "/Sage/UpdateUser"
+	Sage_CreateUser_FullMethodName         = "/Sage/CreateUser"
+	Sage_CreatePresignedURL_FullMethodName = "/Sage/CreatePresignedURL"
 )
 
 // SageClient is the client API for Sage service.
@@ -31,6 +32,7 @@ type SageClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserRequest, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error)
 }
 
 type sageClient struct {
@@ -68,6 +70,15 @@ func (c *sageClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts
 	return out, nil
 }
 
+func (c *sageClient) CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error) {
+	out := new(CreatePresignedURLResponse)
+	err := c.cc.Invoke(ctx, Sage_CreatePresignedURL_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SageServer is the server API for Sage service.
 // All implementations must embed UnimplementedSageServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type SageServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserRequest, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error)
 	mustEmbedUnimplementedSageServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedSageServer) UpdateUser(context.Context, *UpdateUserRequest) (
 }
 func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedSageServer) CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePresignedURL not implemented")
 }
 func (UnimplementedSageServer) mustEmbedUnimplementedSageServer() {}
 
@@ -158,6 +173,24 @@ func _Sage_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Sage_CreatePresignedURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePresignedURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).CreatePresignedURL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_CreatePresignedURL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).CreatePresignedURL(ctx, req.(*CreatePresignedURLRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Sage_ServiceDesc is the grpc.ServiceDesc for Sage service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var Sage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _Sage_CreateUser_Handler,
+		},
+		{
+			MethodName: "CreatePresignedURL",
+			Handler:    _Sage_CreatePresignedURL_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

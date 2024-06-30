@@ -64,5 +64,25 @@ class Proximity extends $pb.ProtobufEnum {
   const Proximity._($core.int v, $core.String n) : super(v, n);
 }
 
+/// // // // // // // // // // // //
+/// Presigned URL
+/// // // // // // // // // // // //
+class Action extends $pb.ProtobufEnum {
+  static const Action GET = Action._(0, _omitEnumNames ? '' : 'GET');
+  static const Action PUT = Action._(1, _omitEnumNames ? '' : 'PUT');
+  static const Action DELETE = Action._(2, _omitEnumNames ? '' : 'DELETE');
+
+  static const $core.List<Action> values = <Action> [
+    GET,
+    PUT,
+    DELETE,
+  ];
+
+  static final $core.Map<$core.int, Action> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static Action? valueOf($core.int value) => _byValue[value];
+
+  const Action._($core.int v, $core.String n) : super(v, n);
+}
+
 
 const _omitEnumNames = $core.bool.fromEnvironment('protobuf.omit_enum_names');

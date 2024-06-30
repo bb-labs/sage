@@ -1,4 +1,3 @@
-import 'package:app/models/auth.dart';
 import 'package:app/models/user.dart';
 import 'package:app/grpc/interceptors/auth.dart';
 import 'package:app/grpc/client.dart';

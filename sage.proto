@@ -93,14 +93,20 @@ message SignalingRequest {
 // // // // // // // // // // // //
 // Presigned URL
 // // // // // // // // // // // //
-message PresignedURLRequest {
-  string action = 1;
+enum Action {
+  GET = 0;
+  PUT = 1;
+  DELETE = 2;
+}
+
+message CreatePresignedURLRequest {
+  Action action = 1;
   string file_name = 2;
 }
 
-message PresignedURLResponse {
+message CreatePresignedURLResponse {
   string url = 1;
-  PresignedURLRequest request = 2;
+  CreatePresignedURLRequest request = 2;
 }
 
 // // // // // // // // // // // //
@@ -110,4 +116,6 @@ service Sage {
   rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserRequest) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+
+  rpc CreatePresignedURL(CreatePresignedURLRequest) returns (CreatePresignedURLResponse) {}
 }
