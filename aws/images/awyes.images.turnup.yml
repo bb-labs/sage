@@ -1,4 +1,6 @@
+images.turnup.gitconfig:
 images.turnup.gitrev:
+  - $(images.turnup.gitconfig)
 ---
 images.turnup.app.image.build:
   tag: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${APP_ECR_REPO_NAME}:$(images.turnup.gitrev)
