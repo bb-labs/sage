@@ -1,29 +1,15 @@
-name: Version Image
+name: Version Sage Images
 
 on:
-  workflow_dispatch:
-    inputs:
-      image:
-        type: choice
-        required: true
-        description: Image name
-        options:
-          - app
-      bump:
-        type: choice
-        required: true
-        description: Bump type
-        options:
-          - major
-          - minor
-          - patch
+  push:
+    branches:
+      - main
 
 jobs:
-  deploy:
-    name: Versioning ${{github.event.inputs.image}} image
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
@@ -33,20 +19,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Create new image version
-        uses: bb-labs/awyes@main
-        env:
-          SECRETS_LAMBDA_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
-          APP_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
-        with:
-          action: ^images.version.${{github.event.inputs.image}}
-
-      - name: Push the new image to ECR
+      - name: Run awyes image turnup actions
         uses: bb-labs/awyes@main
         with:
-          action: ^images.turnup.${{github.event.inputs.image}}
-
-      - name: Sync env in s3
-        uses: bb-labs/awyes@main
-        with:
-          action: ^env.turnup
+          action: ^images.turnup

@@ -1,4 +1,4 @@
-name: Release Version
+name: Release Image
 
 on:
   workflow_dispatch:
@@ -9,6 +9,7 @@ on:
         description: Image name
         options:
           - app
+          - secrets
 
 jobs:
   deploy:
@@ -25,10 +26,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
-      - name: Update service with new image version
+      - if: ${{github.event.inputs.image == 'app'}}
+        name: Update service with new image version
         uses: bb-labs/awyes@main
-        env:
-          SECRETS_LAMBDA_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
-          APP_IMAGE_TAG_BUMP: ${{github.event.inputs.bump}}
         with:
-          action: ^services.update.${{github.event.inputs.image}}
+          action: ^services.update.app
+
+      - if: ${{github.event.inputs.image == 'secrets'}}
+        name: Update secrets lambda with new image version
+        uses: bb-labs/awyes@main
+        with:
+          action: secrets.turnup.apple.lmda.update_function_code

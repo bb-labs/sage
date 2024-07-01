@@ -2,7 +2,7 @@ tasks.turnup.app.ecs.register_task_definition:
   family: ${APP_CONTAINER_TASK_DEFINITION_NAME}
   containerDefinitions:
     - name: ${APP_NAME}
-      image: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${APP_ECR_REPO_NAME}:${APP_IMAGE_TAG}
+      image: ${SAGE_ACCOUNT_ID}.dkr.ecr.${SAGE_REGION}.amazonaws.com/${APP_ECR_REPO_NAME}:$(images.turnup.gitrev)
       environmentFiles:
         - value: ${S3_ARN_PREFIX}${S3_ENV_BUCKET_NAME}/${ENV_PATH}
           type: s3

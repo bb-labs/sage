@@ -54,6 +54,7 @@ write_text = lambda path, data: pathlib.Path(path).write_text(data)
 write_bytes = lambda path, data: pathlib.Path(path).write_bytes(data)
 b64decode = lambda data: base64.b64decode(data).decode()
 b64encode = lambda data: base64.b64encode(data.encode()).decode()
+gitrev = lambda: subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode().strip()
 gitcommit = lambda message: subprocess.call(["git", "commit", "-am", message])
 gitpush = lambda: subprocess.call(["git", "push"])
 gitconfig = lambda: [

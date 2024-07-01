@@ -19,7 +19,7 @@ S3_RESULT_DATA_KEY = "Body"
 
 def fetch_env():
     s3_client = boto3.client("s3")
-    env = dict(
+    return dict(
         [
             line.strip().split("=", 1)
             for line in io.BytesIO(
@@ -33,7 +33,6 @@ def fetch_env():
             if line and not line.startswith("#")
         ]
     )
-    return env
 
 
 def lambda_handler(event, context):
