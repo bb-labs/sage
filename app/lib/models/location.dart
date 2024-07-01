@@ -22,11 +22,7 @@ class LocationModel with ChangeNotifier {
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
-  set mapController(GoogleMapController controller) {
-    if (!_mapController.isCompleted) {
-      _mapController.complete(controller);
-    }
-  }
+  Completer<GoogleMapController> get mapController => _mapController;
 
   init() async {
     if (_mapController.isCompleted) {

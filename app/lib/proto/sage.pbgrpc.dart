@@ -25,10 +25,10 @@ class SageClient extends $grpc.Client {
       '/Sage/GetUser',
       ($0.GetUserRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.GetUserResponse.fromBuffer(value));
-  static final _$updateUser = $grpc.ClientMethod<$0.UpdateUserRequest, $0.UpdateUserRequest>(
+  static final _$updateUser = $grpc.ClientMethod<$0.UpdateUserRequest, $0.UpdateUserResponse>(
       '/Sage/UpdateUser',
       ($0.UpdateUserRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.UpdateUserRequest.fromBuffer(value));
+      ($core.List<$core.int> value) => $0.UpdateUserResponse.fromBuffer(value));
   static final _$createUser = $grpc.ClientMethod<$0.CreateUserRequest, $0.CreateUserResponse>(
       '/Sage/CreateUser',
       ($0.CreateUserRequest value) => value.writeToBuffer(),
@@ -48,7 +48,7 @@ class SageClient extends $grpc.Client {
     return $createUnaryCall(_$getUser, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.UpdateUserRequest> updateUser($0.UpdateUserRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$0.UpdateUserResponse> updateUser($0.UpdateUserRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateUser, request, options: options);
   }
 
@@ -73,13 +73,13 @@ abstract class SageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetUserRequest.fromBuffer(value),
         ($0.GetUserResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateUserRequest, $0.UpdateUserRequest>(
+    $addMethod($grpc.ServiceMethod<$0.UpdateUserRequest, $0.UpdateUserResponse>(
         'UpdateUser',
         updateUser_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.UpdateUserRequest.fromBuffer(value),
-        ($0.UpdateUserRequest value) => value.writeToBuffer()));
+        ($0.UpdateUserResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateUserRequest, $0.CreateUserResponse>(
         'CreateUser',
         createUser_Pre,
@@ -100,7 +100,7 @@ abstract class SageServiceBase extends $grpc.Service {
     return getUser(call, await request);
   }
 
-  $async.Future<$0.UpdateUserRequest> updateUser_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateUserRequest> request) async {
+  $async.Future<$0.UpdateUserResponse> updateUser_Pre($grpc.ServiceCall call, $async.Future<$0.UpdateUserRequest> request) async {
     return updateUser(call, await request);
   }
 
@@ -113,7 +113,7 @@ abstract class SageServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.GetUserResponse> getUser($grpc.ServiceCall call, $0.GetUserRequest request);
-  $async.Future<$0.UpdateUserRequest> updateUser($grpc.ServiceCall call, $0.UpdateUserRequest request);
+  $async.Future<$0.UpdateUserResponse> updateUser($grpc.ServiceCall call, $0.UpdateUserRequest request);
   $async.Future<$0.CreateUserResponse> createUser($grpc.ServiceCall call, $0.CreateUserRequest request);
   $async.Future<$0.CreatePresignedURLResponse> createPresignedURL($grpc.ServiceCall call, $0.CreatePresignedURLRequest request);
 }

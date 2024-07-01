@@ -13,15 +13,13 @@ message Token {
 
 message User {
   string id = 1;
-  string first_name = 2;
-  string last_name = 3;
-  string email = 4;
-  double rating = 5;
-  repeated Gender gender = 6;
-  Birthday birthday = 7;
-  string video_url = 8;
-  Location location = 9;
-  Preferences preferences = 10;
+  string name = 2;
+  string email = 3;
+  double rating = 4;
+  repeated Gender gender = 5;
+  Birthday birthday = 6;
+  Location location = 7;
+  Preferences preferences = 8;
 }
 
 message CreateUserRequest { User user = 1; }
@@ -43,15 +41,14 @@ enum GenderPlural {
   HUMANS = 2;
 }
 
-enum Proximity {
-  HOOD = 0;
-  CITY = 1;
-  METRO = 2;
+message Region {
+  Location northeast = 1;
+  Location southwest = 2;
 }
 
 message Location {
-  int32 lat = 1;
-  int32 long = 2;
+  double latitude = 1;
+  double longitude = 2;
 }
 
 message Birthday {
@@ -63,31 +60,8 @@ message Birthday {
 message Preferences {
   int32 age_min = 1;
   int32 age_max = 2;
-  Proximity proximity = 3;
+  Region region = 3;
   repeated Gender gender = 4;
-}
-
-// // // // // // // // // // // //
-// Connectivity & Messaging
-// // // // // // // // // // // //
-message SDP {
-  int32 type = 1;
-  string message = 2;
-  string description = 3;
-}
-
-message ICE {
-  SDP sdp = 1;
-  string stream_id = 2;
-  int32 line_index = 3;
-  string server_url = 4;
-}
-
-message SignalingRequest {
-  oneof message {
-    SDP sdp = 1;
-    ICE ice = 2;
-  }
 }
 
 // // // // // // // // // // // //
@@ -107,7 +81,6 @@ message CreatePresignedURLRequest {
 
 message CreatePresignedURLResponse {
   string url = 1;
-  CreatePresignedURLRequest request = 2;
 }
 
 // // // // // // // // // // // //
@@ -115,7 +88,7 @@ message CreatePresignedURLResponse {
 // // // // // // // // // // // //
 service Sage {
   rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
-  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserRequest) {}
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   rpc CreatePresignedURL(CreatePresignedURLRequest) returns (CreatePresignedURLResponse) {}

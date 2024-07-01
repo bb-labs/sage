@@ -48,9 +48,8 @@ class SageWhatIsYourBirthday extends StatelessWidget {
                   ),
                   onDateTimeChanged: (DateTime newDateTime) {
                     final newUser = userModel.user.deepCopy();
-                    newUser.birthday = newUser.hasBirthday()
-                        ? newUser.birthday.deepCopy()
-                        : Birthday();
+                    newUser.birthday =
+                        newUser.hasBirthday() ? newUser.birthday : Birthday();
                     newUser.birthday.month = newDateTime.month;
                     newUser.birthday.day = newDateTime.day;
                     newUser.birthday.year = newDateTime.year;

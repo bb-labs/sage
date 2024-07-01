@@ -2,10 +2,12 @@ import 'package:app/grpc/client.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:http/http.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 
 class SageReelSelection extends StatelessWidget {
@@ -50,16 +52,15 @@ class SageReelSelection extends StatelessWidget {
                       mimeType: 'video/mp4',
                     ));
 
-                try {
-                  var putResponse = await put(
-                    Uri.parse(response.url),
-                    body: await playerModel.recording.readAsBytes(),
-                    headers: {'Content-Type': 'video/mp4'},
-                  );
-                  print(putResponse.statusCode);
-                } catch (e) {
-                  print(e);
-                }
+                var putResponse = await put(
+                  Uri.parse(response.url),
+                  body: await playerModel.recording.readAsBytes(),
+                  headers: {'Content-Type': 'video/mp4'},
+                );
+
+                // if (context.mounted) {
+                //   context.go('/home');
+                // }
               },
               child: const Icon(Icons.check, color: Colors.green),
             ),

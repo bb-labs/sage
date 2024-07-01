@@ -1,5 +1,5 @@
 import 'package:app/views/register/hud/hud.dart';
-import 'package:app/views/register/profile/profile.dart';
+import 'package:app/views/register/profile.dart';
 
 import 'package:flutter/material.dart';
 

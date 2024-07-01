@@ -40,3 +40,16 @@ func (s *SageServer) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.Ge
 
 	return &pb.GetUserResponse{User: user}, nil
 }
+
+func (s *SageServer) UpdateUser(ctx context.Context, in *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
+	log.Printf("Received: %v", in)
+
+	// Update the user
+	_, err := s.DB.Model(in.GetUser()).WherePK().Update()
+	if err != nil {
+		return nil, fmt.Errorf("failed to update user: %v", err)
+	}
+
+	// Return the user
+	return &pb.UpdateUserResponse{}, nil
+}

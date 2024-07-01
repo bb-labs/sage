@@ -1,8 +1,8 @@
 import 'package:app/models/register.dart';
-import 'package:app/views/register/profile/info/birthday.dart';
-import 'package:app/views/register/profile/info/name.dart';
-import 'package:app/views/register/profile/preferences/location.dart';
-import 'package:app/views/register/profile/preferences/preferences.dart';
+import 'package:app/views/register/info/birthday.dart';
+import 'package:app/views/register/info/name.dart';
+import 'package:app/views/register/preferences/location.dart';
+import 'package:app/views/register/preferences/preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

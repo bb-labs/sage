@@ -28,10 +28,10 @@ class SageWhatIsYourName extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
-                initialValue: userModel.user.firstName,
+                initialValue: userModel.user.name,
                 onChanged: (value) {
                   final newUser = userModel.user.deepCopy();
-                  newUser.firstName = value;
+                  newUser.name = value;
                   userModel.user = newUser;
                 },
                 textAlign: TextAlign.center,

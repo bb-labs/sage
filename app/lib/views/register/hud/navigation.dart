@@ -1,5 +1,8 @@
+import 'package:app/grpc/client.dart';
 import 'package:app/models/register.dart';
-import 'package:app/views/register/profile/profile.dart';
+import 'package:app/models/user.dart';
+import 'package:app/proto/sage.pb.dart';
+import 'package:app/views/register/profile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +16,7 @@ class SageNavigationButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context);
     var registrationModel = Provider.of<RegistrationModel>(context);
 
     final pageIndex = registrationModel.pageIndex;
@@ -51,9 +55,12 @@ class SageNavigationButtons extends StatelessWidget {
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(20),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (isLastPage) {
               context.go('/reel');
+              await SageClientSingleton()
+                  .instance
+                  .updateUser(UpdateUserRequest(user: userModel.user));
               return;
             }
             pageController.nextPage(duration: duration, curve: curve);

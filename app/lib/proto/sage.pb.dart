@@ -101,13 +101,11 @@ class Token extends $pb.GeneratedMessage {
 class User extends $pb.GeneratedMessage {
   factory User({
     $core.String? id,
-    $core.String? firstName,
-    $core.String? lastName,
+    $core.String? name,
     $core.String? email,
     $core.double? rating,
     $core.Iterable<Gender>? gender,
     Birthday? birthday,
-    $core.String? videoUrl,
     Location? location,
     Preferences? preferences,
   }) {
@@ -115,11 +113,8 @@ class User extends $pb.GeneratedMessage {
     if (id != null) {
       $result.id = id;
     }
-    if (firstName != null) {
-      $result.firstName = firstName;
-    }
-    if (lastName != null) {
-      $result.lastName = lastName;
+    if (name != null) {
+      $result.name = name;
     }
     if (email != null) {
       $result.email = email;
@@ -132,9 +127,6 @@ class User extends $pb.GeneratedMessage {
     }
     if (birthday != null) {
       $result.birthday = birthday;
-    }
-    if (videoUrl != null) {
-      $result.videoUrl = videoUrl;
     }
     if (location != null) {
       $result.location = location;
@@ -150,15 +142,13 @@ class User extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'User', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
-    ..aOS(2, _omitFieldNames ? '' : 'firstName')
-    ..aOS(3, _omitFieldNames ? '' : 'lastName')
-    ..aOS(4, _omitFieldNames ? '' : 'email')
-    ..a<$core.double>(5, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
-    ..pc<Gender>(6, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
-    ..aOM<Birthday>(7, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
-    ..aOS(8, _omitFieldNames ? '' : 'videoUrl')
-    ..aOM<Location>(9, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
-    ..aOM<Preferences>(10, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..aOS(3, _omitFieldNames ? '' : 'email')
+    ..a<$core.double>(4, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
+    ..pc<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
+    ..aOM<Birthday>(6, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
+    ..aOM<Location>(7, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
+    ..aOM<Preferences>(8, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
     ..hasRequiredFields = false
   ;
 
@@ -193,85 +183,67 @@ class User extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get firstName => $_getSZ(1);
+  $core.String get name => $_getSZ(1);
   @$pb.TagNumber(2)
-  set firstName($core.String v) { $_setString(1, v); }
+  set name($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFirstName() => $_has(1);
+  $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFirstName() => clearField(2);
+  void clearName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get lastName => $_getSZ(2);
+  $core.String get email => $_getSZ(2);
   @$pb.TagNumber(3)
-  set lastName($core.String v) { $_setString(2, v); }
+  set email($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasLastName() => $_has(2);
+  $core.bool hasEmail() => $_has(2);
   @$pb.TagNumber(3)
-  void clearLastName() => clearField(3);
+  void clearEmail() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get email => $_getSZ(3);
+  $core.double get rating => $_getN(3);
   @$pb.TagNumber(4)
-  set email($core.String v) { $_setString(3, v); }
+  set rating($core.double v) { $_setDouble(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasEmail() => $_has(3);
+  $core.bool hasRating() => $_has(3);
   @$pb.TagNumber(4)
-  void clearEmail() => clearField(4);
+  void clearRating() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.double get rating => $_getN(4);
-  @$pb.TagNumber(5)
-  set rating($core.double v) { $_setDouble(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasRating() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearRating() => clearField(5);
+  $core.List<Gender> get gender => $_getList(4);
 
   @$pb.TagNumber(6)
-  $core.List<Gender> get gender => $_getList(5);
+  Birthday get birthday => $_getN(5);
+  @$pb.TagNumber(6)
+  set birthday(Birthday v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasBirthday() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearBirthday() => clearField(6);
+  @$pb.TagNumber(6)
+  Birthday ensureBirthday() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  Birthday get birthday => $_getN(6);
+  Location get location => $_getN(6);
   @$pb.TagNumber(7)
-  set birthday(Birthday v) { setField(7, v); }
+  set location(Location v) { setField(7, v); }
   @$pb.TagNumber(7)
-  $core.bool hasBirthday() => $_has(6);
+  $core.bool hasLocation() => $_has(6);
   @$pb.TagNumber(7)
-  void clearBirthday() => clearField(7);
+  void clearLocation() => clearField(7);
   @$pb.TagNumber(7)
-  Birthday ensureBirthday() => $_ensure(6);
+  Location ensureLocation() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $core.String get videoUrl => $_getSZ(7);
+  Preferences get preferences => $_getN(7);
   @$pb.TagNumber(8)
-  set videoUrl($core.String v) { $_setString(7, v); }
+  set preferences(Preferences v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasVideoUrl() => $_has(7);
+  $core.bool hasPreferences() => $_has(7);
   @$pb.TagNumber(8)
-  void clearVideoUrl() => clearField(8);
-
-  @$pb.TagNumber(9)
-  Location get location => $_getN(8);
-  @$pb.TagNumber(9)
-  set location(Location v) { setField(9, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasLocation() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearLocation() => clearField(9);
-  @$pb.TagNumber(9)
-  Location ensureLocation() => $_ensure(8);
-
-  @$pb.TagNumber(10)
-  Preferences get preferences => $_getN(9);
-  @$pb.TagNumber(10)
-  set preferences(Preferences v) { setField(10, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasPreferences() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearPreferences() => clearField(10);
-  @$pb.TagNumber(10)
-  Preferences ensurePreferences() => $_ensure(9);
+  void clearPreferences() => clearField(8);
+  @$pb.TagNumber(8)
+  Preferences ensurePreferences() => $_ensure(7);
 }
 
 class CreateUserRequest extends $pb.GeneratedMessage {
@@ -564,17 +536,85 @@ class UpdateUserResponse extends $pb.GeneratedMessage {
   static UpdateUserResponse? _defaultInstance;
 }
 
-class Location extends $pb.GeneratedMessage {
-  factory Location({
-    $core.int? lat,
-    $core.int? long,
+class Region extends $pb.GeneratedMessage {
+  factory Region({
+    Location? northeast,
+    Location? southwest,
   }) {
     final $result = create();
-    if (lat != null) {
-      $result.lat = lat;
+    if (northeast != null) {
+      $result.northeast = northeast;
     }
-    if (long != null) {
-      $result.long = long;
+    if (southwest != null) {
+      $result.southwest = southwest;
+    }
+    return $result;
+  }
+  Region._() : super();
+  factory Region.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Region.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Region', createEmptyInstance: create)
+    ..aOM<Location>(1, _omitFieldNames ? '' : 'northeast', subBuilder: Location.create)
+    ..aOM<Location>(2, _omitFieldNames ? '' : 'southwest', subBuilder: Location.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Region clone() => Region()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Region copyWith(void Function(Region) updates) => super.copyWith((message) => updates(message as Region)) as Region;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Region create() => Region._();
+  Region createEmptyInstance() => create();
+  static $pb.PbList<Region> createRepeated() => $pb.PbList<Region>();
+  @$core.pragma('dart2js:noInline')
+  static Region getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Region>(create);
+  static Region? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Location get northeast => $_getN(0);
+  @$pb.TagNumber(1)
+  set northeast(Location v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasNortheast() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNortheast() => clearField(1);
+  @$pb.TagNumber(1)
+  Location ensureNortheast() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  Location get southwest => $_getN(1);
+  @$pb.TagNumber(2)
+  set southwest(Location v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSouthwest() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSouthwest() => clearField(2);
+  @$pb.TagNumber(2)
+  Location ensureSouthwest() => $_ensure(1);
+}
+
+class Location extends $pb.GeneratedMessage {
+  factory Location({
+    $core.double? latitude,
+    $core.double? longitude,
+  }) {
+    final $result = create();
+    if (latitude != null) {
+      $result.latitude = latitude;
+    }
+    if (longitude != null) {
+      $result.longitude = longitude;
     }
     return $result;
   }
@@ -583,8 +623,8 @@ class Location extends $pb.GeneratedMessage {
   factory Location.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Location', createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'lat', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'long', $pb.PbFieldType.O3)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
@@ -610,22 +650,22 @@ class Location extends $pb.GeneratedMessage {
   static Location? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get lat => $_getIZ(0);
+  $core.double get latitude => $_getN(0);
   @$pb.TagNumber(1)
-  set lat($core.int v) { $_setSignedInt32(0, v); }
+  set latitude($core.double v) { $_setDouble(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasLat() => $_has(0);
+  $core.bool hasLatitude() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLat() => clearField(1);
+  void clearLatitude() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get long => $_getIZ(1);
+  $core.double get longitude => $_getN(1);
   @$pb.TagNumber(2)
-  set long($core.int v) { $_setSignedInt32(1, v); }
+  set longitude($core.double v) { $_setDouble(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasLong() => $_has(1);
+  $core.bool hasLongitude() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLong() => clearField(2);
+  void clearLongitude() => clearField(2);
 }
 
 class Birthday extends $pb.GeneratedMessage {
@@ -710,7 +750,7 @@ class Preferences extends $pb.GeneratedMessage {
   factory Preferences({
     $core.int? ageMin,
     $core.int? ageMax,
-    Proximity? proximity,
+    Region? region,
     $core.Iterable<Gender>? gender,
   }) {
     final $result = create();
@@ -720,8 +760,8 @@ class Preferences extends $pb.GeneratedMessage {
     if (ageMax != null) {
       $result.ageMax = ageMax;
     }
-    if (proximity != null) {
-      $result.proximity = proximity;
+    if (region != null) {
+      $result.region = region;
     }
     if (gender != null) {
       $result.gender.addAll(gender);
@@ -735,7 +775,7 @@ class Preferences extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Preferences', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'ageMin', $pb.PbFieldType.O3)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'ageMax', $pb.PbFieldType.O3)
-    ..e<Proximity>(3, _omitFieldNames ? '' : 'proximity', $pb.PbFieldType.OE, defaultOrMaker: Proximity.HOOD, valueOf: Proximity.valueOf, enumValues: Proximity.values)
+    ..aOM<Region>(3, _omitFieldNames ? '' : 'region', subBuilder: Region.create)
     ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
     ..hasRequiredFields = false
   ;
@@ -780,274 +820,18 @@ class Preferences extends $pb.GeneratedMessage {
   void clearAgeMax() => clearField(2);
 
   @$pb.TagNumber(3)
-  Proximity get proximity => $_getN(2);
+  Region get region => $_getN(2);
   @$pb.TagNumber(3)
-  set proximity(Proximity v) { setField(3, v); }
+  set region(Region v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasProximity() => $_has(2);
+  $core.bool hasRegion() => $_has(2);
   @$pb.TagNumber(3)
-  void clearProximity() => clearField(3);
+  void clearRegion() => clearField(3);
+  @$pb.TagNumber(3)
+  Region ensureRegion() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.List<Gender> get gender => $_getList(3);
-}
-
-/// // // // // // // // // // // //
-/// Connectivity & Messaging
-/// // // // // // // // // // // //
-class SDP extends $pb.GeneratedMessage {
-  factory SDP({
-    $core.int? type,
-    $core.String? message,
-    $core.String? description,
-  }) {
-    final $result = create();
-    if (type != null) {
-      $result.type = type;
-    }
-    if (message != null) {
-      $result.message = message;
-    }
-    if (description != null) {
-      $result.description = description;
-    }
-    return $result;
-  }
-  SDP._() : super();
-  factory SDP.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SDP.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SDP', createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'type', $pb.PbFieldType.O3)
-    ..aOS(2, _omitFieldNames ? '' : 'message')
-    ..aOS(3, _omitFieldNames ? '' : 'description')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  SDP clone() => SDP()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  SDP copyWith(void Function(SDP) updates) => super.copyWith((message) => updates(message as SDP)) as SDP;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static SDP create() => SDP._();
-  SDP createEmptyInstance() => create();
-  static $pb.PbList<SDP> createRepeated() => $pb.PbList<SDP>();
-  @$core.pragma('dart2js:noInline')
-  static SDP getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SDP>(create);
-  static SDP? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get type => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set type($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasType() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearType() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get message => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set message($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasMessage() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMessage() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get description => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set description($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasDescription() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearDescription() => clearField(3);
-}
-
-class ICE extends $pb.GeneratedMessage {
-  factory ICE({
-    SDP? sdp,
-    $core.String? streamId,
-    $core.int? lineIndex,
-    $core.String? serverUrl,
-  }) {
-    final $result = create();
-    if (sdp != null) {
-      $result.sdp = sdp;
-    }
-    if (streamId != null) {
-      $result.streamId = streamId;
-    }
-    if (lineIndex != null) {
-      $result.lineIndex = lineIndex;
-    }
-    if (serverUrl != null) {
-      $result.serverUrl = serverUrl;
-    }
-    return $result;
-  }
-  ICE._() : super();
-  factory ICE.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ICE.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ICE', createEmptyInstance: create)
-    ..aOM<SDP>(1, _omitFieldNames ? '' : 'sdp', subBuilder: SDP.create)
-    ..aOS(2, _omitFieldNames ? '' : 'streamId')
-    ..a<$core.int>(3, _omitFieldNames ? '' : 'lineIndex', $pb.PbFieldType.O3)
-    ..aOS(4, _omitFieldNames ? '' : 'serverUrl')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ICE clone() => ICE()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ICE copyWith(void Function(ICE) updates) => super.copyWith((message) => updates(message as ICE)) as ICE;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static ICE create() => ICE._();
-  ICE createEmptyInstance() => create();
-  static $pb.PbList<ICE> createRepeated() => $pb.PbList<ICE>();
-  @$core.pragma('dart2js:noInline')
-  static ICE getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ICE>(create);
-  static ICE? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  SDP get sdp => $_getN(0);
-  @$pb.TagNumber(1)
-  set sdp(SDP v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSdp() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSdp() => clearField(1);
-  @$pb.TagNumber(1)
-  SDP ensureSdp() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  $core.String get streamId => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set streamId($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasStreamId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearStreamId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.int get lineIndex => $_getIZ(2);
-  @$pb.TagNumber(3)
-  set lineIndex($core.int v) { $_setSignedInt32(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasLineIndex() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearLineIndex() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get serverUrl => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set serverUrl($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasServerUrl() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearServerUrl() => clearField(4);
-}
-
-enum SignalingRequest_Message {
-  sdp, 
-  ice, 
-  notSet
-}
-
-class SignalingRequest extends $pb.GeneratedMessage {
-  factory SignalingRequest({
-    SDP? sdp,
-    ICE? ice,
-  }) {
-    final $result = create();
-    if (sdp != null) {
-      $result.sdp = sdp;
-    }
-    if (ice != null) {
-      $result.ice = ice;
-    }
-    return $result;
-  }
-  SignalingRequest._() : super();
-  factory SignalingRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SignalingRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static const $core.Map<$core.int, SignalingRequest_Message> _SignalingRequest_MessageByTag = {
-    1 : SignalingRequest_Message.sdp,
-    2 : SignalingRequest_Message.ice,
-    0 : SignalingRequest_Message.notSet
-  };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SignalingRequest', createEmptyInstance: create)
-    ..oo(0, [1, 2])
-    ..aOM<SDP>(1, _omitFieldNames ? '' : 'sdp', subBuilder: SDP.create)
-    ..aOM<ICE>(2, _omitFieldNames ? '' : 'ice', subBuilder: ICE.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  SignalingRequest clone() => SignalingRequest()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  SignalingRequest copyWith(void Function(SignalingRequest) updates) => super.copyWith((message) => updates(message as SignalingRequest)) as SignalingRequest;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static SignalingRequest create() => SignalingRequest._();
-  SignalingRequest createEmptyInstance() => create();
-  static $pb.PbList<SignalingRequest> createRepeated() => $pb.PbList<SignalingRequest>();
-  @$core.pragma('dart2js:noInline')
-  static SignalingRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SignalingRequest>(create);
-  static SignalingRequest? _defaultInstance;
-
-  SignalingRequest_Message whichMessage() => _SignalingRequest_MessageByTag[$_whichOneof(0)]!;
-  void clearMessage() => clearField($_whichOneof(0));
-
-  @$pb.TagNumber(1)
-  SDP get sdp => $_getN(0);
-  @$pb.TagNumber(1)
-  set sdp(SDP v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSdp() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSdp() => clearField(1);
-  @$pb.TagNumber(1)
-  SDP ensureSdp() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  ICE get ice => $_getN(1);
-  @$pb.TagNumber(2)
-  set ice(ICE v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasIce() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearIce() => clearField(2);
-  @$pb.TagNumber(2)
-  ICE ensureIce() => $_ensure(1);
 }
 
 class CreatePresignedURLRequest extends $pb.GeneratedMessage {
@@ -1131,14 +915,10 @@ class CreatePresignedURLRequest extends $pb.GeneratedMessage {
 class CreatePresignedURLResponse extends $pb.GeneratedMessage {
   factory CreatePresignedURLResponse({
     $core.String? url,
-    CreatePresignedURLRequest? request,
   }) {
     final $result = create();
     if (url != null) {
       $result.url = url;
-    }
-    if (request != null) {
-      $result.request = request;
     }
     return $result;
   }
@@ -1148,7 +928,6 @@ class CreatePresignedURLResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreatePresignedURLResponse', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'url')
-    ..aOM<CreatePresignedURLRequest>(2, _omitFieldNames ? '' : 'request', subBuilder: CreatePresignedURLRequest.create)
     ..hasRequiredFields = false
   ;
 
@@ -1181,17 +960,6 @@ class CreatePresignedURLResponse extends $pb.GeneratedMessage {
   $core.bool hasUrl() => $_has(0);
   @$pb.TagNumber(1)
   void clearUrl() => clearField(1);
-
-  @$pb.TagNumber(2)
-  CreatePresignedURLRequest get request => $_getN(1);
-  @$pb.TagNumber(2)
-  set request(CreatePresignedURLRequest v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasRequest() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearRequest() => clearField(2);
-  @$pb.TagNumber(2)
-  CreatePresignedURLRequest ensureRequest() => $_ensure(1);
 }
 
 

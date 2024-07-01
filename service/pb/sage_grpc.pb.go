@@ -30,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SageClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
-	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserRequest, error)
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error)
 }
@@ -52,8 +52,8 @@ func (c *sageClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...gr
 	return out, nil
 }
 
-func (c *sageClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserRequest, error) {
-	out := new(UpdateUserRequest)
+func (c *sageClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+	out := new(UpdateUserResponse)
 	err := c.cc.Invoke(ctx, Sage_UpdateUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (c *sageClient) CreatePresignedURL(ctx context.Context, in *CreatePresigned
 // for forward compatibility
 type SageServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
-	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserRequest, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error)
 	mustEmbedUnimplementedSageServer()
@@ -97,7 +97,7 @@ type UnimplementedSageServer struct {
 func (UnimplementedSageServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
-func (UnimplementedSageServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserRequest, error) {
+func (UnimplementedSageServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
 func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {

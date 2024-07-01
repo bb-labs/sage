@@ -41,20 +41,6 @@ const GenderPlural$json = {
 final $typed_data.Uint8List genderPluralDescriptor = $convert.base64Decode(
     'CgxHZW5kZXJQbHVyYWwSBwoDTUVOEAASCQoFV09NRU4QARIKCgZIVU1BTlMQAg==');
 
-@$core.Deprecated('Use proximityDescriptor instead')
-const Proximity$json = {
-  '1': 'Proximity',
-  '2': [
-    {'1': 'HOOD', '2': 0},
-    {'1': 'CITY', '2': 1},
-    {'1': 'METRO', '2': 2},
-  ],
-};
-
-/// Descriptor for `Proximity`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List proximityDescriptor = $convert.base64Decode(
-    'CglQcm94aW1pdHkSCAoESE9PRBAAEggKBENJVFkQARIJCgVNRVRSTxAC');
-
 @$core.Deprecated('Use presignActionDescriptor instead')
 const PresignAction$json = {
   '1': 'PresignAction',
@@ -89,26 +75,23 @@ const User$json = {
   '1': 'User',
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {'1': 'first_name', '3': 2, '4': 1, '5': 9, '10': 'firstName'},
-    {'1': 'last_name', '3': 3, '4': 1, '5': 9, '10': 'lastName'},
-    {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
-    {'1': 'rating', '3': 5, '4': 1, '5': 1, '10': 'rating'},
-    {'1': 'gender', '3': 6, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
-    {'1': 'birthday', '3': 7, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
-    {'1': 'video_url', '3': 8, '4': 1, '5': 9, '10': 'videoUrl'},
-    {'1': 'location', '3': 9, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
-    {'1': 'preferences', '3': 10, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'rating', '3': 4, '4': 1, '5': 1, '10': 'rating'},
+    {'1': 'gender', '3': 5, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
+    {'1': 'birthday', '3': 6, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
+    {'1': 'location', '3': 7, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
+    {'1': 'preferences', '3': 8, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
   ],
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
-    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIdCgpmaXJzdF9uYW1lGAIgASgJUglmaXJzdE5hbWUSGw'
-    'oJbGFzdF9uYW1lGAMgASgJUghsYXN0TmFtZRIUCgVlbWFpbBgEIAEoCVIFZW1haWwSFgoGcmF0'
-    'aW5nGAUgASgBUgZyYXRpbmcSHwoGZ2VuZGVyGAYgAygOMgcuR2VuZGVyUgZnZW5kZXISJQoIYm'
-    'lydGhkYXkYByABKAsyCS5CaXJ0aGRheVIIYmlydGhkYXkSGwoJdmlkZW9fdXJsGAggASgJUgh2'
-    'aWRlb1VybBIlCghsb2NhdGlvbhgJIAEoCzIJLkxvY2F0aW9uUghsb2NhdGlvbhIuCgtwcmVmZX'
-    'JlbmNlcxgKIAEoCzIMLlByZWZlcmVuY2VzUgtwcmVmZXJlbmNlcw==');
+    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWVtYWlsGAMgAS'
+    'gJUgVlbWFpbBIWCgZyYXRpbmcYBCABKAFSBnJhdGluZxIfCgZnZW5kZXIYBSADKA4yBy5HZW5k'
+    'ZXJSBmdlbmRlchIlCghiaXJ0aGRheRgGIAEoCzIJLkJpcnRoZGF5UghiaXJ0aGRheRIlCghsb2'
+    'NhdGlvbhgHIAEoCzIJLkxvY2F0aW9uUghsb2NhdGlvbhIuCgtwcmVmZXJlbmNlcxgIIAEoCzIM'
+    'LlByZWZlcmVuY2VzUgtwcmVmZXJlbmNlcw==');
 
 @$core.Deprecated('Use createUserRequestDescriptor instead')
 const CreateUserRequest$json = {
@@ -179,18 +162,33 @@ const UpdateUserResponse$json = {
 final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode(
     'ChJVcGRhdGVVc2VyUmVzcG9uc2U=');
 
+@$core.Deprecated('Use regionDescriptor instead')
+const Region$json = {
+  '1': 'Region',
+  '2': [
+    {'1': 'northeast', '3': 1, '4': 1, '5': 11, '6': '.Location', '10': 'northeast'},
+    {'1': 'southwest', '3': 2, '4': 1, '5': 11, '6': '.Location', '10': 'southwest'},
+  ],
+};
+
+/// Descriptor for `Region`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List regionDescriptor = $convert.base64Decode(
+    'CgZSZWdpb24SJwoJbm9ydGhlYXN0GAEgASgLMgkuTG9jYXRpb25SCW5vcnRoZWFzdBInCglzb3'
+    'V0aHdlc3QYAiABKAsyCS5Mb2NhdGlvblIJc291dGh3ZXN0');
+
 @$core.Deprecated('Use locationDescriptor instead')
 const Location$json = {
   '1': 'Location',
   '2': [
-    {'1': 'lat', '3': 1, '4': 1, '5': 5, '10': 'lat'},
-    {'1': 'long', '3': 2, '4': 1, '5': 5, '10': 'long'},
+    {'1': 'latitude', '3': 1, '4': 1, '5': 1, '10': 'latitude'},
+    {'1': 'longitude', '3': 2, '4': 1, '5': 1, '10': 'longitude'},
   ],
 };
 
 /// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
-    'CghMb2NhdGlvbhIQCgNsYXQYASABKAVSA2xhdBISCgRsb25nGAIgASgFUgRsb25n');
+    'CghMb2NhdGlvbhIaCghsYXRpdHVkZRgBIAEoAVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgAS'
+    'gBUglsb25naXR1ZGU=');
 
 @$core.Deprecated('Use birthdayDescriptor instead')
 const Birthday$json = {
@@ -213,7 +211,7 @@ const Preferences$json = {
   '2': [
     {'1': 'age_min', '3': 1, '4': 1, '5': 5, '10': 'ageMin'},
     {'1': 'age_max', '3': 2, '4': 1, '5': 5, '10': 'ageMax'},
-    {'1': 'proximity', '3': 3, '4': 1, '5': 14, '6': '.Proximity', '10': 'proximity'},
+    {'1': 'region', '3': 3, '4': 1, '5': 11, '6': '.Region', '10': 'region'},
     {'1': 'gender', '3': 4, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
   ],
 };
@@ -221,57 +219,8 @@ const Preferences$json = {
 /// Descriptor for `Preferences`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List preferencesDescriptor = $convert.base64Decode(
     'CgtQcmVmZXJlbmNlcxIXCgdhZ2VfbWluGAEgASgFUgZhZ2VNaW4SFwoHYWdlX21heBgCIAEoBV'
-    'IGYWdlTWF4EigKCXByb3hpbWl0eRgDIAEoDjIKLlByb3hpbWl0eVIJcHJveGltaXR5Eh8KBmdl'
-    'bmRlchgEIAMoDjIHLkdlbmRlclIGZ2VuZGVy');
-
-@$core.Deprecated('Use sDPDescriptor instead')
-const SDP$json = {
-  '1': 'SDP',
-  '2': [
-    {'1': 'type', '3': 1, '4': 1, '5': 5, '10': 'type'},
-    {'1': 'message', '3': 2, '4': 1, '5': 9, '10': 'message'},
-    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
-  ],
-};
-
-/// Descriptor for `SDP`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List sDPDescriptor = $convert.base64Decode(
-    'CgNTRFASEgoEdHlwZRgBIAEoBVIEdHlwZRIYCgdtZXNzYWdlGAIgASgJUgdtZXNzYWdlEiAKC2'
-    'Rlc2NyaXB0aW9uGAMgASgJUgtkZXNjcmlwdGlvbg==');
-
-@$core.Deprecated('Use iCEDescriptor instead')
-const ICE$json = {
-  '1': 'ICE',
-  '2': [
-    {'1': 'sdp', '3': 1, '4': 1, '5': 11, '6': '.SDP', '10': 'sdp'},
-    {'1': 'stream_id', '3': 2, '4': 1, '5': 9, '10': 'streamId'},
-    {'1': 'line_index', '3': 3, '4': 1, '5': 5, '10': 'lineIndex'},
-    {'1': 'server_url', '3': 4, '4': 1, '5': 9, '10': 'serverUrl'},
-  ],
-};
-
-/// Descriptor for `ICE`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List iCEDescriptor = $convert.base64Decode(
-    'CgNJQ0USFgoDc2RwGAEgASgLMgQuU0RQUgNzZHASGwoJc3RyZWFtX2lkGAIgASgJUghzdHJlYW'
-    '1JZBIdCgpsaW5lX2luZGV4GAMgASgFUglsaW5lSW5kZXgSHQoKc2VydmVyX3VybBgEIAEoCVIJ'
-    'c2VydmVyVXJs');
-
-@$core.Deprecated('Use signalingRequestDescriptor instead')
-const SignalingRequest$json = {
-  '1': 'SignalingRequest',
-  '2': [
-    {'1': 'sdp', '3': 1, '4': 1, '5': 11, '6': '.SDP', '9': 0, '10': 'sdp'},
-    {'1': 'ice', '3': 2, '4': 1, '5': 11, '6': '.ICE', '9': 0, '10': 'ice'},
-  ],
-  '8': [
-    {'1': 'message'},
-  ],
-};
-
-/// Descriptor for `SignalingRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List signalingRequestDescriptor = $convert.base64Decode(
-    'ChBTaWduYWxpbmdSZXF1ZXN0EhgKA3NkcBgBIAEoCzIELlNEUEgAUgNzZHASGAoDaWNlGAIgAS'
-    'gLMgQuSUNFSABSA2ljZUIJCgdtZXNzYWdl');
+    'IGYWdlTWF4Eh8KBnJlZ2lvbhgDIAEoCzIHLlJlZ2lvblIGcmVnaW9uEh8KBmdlbmRlchgEIAMo'
+    'DjIHLkdlbmRlclIGZ2VuZGVy');
 
 @$core.Deprecated('Use createPresignedURLRequestDescriptor instead')
 const CreatePresignedURLRequest$json = {
@@ -294,12 +243,10 @@ const CreatePresignedURLResponse$json = {
   '1': 'CreatePresignedURLResponse',
   '2': [
     {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
-    {'1': 'request', '3': 2, '4': 1, '5': 11, '6': '.CreatePresignedURLRequest', '10': 'request'},
   ],
 };
 
 /// Descriptor for `CreatePresignedURLResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createPresignedURLResponseDescriptor = $convert.base64Decode(
-    'ChpDcmVhdGVQcmVzaWduZWRVUkxSZXNwb25zZRIQCgN1cmwYASABKAlSA3VybBI0CgdyZXF1ZX'
-    'N0GAIgASgLMhouQ3JlYXRlUHJlc2lnbmVkVVJMUmVxdWVzdFIHcmVxdWVzdA==');
+    'ChpDcmVhdGVQcmVzaWduZWRVUkxSZXNwb25zZRIQCgN1cmwYASABKAlSA3VybA==');
 
