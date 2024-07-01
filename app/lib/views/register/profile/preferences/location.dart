@@ -11,6 +11,7 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var locationModel = Provider.of<LocationModel>(context, listen: false);
+    print('locationModel: $locationModel');
 
     return FutureBuilder(
         future: locationModel.init(),

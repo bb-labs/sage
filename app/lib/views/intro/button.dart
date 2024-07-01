@@ -13,7 +13,6 @@ class SageGetStartedButton extends StatelessWidget {
           minimumSize: const Size(350, 50),
         ),
         onPressed: () {
-          print("Get Started");
           context.go("/register");
         },
         child: const Text("Get Started"),

@@ -1,9 +1,9 @@
 import 'package:app/models/camera.dart';
 import 'package:app/models/player.dart';
-import 'package:app/views/register/profile/reel/select.dart';
-import 'package:app/views/register/profile/reel/preview.dart';
-import 'package:app/views/register/profile/reel/player.dart';
-import 'package:app/views/register/profile/reel/record.dart';
+import 'package:app/views/register/reel/select.dart';
+import 'package:app/views/register/reel/preview.dart';
+import 'package:app/views/register/reel/player.dart';
+import 'package:app/views/register/reel/record.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -93,15 +93,16 @@ message SignalingRequest {
 // // // // // // // // // // // //
 // Presigned URL
 // // // // // // // // // // // //
-enum Action {
+enum PresignAction {
   GET = 0;
   PUT = 1;
   DELETE = 2;
 }
 
 message CreatePresignedURLRequest {
-  Action action = 1;
+  PresignAction action = 1;
   string file_name = 2;
+  string mime_type = 3;
 }
 
 message CreatePresignedURLResponse {

@@ -67,21 +67,21 @@ class Proximity extends $pb.ProtobufEnum {
 /// // // // // // // // // // // //
 /// Presigned URL
 /// // // // // // // // // // // //
-class Action extends $pb.ProtobufEnum {
-  static const Action GET = Action._(0, _omitEnumNames ? '' : 'GET');
-  static const Action PUT = Action._(1, _omitEnumNames ? '' : 'PUT');
-  static const Action DELETE = Action._(2, _omitEnumNames ? '' : 'DELETE');
+class PresignAction extends $pb.ProtobufEnum {
+  static const PresignAction GET = PresignAction._(0, _omitEnumNames ? '' : 'GET');
+  static const PresignAction PUT = PresignAction._(1, _omitEnumNames ? '' : 'PUT');
+  static const PresignAction DELETE = PresignAction._(2, _omitEnumNames ? '' : 'DELETE');
 
-  static const $core.List<Action> values = <Action> [
+  static const $core.List<PresignAction> values = <PresignAction> [
     GET,
     PUT,
     DELETE,
   ];
 
-  static final $core.Map<$core.int, Action> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static Action? valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, PresignAction> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static PresignAction? valueOf($core.int value) => _byValue[value];
 
-  const Action._($core.int v, $core.String n) : super(v, n);
+  const PresignAction._($core.int v, $core.String n) : super(v, n);
 }
 
 

@@ -62,6 +62,9 @@ func main() {
 		log.Fatalf("failed to create apple provider: %v", err)
 	}
 
+	// Create a new corner instance
+	cb := corner.New(appleProvider)
+
 	// Create the s3 client, for presigned URLs
 	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
@@ -69,9 +72,6 @@ func main() {
 	}
 	s3Client := s3.NewFromConfig(sdkConfig)
 	presignClient := s3.NewPresignClient(s3Client)
-
-	// Create a new corner instance
-	cb := corner.New(appleProvider)
 
 	// Create the grpc server
 	server := grpc.NewServer(grpc.ChainUnaryInterceptor(cb.UnaryServerInterceptor))

@@ -1052,8 +1052,9 @@ class SignalingRequest extends $pb.GeneratedMessage {
 
 class CreatePresignedURLRequest extends $pb.GeneratedMessage {
   factory CreatePresignedURLRequest({
-    Action? action,
+    PresignAction? action,
     $core.String? fileName,
+    $core.String? mimeType,
   }) {
     final $result = create();
     if (action != null) {
@@ -1062,6 +1063,9 @@ class CreatePresignedURLRequest extends $pb.GeneratedMessage {
     if (fileName != null) {
       $result.fileName = fileName;
     }
+    if (mimeType != null) {
+      $result.mimeType = mimeType;
+    }
     return $result;
   }
   CreatePresignedURLRequest._() : super();
@@ -1069,8 +1073,9 @@ class CreatePresignedURLRequest extends $pb.GeneratedMessage {
   factory CreatePresignedURLRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreatePresignedURLRequest', createEmptyInstance: create)
-    ..e<Action>(1, _omitFieldNames ? '' : 'action', $pb.PbFieldType.OE, defaultOrMaker: Action.GET, valueOf: Action.valueOf, enumValues: Action.values)
+    ..e<PresignAction>(1, _omitFieldNames ? '' : 'action', $pb.PbFieldType.OE, defaultOrMaker: PresignAction.GET, valueOf: PresignAction.valueOf, enumValues: PresignAction.values)
     ..aOS(2, _omitFieldNames ? '' : 'fileName')
+    ..aOS(3, _omitFieldNames ? '' : 'mimeType')
     ..hasRequiredFields = false
   ;
 
@@ -1096,9 +1101,9 @@ class CreatePresignedURLRequest extends $pb.GeneratedMessage {
   static CreatePresignedURLRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  Action get action => $_getN(0);
+  PresignAction get action => $_getN(0);
   @$pb.TagNumber(1)
-  set action(Action v) { setField(1, v); }
+  set action(PresignAction v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasAction() => $_has(0);
   @$pb.TagNumber(1)
@@ -1112,6 +1117,15 @@ class CreatePresignedURLRequest extends $pb.GeneratedMessage {
   $core.bool hasFileName() => $_has(1);
   @$pb.TagNumber(2)
   void clearFileName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get mimeType => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set mimeType($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasMimeType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMimeType() => clearField(3);
 }
 
 class CreatePresignedURLResponse extends $pb.GeneratedMessage {
