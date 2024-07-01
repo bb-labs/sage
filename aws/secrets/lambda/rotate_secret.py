@@ -1,4 +1,4 @@
-import os
+import io
 import jwt
 import time
 import boto3
@@ -12,6 +12,29 @@ logger.setLevel(logging.INFO)
 CREATE_SECRET = "createSecret"
 FINISH_SECRET = "finishSecret"
 
+S3_FILE_NAME = ".env"
+S3_ENV_BUCKET_NAME = "sage-env-bucket"
+S3_RESULT_DATA_KEY = "Body"
+
+
+def fetch_env():
+    s3_client = boto3.client("s3")
+    env = dict(
+        [
+            line.strip().split("=", 1)
+            for line in io.BytesIO(
+                s3_client.get_object(Bucket=S3_ENV_BUCKET_NAME, Key=S3_FILE_NAME)[
+                    S3_RESULT_DATA_KEY
+                ].read()
+            )
+            .getvalue()
+            .decode()
+            .splitlines()
+            if line and not line.startswith("#")
+        ]
+    )
+    return env
+
 
 def lambda_handler(event, context):
     print(event, context)
@@ -21,6 +44,7 @@ def lambda_handler(event, context):
     step = event["Step"]
 
     # Setup the client
+    env = fetch_env()
     service_client = boto3.client("secretsmanager")
 
     if step == CREATE_SECRET:
@@ -29,15 +53,15 @@ def lambda_handler(event, context):
             ClientRequestToken=token,
             SecretString=jwt.encode(
                 {
-                    "iss": os.environ["APPLE_TEAM_ID"],
+                    "iss": env["APPLE_TEAM_ID"],
                     "iat": int(time.time()),
-                    "exp": int(os.environ["APPLE_KEY_DURATION"]),
+                    "exp": int(env["APPLE_KEY_DURATION"]),
                     "aud": "https://appleid.apple.com",
-                    "sub": os.environ["APPLE_BUNDLE_ID"],
+                    "sub": env["APPLE_BUNDLE_ID"],
                 },
-                pathlib.Path(os.environ["APPLE_KEY_PATH"]).read_bytes(),
+                pathlib.Path(env["APPLE_KEY_PATH"]).read_bytes(),
                 algorithm="ES256",
-                headers={"kid": os.environ["APPLE_KEY_ID"], "alg": "ES256"},
+                headers={"kid": env["APPLE_KEY_ID"], "alg": "ES256"},
             ),
             VersionStages=["AWSPENDING"],
         )
