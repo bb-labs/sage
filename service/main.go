@@ -53,6 +53,8 @@ func main() {
 
 	// Add the apple oauth2 provider
 	skipAuthChecks, _ := strconv.ParseBool(os.Getenv("APPLE_SKIP_AUTH_CHECKS"))
+	log.Printf("apple bundle id: %v", os.Getenv("APPLE_BUNDLE_ID"))
+	log.Printf("apple client secret: %v", os.Getenv("APPLE_CLIENT_SECRET"))
 	appleProvider, err := corner.NewAppleProvider(ctx, corner.Config{
 		ClientID:     os.Getenv("APPLE_BUNDLE_ID"),
 		ClientSecret: os.Getenv("APPLE_CLIENT_SECRET"),
