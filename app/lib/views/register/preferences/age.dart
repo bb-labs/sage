@@ -1,7 +1,6 @@
 import 'package:app/models/user.dart';
-import 'package:app/proto/sage.pb.dart';
+
 import 'package:flutter/material.dart';
-import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 
 class SageWhichAgeDoYouPrefer extends StatelessWidget {
@@ -31,37 +30,24 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
             data: SliderThemeData(
               showValueIndicator: ShowValueIndicator.never,
               rangeThumbShape: IndicatorRangeSliderThumbShape(
-                userModel.user.preferences.hasAgeMin()
-                    ? userModel.user.preferences.ageMin
-                    : 18,
-                userModel.user.preferences.hasAgeMax()
-                    ? userModel.user.preferences.ageMax
-                    : 40,
+                userModel.preferredAgeMin.toInt().toString(),
+                userModel.preferredAgeMax.toInt().toString(),
               ),
             ),
             child: RangeSlider(
               values: RangeValues(
-                userModel.user.preferences.hasAgeMin()
-                    ? userModel.user.preferences.ageMin.toDouble()
-                    : 18,
-                userModel.user.preferences.hasAgeMax()
-                    ? userModel.user.preferences.ageMax.toDouble()
-                    : 40,
+                userModel.preferredAgeMin,
+                userModel.preferredAgeMax,
               ),
-              max: 40,
-              min: 18,
+              min: UserModel.minAge.toDouble(),
+              max: UserModel.maxAge.toDouble(),
               labels: RangeLabels(
-                userModel.user.preferences.ageMin.toString(),
-                userModel.user.preferences.ageMax.toString(),
+                userModel.preferredAgeMin.toString(),
+                userModel.preferredAgeMax.toString(),
               ),
               onChanged: (RangeValues values) {
-                final newUser = userModel.user.deepCopy();
-                newUser.preferences = newUser.hasPreferences()
-                    ? newUser.preferences
-                    : Preferences();
-                newUser.preferences.ageMin = values.start.toInt();
-                newUser.preferences.ageMax = values.end.toInt();
-                userModel.user = newUser;
+                userModel.preferredAgeMin = values.start;
+                userModel.preferredAgeMax = values.end;
               },
             ),
           ),

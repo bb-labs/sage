@@ -25,10 +25,8 @@ type SageServer struct {
 }
 
 func main() {
-	// Create context
-	ctx := context.Background()
-
 	// Create a context, set up logging
+	ctx := context.Background()
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Connect to db
@@ -41,7 +39,7 @@ func main() {
 	defer dbc.Close()
 
 	// Create the db schema
-	for _, model := range []interface{}{(*pb.User)(nil), (*pb.Token)(nil)} {
+	for _, model := range []interface{}{(*pb.User)(nil)} {
 		err := dbc.Model(model).CreateTable(&orm.CreateTableOptions{
 			IfNotExists:   true,
 			FKConstraints: true,
@@ -51,7 +49,7 @@ func main() {
 		}
 	}
 
-	// Add the apple oauth2 provider
+	// Create a new corner instance
 	skipAuthChecks, _ := strconv.ParseBool(os.Getenv("APPLE_SKIP_AUTH_CHECKS"))
 	appleProvider, err := corner.NewAppleProvider(ctx, corner.Config{
 		ClientID:     os.Getenv("APPLE_BUNDLE_ID"),
@@ -61,8 +59,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to create apple provider: %v", err)
 	}
-
-	// Create a new corner instance
 	cb := corner.New(appleProvider)
 
 	// Create the s3 client, for presigned URLs
@@ -78,18 +74,12 @@ func main() {
 	defer func() {
 		server.GracefulStop()
 	}()
-
-	// Register the server
 	pb.RegisterSageServer(server, &SageServer{DB: dbc, PresignClient: presignClient})
 	reflection.Register(server)
-
-	// Create the tcp connection
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", os.Getenv("APP_CONTAINER_PORT")))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-
-	// And serve
 	log.Printf("server is listening at %v", listener.Addr())
 	if err := server.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)

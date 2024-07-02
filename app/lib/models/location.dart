@@ -1,9 +1,6 @@
 import 'dart:async';
-
-import 'package:geolocator/geolocator.dart';
-
 import 'package:flutter/foundation.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LocationModel with ChangeNotifier {
   Position _position = Position.fromMap({'latitude': 0.0, 'longitude': 0.0});
@@ -20,15 +17,7 @@ class LocationModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final Completer<GoogleMapController> _mapController =
-      Completer<GoogleMapController>();
-  Completer<GoogleMapController> get mapController => _mapController;
-
   init() async {
-    if (_mapController.isCompleted) {
-      return;
-    }
-
     var serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');

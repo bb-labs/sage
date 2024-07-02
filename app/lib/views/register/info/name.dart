@@ -1,6 +1,6 @@
 import 'package:app/models/user.dart';
+import 'package:app/proto/sage.pb.dart';
 import 'package:flutter/material.dart';
-import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 
 class SageWhatIsYourName extends StatelessWidget {
@@ -28,11 +28,9 @@ class SageWhatIsYourName extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
-                initialValue: userModel.user.name,
+                initialValue: userModel.name,
                 onChanged: (value) {
-                  final newUser = userModel.user.deepCopy();
-                  newUser.name = value;
-                  userModel.user = newUser;
+                  userModel.name = value;
                 },
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(

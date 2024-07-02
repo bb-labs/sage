@@ -2,7 +2,6 @@ import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:app/proto/sage.pbgrpc.dart';
 import 'package:flutter/material.dart';
-import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
@@ -24,29 +23,20 @@ class SageGenderButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-        final newUser = userModel.user.deepCopy();
-        List<Gender> newUserGenders;
         switch (mode) {
           case SageGenderSelectMode.identify:
-            newUserGenders = newUser.gender;
+            userModel.gender = gender;
           case SageGenderSelectMode.interested:
-            newUser.preferences = newUser.hasPreferences()
-                ? newUser.preferences.deepCopy()
-                : Preferences();
-            newUserGenders = newUser.preferences.gender;
+            userModel.togglePrefferedGender(gender);
         }
-        newUserGenders.contains(gender)
-            ? newUserGenders.remove(gender)
-            : newUserGenders.add(gender);
-        userModel.user = newUser;
       },
       style: ButtonStyle(
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             final newUserGenders = mode == SageGenderSelectMode.identify
-                ? userModel.user.gender
-                : userModel.user.preferences.gender;
+                ? [userModel.gender]
+                : userModel.preferredGenders;
             if (newUserGenders.contains(gender)) {
               return ThemeData().colorScheme.outlineVariant;
             }

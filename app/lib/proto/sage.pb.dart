@@ -17,94 +17,13 @@ import 'sage.pbenum.dart';
 
 export 'sage.pbenum.dart';
 
-/// // // // // // // // // // // //
-/// Models
-/// // // // // // // // // // // //
-class Token extends $pb.GeneratedMessage {
-  factory Token({
-    $core.String? idToken,
-    $core.String? accessToken,
-    $core.String? refreshToken,
-  }) {
-    final $result = create();
-    if (idToken != null) {
-      $result.idToken = idToken;
-    }
-    if (accessToken != null) {
-      $result.accessToken = accessToken;
-    }
-    if (refreshToken != null) {
-      $result.refreshToken = refreshToken;
-    }
-    return $result;
-  }
-  Token._() : super();
-  factory Token.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Token.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Token', createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'idToken')
-    ..aOS(2, _omitFieldNames ? '' : 'accessToken')
-    ..aOS(3, _omitFieldNames ? '' : 'refreshToken')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Token clone() => Token()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Token copyWith(void Function(Token) updates) => super.copyWith((message) => updates(message as Token)) as Token;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Token create() => Token._();
-  Token createEmptyInstance() => create();
-  static $pb.PbList<Token> createRepeated() => $pb.PbList<Token>();
-  @$core.pragma('dart2js:noInline')
-  static Token getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Token>(create);
-  static Token? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get idToken => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set idToken($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasIdToken() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearIdToken() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get accessToken => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set accessToken($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasAccessToken() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearAccessToken() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get refreshToken => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set refreshToken($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasRefreshToken() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearRefreshToken() => clearField(3);
-}
-
 class User extends $pb.GeneratedMessage {
   factory User({
     $core.String? id,
     $core.String? name,
     $core.String? email,
     $core.double? rating,
-    $core.Iterable<Gender>? gender,
+    Gender? gender,
     Birthday? birthday,
     Location? location,
     Preferences? preferences,
@@ -123,7 +42,7 @@ class User extends $pb.GeneratedMessage {
       $result.rating = rating;
     }
     if (gender != null) {
-      $result.gender.addAll(gender);
+      $result.gender = gender;
     }
     if (birthday != null) {
       $result.birthday = birthday;
@@ -145,7 +64,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..aOS(3, _omitFieldNames ? '' : 'email')
     ..a<$core.double>(4, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
-    ..pc<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
+    ..e<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.OE, defaultOrMaker: Gender.UNKNOWN, valueOf: Gender.valueOf, enumValues: Gender.values)
     ..aOM<Birthday>(6, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
     ..aOM<Location>(7, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
     ..aOM<Preferences>(8, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
@@ -210,7 +129,13 @@ class User extends $pb.GeneratedMessage {
   void clearRating() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.List<Gender> get gender => $_getList(4);
+  Gender get gender => $_getN(4);
+  @$pb.TagNumber(5)
+  set gender(Gender v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasGender() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearGender() => clearField(5);
 
   @$pb.TagNumber(6)
   Birthday get birthday => $_getN(5);
@@ -244,6 +169,234 @@ class User extends $pb.GeneratedMessage {
   void clearPreferences() => clearField(8);
   @$pb.TagNumber(8)
   Preferences ensurePreferences() => $_ensure(7);
+}
+
+class Location extends $pb.GeneratedMessage {
+  factory Location({
+    $core.double? latitude,
+    $core.double? longitude,
+  }) {
+    final $result = create();
+    if (latitude != null) {
+      $result.latitude = latitude;
+    }
+    if (longitude != null) {
+      $result.longitude = longitude;
+    }
+    return $result;
+  }
+  Location._() : super();
+  factory Location.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Location.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Location', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OD)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Location clone() => Location()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Location copyWith(void Function(Location) updates) => super.copyWith((message) => updates(message as Location)) as Location;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Location create() => Location._();
+  Location createEmptyInstance() => create();
+  static $pb.PbList<Location> createRepeated() => $pb.PbList<Location>();
+  @$core.pragma('dart2js:noInline')
+  static Location getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Location>(create);
+  static Location? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get latitude => $_getN(0);
+  @$pb.TagNumber(1)
+  set latitude($core.double v) { $_setDouble(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasLatitude() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLatitude() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get longitude => $_getN(1);
+  @$pb.TagNumber(2)
+  set longitude($core.double v) { $_setDouble(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLongitude() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLongitude() => clearField(2);
+}
+
+class Birthday extends $pb.GeneratedMessage {
+  factory Birthday({
+    $core.int? day,
+    $core.int? month,
+    $core.int? year,
+  }) {
+    final $result = create();
+    if (day != null) {
+      $result.day = day;
+    }
+    if (month != null) {
+      $result.month = month;
+    }
+    if (year != null) {
+      $result.year = year;
+    }
+    return $result;
+  }
+  Birthday._() : super();
+  factory Birthday.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Birthday.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Birthday', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'day', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'month', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'year', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Birthday clone() => Birthday()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Birthday copyWith(void Function(Birthday) updates) => super.copyWith((message) => updates(message as Birthday)) as Birthday;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Birthday create() => Birthday._();
+  Birthday createEmptyInstance() => create();
+  static $pb.PbList<Birthday> createRepeated() => $pb.PbList<Birthday>();
+  @$core.pragma('dart2js:noInline')
+  static Birthday getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Birthday>(create);
+  static Birthday? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get day => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set day($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasDay() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDay() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get month => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set month($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasMonth() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMonth() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get year => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set year($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasYear() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearYear() => clearField(3);
+}
+
+class Preferences extends $pb.GeneratedMessage {
+  factory Preferences({
+    $core.int? ageMin,
+    $core.int? ageMax,
+    $core.int? proximity,
+    $core.Iterable<Gender>? gender,
+  }) {
+    final $result = create();
+    if (ageMin != null) {
+      $result.ageMin = ageMin;
+    }
+    if (ageMax != null) {
+      $result.ageMax = ageMax;
+    }
+    if (proximity != null) {
+      $result.proximity = proximity;
+    }
+    if (gender != null) {
+      $result.gender.addAll(gender);
+    }
+    return $result;
+  }
+  Preferences._() : super();
+  factory Preferences.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Preferences.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Preferences', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'ageMin', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'ageMax', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'proximity', $pb.PbFieldType.O3)
+    ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.UNKNOWN)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Preferences clone() => Preferences()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Preferences copyWith(void Function(Preferences) updates) => super.copyWith((message) => updates(message as Preferences)) as Preferences;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Preferences create() => Preferences._();
+  Preferences createEmptyInstance() => create();
+  static $pb.PbList<Preferences> createRepeated() => $pb.PbList<Preferences>();
+  @$core.pragma('dart2js:noInline')
+  static Preferences getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Preferences>(create);
+  static Preferences? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get ageMin => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set ageMin($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAgeMin() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAgeMin() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get ageMax => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set ageMax($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAgeMax() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAgeMax() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get proximity => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set proximity($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasProximity() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearProximity() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<Gender> get gender => $_getList(3);
 }
 
 class CreateUserRequest extends $pb.GeneratedMessage {
@@ -534,304 +687,6 @@ class UpdateUserResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UpdateUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserResponse>(create);
   static UpdateUserResponse? _defaultInstance;
-}
-
-class Region extends $pb.GeneratedMessage {
-  factory Region({
-    Location? northeast,
-    Location? southwest,
-  }) {
-    final $result = create();
-    if (northeast != null) {
-      $result.northeast = northeast;
-    }
-    if (southwest != null) {
-      $result.southwest = southwest;
-    }
-    return $result;
-  }
-  Region._() : super();
-  factory Region.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Region.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Region', createEmptyInstance: create)
-    ..aOM<Location>(1, _omitFieldNames ? '' : 'northeast', subBuilder: Location.create)
-    ..aOM<Location>(2, _omitFieldNames ? '' : 'southwest', subBuilder: Location.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Region clone() => Region()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Region copyWith(void Function(Region) updates) => super.copyWith((message) => updates(message as Region)) as Region;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Region create() => Region._();
-  Region createEmptyInstance() => create();
-  static $pb.PbList<Region> createRepeated() => $pb.PbList<Region>();
-  @$core.pragma('dart2js:noInline')
-  static Region getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Region>(create);
-  static Region? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  Location get northeast => $_getN(0);
-  @$pb.TagNumber(1)
-  set northeast(Location v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasNortheast() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearNortheast() => clearField(1);
-  @$pb.TagNumber(1)
-  Location ensureNortheast() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  Location get southwest => $_getN(1);
-  @$pb.TagNumber(2)
-  set southwest(Location v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasSouthwest() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearSouthwest() => clearField(2);
-  @$pb.TagNumber(2)
-  Location ensureSouthwest() => $_ensure(1);
-}
-
-class Location extends $pb.GeneratedMessage {
-  factory Location({
-    $core.double? latitude,
-    $core.double? longitude,
-  }) {
-    final $result = create();
-    if (latitude != null) {
-      $result.latitude = latitude;
-    }
-    if (longitude != null) {
-      $result.longitude = longitude;
-    }
-    return $result;
-  }
-  Location._() : super();
-  factory Location.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Location.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Location', createEmptyInstance: create)
-    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OD)
-    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OD)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Location clone() => Location()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Location copyWith(void Function(Location) updates) => super.copyWith((message) => updates(message as Location)) as Location;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Location create() => Location._();
-  Location createEmptyInstance() => create();
-  static $pb.PbList<Location> createRepeated() => $pb.PbList<Location>();
-  @$core.pragma('dart2js:noInline')
-  static Location getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Location>(create);
-  static Location? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.double get latitude => $_getN(0);
-  @$pb.TagNumber(1)
-  set latitude($core.double v) { $_setDouble(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasLatitude() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearLatitude() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.double get longitude => $_getN(1);
-  @$pb.TagNumber(2)
-  set longitude($core.double v) { $_setDouble(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLongitude() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLongitude() => clearField(2);
-}
-
-class Birthday extends $pb.GeneratedMessage {
-  factory Birthday({
-    $core.int? day,
-    $core.int? month,
-    $core.int? year,
-  }) {
-    final $result = create();
-    if (day != null) {
-      $result.day = day;
-    }
-    if (month != null) {
-      $result.month = month;
-    }
-    if (year != null) {
-      $result.year = year;
-    }
-    return $result;
-  }
-  Birthday._() : super();
-  factory Birthday.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Birthday.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Birthday', createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'day', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'month', $pb.PbFieldType.O3)
-    ..a<$core.int>(3, _omitFieldNames ? '' : 'year', $pb.PbFieldType.O3)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Birthday clone() => Birthday()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Birthday copyWith(void Function(Birthday) updates) => super.copyWith((message) => updates(message as Birthday)) as Birthday;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Birthday create() => Birthday._();
-  Birthday createEmptyInstance() => create();
-  static $pb.PbList<Birthday> createRepeated() => $pb.PbList<Birthday>();
-  @$core.pragma('dart2js:noInline')
-  static Birthday getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Birthday>(create);
-  static Birthday? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get day => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set day($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasDay() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearDay() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get month => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set month($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasMonth() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMonth() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.int get year => $_getIZ(2);
-  @$pb.TagNumber(3)
-  set year($core.int v) { $_setSignedInt32(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasYear() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearYear() => clearField(3);
-}
-
-class Preferences extends $pb.GeneratedMessage {
-  factory Preferences({
-    $core.int? ageMin,
-    $core.int? ageMax,
-    Region? region,
-    $core.Iterable<Gender>? gender,
-  }) {
-    final $result = create();
-    if (ageMin != null) {
-      $result.ageMin = ageMin;
-    }
-    if (ageMax != null) {
-      $result.ageMax = ageMax;
-    }
-    if (region != null) {
-      $result.region = region;
-    }
-    if (gender != null) {
-      $result.gender.addAll(gender);
-    }
-    return $result;
-  }
-  Preferences._() : super();
-  factory Preferences.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Preferences.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Preferences', createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'ageMin', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'ageMax', $pb.PbFieldType.O3)
-    ..aOM<Region>(3, _omitFieldNames ? '' : 'region', subBuilder: Region.create)
-    ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Preferences clone() => Preferences()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Preferences copyWith(void Function(Preferences) updates) => super.copyWith((message) => updates(message as Preferences)) as Preferences;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Preferences create() => Preferences._();
-  Preferences createEmptyInstance() => create();
-  static $pb.PbList<Preferences> createRepeated() => $pb.PbList<Preferences>();
-  @$core.pragma('dart2js:noInline')
-  static Preferences getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Preferences>(create);
-  static Preferences? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get ageMin => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set ageMin($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasAgeMin() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearAgeMin() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get ageMax => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set ageMax($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasAgeMax() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearAgeMax() => clearField(2);
-
-  @$pb.TagNumber(3)
-  Region get region => $_getN(2);
-  @$pb.TagNumber(3)
-  set region(Region v) { setField(3, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasRegion() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearRegion() => clearField(3);
-  @$pb.TagNumber(3)
-  Region ensureRegion() => $_ensure(2);
-
-  @$pb.TagNumber(4)
-  $core.List<Gender> get gender => $_getList(3);
 }
 
 class CreatePresignedURLRequest extends $pb.GeneratedMessage {

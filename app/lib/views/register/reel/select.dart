@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 
 class SageReelSelection extends StatelessWidget {
@@ -48,7 +47,7 @@ class SageReelSelection extends StatelessWidget {
                     .instance
                     .createPresignedURL(CreatePresignedURLRequest(
                       action: PresignAction.PUT,
-                      fileName: userModel.user.id,
+                      fileName: userModel.id,
                       mimeType: 'video/mp4',
                     ));
 

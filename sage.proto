@@ -5,45 +5,30 @@ option go_package = "github.com/bb-labs/sage/back/pb";
 // // // // // // // // // // // //
 // Models
 // // // // // // // // // // // //
-message Token {
-  string id_token = 1;
-  string access_token = 2;
-  string refresh_token = 3;
-}
 
 message User {
   string id = 1;
   string name = 2;
   string email = 3;
   double rating = 4;
-  repeated Gender gender = 5;
+  Gender gender = 5;
   Birthday birthday = 6;
   Location location = 7;
   Preferences preferences = 8;
 }
 
-message CreateUserRequest { User user = 1; }
-message CreateUserResponse { User user = 1; }
-message GetUserRequest { string id = 1; }
-message GetUserResponse { User user = 1; }
-message UpdateUserRequest { User user = 1; }
-message UpdateUserResponse { }
-
 enum Gender {
-  MAN = 0;
-  WOMAN = 1;
-  HUMAN = 2;
+  UNKNOWN = 0;
+  MAN = 1;
+  WOMAN = 2;
+  HUMAN = 3;
 }
 
 enum GenderPlural {
-  MEN = 0;
-  WOMEN = 1;
-  HUMANS = 2;
-}
-
-message Region {
-  Location northeast = 1;
-  Location southwest = 2;
+  UNKNOWNS = 0;
+  MEN = 1;
+  WOMEN = 2;
+  HUMANS = 3;
 }
 
 message Location {
@@ -60,7 +45,7 @@ message Birthday {
 message Preferences {
   int32 age_min = 1;
   int32 age_max = 2;
-  Region region = 3;
+  int32 proximity = 3;
   repeated Gender gender = 4;
 }
 
@@ -73,16 +58,6 @@ enum PresignAction {
   DELETE = 2;
 }
 
-message CreatePresignedURLRequest {
-  PresignAction action = 1;
-  string file_name = 2;
-  string mime_type = 3;
-}
-
-message CreatePresignedURLResponse {
-  string url = 1;
-}
-
 // // // // // // // // // // // //
 // Service
 // // // // // // // // // // // //
@@ -91,5 +66,21 @@ service Sage {
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
-  rpc CreatePresignedURL(CreatePresignedURLRequest) returns (CreatePresignedURLResponse) {}
+  rpc CreatePresignedURL(CreatePresignedURLRequest)
+      returns (CreatePresignedURLResponse) {}
 }
+
+message CreateUserRequest { User user = 1; }
+message CreateUserResponse { User user = 1; }
+message GetUserRequest { string id = 1; }
+message GetUserResponse { User user = 1; }
+message UpdateUserRequest { User user = 1; }
+message UpdateUserResponse {}
+
+message CreatePresignedURLRequest {
+  PresignAction action = 1;
+  string file_name = 2;
+  string mime_type = 3;
+}
+
+message CreatePresignedURLResponse { string url = 1; }

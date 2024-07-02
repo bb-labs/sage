@@ -14,11 +14,13 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Gender extends $pb.ProtobufEnum {
-  static const Gender MAN = Gender._(0, _omitEnumNames ? '' : 'MAN');
-  static const Gender WOMAN = Gender._(1, _omitEnumNames ? '' : 'WOMAN');
-  static const Gender HUMAN = Gender._(2, _omitEnumNames ? '' : 'HUMAN');
+  static const Gender UNKNOWN = Gender._(0, _omitEnumNames ? '' : 'UNKNOWN');
+  static const Gender MAN = Gender._(1, _omitEnumNames ? '' : 'MAN');
+  static const Gender WOMAN = Gender._(2, _omitEnumNames ? '' : 'WOMAN');
+  static const Gender HUMAN = Gender._(3, _omitEnumNames ? '' : 'HUMAN');
 
   static const $core.List<Gender> values = <Gender> [
+    UNKNOWN,
     MAN,
     WOMAN,
     HUMAN,
@@ -31,11 +33,13 @@ class Gender extends $pb.ProtobufEnum {
 }
 
 class GenderPlural extends $pb.ProtobufEnum {
-  static const GenderPlural MEN = GenderPlural._(0, _omitEnumNames ? '' : 'MEN');
-  static const GenderPlural WOMEN = GenderPlural._(1, _omitEnumNames ? '' : 'WOMEN');
-  static const GenderPlural HUMANS = GenderPlural._(2, _omitEnumNames ? '' : 'HUMANS');
+  static const GenderPlural UNKNOWNS = GenderPlural._(0, _omitEnumNames ? '' : 'UNKNOWNS');
+  static const GenderPlural MEN = GenderPlural._(1, _omitEnumNames ? '' : 'MEN');
+  static const GenderPlural WOMEN = GenderPlural._(2, _omitEnumNames ? '' : 'WOMEN');
+  static const GenderPlural HUMANS = GenderPlural._(3, _omitEnumNames ? '' : 'HUMANS');
 
   static const $core.List<GenderPlural> values = <GenderPlural> [
+    UNKNOWNS,
     MEN,
     WOMEN,
     HUMANS,

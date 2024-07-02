@@ -35,25 +35,9 @@ class SageWhatIsYourBirthday extends StatelessWidget {
                   maximumDate: DateTime.now()
                       .subtract(Duration(days: 365 * 18 + (18 / 4).round())),
                   mode: CupertinoDatePickerMode.date,
-                  initialDateTime: DateTime(
-                    userModel.user.hasBirthday()
-                        ? userModel.user.birthday.year
-                        : 1999,
-                    userModel.user.hasBirthday()
-                        ? userModel.user.birthday.month
-                        : 12,
-                    userModel.user.hasBirthday()
-                        ? userModel.user.birthday.day
-                        : 31,
-                  ),
+                  initialDateTime: userModel.birthday,
                   onDateTimeChanged: (DateTime newDateTime) {
-                    final newUser = userModel.user.deepCopy();
-                    newUser.birthday =
-                        newUser.hasBirthday() ? newUser.birthday : Birthday();
-                    newUser.birthday.month = newDateTime.month;
-                    newUser.birthday.day = newDateTime.day;
-                    newUser.birthday.year = newDateTime.year;
-                    userModel.user = newUser;
+                    userModel.birthday = newDateTime;
                   },
                 ),
               ),

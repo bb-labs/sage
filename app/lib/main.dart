@@ -51,7 +51,7 @@ final _router = GoRouter(
   onException: (context, state, router) => router.go('/register'),
   redirect: (context, state) {
     var userModel = Provider.of<UserModel>(context, listen: false);
-    if (userModel.user.id.isEmpty) {
+    if (userModel.id.isEmpty) {
       return '/login';
     }
 
