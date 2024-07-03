@@ -25,7 +25,7 @@ class SageGenderButton extends StatelessWidget {
       onPressed: () {
         switch (mode) {
           case SageGenderSelectMode.identify:
-            userModel.gender = gender;
+            userModel.toggleGender(gender);
           case SageGenderSelectMode.interested:
             userModel.togglePrefferedGender(gender);
         }
@@ -35,7 +35,7 @@ class SageGenderButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             final newUserGenders = mode == SageGenderSelectMode.identify
-                ? [userModel.gender]
+                ? userModel.gender
                 : userModel.preferredGenders;
             if (newUserGenders.contains(gender)) {
               return ThemeData().colorScheme.outlineVariant;

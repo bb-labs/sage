@@ -23,7 +23,7 @@ class User extends $pb.GeneratedMessage {
     $core.String? name,
     $core.String? email,
     $core.double? rating,
-    Gender? gender,
+    $core.Iterable<Gender>? gender,
     Birthday? birthday,
     Location? location,
     Preferences? preferences,
@@ -42,7 +42,7 @@ class User extends $pb.GeneratedMessage {
       $result.rating = rating;
     }
     if (gender != null) {
-      $result.gender = gender;
+      $result.gender.addAll(gender);
     }
     if (birthday != null) {
       $result.birthday = birthday;
@@ -64,7 +64,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..aOS(3, _omitFieldNames ? '' : 'email')
     ..a<$core.double>(4, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
-    ..e<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.OE, defaultOrMaker: Gender.UNKNOWN, valueOf: Gender.valueOf, enumValues: Gender.values)
+    ..pc<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
     ..aOM<Birthday>(6, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
     ..aOM<Location>(7, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
     ..aOM<Preferences>(8, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
@@ -129,13 +129,7 @@ class User extends $pb.GeneratedMessage {
   void clearRating() => clearField(4);
 
   @$pb.TagNumber(5)
-  Gender get gender => $_getN(4);
-  @$pb.TagNumber(5)
-  set gender(Gender v) { setField(5, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasGender() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearGender() => clearField(5);
+  $core.List<Gender> get gender => $_getList(4);
 
   @$pb.TagNumber(6)
   Birthday get birthday => $_getN(5);
@@ -343,7 +337,7 @@ class Preferences extends $pb.GeneratedMessage {
     ..a<$core.int>(1, _omitFieldNames ? '' : 'ageMin', $pb.PbFieldType.O3)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'ageMax', $pb.PbFieldType.O3)
     ..a<$core.int>(3, _omitFieldNames ? '' : 'proximity', $pb.PbFieldType.O3)
-    ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.UNKNOWN)
+    ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
     ..hasRequiredFields = false
   ;
 

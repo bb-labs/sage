@@ -11,24 +11,22 @@ message User {
   string name = 2;
   string email = 3;
   double rating = 4;
-  Gender gender = 5;
+  repeated Gender gender = 5;
   Birthday birthday = 6;
   Location location = 7;
   Preferences preferences = 8;
 }
 
 enum Gender {
-  UNKNOWN = 0;
-  MAN = 1;
-  WOMAN = 2;
-  HUMAN = 3;
+  MAN = 0;
+  WOMAN = 1;
+  HUMAN = 2;
 }
 
 enum GenderPlural {
-  UNKNOWNS = 0;
-  MEN = 1;
-  WOMEN = 2;
-  HUMANS = 3;
+  MEN = 0;
+  WOMEN = 1;
+  HUMANS = 2;
 }
 
 message Location {

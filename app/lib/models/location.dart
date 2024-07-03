@@ -1,15 +1,24 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 
 class LocationModel with ChangeNotifier {
+  static const tileTemplate =
+      'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=0b04711d-b4d2-4cd0-bf8d-763dd2cd7f33';
+
+  // Position
   Position _position = Position.fromMap({'latitude': 0.0, 'longitude': 0.0});
-  Position get position => _position;
-  set position(Position position) {
-    _position = position;
+  LatLng get position => LatLng(_position.latitude, _position.longitude);
+  set position(LatLng position) {
+    _position = Position.fromMap({
+      'latitude': position.latitude,
+      'longitude': position.longitude,
+    });
     notifyListeners();
   }
 
+  // Permission
   LocationPermission _permission = LocationPermission.denied;
   LocationPermission get permission => _permission;
   set permission(LocationPermission permission) {
@@ -17,6 +26,7 @@ class LocationModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // Instance methods
   init() async {
     var serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {

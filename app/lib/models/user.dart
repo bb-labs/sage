@@ -1,6 +1,7 @@
 import 'package:app/grpc/client.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:flutter/foundation.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserModel with ChangeNotifier {
@@ -48,14 +49,27 @@ class UserModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // Gender
-  Gender get gender => _user.gender;
-  set gender(Gender gender) {
-    _user.gender = _user.gender == gender ? Gender.UNKNOWN : gender;
+  // Gender(s)
+  List<Gender> get gender => _user.gender;
+  toggleGender(Gender gender) {
+    _user.gender.contains(gender)
+        ? _user.gender.remove(gender)
+        : _user.gender.add(gender);
     notifyListeners();
   }
 
   // Preferences
+  LatLng? get preferredLocation =>
+      _user.location.latitude != 0.0 && _user.location.longitude != 0.0
+          ? LatLng(_user.location.latitude, _user.location.longitude)
+          : null;
+  set preferredLocation(LatLng? location) {
+    _user.location = location != null
+        ? Location(latitude: location.latitude, longitude: location.longitude)
+        : Location();
+    notifyListeners();
+  }
+
   double get preferredAgeMin =>
       _user.preferences.hasAgeMin() ? _user.preferences.ageMin.toDouble() : 25;
   set preferredAgeMin(double age) {

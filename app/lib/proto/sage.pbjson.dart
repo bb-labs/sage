@@ -17,32 +17,29 @@ import 'dart:typed_data' as $typed_data;
 const Gender$json = {
   '1': 'Gender',
   '2': [
-    {'1': 'UNKNOWN', '2': 0},
-    {'1': 'MAN', '2': 1},
-    {'1': 'WOMAN', '2': 2},
-    {'1': 'HUMAN', '2': 3},
+    {'1': 'MAN', '2': 0},
+    {'1': 'WOMAN', '2': 1},
+    {'1': 'HUMAN', '2': 2},
   ],
 };
 
 /// Descriptor for `Gender`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List genderDescriptor = $convert.base64Decode(
-    'CgZHZW5kZXISCwoHVU5LTk9XThAAEgcKA01BThABEgkKBVdPTUFOEAISCQoFSFVNQU4QAw==');
+    'CgZHZW5kZXISBwoDTUFOEAASCQoFV09NQU4QARIJCgVIVU1BThAC');
 
 @$core.Deprecated('Use genderPluralDescriptor instead')
 const GenderPlural$json = {
   '1': 'GenderPlural',
   '2': [
-    {'1': 'UNKNOWNS', '2': 0},
-    {'1': 'MEN', '2': 1},
-    {'1': 'WOMEN', '2': 2},
-    {'1': 'HUMANS', '2': 3},
+    {'1': 'MEN', '2': 0},
+    {'1': 'WOMEN', '2': 1},
+    {'1': 'HUMANS', '2': 2},
   ],
 };
 
 /// Descriptor for `GenderPlural`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List genderPluralDescriptor = $convert.base64Decode(
-    'CgxHZW5kZXJQbHVyYWwSDAoIVU5LTk9XTlMQABIHCgNNRU4QARIJCgVXT01FThACEgoKBkhVTU'
-    'FOUxAD');
+    'CgxHZW5kZXJQbHVyYWwSBwoDTUVOEAASCQoFV09NRU4QARIKCgZIVU1BTlMQAg==');
 
 @$core.Deprecated('Use presignActionDescriptor instead')
 const PresignAction$json = {
@@ -66,7 +63,7 @@ const User$json = {
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
     {'1': 'rating', '3': 4, '4': 1, '5': 1, '10': 'rating'},
-    {'1': 'gender', '3': 5, '4': 1, '5': 14, '6': '.Gender', '10': 'gender'},
+    {'1': 'gender', '3': 5, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
     {'1': 'birthday', '3': 6, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
     {'1': 'location', '3': 7, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
     {'1': 'preferences', '3': 8, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
@@ -76,7 +73,7 @@ const User$json = {
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
     'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWVtYWlsGAMgAS'
-    'gJUgVlbWFpbBIWCgZyYXRpbmcYBCABKAFSBnJhdGluZxIfCgZnZW5kZXIYBSABKA4yBy5HZW5k'
+    'gJUgVlbWFpbBIWCgZyYXRpbmcYBCABKAFSBnJhdGluZxIfCgZnZW5kZXIYBSADKA4yBy5HZW5k'
     'ZXJSBmdlbmRlchIlCghiaXJ0aGRheRgGIAEoCzIJLkJpcnRoZGF5UghiaXJ0aGRheRIlCghsb2'
     'NhdGlvbhgHIAEoCzIJLkxvY2F0aW9uUghsb2NhdGlvbhIuCgtwcmVmZXJlbmNlcxgIIAEoCzIM'
     'LlByZWZlcmVuY2VzUgtwcmVmZXJlbmNlcw==');
