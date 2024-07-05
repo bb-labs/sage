@@ -1,3 +1,4 @@
+import re
 import os
 import time
 import boto3
@@ -5,6 +6,9 @@ import base64
 import docker
 import pathlib
 import subprocess
+
+# References for usage in yaml
+re
 
 ssm = boto3.client("ssm")
 ecr = boto3.client("ecr")
