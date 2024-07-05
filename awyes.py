@@ -1,9 +1,8 @@
-import re
+import os
 import time
 import boto3
 import base64
 import docker
-import semver
 import pathlib
 import subprocess
 
@@ -17,6 +16,8 @@ lmda = boto3.client("lambda")
 function_active = lmda.get_waiter("function_active_v2")
 
 s3 = boto3.client("s3")
+s3r = boto3.resource("s3")
+reels = s3r.Bucket(os.getenv("S3_REELS_BUCKET_NAME") or "").objects.all()
 bucket_exists = s3.get_waiter("bucket_exists")
 object_exists = s3.get_waiter("object_exists")
 
