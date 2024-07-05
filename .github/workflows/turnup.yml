@@ -23,7 +23,5 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
-          TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
           action: ^certs.turnup ^security.turnup ^role.turnup ^db.turnup ^s3.turnup ^env.turnup ^repos.turnup ^images.turnup ^secrets.turnup ^load.turnup ^cluster.turnup ^targets.turnup ^listeners.turnup ^tasks.turnup ^services.turnup

@@ -37,8 +37,6 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          TURN_USERNAME: ${{ secrets.TURN_USERNAME }}
-          TURN_PASSWORD: ${{ secrets.TURN_PASSWORD }}
         with:
           action: ${{github.event.inputs.action}}
           dryrun: ${{github.event.inputs.dryrun}}
