@@ -3,6 +3,7 @@ import 'package:app/models/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 
 class SageWhereDoYouWantToDate extends StatelessWidget {
@@ -35,29 +36,35 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
             children: [
               TileLayer(
                 urlTemplate: LocationModel.tileTemplate,
-                retinaMode: true,
               ),
               MarkerLayer(markers: [
                 Marker(
                   width: 80.0,
                   height: 80.0,
                   point: userModel.preferredLocation ?? locationModel.position,
-                  child: const Icon(
+                  child: Icon(
                     Icons.location_on,
+                    color: ThemeData().colorScheme.primary,
                   ),
                 ),
               ]),
-              CircleLayer(
-                circles: [
-                  CircleMarker(
-                    point:
-                        userModel.preferredLocation ?? locationModel.position,
-                    radius: 1000,
-                    useRadiusInMeter: true,
-                    color:
-                        ThemeData().colorScheme.outlineVariant.withOpacity(0.5),
-                  ),
-                ],
+              CircleLayer(circles: [
+                CircleMarker(
+                  point: userModel.preferredLocation ?? locationModel.position,
+                  radius: userModel.preferredProximity * 1600, // to meters
+                  useRadiusInMeter: true,
+                  color:
+                      ThemeData().colorScheme.outlineVariant.withOpacity(0.5),
+                ),
+              ]),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: NumberPicker(
+                  value: userModel.preferredProximity,
+                  minValue: 1,
+                  maxValue: 50,
+                  onChanged: (value) => userModel.preferredProximity = value,
+                ),
               ),
             ],
           );

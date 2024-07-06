@@ -9,6 +9,7 @@ class UserModel with ChangeNotifier {
   static String userKey = "user_id";
   static int maxAge = 50;
   static int minAge = 18;
+  static double maxProximity = 50;
 
   // User
   User _user = User();
@@ -67,6 +68,14 @@ class UserModel with ChangeNotifier {
     _user.location = location != null
         ? Location(latitude: location.latitude, longitude: location.longitude)
         : Location();
+    notifyListeners();
+  }
+
+  int get preferredProximity =>
+      _user.preferences.proximity != 0 ? _user.preferences.proximity : 1;
+  set preferredProximity(int proximity) {
+    if (!_user.hasPreferences()) _user.preferences = Preferences();
+    _user.preferences.proximity = proximity;
     notifyListeners();
   }
 
