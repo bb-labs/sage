@@ -1,5 +1,6 @@
 import 'package:app/grpc/client.dart';
 import 'package:app/proto/sage.pb.dart';
+import 'package:app/proto/sage.pbgrpc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,16 @@ class UserModel with ChangeNotifier {
   static String userKey = "user_id";
   static int maxAge = 50;
   static int minAge = 18;
-  static double maxProximity = 50;
+  static int maxProximity = 50;
+  static int minProximity = 1;
+
+  // Defaults
+  static DateTime defaultBirthday = DateTime(2000, 1, 1);
+  static LatLng defaultLocation = const LatLng(0.0, 0.0);
+  static Preferences defaultPreferences = Preferences()
+    ..proximity = 1
+    ..ageMin = 25
+    ..ageMax = 40;
 
   // User
   User _user = User();
@@ -34,13 +44,18 @@ class UserModel with ChangeNotifier {
   }
 
   // Birthday
+  get isDefaultBirthday =>
+      _user.hasBirthday() &&
+      _user.birthday.year == defaultBirthday.year &&
+      _user.birthday.month == defaultBirthday.month &&
+      _user.birthday.day == defaultBirthday.day;
   DateTime get birthday => _user.hasBirthday()
       ? DateTime(
           _user.birthday.year,
           _user.birthday.month,
           _user.birthday.day,
         )
-      : DateTime(1999, 12, 31);
+      : DateTime(2000, 1, 1);
   set birthday(DateTime birthday) {
     if (!_user.hasBirthday()) _user.birthday = Birthday();
     _user.birthday.mergeFromMessage(Birthday()
@@ -78,6 +93,8 @@ class UserModel with ChangeNotifier {
     _user.preferences.proximity = proximity;
     notifyListeners();
   }
+
+  double get preferredProximityInMeters => user.preferences.proximity * 1600;
 
   double get preferredAgeMin =>
       _user.preferences.hasAgeMin() ? _user.preferences.ageMin.toDouble() : 25;

@@ -1,14 +1,14 @@
 import 'package:app/models/register.dart';
-import 'package:app/views/register/info/birthday.dart';
-import 'package:app/views/register/info/name.dart';
-import 'package:app/views/register/preferences/location.dart';
-import 'package:app/views/register/preferences/preferences.dart';
+import 'package:app/views/registration/fields/birthday.dart';
+import 'package:app/views/registration/fields/name.dart';
+import 'package:app/views/registration/fields/location.dart';
+import 'package:app/views/registration/fields/preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SageProfile extends StatelessWidget {
-  const SageProfile({super.key});
+class SageRegistration extends StatelessWidget {
+  const SageRegistration({super.key});
 
   static const fields = [
     SageWhatIsYourName(),

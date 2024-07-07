@@ -5,8 +5,8 @@ import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
-import 'package:app/views/register/reel/reel.dart';
-import 'package:app/views/register/register.dart';
+import 'package:app/views/registration/reel/reel.dart';
+import 'package:app/views/registration/registration.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
