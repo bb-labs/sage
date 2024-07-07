@@ -24,7 +24,7 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
           }
 
           return SageField(
-            validated: userModel.preferredLocation != null,
+            validated: true,
             child: OverflowBox(
               minHeight: 1500,
               maxHeight: 1500,
@@ -42,6 +42,7 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
                 children: [
                   TileLayer(
                     urlTemplate: LocationModel.tileTemplate,
+                    retinaMode: true,
                   ),
                   MarkerLayer(markers: [
                     Marker(
@@ -59,7 +60,7 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
                     CircleMarker(
                       point:
                           userModel.preferredLocation ?? locationModel.position,
-                      radius: userModel.preferredProximityInMeters.toDouble(),
+                      radius: userModel.preferredProximity * 1600,
                       useRadiusInMeter: true,
                       color: ThemeData()
                           .colorScheme

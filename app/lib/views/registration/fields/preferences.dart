@@ -90,7 +90,7 @@ class SageGenderButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-        HapticFeedback.heavyImpact();
+        HapticFeedback.lightImpact();
         switch (mode) {
           case SageGenderSelectMode.identify:
             userModel.toggleGender(gender);
@@ -152,6 +152,7 @@ class SageWhichAgeDoYouPrefer extends StatelessWidget {
               ),
             ),
             child: RangeSlider(
+              divisions: UserModel.maxAge - UserModel.minAge,
               values: RangeValues(
                 userModel.preferredAgeMin,
                 userModel.preferredAgeMax,

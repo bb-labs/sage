@@ -13,14 +13,6 @@ class UserModel with ChangeNotifier {
   static int maxProximity = 50;
   static int minProximity = 1;
 
-  // Defaults
-  static DateTime defaultBirthday = DateTime(2000, 1, 1);
-  static LatLng defaultLocation = const LatLng(0.0, 0.0);
-  static Preferences defaultPreferences = Preferences()
-    ..proximity = 1
-    ..ageMin = 25
-    ..ageMax = 40;
-
   // User
   User _user = User();
   User get user => _user;
@@ -44,24 +36,14 @@ class UserModel with ChangeNotifier {
   }
 
   // Birthday
-  get isDefaultBirthday =>
-      _user.hasBirthday() &&
-      _user.birthday.year == defaultBirthday.year &&
-      _user.birthday.month == defaultBirthday.month &&
-      _user.birthday.day == defaultBirthday.day;
   DateTime get birthday => _user.hasBirthday()
-      ? DateTime(
-          _user.birthday.year,
-          _user.birthday.month,
-          _user.birthday.day,
-        )
+      ? DateTime(_user.birthday.year, _user.birthday.month, _user.birthday.day)
       : DateTime(2000, 1, 1);
   set birthday(DateTime birthday) {
-    if (!_user.hasBirthday()) _user.birthday = Birthday();
-    _user.birthday.mergeFromMessage(Birthday()
+    _user.birthday = Birthday()
       ..year = birthday.year
       ..month = birthday.month
-      ..day = birthday.day);
+      ..day = birthday.day;
     notifyListeners();
   }
 
@@ -87,14 +69,12 @@ class UserModel with ChangeNotifier {
   }
 
   int get preferredProximity =>
-      _user.preferences.proximity != 0 ? _user.preferences.proximity : 1;
+      _user.preferences.proximity != 0 ? _user.preferences.proximity : 3;
   set preferredProximity(int proximity) {
     if (!_user.hasPreferences()) _user.preferences = Preferences();
     _user.preferences.proximity = proximity;
     notifyListeners();
   }
-
-  double get preferredProximityInMeters => user.preferences.proximity * 1600;
 
   double get preferredAgeMin =>
       _user.preferences.hasAgeMin() ? _user.preferences.ageMin.toDouble() : 25;

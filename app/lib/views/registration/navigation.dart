@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class SageNavigationButtons extends StatelessWidget {
   static const curve = Curves.easeInOut;
-  static const duration = Duration(milliseconds: 1250);
+  static const duration = Duration(milliseconds: 250);
 
   final bool validated;
   const SageNavigationButtons({super.key, required this.validated});
@@ -43,6 +43,7 @@ class SageNavigationButtons extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () {
+                HapticFeedback.heavyImpact();
                 pageController.previousPage(duration: duration, curve: curve);
               },
               child: const Icon(
