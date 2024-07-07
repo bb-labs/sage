@@ -12,7 +12,7 @@ class SageWhatIsYourBirthday extends StatelessWidget {
     var userModel = Provider.of<UserModel>(context);
 
     var eighteenYearsAgoToday =
-        DateTime.now().subtract(Duration(days: 365 * 18 + (18 / 4).round()));
+        DateTime.now().subtract(const Duration(days: 365 * 18 + 5));
 
     return SageField(
       validated: userModel.birthday.isBefore(eighteenYearsAgoToday),
@@ -32,7 +32,6 @@ class SageWhatIsYourBirthday extends StatelessWidget {
             child: SizedBox(
               height: 200,
               child: CupertinoDatePicker(
-                maximumDate: eighteenYearsAgoToday,
                 mode: CupertinoDatePickerMode.date,
                 initialDateTime: userModel.birthday,
                 onDateTimeChanged: (DateTime newDateTime) {

@@ -1,11 +1,6 @@
 include .env
 export
 
-drop:
-	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "delete from users where true"
-
-select:
-	psql ${DB_ENGINE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${DB_PORT}/${POSTGRES_DB} -c "select * from users"
 
 deps:
 	cd ${APP_PATH}; go get github.com/bb-labs/corner; go mod tidy
@@ -14,16 +9,11 @@ build:
 	envsubst < docker-compose.dev.yml | docker compose -f - build
 
 up: down
+	$$(aws configure export-credentials --format env); \
 	envsubst < docker-compose.dev.yml | docker compose -f - up --build
 
 down:
 	envsubst < docker-compose.dev.yml | docker compose -f - down --remove-orphans
-
-shell:
-	docker exec -it $(container) bash
-
-logs:
-	envsubst < docker-compose.dev.yml | docker compose -f - logs $(service)
 
 clean: down
 	docker system prune -af
