@@ -1,8 +1,10 @@
 import 'package:app/models/camera.dart';
 import 'package:app/models/location.dart';
+import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
+import 'package:app/views/home/home.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
 import 'package:app/views/registration/reel/reel.dart';
@@ -22,6 +24,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CameraModel()),
         ChangeNotifierProvider(create: (context) => PlayerModel()),
         ChangeNotifierProvider(create: (context) => LocationModel()),
+        ChangeNotifierProvider(create: (context) => NavigationModel()),
         ChangeNotifierProvider(create: (context) => RegistrationModel()),
       ],
       child: const SageApp(),
@@ -49,10 +52,10 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const SageCreateYourReel(),
+      builder: (context, state) => const SageHome(),
     ),
   ],
-  onException: (context, state, router) => router.go('/register'),
+  onException: (context, state, router) => router.go('/home'),
   redirect: (context, state) {
     var userModel = Provider.of<UserModel>(context, listen: false);
     if (userModel.id.isEmpty) {

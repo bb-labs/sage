@@ -9,11 +9,10 @@ message User {
   string id = 1;
   string name = 2;
   string email = 3;
-  double rating = 4;
-  repeated Gender gender = 5;
-  Birthday birthday = 6;
-  Location location = 7;
-  Preferences preferences = 8;
+  repeated Gender gender = 4;
+  Birthday birthday = 5;
+  Location location = 6;
+  Preferences preferences = 7;
 }
 
 enum Gender {

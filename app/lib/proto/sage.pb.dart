@@ -17,12 +17,14 @@ import 'sage.pbenum.dart';
 
 export 'sage.pbenum.dart';
 
+/// // // // // // // // // // // //
+/// Models
+/// // // // // // // // // // // //
 class User extends $pb.GeneratedMessage {
   factory User({
     $core.String? id,
     $core.String? name,
     $core.String? email,
-    $core.double? rating,
     $core.Iterable<Gender>? gender,
     Birthday? birthday,
     Location? location,
@@ -37,9 +39,6 @@ class User extends $pb.GeneratedMessage {
     }
     if (email != null) {
       $result.email = email;
-    }
-    if (rating != null) {
-      $result.rating = rating;
     }
     if (gender != null) {
       $result.gender.addAll(gender);
@@ -63,11 +62,10 @@ class User extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..aOS(3, _omitFieldNames ? '' : 'email')
-    ..a<$core.double>(4, _omitFieldNames ? '' : 'rating', $pb.PbFieldType.OD)
-    ..pc<Gender>(5, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
-    ..aOM<Birthday>(6, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
-    ..aOM<Location>(7, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
-    ..aOM<Preferences>(8, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
+    ..pc<Gender>(4, _omitFieldNames ? '' : 'gender', $pb.PbFieldType.KE, valueOf: Gender.valueOf, enumValues: Gender.values, defaultEnumValue: Gender.MAN)
+    ..aOM<Birthday>(5, _omitFieldNames ? '' : 'birthday', subBuilder: Birthday.create)
+    ..aOM<Location>(6, _omitFieldNames ? '' : 'location', subBuilder: Location.create)
+    ..aOM<Preferences>(7, _omitFieldNames ? '' : 'preferences', subBuilder: Preferences.create)
     ..hasRequiredFields = false
   ;
 
@@ -120,49 +118,40 @@ class User extends $pb.GeneratedMessage {
   void clearEmail() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.double get rating => $_getN(3);
-  @$pb.TagNumber(4)
-  set rating($core.double v) { $_setDouble(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasRating() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearRating() => clearField(4);
+  $core.List<Gender> get gender => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<Gender> get gender => $_getList(4);
+  Birthday get birthday => $_getN(4);
+  @$pb.TagNumber(5)
+  set birthday(Birthday v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasBirthday() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearBirthday() => clearField(5);
+  @$pb.TagNumber(5)
+  Birthday ensureBirthday() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  Birthday get birthday => $_getN(5);
+  Location get location => $_getN(5);
   @$pb.TagNumber(6)
-  set birthday(Birthday v) { setField(6, v); }
+  set location(Location v) { setField(6, v); }
   @$pb.TagNumber(6)
-  $core.bool hasBirthday() => $_has(5);
+  $core.bool hasLocation() => $_has(5);
   @$pb.TagNumber(6)
-  void clearBirthday() => clearField(6);
+  void clearLocation() => clearField(6);
   @$pb.TagNumber(6)
-  Birthday ensureBirthday() => $_ensure(5);
+  Location ensureLocation() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  Location get location => $_getN(6);
+  Preferences get preferences => $_getN(6);
   @$pb.TagNumber(7)
-  set location(Location v) { setField(7, v); }
+  set preferences(Preferences v) { setField(7, v); }
   @$pb.TagNumber(7)
-  $core.bool hasLocation() => $_has(6);
+  $core.bool hasPreferences() => $_has(6);
   @$pb.TagNumber(7)
-  void clearLocation() => clearField(7);
+  void clearPreferences() => clearField(7);
   @$pb.TagNumber(7)
-  Location ensureLocation() => $_ensure(6);
-
-  @$pb.TagNumber(8)
-  Preferences get preferences => $_getN(7);
-  @$pb.TagNumber(8)
-  set preferences(Preferences v) { setField(8, v); }
-  @$pb.TagNumber(8)
-  $core.bool hasPreferences() => $_has(7);
-  @$pb.TagNumber(8)
-  void clearPreferences() => clearField(8);
-  @$pb.TagNumber(8)
-  Preferences ensurePreferences() => $_ensure(7);
+  Preferences ensurePreferences() => $_ensure(6);
 }
 
 class Location extends $pb.GeneratedMessage {
