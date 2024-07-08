@@ -47,6 +47,10 @@ final _router = GoRouter(
       path: '/reel',
       builder: (context, state) => const SageCreateYourReel(),
     ),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => const SageCreateYourReel(),
+    ),
   ],
   onException: (context, state, router) => router.go('/register'),
   redirect: (context, state) {

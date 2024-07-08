@@ -5,6 +5,9 @@ export
 deps:
 	cd ${APP_PATH}; go get github.com/bb-labs/corner; go mod tidy
 
+seed:
+	go run ${APP_PATH}/seed/seed.go
+
 build:
 	envsubst < docker-compose.dev.yml | docker compose -f - build
 

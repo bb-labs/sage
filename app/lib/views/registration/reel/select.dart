@@ -51,15 +51,15 @@ class SageReelSelection extends StatelessWidget {
                       mimeType: 'video/mp4',
                     ));
 
-                var putResponse = await put(
+                await put(
                   Uri.parse(response.url),
                   body: await playerModel.recording.readAsBytes(),
                   headers: {'Content-Type': 'video/mp4'},
                 );
 
-                // if (context.mounted) {
-                //   context.go('/home');
-                // }
+                if (context.mounted) {
+                  context.go('/home');
+                }
               },
               child: const Icon(Icons.check, color: Colors.green),
             ),
