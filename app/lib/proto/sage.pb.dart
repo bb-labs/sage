@@ -382,6 +382,50 @@ class Preferences extends $pb.GeneratedMessage {
   $core.List<Gender> get gender => $_getList(3);
 }
 
+class Feed extends $pb.GeneratedMessage {
+  factory Feed({
+    $core.Iterable<User>? users,
+  }) {
+    final $result = create();
+    if (users != null) {
+      $result.users.addAll(users);
+    }
+    return $result;
+  }
+  Feed._() : super();
+  factory Feed.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Feed.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Feed', createEmptyInstance: create)
+    ..pc<User>(1, _omitFieldNames ? '' : 'users', $pb.PbFieldType.PM, subBuilder: User.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Feed clone() => Feed()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Feed copyWith(void Function(Feed) updates) => super.copyWith((message) => updates(message as Feed)) as Feed;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Feed create() => Feed._();
+  Feed createEmptyInstance() => create();
+  static $pb.PbList<Feed> createRepeated() => $pb.PbList<Feed>();
+  @$core.pragma('dart2js:noInline')
+  static Feed getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Feed>(create);
+  static Feed? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<User> get users => $_getList(0);
+}
+
 class CreateUserRequest extends $pb.GeneratedMessage {
   factory CreateUserRequest({
     User? user,
@@ -670,6 +714,110 @@ class UpdateUserResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UpdateUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserResponse>(create);
   static UpdateUserResponse? _defaultInstance;
+}
+
+class GetFeedRequest extends $pb.GeneratedMessage {
+  factory GetFeedRequest({
+    User? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
+  GetFeedRequest._() : super();
+  factory GetFeedRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetFeedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetFeedRequest', createEmptyInstance: create)
+    ..aOM<User>(1, _omitFieldNames ? '' : 'user', subBuilder: User.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetFeedRequest clone() => GetFeedRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetFeedRequest copyWith(void Function(GetFeedRequest) updates) => super.copyWith((message) => updates(message as GetFeedRequest)) as GetFeedRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetFeedRequest create() => GetFeedRequest._();
+  GetFeedRequest createEmptyInstance() => create();
+  static $pb.PbList<GetFeedRequest> createRepeated() => $pb.PbList<GetFeedRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetFeedRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetFeedRequest>(create);
+  static GetFeedRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  User get user => $_getN(0);
+  @$pb.TagNumber(1)
+  set user(User v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUser() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUser() => clearField(1);
+  @$pb.TagNumber(1)
+  User ensureUser() => $_ensure(0);
+}
+
+class GetFeedResponse extends $pb.GeneratedMessage {
+  factory GetFeedResponse({
+    Feed? feed,
+  }) {
+    final $result = create();
+    if (feed != null) {
+      $result.feed = feed;
+    }
+    return $result;
+  }
+  GetFeedResponse._() : super();
+  factory GetFeedResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetFeedResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetFeedResponse', createEmptyInstance: create)
+    ..aOM<Feed>(1, _omitFieldNames ? '' : 'feed', subBuilder: Feed.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetFeedResponse clone() => GetFeedResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetFeedResponse copyWith(void Function(GetFeedResponse) updates) => super.copyWith((message) => updates(message as GetFeedResponse)) as GetFeedResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetFeedResponse create() => GetFeedResponse._();
+  GetFeedResponse createEmptyInstance() => create();
+  static $pb.PbList<GetFeedResponse> createRepeated() => $pb.PbList<GetFeedResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetFeedResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetFeedResponse>(create);
+  static GetFeedResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Feed get feed => $_getN(0);
+  @$pb.TagNumber(1)
+  set feed(Feed v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFeed() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFeed() => clearField(1);
+  @$pb.TagNumber(1)
+  Feed ensureFeed() => $_ensure(0);
 }
 
 class CreatePresignedURLRequest extends $pb.GeneratedMessage {

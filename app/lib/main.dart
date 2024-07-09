@@ -1,4 +1,5 @@
 import 'package:app/models/camera.dart';
+import 'package:app/models/feed.dart';
 import 'package:app/models/location.dart';
 import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
@@ -21,6 +22,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserModel()),
+        ChangeNotifierProvider(create: (context) => FeedModel()),
         ChangeNotifierProvider(create: (context) => CameraModel()),
         ChangeNotifierProvider(create: (context) => PlayerModel()),
         ChangeNotifierProvider(create: (context) => LocationModel()),

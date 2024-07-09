@@ -22,6 +22,7 @@ const (
 	Sage_GetUser_FullMethodName            = "/Sage/GetUser"
 	Sage_UpdateUser_FullMethodName         = "/Sage/UpdateUser"
 	Sage_CreateUser_FullMethodName         = "/Sage/CreateUser"
+	Sage_GetFeed_FullMethodName            = "/Sage/GetFeed"
 	Sage_CreatePresignedURL_FullMethodName = "/Sage/CreatePresignedURL"
 )
 
@@ -32,6 +33,7 @@ type SageClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	GetFeed(ctx context.Context, in *GetFeedRequest, opts ...grpc.CallOption) (*GetFeedResponse, error)
 	CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error)
 }
 
@@ -70,6 +72,15 @@ func (c *sageClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts
 	return out, nil
 }
 
+func (c *sageClient) GetFeed(ctx context.Context, in *GetFeedRequest, opts ...grpc.CallOption) (*GetFeedResponse, error) {
+	out := new(GetFeedResponse)
+	err := c.cc.Invoke(ctx, Sage_GetFeed_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *sageClient) CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error) {
 	out := new(CreatePresignedURLResponse)
 	err := c.cc.Invoke(ctx, Sage_CreatePresignedURL_FullMethodName, in, out, opts...)
@@ -86,6 +97,7 @@ type SageServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	GetFeed(context.Context, *GetFeedRequest) (*GetFeedResponse, error)
 	CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error)
 	mustEmbedUnimplementedSageServer()
 }
@@ -102,6 +114,9 @@ func (UnimplementedSageServer) UpdateUser(context.Context, *UpdateUserRequest) (
 }
 func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedSageServer) GetFeed(context.Context, *GetFeedRequest) (*GetFeedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFeed not implemented")
 }
 func (UnimplementedSageServer) CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePresignedURL not implemented")
@@ -173,6 +188,24 @@ func _Sage_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Sage_GetFeed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFeedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).GetFeed(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_GetFeed_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).GetFeed(ctx, req.(*GetFeedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Sage_CreatePresignedURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePresignedURLRequest)
 	if err := dec(in); err != nil {
@@ -209,6 +242,10 @@ var Sage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _Sage_CreateUser_Handler,
+		},
+		{
+			MethodName: "GetFeed",
+			Handler:    _Sage_GetFeed_Handler,
 		},
 		{
 			MethodName: "CreatePresignedURL",

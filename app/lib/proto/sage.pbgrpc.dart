@@ -33,6 +33,10 @@ class SageClient extends $grpc.Client {
       '/Sage/CreateUser',
       ($0.CreateUserRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.CreateUserResponse.fromBuffer(value));
+  static final _$getFeed = $grpc.ClientMethod<$0.GetFeedRequest, $0.GetFeedResponse>(
+      '/Sage/GetFeed',
+      ($0.GetFeedRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetFeedResponse.fromBuffer(value));
   static final _$createPresignedURL = $grpc.ClientMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
       '/Sage/CreatePresignedURL',
       ($0.CreatePresignedURLRequest value) => value.writeToBuffer(),
@@ -54,6 +58,10 @@ class SageClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.CreateUserResponse> createUser($0.CreateUserRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetFeedResponse> getFeed($0.GetFeedRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getFeed, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreatePresignedURLResponse> createPresignedURL($0.CreatePresignedURLRequest request, {$grpc.CallOptions? options}) {
@@ -87,6 +95,13 @@ abstract class SageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.CreateUserRequest.fromBuffer(value),
         ($0.CreateUserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetFeedRequest, $0.GetFeedResponse>(
+        'GetFeed',
+        getFeed_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetFeedRequest.fromBuffer(value),
+        ($0.GetFeedResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
         'CreatePresignedURL',
         createPresignedURL_Pre,
@@ -108,6 +123,10 @@ abstract class SageServiceBase extends $grpc.Service {
     return createUser(call, await request);
   }
 
+  $async.Future<$0.GetFeedResponse> getFeed_Pre($grpc.ServiceCall call, $async.Future<$0.GetFeedRequest> request) async {
+    return getFeed(call, await request);
+  }
+
   $async.Future<$0.CreatePresignedURLResponse> createPresignedURL_Pre($grpc.ServiceCall call, $async.Future<$0.CreatePresignedURLRequest> request) async {
     return createPresignedURL(call, await request);
   }
@@ -115,5 +134,6 @@ abstract class SageServiceBase extends $grpc.Service {
   $async.Future<$0.GetUserResponse> getUser($grpc.ServiceCall call, $0.GetUserRequest request);
   $async.Future<$0.UpdateUserResponse> updateUser($grpc.ServiceCall call, $0.UpdateUserRequest request);
   $async.Future<$0.CreateUserResponse> createUser($grpc.ServiceCall call, $0.CreateUserRequest request);
+  $async.Future<$0.GetFeedResponse> getFeed($grpc.ServiceCall call, $0.GetFeedRequest request);
   $async.Future<$0.CreatePresignedURLResponse> createPresignedURL($grpc.ServiceCall call, $0.CreatePresignedURLRequest request);
 }

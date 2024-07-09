@@ -45,6 +45,8 @@ message Preferences {
   repeated Gender gender = 4;
 }
 
+message Feed { repeated User users = 1; }
+
 // // // // // // // // // // // //
 // Presigned URL
 // // // // // // // // // // // //
@@ -62,6 +64,8 @@ service Sage {
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
+  rpc GetFeed(GetFeedRequest) returns (GetFeedResponse) {}
+
   rpc CreatePresignedURL(CreatePresignedURLRequest)
       returns (CreatePresignedURLResponse) {}
 }
@@ -72,6 +76,8 @@ message GetUserRequest { string id = 1; }
 message GetUserResponse { User user = 1; }
 message UpdateUserRequest { User user = 1; }
 message UpdateUserResponse {}
+message GetFeedRequest { User user = 1; }
+message GetFeedResponse { Feed feed = 1; }
 
 message CreatePresignedURLRequest {
   PresignAction action = 1;

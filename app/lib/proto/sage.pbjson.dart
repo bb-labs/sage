@@ -123,6 +123,18 @@ final $typed_data.Uint8List preferencesDescriptor = $convert.base64Decode(
     'IGYWdlTWF4EhwKCXByb3hpbWl0eRgDIAEoBVIJcHJveGltaXR5Eh8KBmdlbmRlchgEIAMoDjIH'
     'LkdlbmRlclIGZ2VuZGVy');
 
+@$core.Deprecated('Use feedDescriptor instead')
+const Feed$json = {
+  '1': 'Feed',
+  '2': [
+    {'1': 'users', '3': 1, '4': 3, '5': 11, '6': '.User', '10': 'users'},
+  ],
+};
+
+/// Descriptor for `Feed`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List feedDescriptor = $convert.base64Decode(
+    'CgRGZWVkEhsKBXVzZXJzGAEgAygLMgUuVXNlclIFdXNlcnM=');
+
 @$core.Deprecated('Use createUserRequestDescriptor instead')
 const CreateUserRequest$json = {
   '1': 'CreateUserRequest',
@@ -191,6 +203,30 @@ const UpdateUserResponse$json = {
 /// Descriptor for `UpdateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode(
     'ChJVcGRhdGVVc2VyUmVzcG9uc2U=');
+
+@$core.Deprecated('Use getFeedRequestDescriptor instead')
+const GetFeedRequest$json = {
+  '1': 'GetFeedRequest',
+  '2': [
+    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `GetFeedRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getFeedRequestDescriptor = $convert.base64Decode(
+    'Cg5HZXRGZWVkUmVxdWVzdBIZCgR1c2VyGAEgASgLMgUuVXNlclIEdXNlcg==');
+
+@$core.Deprecated('Use getFeedResponseDescriptor instead')
+const GetFeedResponse$json = {
+  '1': 'GetFeedResponse',
+  '2': [
+    {'1': 'feed', '3': 1, '4': 1, '5': 11, '6': '.Feed', '10': 'feed'},
+  ],
+};
+
+/// Descriptor for `GetFeedResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getFeedResponseDescriptor = $convert.base64Decode(
+    'Cg9HZXRGZWVkUmVzcG9uc2USGQoEZmVlZBgBIAEoCzIFLkZlZWRSBGZlZWQ=');
 
 @$core.Deprecated('Use createPresignedURLRequestDescriptor instead')
 const CreatePresignedURLRequest$json = {
