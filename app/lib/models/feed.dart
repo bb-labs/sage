@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class FeedModel with ChangeNotifier {
-  static int maxNumControllers = 5;
+  static int maxNumControllers = 4;
 
   // Feed data
   Feed _feed = Feed();
@@ -50,17 +50,21 @@ class FeedModel with ChangeNotifier {
     }
   }
 
-  grow(int index) async {
+  getController(int index) {
+    var normalized = index - startIndex;
+    if (normalized < 0 || normalized >= _controllers.length) {
+      return null;
+    }
+    return _controllers[index - startIndex];
+  }
+
+  growControllers(int index) async {
     var mid = (startIndex + endIndex) / 2;
     if (index > mid) {
       await slideControllerWindowForward();
     } else if (index < mid) {
       await slideControllerWindowBackward();
     }
-    return _controllers[index - startIndex];
-  }
-
-  getController(int index) {
     return _controllers[index - startIndex];
   }
 

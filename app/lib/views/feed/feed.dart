@@ -26,11 +26,14 @@ class SageFeed extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemCount: feedModel.feed.users.length,
           onPageChanged: (index) {
-            feedModel.grow(index);
+            feedModel.growControllers(index);
           },
           itemBuilder: (context, index) {
             var user = feedModel.feed.users[index];
             var controller = feedModel.getController(index);
+            if (controller == null) {
+              return const Center(child: CircularProgressIndicator());
+            }
             return SageReel(user: user, controller: controller);
           },
         );
