@@ -1,22 +1,25 @@
 import 'package:app/models/navigation.dart';
 import 'package:app/views/feed/feed.dart';
+import 'package:app/views/matches/matches.dart';
+import 'package:app/views/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SageHome extends StatelessWidget {
   const SageHome({super.key});
 
-  static const fields = [
-    SageFeed(),
-    SageFeed(),
-    SageFeed(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     var navigationModel = Provider.of<NavigationModel>(context);
     return Scaffold(
-      body: fields[navigationModel.selectedIndex],
+      body: IndexedStack(
+        index: navigationModel.selectedIndex,
+        children: const [
+          SageSettings(),
+          SageFeed(),
+          SageMatches(),
+        ],
+      ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,

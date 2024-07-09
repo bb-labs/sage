@@ -47,7 +47,7 @@ class SageReelSelection extends StatelessWidget {
                     .instance
                     .createPresignedURL(CreatePresignedURLRequest(
                       action: PresignAction.PUT,
-                      fileName: userModel.id,
+                      fileName: "${userModel.id}.mp4",
                       mimeType: 'video/mp4',
                     ));
 
@@ -56,6 +56,9 @@ class SageReelSelection extends StatelessWidget {
                   body: await playerModel.recording.readAsBytes(),
                   headers: {'Content-Type': 'video/mp4'},
                 );
+
+                await playerModel.playerController.dispose();
+                playerModel.recording = XFile('');
 
                 if (context.mounted) {
                   context.go('/home');
