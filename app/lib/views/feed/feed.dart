@@ -21,15 +21,20 @@ class SageFeed extends StatelessWidget {
         }
 
         var feedModel = Provider.of<FeedModel>(context);
-
         return PageView.builder(
           scrollDirection: Axis.vertical,
           itemCount: feedModel.feed.users.length,
+          physics: feedModel.justStartedReel
+              ? const StickyPageViewScrollPhysics()
+              : const AlwaysScrollableScrollPhysics(),
           onPageChanged: (index) async {
+            feedModel.justStartedReel = true;
             await feedModel.growControllers(index);
+            await Future.delayed(const Duration(milliseconds: 1000), () {
+              feedModel.justStartedReel = false;
+            });
           },
           itemBuilder: (context, index) {
-            print("Building reel for user ${feedModel.feed.users[index].id}");
             return SageReel(
               user: feedModel.feed.users[index],
               controller: feedModel.getController(index),
@@ -38,5 +43,23 @@ class SageFeed extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class StickyPageViewScrollPhysics extends ScrollPhysics {
+  const StickyPageViewScrollPhysics({super.parent});
+
+  @override
+  double get minFlingVelocity => double.infinity;
+
+  @override
+  double get maxFlingVelocity => double.infinity;
+
+  @override
+  double get minFlingDistance => double.infinity;
+
+  @override
+  StickyPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return StickyPageViewScrollPhysics(parent: buildParent(ancestor));
   }
 }

@@ -20,6 +20,13 @@ class FeedModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _justStartedReel = false;
+  bool get justStartedReel => _justStartedReel;
+  set justStartedReel(bool justStartedReel) {
+    _justStartedReel = justStartedReel;
+    notifyListeners();
+  }
+
   // VideoPlayerControllers
   Map<int, VideoPlayerController> _controllers = {};
   Map<int, VideoPlayerController> get controllers => _controllers;
