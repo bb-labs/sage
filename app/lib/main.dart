@@ -3,6 +3,7 @@ import 'package:app/models/feed.dart';
 import 'package:app/models/location.dart';
 import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
+import 'package:app/models/reel.dart';
 import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/home/home.dart';
@@ -23,6 +24,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => UserModel()),
         ChangeNotifierProvider(create: (context) => FeedModel()),
+        ChangeNotifierProvider(create: (context) => ReelModel()),
         ChangeNotifierProvider(create: (context) => CameraModel()),
         ChangeNotifierProvider(create: (context) => PlayerModel()),
         ChangeNotifierProvider(create: (context) => LocationModel()),

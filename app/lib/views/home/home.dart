@@ -12,6 +12,7 @@ class SageHome extends StatelessWidget {
   Widget build(BuildContext context) {
     var navigationModel = Provider.of<NavigationModel>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: navigationModel.selectedIndex,
         children: const [

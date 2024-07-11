@@ -30,6 +30,7 @@ dependencies:
   numberpicker: ^2.1.2
   visibility_detector: ^0.3.3
   video_player: ^2.9.1
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
