@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:app/grpc/client.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:app/proto/sage.pbgrpc.dart';
+import 'package:collection/collection.dart';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class FeedModel with ChangeNotifier {
-  static int maxNumControllers = 4;
+  static int maxNumControllers = 5;
+  static int halfNumControllers = maxNumControllers ~/ 2;
 
   // Feed data
   Feed _feed = Feed();
@@ -16,24 +20,10 @@ class FeedModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _startIndex = 0;
-  int get startIndex => _startIndex;
-  set startIndex(int startIndex) {
-    _startIndex = startIndex;
-    notifyListeners();
-  }
-
-  int _endIndex = maxNumControllers - 1;
-  int get endIndex => _endIndex;
-  set endIndex(int endIndex) {
-    _endIndex = endIndex;
-    notifyListeners();
-  }
-
   // VideoPlayerControllers
-  List<VideoPlayerController> _controllers = [];
-  List<VideoPlayerController> get controllers => _controllers;
-  set controllers(List<VideoPlayerController> controllers) {
+  Map<int, VideoPlayerController> _controllers = {};
+  Map<int, VideoPlayerController> get controllers => _controllers;
+  set controllers(Map<int, VideoPlayerController> controllers) {
     _controllers = controllers;
     notifyListeners();
   }
@@ -44,28 +34,16 @@ class FeedModel with ChangeNotifier {
         .instance
         .getFeed(GetFeedRequest(user: user));
     feed = feedResponse.feed;
+    var controllers = await Future.wait(
+        List.generate(maxNumControllers, (_) => null)
+            .mapIndexed((i, _) async => createController(i)));
     for (var i = 0; i < maxNumControllers; i++) {
-      var controller = await createController(i);
-      _controllers.add(controller);
+      _controllers[i] = controllers[i];
     }
   }
 
   getController(int index) {
-    var normalized = index - startIndex;
-    if (normalized < 0 || normalized >= _controllers.length) {
-      return null;
-    }
-    return _controllers[index - startIndex];
-  }
-
-  growControllers(int index) async {
-    var mid = (startIndex + endIndex) / 2;
-    if (index > mid) {
-      await slideControllerWindowForward();
-    } else if (index < mid) {
-      await slideControllerWindowBackward();
-    }
-    return _controllers[index - startIndex];
+    return _controllers[index];
   }
 
   createController(int index) async {
@@ -80,43 +58,26 @@ class FeedModel with ChangeNotifier {
     return controller;
   }
 
-  slideControllerWindowForward() async {
-    if (endIndex == feed.users.length - 1) {
-      return;
+  growControllers(int index) async {
+    // Dispose of and remove all controllers that are not in the window
+    var toRemove = <int>{};
+    var lower = max(0, index - halfNumControllers);
+    var upper = min(feed.users.length - 1, index + halfNumControllers);
+    for (var i in _controllers.keys) {
+      if (i < lower || i > upper) {
+        toRemove.add(i);
+        _controllers[i]?.dispose();
+      }
     }
-    await pushControllerBack();
-    await popControllerFront();
-  }
-
-  slideControllerWindowBackward() async {
-    if (startIndex == 0) {
-      return;
+    for (var ri in toRemove) {
+      _controllers.remove(ri);
     }
-    await pushControllerFront();
-    await popControllerBack();
-  }
 
-  pushControllerBack() async {
-    var controller = await createController(_endIndex + 1);
-    _controllers.add(controller);
-    _endIndex++;
-  }
-
-  pushControllerFront() async {
-    var controller = await createController(_startIndex - 1);
-    _controllers.insert(0, controller);
-    _startIndex--;
-  }
-
-  popControllerBack() async {
-    await _controllers.last.dispose();
-    _controllers.removeLast();
-    _endIndex--;
-  }
-
-  popControllerFront() async {
-    await _controllers.first.dispose();
-    _controllers.removeAt(0);
-    _startIndex++;
+    // Ensure all controllers in the window are initialized
+    for (var i = lower; i <= upper; i++) {
+      if (!_controllers.containsKey(i)) {
+        _controllers[i] = await createController(i);
+      }
+    }
   }
 }

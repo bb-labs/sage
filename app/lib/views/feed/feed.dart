@@ -17,7 +17,7 @@ class SageFeed extends StatelessWidget {
           Provider.of<FeedModel>(context, listen: false).init(userModel.user),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: Container());
+          return const Center(child: CircularProgressIndicator());
         }
 
         var feedModel = Provider.of<FeedModel>(context);
@@ -25,16 +25,15 @@ class SageFeed extends StatelessWidget {
         return PageView.builder(
           scrollDirection: Axis.vertical,
           itemCount: feedModel.feed.users.length,
-          onPageChanged: (index) {
-            feedModel.growControllers(index);
+          onPageChanged: (index) async {
+            await feedModel.growControllers(index);
           },
           itemBuilder: (context, index) {
-            var user = feedModel.feed.users[index];
-            var controller = feedModel.getController(index);
-            if (controller == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return SageReel(user: user, controller: controller);
+            print("Building reel for user ${feedModel.feed.users[index].id}");
+            return SageReel(
+              user: feedModel.feed.users[index],
+              controller: feedModel.getController(index),
+            );
           },
         );
       },
