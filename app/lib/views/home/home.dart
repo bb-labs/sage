@@ -1,7 +1,6 @@
 import 'package:app/models/navigation.dart';
 import 'package:app/views/feed/feed.dart';
 import 'package:app/views/matches/matches.dart';
-import 'package:app/views/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +15,6 @@ class SageHome extends StatelessWidget {
       body: IndexedStack(
         index: navigationModel.selectedIndex,
         children: const [
-          SageSettings(),
           SageFeed(),
           SageMatches(),
         ],
@@ -26,26 +24,24 @@ class SageHome extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
-        child: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.camera_front),
-              label: 'Reels',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'Matches',
-            ),
-          ],
-          currentIndex: navigationModel.selectedIndex,
-          onTap: (index) => navigationModel.selectedIndex = index,
+        child: SizedBox(
+          height: kBottomNavigationBarHeight * 1.75,
+          child: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.camera_front, size: 30),
+                label: 'Reels',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.people, size: 30),
+                label: 'Matches',
+              ),
+            ],
+            currentIndex: navigationModel.selectedIndex,
+            onTap: (index) => navigationModel.selectedIndex = index,
+          ),
         ),
       ),
     );

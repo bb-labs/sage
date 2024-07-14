@@ -16,6 +16,8 @@ class SageReel extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
     final deviceRatio = size.width / size.height;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom -
+        kBottomNavigationBarHeight * 1.75;
 
     return VisibilityDetector(
       key: Key(user.id),
@@ -52,7 +54,7 @@ class SageReel extends StatelessWidget {
                       color: Colors.white,
                       icon: const Icon(Icons.chat_rounded),
                       onPressed: () {
-                        reelModel.keyboardVisible = !reelModel.keyboardVisible;
+                        reelModel.keyboardVisible = true;
                       },
                     ),
                     const Spacer(flex: 1),
@@ -66,16 +68,20 @@ class SageReel extends StatelessWidget {
                     const Spacer(),
                     TextFormField(
                       autofocus: true,
+                      maxLines: null,
+                      textInputAction: TextInputAction.send,
+                      onEditingComplete: () {
+                        reelModel.keyboardVisible = false;
+                      },
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
                         filled: true,
-                        hintStyle: TextStyle(color: Colors.grey[800]),
                         hintText: "Type in your text",
-                        fillColor: Colors.white70,
+                        fillColor: Colors.grey[200],
                       ),
                     ),
+                    bottomInset > kBottomNavigationBarHeight * 1.75
+                        ? SizedBox(height: bottomInset)
+                        : const SizedBox(),
                   ],
                 ),
               ),
