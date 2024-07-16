@@ -3,8 +3,15 @@ syntax = "proto3";
 option go_package = "github.com/bb-labs/sage/back/pb";
 
 // // // // // // // // // // // //
-// Models
+// User
 // // // // // // // // // // // //
+message CreateUserRequest { User user = 1; }
+message CreateUserResponse { User user = 1; }
+message GetUserRequest { string id = 1; }
+message GetUserResponse { User user = 1; }
+message UpdateUserRequest { User user = 1; }
+message UpdateUserResponse {}
+
 message User {
   string id = 1;
   string name = 2;
@@ -45,11 +52,47 @@ message Preferences {
   repeated Gender gender = 4;
 }
 
+// // // // // // // // // // // //
+// Feed
+// // // // // // // // // // // //
+message GetFeedRequest { User user = 1; }
+message GetFeedResponse { Feed feed = 1; }
+
 message Feed { repeated User users = 1; }
+
+// // // // // // // // // // // //
+// Match
+// // // // // // // // // // // //
+message LikeUserRequest { Like like = 1; }
+message LikeUserResponse {}
+message UnlikeUserRequest { Like like = 1; }
+message UnlikeUserResponse {}
+message GetLikesRequest { string user_id = 1; }
+message GetLikesResponse { repeated User likes = 1; }
+message GetMatchesRequest { string user_id = 1; }
+message GetMatchesResponse { repeated User matches = 1; }
+
+message Like {
+  string user_id = 1;
+  string other_user_id = 2;
+}
+
+message Message {
+  string user_id = 1;
+  string other_user_id = 2;
+  string text = 3;
+}
 
 // // // // // // // // // // // //
 // Presigned URL
 // // // // // // // // // // // //
+message CreatePresignedURLRequest {
+  PresignAction action = 1;
+  string file_name = 2;
+  string mime_type = 3;
+}
+message CreatePresignedURLResponse { string url = 1; }
+
 enum PresignAction {
   GET = 0;
   PUT = 1;
@@ -60,29 +103,21 @@ enum PresignAction {
 // Service
 // // // // // // // // // // // //
 service Sage {
+  // User
   rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
+  // Feed
   rpc GetFeed(GetFeedRequest) returns (GetFeedResponse) {}
 
+  // Match
+  rpc LikeUser(LikeUserRequest) returns (LikeUserResponse) {}
+  rpc UnlikeUser(UnlikeUserRequest) returns (UnlikeUserResponse) {}
+  rpc GetLikes(GetLikesRequest) returns (GetLikesResponse) {}
+  rpc GetMatches(GetMatchesRequest) returns (GetMatchesResponse) {}
+
+  // Presigned URL
   rpc CreatePresignedURL(CreatePresignedURLRequest)
       returns (CreatePresignedURLResponse) {}
 }
-
-message CreateUserRequest { User user = 1; }
-message CreateUserResponse { User user = 1; }
-message GetUserRequest { string id = 1; }
-message GetUserResponse { User user = 1; }
-message UpdateUserRequest { User user = 1; }
-message UpdateUserResponse {}
-message GetFeedRequest { User user = 1; }
-message GetFeedResponse { Feed feed = 1; }
-
-message CreatePresignedURLRequest {
-  PresignAction action = 1;
-  string file_name = 2;
-  string mime_type = 3;
-}
-
-message CreatePresignedURLResponse { string url = 1; }

@@ -55,86 +55,6 @@ const PresignAction$json = {
 final $typed_data.Uint8List presignActionDescriptor = $convert.base64Decode(
     'Cg1QcmVzaWduQWN0aW9uEgcKA0dFVBAAEgcKA1BVVBABEgoKBkRFTEVURRAC');
 
-@$core.Deprecated('Use userDescriptor instead')
-const User$json = {
-  '1': 'User',
-  '2': [
-    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
-    {'1': 'gender', '3': 4, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
-    {'1': 'birthday', '3': 5, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
-    {'1': 'location', '3': 6, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
-    {'1': 'preferences', '3': 7, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
-  ],
-};
-
-/// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
-    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWVtYWlsGAMgAS'
-    'gJUgVlbWFpbBIfCgZnZW5kZXIYBCADKA4yBy5HZW5kZXJSBmdlbmRlchIlCghiaXJ0aGRheRgF'
-    'IAEoCzIJLkJpcnRoZGF5UghiaXJ0aGRheRIlCghsb2NhdGlvbhgGIAEoCzIJLkxvY2F0aW9uUg'
-    'hsb2NhdGlvbhIuCgtwcmVmZXJlbmNlcxgHIAEoCzIMLlByZWZlcmVuY2VzUgtwcmVmZXJlbmNl'
-    'cw==');
-
-@$core.Deprecated('Use locationDescriptor instead')
-const Location$json = {
-  '1': 'Location',
-  '2': [
-    {'1': 'latitude', '3': 1, '4': 1, '5': 1, '10': 'latitude'},
-    {'1': 'longitude', '3': 2, '4': 1, '5': 1, '10': 'longitude'},
-  ],
-};
-
-/// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
-    'CghMb2NhdGlvbhIaCghsYXRpdHVkZRgBIAEoAVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgAS'
-    'gBUglsb25naXR1ZGU=');
-
-@$core.Deprecated('Use birthdayDescriptor instead')
-const Birthday$json = {
-  '1': 'Birthday',
-  '2': [
-    {'1': 'day', '3': 1, '4': 1, '5': 5, '10': 'day'},
-    {'1': 'month', '3': 2, '4': 1, '5': 5, '10': 'month'},
-    {'1': 'year', '3': 3, '4': 1, '5': 5, '10': 'year'},
-  ],
-};
-
-/// Descriptor for `Birthday`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List birthdayDescriptor = $convert.base64Decode(
-    'CghCaXJ0aGRheRIQCgNkYXkYASABKAVSA2RheRIUCgVtb250aBgCIAEoBVIFbW9udGgSEgoEeW'
-    'VhchgDIAEoBVIEeWVhcg==');
-
-@$core.Deprecated('Use preferencesDescriptor instead')
-const Preferences$json = {
-  '1': 'Preferences',
-  '2': [
-    {'1': 'age_min', '3': 1, '4': 1, '5': 5, '10': 'ageMin'},
-    {'1': 'age_max', '3': 2, '4': 1, '5': 5, '10': 'ageMax'},
-    {'1': 'proximity', '3': 3, '4': 1, '5': 5, '10': 'proximity'},
-    {'1': 'gender', '3': 4, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
-  ],
-};
-
-/// Descriptor for `Preferences`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List preferencesDescriptor = $convert.base64Decode(
-    'CgtQcmVmZXJlbmNlcxIXCgdhZ2VfbWluGAEgASgFUgZhZ2VNaW4SFwoHYWdlX21heBgCIAEoBV'
-    'IGYWdlTWF4EhwKCXByb3hpbWl0eRgDIAEoBVIJcHJveGltaXR5Eh8KBmdlbmRlchgEIAMoDjIH'
-    'LkdlbmRlclIGZ2VuZGVy');
-
-@$core.Deprecated('Use feedDescriptor instead')
-const Feed$json = {
-  '1': 'Feed',
-  '2': [
-    {'1': 'users', '3': 1, '4': 3, '5': 11, '6': '.User', '10': 'users'},
-  ],
-};
-
-/// Descriptor for `Feed`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List feedDescriptor = $convert.base64Decode(
-    'CgRGZWVkEhsKBXVzZXJzGAEgAygLMgUuVXNlclIFdXNlcnM=');
-
 @$core.Deprecated('Use createUserRequestDescriptor instead')
 const CreateUserRequest$json = {
   '1': 'CreateUserRequest',
@@ -204,6 +124,74 @@ const UpdateUserResponse$json = {
 final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode(
     'ChJVcGRhdGVVc2VyUmVzcG9uc2U=');
 
+@$core.Deprecated('Use userDescriptor instead')
+const User$json = {
+  '1': 'User',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'gender', '3': 4, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
+    {'1': 'birthday', '3': 5, '4': 1, '5': 11, '6': '.Birthday', '10': 'birthday'},
+    {'1': 'location', '3': 6, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
+    {'1': 'preferences', '3': 7, '4': 1, '5': 11, '6': '.Preferences', '10': 'preferences'},
+  ],
+};
+
+/// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
+    'CgRVc2VyEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWVtYWlsGAMgAS'
+    'gJUgVlbWFpbBIfCgZnZW5kZXIYBCADKA4yBy5HZW5kZXJSBmdlbmRlchIlCghiaXJ0aGRheRgF'
+    'IAEoCzIJLkJpcnRoZGF5UghiaXJ0aGRheRIlCghsb2NhdGlvbhgGIAEoCzIJLkxvY2F0aW9uUg'
+    'hsb2NhdGlvbhIuCgtwcmVmZXJlbmNlcxgHIAEoCzIMLlByZWZlcmVuY2VzUgtwcmVmZXJlbmNl'
+    'cw==');
+
+@$core.Deprecated('Use locationDescriptor instead')
+const Location$json = {
+  '1': 'Location',
+  '2': [
+    {'1': 'latitude', '3': 1, '4': 1, '5': 1, '10': 'latitude'},
+    {'1': 'longitude', '3': 2, '4': 1, '5': 1, '10': 'longitude'},
+  ],
+};
+
+/// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
+    'CghMb2NhdGlvbhIaCghsYXRpdHVkZRgBIAEoAVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgAS'
+    'gBUglsb25naXR1ZGU=');
+
+@$core.Deprecated('Use birthdayDescriptor instead')
+const Birthday$json = {
+  '1': 'Birthday',
+  '2': [
+    {'1': 'day', '3': 1, '4': 1, '5': 5, '10': 'day'},
+    {'1': 'month', '3': 2, '4': 1, '5': 5, '10': 'month'},
+    {'1': 'year', '3': 3, '4': 1, '5': 5, '10': 'year'},
+  ],
+};
+
+/// Descriptor for `Birthday`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List birthdayDescriptor = $convert.base64Decode(
+    'CghCaXJ0aGRheRIQCgNkYXkYASABKAVSA2RheRIUCgVtb250aBgCIAEoBVIFbW9udGgSEgoEeW'
+    'VhchgDIAEoBVIEeWVhcg==');
+
+@$core.Deprecated('Use preferencesDescriptor instead')
+const Preferences$json = {
+  '1': 'Preferences',
+  '2': [
+    {'1': 'age_min', '3': 1, '4': 1, '5': 5, '10': 'ageMin'},
+    {'1': 'age_max', '3': 2, '4': 1, '5': 5, '10': 'ageMax'},
+    {'1': 'proximity', '3': 3, '4': 1, '5': 5, '10': 'proximity'},
+    {'1': 'gender', '3': 4, '4': 3, '5': 14, '6': '.Gender', '10': 'gender'},
+  ],
+};
+
+/// Descriptor for `Preferences`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List preferencesDescriptor = $convert.base64Decode(
+    'CgtQcmVmZXJlbmNlcxIXCgdhZ2VfbWluGAEgASgFUgZhZ2VNaW4SFwoHYWdlX21heBgCIAEoBV'
+    'IGYWdlTWF4EhwKCXByb3hpbWl0eRgDIAEoBVIJcHJveGltaXR5Eh8KBmdlbmRlchgEIAMoDjIH'
+    'LkdlbmRlclIGZ2VuZGVy');
+
 @$core.Deprecated('Use getFeedRequestDescriptor instead')
 const GetFeedRequest$json = {
   '1': 'GetFeedRequest',
@@ -227,6 +215,137 @@ const GetFeedResponse$json = {
 /// Descriptor for `GetFeedResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getFeedResponseDescriptor = $convert.base64Decode(
     'Cg9HZXRGZWVkUmVzcG9uc2USGQoEZmVlZBgBIAEoCzIFLkZlZWRSBGZlZWQ=');
+
+@$core.Deprecated('Use feedDescriptor instead')
+const Feed$json = {
+  '1': 'Feed',
+  '2': [
+    {'1': 'users', '3': 1, '4': 3, '5': 11, '6': '.User', '10': 'users'},
+  ],
+};
+
+/// Descriptor for `Feed`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List feedDescriptor = $convert.base64Decode(
+    'CgRGZWVkEhsKBXVzZXJzGAEgAygLMgUuVXNlclIFdXNlcnM=');
+
+@$core.Deprecated('Use likeUserRequestDescriptor instead')
+const LikeUserRequest$json = {
+  '1': 'LikeUserRequest',
+  '2': [
+    {'1': 'like', '3': 1, '4': 1, '5': 11, '6': '.Like', '10': 'like'},
+  ],
+};
+
+/// Descriptor for `LikeUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List likeUserRequestDescriptor = $convert.base64Decode(
+    'Cg9MaWtlVXNlclJlcXVlc3QSGQoEbGlrZRgBIAEoCzIFLkxpa2VSBGxpa2U=');
+
+@$core.Deprecated('Use likeUserResponseDescriptor instead')
+const LikeUserResponse$json = {
+  '1': 'LikeUserResponse',
+};
+
+/// Descriptor for `LikeUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List likeUserResponseDescriptor = $convert.base64Decode(
+    'ChBMaWtlVXNlclJlc3BvbnNl');
+
+@$core.Deprecated('Use unlikeUserRequestDescriptor instead')
+const UnlikeUserRequest$json = {
+  '1': 'UnlikeUserRequest',
+  '2': [
+    {'1': 'like', '3': 1, '4': 1, '5': 11, '6': '.Like', '10': 'like'},
+  ],
+};
+
+/// Descriptor for `UnlikeUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List unlikeUserRequestDescriptor = $convert.base64Decode(
+    'ChFVbmxpa2VVc2VyUmVxdWVzdBIZCgRsaWtlGAEgASgLMgUuTGlrZVIEbGlrZQ==');
+
+@$core.Deprecated('Use unlikeUserResponseDescriptor instead')
+const UnlikeUserResponse$json = {
+  '1': 'UnlikeUserResponse',
+};
+
+/// Descriptor for `UnlikeUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List unlikeUserResponseDescriptor = $convert.base64Decode(
+    'ChJVbmxpa2VVc2VyUmVzcG9uc2U=');
+
+@$core.Deprecated('Use getLikesRequestDescriptor instead')
+const GetLikesRequest$json = {
+  '1': 'GetLikesRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `GetLikesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getLikesRequestDescriptor = $convert.base64Decode(
+    'Cg9HZXRMaWtlc1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoCVIGdXNlcklk');
+
+@$core.Deprecated('Use getLikesResponseDescriptor instead')
+const GetLikesResponse$json = {
+  '1': 'GetLikesResponse',
+  '2': [
+    {'1': 'likes', '3': 1, '4': 3, '5': 11, '6': '.User', '10': 'likes'},
+  ],
+};
+
+/// Descriptor for `GetLikesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getLikesResponseDescriptor = $convert.base64Decode(
+    'ChBHZXRMaWtlc1Jlc3BvbnNlEhsKBWxpa2VzGAEgAygLMgUuVXNlclIFbGlrZXM=');
+
+@$core.Deprecated('Use getMatchesRequestDescriptor instead')
+const GetMatchesRequest$json = {
+  '1': 'GetMatchesRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `GetMatchesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getMatchesRequestDescriptor = $convert.base64Decode(
+    'ChFHZXRNYXRjaGVzUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgJUgZ1c2VySWQ=');
+
+@$core.Deprecated('Use getMatchesResponseDescriptor instead')
+const GetMatchesResponse$json = {
+  '1': 'GetMatchesResponse',
+  '2': [
+    {'1': 'matches', '3': 1, '4': 3, '5': 11, '6': '.User', '10': 'matches'},
+  ],
+};
+
+/// Descriptor for `GetMatchesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getMatchesResponseDescriptor = $convert.base64Decode(
+    'ChJHZXRNYXRjaGVzUmVzcG9uc2USHwoHbWF0Y2hlcxgBIAMoCzIFLlVzZXJSB21hdGNoZXM=');
+
+@$core.Deprecated('Use likeDescriptor instead')
+const Like$json = {
+  '1': 'Like',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'other_user_id', '3': 2, '4': 1, '5': 9, '10': 'otherUserId'},
+  ],
+};
+
+/// Descriptor for `Like`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List likeDescriptor = $convert.base64Decode(
+    'CgRMaWtlEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZBIiCg1vdGhlcl91c2VyX2lkGAIgASgJUg'
+    'tvdGhlclVzZXJJZA==');
+
+@$core.Deprecated('Use messageDescriptor instead')
+const Message$json = {
+  '1': 'Message',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'other_user_id', '3': 2, '4': 1, '5': 9, '10': 'otherUserId'},
+    {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
+  ],
+};
+
+/// Descriptor for `Message`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
+    'CgdNZXNzYWdlEhcKB3VzZXJfaWQYASABKAlSBnVzZXJJZBIiCg1vdGhlcl91c2VyX2lkGAIgAS'
+    'gJUgtvdGhlclVzZXJJZBISCgR0ZXh0GAMgASgJUgR0ZXh0');
 
 @$core.Deprecated('Use createPresignedURLRequestDescriptor instead')
 const CreatePresignedURLRequest$json = {

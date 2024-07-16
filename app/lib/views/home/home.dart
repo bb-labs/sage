@@ -1,6 +1,6 @@
 import 'package:app/models/navigation.dart';
 import 'package:app/views/feed/feed.dart';
-import 'package:app/views/matches/matches.dart';
+import 'package:app/views/match/match.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

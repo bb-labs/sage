@@ -1,6 +1,8 @@
 import 'package:app/models/camera.dart';
 import 'package:app/models/feed.dart';
+import 'package:app/models/like.dart';
 import 'package:app/models/location.dart';
+import 'package:app/models/match.dart';
 import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/reel.dart';
@@ -25,6 +27,8 @@ void main() async {
         ChangeNotifierProvider(create: (context) => UserModel()),
         ChangeNotifierProvider(create: (context) => FeedModel()),
         ChangeNotifierProvider(create: (context) => ReelModel()),
+        ChangeNotifierProvider(create: (context) => LikeModel()),
+        ChangeNotifierProvider(create: (context) => MatchModel()),
         ChangeNotifierProvider(create: (context) => CameraModel()),
         ChangeNotifierProvider(create: (context) => PlayerModel()),
         ChangeNotifierProvider(create: (context) => LocationModel()),
@@ -78,15 +82,16 @@ class SageApp extends StatelessWidget {
     var userModel = Provider.of<UserModel>(context, listen: false);
 
     return FutureBuilder(
-        future: userModel.init(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Container();
-          }
+      future: userModel.init(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Container();
+        }
 
-          return MaterialApp.router(
-            routerConfig: _router,
-          );
-        });
+        return MaterialApp.router(
+          routerConfig: _router,
+        );
+      },
+    );
   }
 }

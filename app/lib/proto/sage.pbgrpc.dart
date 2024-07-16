@@ -37,6 +37,22 @@ class SageClient extends $grpc.Client {
       '/Sage/GetFeed',
       ($0.GetFeedRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.GetFeedResponse.fromBuffer(value));
+  static final _$likeUser = $grpc.ClientMethod<$0.LikeUserRequest, $0.LikeUserResponse>(
+      '/Sage/LikeUser',
+      ($0.LikeUserRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.LikeUserResponse.fromBuffer(value));
+  static final _$unlikeUser = $grpc.ClientMethod<$0.UnlikeUserRequest, $0.UnlikeUserResponse>(
+      '/Sage/UnlikeUser',
+      ($0.UnlikeUserRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.UnlikeUserResponse.fromBuffer(value));
+  static final _$getLikes = $grpc.ClientMethod<$0.GetLikesRequest, $0.GetLikesResponse>(
+      '/Sage/GetLikes',
+      ($0.GetLikesRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetLikesResponse.fromBuffer(value));
+  static final _$getMatches = $grpc.ClientMethod<$0.GetMatchesRequest, $0.GetMatchesResponse>(
+      '/Sage/GetMatches',
+      ($0.GetMatchesRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetMatchesResponse.fromBuffer(value));
   static final _$createPresignedURL = $grpc.ClientMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
       '/Sage/CreatePresignedURL',
       ($0.CreatePresignedURLRequest value) => value.writeToBuffer(),
@@ -62,6 +78,22 @@ class SageClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.GetFeedResponse> getFeed($0.GetFeedRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getFeed, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.LikeUserResponse> likeUser($0.LikeUserRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$likeUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UnlikeUserResponse> unlikeUser($0.UnlikeUserRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$unlikeUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetLikesResponse> getLikes($0.GetLikesRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getLikes, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetMatchesResponse> getMatches($0.GetMatchesRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getMatches, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreatePresignedURLResponse> createPresignedURL($0.CreatePresignedURLRequest request, {$grpc.CallOptions? options}) {
@@ -102,6 +134,34 @@ abstract class SageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetFeedRequest.fromBuffer(value),
         ($0.GetFeedResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.LikeUserRequest, $0.LikeUserResponse>(
+        'LikeUser',
+        likeUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.LikeUserRequest.fromBuffer(value),
+        ($0.LikeUserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UnlikeUserRequest, $0.UnlikeUserResponse>(
+        'UnlikeUser',
+        unlikeUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.UnlikeUserRequest.fromBuffer(value),
+        ($0.UnlikeUserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetLikesRequest, $0.GetLikesResponse>(
+        'GetLikes',
+        getLikes_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetLikesRequest.fromBuffer(value),
+        ($0.GetLikesResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetMatchesRequest, $0.GetMatchesResponse>(
+        'GetMatches',
+        getMatches_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetMatchesRequest.fromBuffer(value),
+        ($0.GetMatchesResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreatePresignedURLRequest, $0.CreatePresignedURLResponse>(
         'CreatePresignedURL',
         createPresignedURL_Pre,
@@ -127,6 +187,22 @@ abstract class SageServiceBase extends $grpc.Service {
     return getFeed(call, await request);
   }
 
+  $async.Future<$0.LikeUserResponse> likeUser_Pre($grpc.ServiceCall call, $async.Future<$0.LikeUserRequest> request) async {
+    return likeUser(call, await request);
+  }
+
+  $async.Future<$0.UnlikeUserResponse> unlikeUser_Pre($grpc.ServiceCall call, $async.Future<$0.UnlikeUserRequest> request) async {
+    return unlikeUser(call, await request);
+  }
+
+  $async.Future<$0.GetLikesResponse> getLikes_Pre($grpc.ServiceCall call, $async.Future<$0.GetLikesRequest> request) async {
+    return getLikes(call, await request);
+  }
+
+  $async.Future<$0.GetMatchesResponse> getMatches_Pre($grpc.ServiceCall call, $async.Future<$0.GetMatchesRequest> request) async {
+    return getMatches(call, await request);
+  }
+
   $async.Future<$0.CreatePresignedURLResponse> createPresignedURL_Pre($grpc.ServiceCall call, $async.Future<$0.CreatePresignedURLRequest> request) async {
     return createPresignedURL(call, await request);
   }
@@ -135,5 +211,9 @@ abstract class SageServiceBase extends $grpc.Service {
   $async.Future<$0.UpdateUserResponse> updateUser($grpc.ServiceCall call, $0.UpdateUserRequest request);
   $async.Future<$0.CreateUserResponse> createUser($grpc.ServiceCall call, $0.CreateUserRequest request);
   $async.Future<$0.GetFeedResponse> getFeed($grpc.ServiceCall call, $0.GetFeedRequest request);
+  $async.Future<$0.LikeUserResponse> likeUser($grpc.ServiceCall call, $0.LikeUserRequest request);
+  $async.Future<$0.UnlikeUserResponse> unlikeUser($grpc.ServiceCall call, $0.UnlikeUserRequest request);
+  $async.Future<$0.GetLikesResponse> getLikes($grpc.ServiceCall call, $0.GetLikesRequest request);
+  $async.Future<$0.GetMatchesResponse> getMatches($grpc.ServiceCall call, $0.GetMatchesRequest request);
   $async.Future<$0.CreatePresignedURLResponse> createPresignedURL($grpc.ServiceCall call, $0.CreatePresignedURLRequest request);
 }

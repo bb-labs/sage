@@ -39,7 +39,7 @@ func main() {
 	defer dbc.Close()
 
 	// Create the db schema
-	for _, model := range []interface{}{(*pb.User)(nil)} {
+	for _, model := range []interface{}{(*pb.User)(nil), (*pb.Like)(nil), (*pb.Message)(nil)} {
 		err := dbc.Model(model).CreateTable(&orm.CreateTableOptions{
 			IfNotExists:   true,
 			FKConstraints: true,

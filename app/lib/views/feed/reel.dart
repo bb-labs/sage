@@ -1,7 +1,8 @@
-import 'package:app/models/reel.dart';
 import 'package:app/proto/sage.pb.dart';
+import 'package:app/views/feed/interactions.dart';
+import 'package:app/views/feed/keyboard.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -12,12 +13,8 @@ class SageReel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var reelModel = Provider.of<ReelModel>(context);
-
     final size = MediaQuery.of(context).size;
     final deviceRatio = size.width / size.height;
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom -
-        kBottomNavigationBarHeight * 1.75;
 
     return VisibilityDetector(
       key: Key(user.id),
@@ -36,55 +33,8 @@ class SageReel extends StatelessWidget {
           child: Stack(
             children: [
               VideoPlayer(controller),
-              Container(
-                alignment: Alignment.bottomRight,
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Spacer(flex: 12),
-                    IconButton(
-                      iconSize: 35,
-                      color: Colors.white,
-                      icon: const Icon(Icons.favorite_border_outlined),
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 25),
-                    IconButton(
-                      iconSize: 35,
-                      color: Colors.white,
-                      icon: const Icon(Icons.chat_rounded),
-                      onPressed: () {
-                        reelModel.keyboardVisible = true;
-                      },
-                    ),
-                    const Spacer(flex: 1),
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: reelModel.keyboardVisible,
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    TextFormField(
-                      autofocus: true,
-                      maxLines: null,
-                      textInputAction: TextInputAction.send,
-                      onEditingComplete: () {
-                        reelModel.keyboardVisible = false;
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        hintText: "Type in your text",
-                        fillColor: Colors.grey[200],
-                      ),
-                    ),
-                    bottomInset > kBottomNavigationBarHeight * 1.75
-                        ? SizedBox(height: bottomInset)
-                        : const SizedBox(),
-                  ],
-                ),
-              ),
+              SageInteractions(otherUser: user),
+              const SageKeyboard()
             ],
           ),
         ),

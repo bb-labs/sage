@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class SageReelSelection extends StatelessWidget {
@@ -43,6 +44,20 @@ class SageReelSelection extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () async {
+                final overlay = Overlay.of(context);
+                var overlayEntry = OverlayEntry(
+                  builder: (context) {
+                    return Scaffold(
+                      backgroundColor: Colors.black.withOpacity(0.5),
+                      body: LoadingAnimationWidget.hexagonDots(
+                        color: Colors.white,
+                        size: 100,
+                      ),
+                    );
+                  },
+                );
+                overlay.insert(overlayEntry);
+
                 var response = await SageClientSingleton()
                     .instance
                     .createPresignedURL(CreatePresignedURLRequest(
@@ -59,6 +74,7 @@ class SageReelSelection extends StatelessWidget {
 
                 await playerModel.playerController.dispose();
                 playerModel.recording = XFile('');
+                overlayEntry.remove();
 
                 if (context.mounted) {
                   context.go('/home');

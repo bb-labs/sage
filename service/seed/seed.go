@@ -373,6 +373,23 @@ func main() {
 		},
 	}
 
+	likes := []*pb.Like{
+		{UserId: "11", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "18", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "25", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219", OtherUserId: "18"},
+		{UserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219", OtherUserId: "11"},
+	}
+
+	dbc.Model(&pb.Like{}).Where("1=1").Delete()
+	for _, like := range likes {
+		_, err := dbc.Model(like).Insert()
+		if err != nil {
+			log.Fatalf("Error inserting like: %v", err)
+		}
+	}
+
+	dbc.Model(&pb.User{}).Where("1=1").Delete()
 	for _, user := range users {
 		_, err := dbc.Model(user).Insert()
 		if err != nil {

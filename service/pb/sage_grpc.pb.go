@@ -23,6 +23,10 @@ const (
 	Sage_UpdateUser_FullMethodName         = "/Sage/UpdateUser"
 	Sage_CreateUser_FullMethodName         = "/Sage/CreateUser"
 	Sage_GetFeed_FullMethodName            = "/Sage/GetFeed"
+	Sage_LikeUser_FullMethodName           = "/Sage/LikeUser"
+	Sage_UnlikeUser_FullMethodName         = "/Sage/UnlikeUser"
+	Sage_GetLikes_FullMethodName           = "/Sage/GetLikes"
+	Sage_GetMatches_FullMethodName         = "/Sage/GetMatches"
 	Sage_CreatePresignedURL_FullMethodName = "/Sage/CreatePresignedURL"
 )
 
@@ -30,10 +34,18 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SageClient interface {
+	// User
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	// Feed
 	GetFeed(ctx context.Context, in *GetFeedRequest, opts ...grpc.CallOption) (*GetFeedResponse, error)
+	// Match
+	LikeUser(ctx context.Context, in *LikeUserRequest, opts ...grpc.CallOption) (*LikeUserResponse, error)
+	UnlikeUser(ctx context.Context, in *UnlikeUserRequest, opts ...grpc.CallOption) (*UnlikeUserResponse, error)
+	GetLikes(ctx context.Context, in *GetLikesRequest, opts ...grpc.CallOption) (*GetLikesResponse, error)
+	GetMatches(ctx context.Context, in *GetMatchesRequest, opts ...grpc.CallOption) (*GetMatchesResponse, error)
+	// Presigned URL
 	CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error)
 }
 
@@ -81,6 +93,42 @@ func (c *sageClient) GetFeed(ctx context.Context, in *GetFeedRequest, opts ...gr
 	return out, nil
 }
 
+func (c *sageClient) LikeUser(ctx context.Context, in *LikeUserRequest, opts ...grpc.CallOption) (*LikeUserResponse, error) {
+	out := new(LikeUserResponse)
+	err := c.cc.Invoke(ctx, Sage_LikeUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sageClient) UnlikeUser(ctx context.Context, in *UnlikeUserRequest, opts ...grpc.CallOption) (*UnlikeUserResponse, error) {
+	out := new(UnlikeUserResponse)
+	err := c.cc.Invoke(ctx, Sage_UnlikeUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sageClient) GetLikes(ctx context.Context, in *GetLikesRequest, opts ...grpc.CallOption) (*GetLikesResponse, error) {
+	out := new(GetLikesResponse)
+	err := c.cc.Invoke(ctx, Sage_GetLikes_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sageClient) GetMatches(ctx context.Context, in *GetMatchesRequest, opts ...grpc.CallOption) (*GetMatchesResponse, error) {
+	out := new(GetMatchesResponse)
+	err := c.cc.Invoke(ctx, Sage_GetMatches_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *sageClient) CreatePresignedURL(ctx context.Context, in *CreatePresignedURLRequest, opts ...grpc.CallOption) (*CreatePresignedURLResponse, error) {
 	out := new(CreatePresignedURLResponse)
 	err := c.cc.Invoke(ctx, Sage_CreatePresignedURL_FullMethodName, in, out, opts...)
@@ -94,10 +142,18 @@ func (c *sageClient) CreatePresignedURL(ctx context.Context, in *CreatePresigned
 // All implementations must embed UnimplementedSageServer
 // for forward compatibility
 type SageServer interface {
+	// User
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	// Feed
 	GetFeed(context.Context, *GetFeedRequest) (*GetFeedResponse, error)
+	// Match
+	LikeUser(context.Context, *LikeUserRequest) (*LikeUserResponse, error)
+	UnlikeUser(context.Context, *UnlikeUserRequest) (*UnlikeUserResponse, error)
+	GetLikes(context.Context, *GetLikesRequest) (*GetLikesResponse, error)
+	GetMatches(context.Context, *GetMatchesRequest) (*GetMatchesResponse, error)
+	// Presigned URL
 	CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error)
 	mustEmbedUnimplementedSageServer()
 }
@@ -117,6 +173,18 @@ func (UnimplementedSageServer) CreateUser(context.Context, *CreateUserRequest) (
 }
 func (UnimplementedSageServer) GetFeed(context.Context, *GetFeedRequest) (*GetFeedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeed not implemented")
+}
+func (UnimplementedSageServer) LikeUser(context.Context, *LikeUserRequest) (*LikeUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LikeUser not implemented")
+}
+func (UnimplementedSageServer) UnlikeUser(context.Context, *UnlikeUserRequest) (*UnlikeUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnlikeUser not implemented")
+}
+func (UnimplementedSageServer) GetLikes(context.Context, *GetLikesRequest) (*GetLikesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLikes not implemented")
+}
+func (UnimplementedSageServer) GetMatches(context.Context, *GetMatchesRequest) (*GetMatchesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMatches not implemented")
 }
 func (UnimplementedSageServer) CreatePresignedURL(context.Context, *CreatePresignedURLRequest) (*CreatePresignedURLResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePresignedURL not implemented")
@@ -206,6 +274,78 @@ func _Sage_GetFeed_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Sage_LikeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LikeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).LikeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_LikeUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).LikeUser(ctx, req.(*LikeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Sage_UnlikeUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnlikeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).UnlikeUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_UnlikeUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).UnlikeUser(ctx, req.(*UnlikeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Sage_GetLikes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLikesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).GetLikes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_GetLikes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).GetLikes(ctx, req.(*GetLikesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Sage_GetMatches_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMatchesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SageServer).GetMatches(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Sage_GetMatches_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SageServer).GetMatches(ctx, req.(*GetMatchesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Sage_CreatePresignedURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePresignedURLRequest)
 	if err := dec(in); err != nil {
@@ -246,6 +386,22 @@ var Sage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFeed",
 			Handler:    _Sage_GetFeed_Handler,
+		},
+		{
+			MethodName: "LikeUser",
+			Handler:    _Sage_LikeUser_Handler,
+		},
+		{
+			MethodName: "UnlikeUser",
+			Handler:    _Sage_UnlikeUser_Handler,
+		},
+		{
+			MethodName: "GetLikes",
+			Handler:    _Sage_GetLikes_Handler,
+		},
+		{
+			MethodName: "GetMatches",
+			Handler:    _Sage_GetMatches_Handler,
 		},
 		{
 			MethodName: "CreatePresignedURL",

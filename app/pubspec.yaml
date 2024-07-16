@@ -31,7 +31,7 @@ dependencies:
   visibility_detector: ^0.3.3
   video_player: ^2.9.1
   sliding_up_panel: ^2.0.0+1
-  keyboard_attachable: ^2.2.0
+  loading_animation_widget: ^1.2.1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

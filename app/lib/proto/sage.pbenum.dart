@@ -47,9 +47,6 @@ class GenderPlural extends $pb.ProtobufEnum {
   const GenderPlural._($core.int v, $core.String n) : super(v, n);
 }
 
-/// // // // // // // // // // // //
-/// Presigned URL
-/// // // // // // // // // // // //
 class PresignAction extends $pb.ProtobufEnum {
   static const PresignAction GET = PresignAction._(0, _omitEnumNames ? '' : 'GET');
   static const PresignAction PUT = PresignAction._(1, _omitEnumNames ? '' : 'PUT');
