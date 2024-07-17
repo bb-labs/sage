@@ -11,7 +11,8 @@ import 'package:app/models/user.dart';
 import 'package:app/views/home/home.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
-import 'package:app/views/registration/reel/reel.dart';
+import 'package:app/views/reel/choose/choose.dart';
+import 'package:app/views/reel/record/record.dart';
 import 'package:app/views/registration/registration.dart';
 
 import 'package:flutter/material.dart';
@@ -55,8 +56,16 @@ final _router = GoRouter(
       builder: (context, state) => const SageRegistration(),
     ),
     GoRoute(
-      path: '/reel',
-      builder: (context, state) => const SageCreateYourReel(),
+      path: '/reel/:mode',
+      builder: (context, state) {
+        switch (state.pathParameters['mode']) {
+          case 'record':
+            return const SageRecordReel();
+          case 'choose':
+            return const SageChooseReel();
+        }
+        return Container();
+      },
     ),
     GoRoute(
       path: '/home',

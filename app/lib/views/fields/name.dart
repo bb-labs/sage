@@ -1,5 +1,5 @@
 import 'package:app/models/user.dart';
-import 'package:app/views/registration/fields/fields.dart';
+import 'package:app/views/fields/fields.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

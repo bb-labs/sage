@@ -19,7 +19,7 @@ class PlayerModel with ChangeNotifier {
     notifyListeners();
   }
 
-  init() async {
+  Future init() async {
     _playerController = VideoPlayerController.file(File(_recording.path));
     await _playerController!.initialize();
     await _playerController!.setLooping(true);

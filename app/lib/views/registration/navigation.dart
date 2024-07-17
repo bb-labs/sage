@@ -55,10 +55,10 @@ class SageNavigationButtons extends StatelessWidget {
           const Spacer(flex: 4),
           ElevatedButton(
             style: ButtonStyle(
-              shape: MaterialStateProperty.all(const CircleBorder()),
-              padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
+              shape: WidgetStateProperty.all(const CircleBorder()),
+              padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
                   if (validated) {
                     return ThemeData().colorScheme.onPrimary;
                   }
@@ -70,7 +70,7 @@ class SageNavigationButtons extends StatelessWidget {
               HapticFeedback.heavyImpact();
               if (!validated) return;
               if (isLastPage) {
-                context.go('/reel');
+                context.go('/reel/record');
                 await SageClientSingleton()
                     .instance
                     .updateUser(UpdateUserRequest(user: userModel.user));

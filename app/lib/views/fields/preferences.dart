@@ -1,7 +1,7 @@
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:app/proto/sage.pbgrpc.dart';
-import 'package:app/views/registration/fields/fields.dart';
+import 'package:app/views/fields/fields.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

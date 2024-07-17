@@ -1,8 +1,8 @@
 import 'package:app/models/register.dart';
-import 'package:app/views/registration/fields/birthday.dart';
-import 'package:app/views/registration/fields/name.dart';
-import 'package:app/views/registration/fields/location.dart';
-import 'package:app/views/registration/fields/preferences.dart';
+import 'package:app/views/fields/birthday.dart';
+import 'package:app/views/fields/name.dart';
+import 'package:app/views/fields/location.dart';
+import 'package:app/views/fields/preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

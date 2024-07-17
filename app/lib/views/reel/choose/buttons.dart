@@ -1,5 +1,4 @@
 import 'package:app/grpc/client.dart';
-import 'package:app/models/camera.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
@@ -9,14 +8,14 @@ import 'package:http/http.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-class SageReelSelection extends StatelessWidget {
-  const SageReelSelection({super.key});
+class SageReelSelectionButtons extends StatelessWidget {
+  const SageReelSelectionButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var cameraModel = Provider.of<CameraModel>(context);
     var playerModel = Provider.of<PlayerModel>(context);
     var userModel = Provider.of<UserModel>(context);
 
@@ -36,6 +35,7 @@ class SageReelSelection extends StatelessWidget {
               onPressed: () {
                 playerModel.playerController.dispose();
                 playerModel.recording = XFile('');
+                context.go('/reel/record');
               },
               child: const Icon(Icons.loop_outlined, color: Colors.black),
             ),
@@ -46,6 +46,7 @@ class SageReelSelection extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () async {
+                // Create a loading overlay while the video is uploaded
                 final overlay = Overlay.of(context);
                 var overlayEntry = OverlayEntry(
                   builder: (context) {
@@ -60,6 +61,7 @@ class SageReelSelection extends StatelessWidget {
                 );
                 overlay.insert(overlayEntry);
 
+                // Get a presigned URL from the server
                 var response = await SageClientSingleton()
                     .instance
                     .createPresignedURL(CreatePresignedURLRequest(
@@ -68,18 +70,27 @@ class SageReelSelection extends StatelessWidget {
                       mimeType: 'video/mp4',
                     ));
 
+                // Upload the video to the presigned URL
                 await put(
                   Uri.parse(response.url),
                   body: await playerModel.recording.readAsBytes(),
                   headers: {'Content-Type': 'video/mp4'},
                 );
+
+                // Save it locally for future previewing
+                var directory = await getApplicationDocumentsDirectory();
+                await playerModel.recording
+                    .saveTo('${directory.path}/${userModel.id}.mp4');
+
+                // Cleanup the camera and player
                 await playerModel.playerController.dispose();
-                playerModel.recording = XFile('');
+
                 overlayEntry.remove();
 
+                // Navigate to the home screen
                 if (context.mounted) {
                   context.go('/home');
-                  await cameraModel.cameraController.dispose();
+                  playerModel.recording = XFile('');
                 }
               },
               child: const Icon(Icons.check, color: Colors.green),

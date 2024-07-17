@@ -1,8 +1,12 @@
 import 'package:app/models/match.dart';
+import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
-import 'package:app/views/connect/likes.dart';
-import 'package:app/views/connect/matches.dart';
+import 'package:app/views/connections/likes.dart';
+import 'package:app/views/connections/matches.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class SageConnections extends StatelessWidget {
@@ -12,6 +16,7 @@ class SageConnections extends StatelessWidget {
   Widget build(BuildContext context) {
     var userModel = Provider.of<UserModel>(context, listen: false);
     var matchModel = Provider.of<MatchModel>(context, listen: false);
+    var playerModel = Provider.of<PlayerModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -21,12 +26,21 @@ class SageConnections extends StatelessWidget {
         ),
         leading: IconButton(
           icon: const Icon(Icons.settings_outlined),
-          onPressed: () {},
+          onPressed: () {
+            context.go('/settings');
+          },
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.camera_alt_outlined),
-            onPressed: () {},
+            onPressed: () async {
+              var directory = await getApplicationDocumentsDirectory();
+              playerModel.recording =
+                  XFile('${directory.path}/${userModel.id}.mp4');
+              if (context.mounted) {
+                context.go('/reel/choose');
+              }
+            },
           ),
         ],
       ),
