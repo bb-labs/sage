@@ -11,10 +11,10 @@ class MatchModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<int, VideoPlayerController> _controllers = {};
-  Map<int, VideoPlayerController> get controllers => _controllers;
-  set controllers(Map<int, VideoPlayerController> controllers) {
-    _controllers = controllers;
+  Map<int, VideoPlayerController> _likeControllers = {};
+  Map<int, VideoPlayerController> get likeControllers => _likeControllers;
+  set likeControllers(Map<int, VideoPlayerController> likeControllers) {
+    _likeControllers = likeControllers;
     notifyListeners();
   }
 
@@ -22,6 +22,13 @@ class MatchModel with ChangeNotifier {
   get matches => _matches;
   set matches(value) {
     _matches = value;
+    notifyListeners();
+  }
+
+  Map<int, VideoPlayerController> _matchControllers = {};
+  Map<int, VideoPlayerController> get matchControllers => _matchControllers;
+  set matchControllers(Map<int, VideoPlayerController> matchControllers) {
+    _matchControllers = matchControllers;
     notifyListeners();
   }
 
@@ -33,12 +40,12 @@ class MatchModel with ChangeNotifier {
     _likes = likeResponse.likes;
 
     for (var i = 0; i < _likes.length; i++) {
-      _controllers[i] = VideoPlayerController.networkUrl(
+      _likeControllers[i] = VideoPlayerController.networkUrl(
         Uri.parse(
           'https://sage-reels-dev-bucket.s3.us-west-2.amazonaws.com/${_likes[i].id}.mp4',
         ),
       );
-      _controllers[i]?.initialize();
+      _likeControllers[i]?.initialize();
     }
 
     var matchResponse = await SageClientSingleton()
@@ -46,5 +53,13 @@ class MatchModel with ChangeNotifier {
         .getMatches(GetMatchesRequest(userId: user.id));
 
     _matches = matchResponse.matches;
+    for (var i = 0; i < _matches.length; i++) {
+      _matchControllers[i] = VideoPlayerController.networkUrl(
+        Uri.parse(
+          'https://sage-reels-dev-bucket.s3.us-west-2.amazonaws.com/${_matches[i].id}.mp4',
+        ),
+      );
+      _matchControllers[i]?.initialize();
+    }
   }
 }

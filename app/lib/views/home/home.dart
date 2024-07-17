@@ -1,6 +1,6 @@
 import 'package:app/models/navigation.dart';
 import 'package:app/views/feed/feed.dart';
-import 'package:app/views/match/match.dart';
+import 'package:app/views/connect/connect.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class SageHome extends StatelessWidget {
         index: navigationModel.selectedIndex,
         children: const [
           SageFeed(),
-          SageMatches(),
+          SageConnections(),
         ],
       ),
       bottomNavigationBar: Theme(
@@ -31,7 +31,7 @@ class SageHome extends StatelessWidget {
             showUnselectedLabels: false,
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.camera_front, size: 30),
+                icon: Icon(Icons.camera_rear, size: 30),
                 label: 'Reels',
               ),
               BottomNavigationBarItem(

@@ -1,4 +1,5 @@
 import 'package:app/grpc/client.dart';
+import 'package:app/models/camera.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
@@ -15,6 +16,7 @@ class SageReelSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cameraModel = Provider.of<CameraModel>(context);
     var playerModel = Provider.of<PlayerModel>(context);
     var userModel = Provider.of<UserModel>(context);
 
@@ -71,13 +73,13 @@ class SageReelSelection extends StatelessWidget {
                   body: await playerModel.recording.readAsBytes(),
                   headers: {'Content-Type': 'video/mp4'},
                 );
-
                 await playerModel.playerController.dispose();
                 playerModel.recording = XFile('');
                 overlayEntry.remove();
 
                 if (context.mounted) {
                   context.go('/home');
+                  await cameraModel.cameraController.dispose();
                 }
               },
               child: const Icon(Icons.check, color: Colors.green),

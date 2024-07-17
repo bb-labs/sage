@@ -377,8 +377,12 @@ func main() {
 		{UserId: "11", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
 		{UserId: "18", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
 		{UserId: "25", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
-		{UserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219", OtherUserId: "18"},
-		{UserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219", OtherUserId: "11"},
+		{UserId: "1", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "14", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "6", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "13", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "50", OtherUserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219"},
+		{UserId: "000991.ac516b9246e945339ef7ee81f5250f30.0219", OtherUserId: "25"},
 	}
 
 	dbc.Model(&pb.Like{}).Where("1=1").Delete()
