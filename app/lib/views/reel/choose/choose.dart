@@ -1,6 +1,8 @@
 import 'package:app/models/player.dart';
+import 'package:app/models/user.dart';
 import 'package:app/views/reel/choose/buttons.dart';
 import 'package:app/views/reel/choose/player.dart';
+import 'package:app/views/reel/reel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,22 +12,23 @@ class SageChooseReel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userModel = Provider.of<UserModel>(context, listen: false);
     var playerModel = Provider.of<PlayerModel>(context);
 
     return FutureBuilder(
         future: playerModel.init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return Container();
           }
 
-          return const Center(
+          return Center(
             child: Stack(
               children: [
-                SageVideoPlayer(),
-                SageReelSelectionButtons(),
+                const SageVideoPlayer(),
+                const SageReelSelectionButtons(),
+                if (userModel.authStatus == AuthStatus.loggedIn)
+                  const SageGoBackButton(),
               ],
             ),
           );

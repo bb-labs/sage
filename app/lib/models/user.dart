@@ -5,13 +5,23 @@ import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum AuthStatus { registering, loggedIn, unauthenticated }
+
 class UserModel with ChangeNotifier {
   // Constants
   static String userKey = "user_id";
-  static int maxAge = 50;
+  static int maxAge = 65;
   static int minAge = 18;
-  static int maxProximity = 50;
+  static int maxProximity = 75;
   static int minProximity = 1;
+
+  // IsRegistering
+  AuthStatus _authStatus = AuthStatus.registering;
+  AuthStatus get authStatus => _authStatus;
+  set authStatus(AuthStatus authStatus) {
+    _authStatus = authStatus;
+    notifyListeners();
+  }
 
   // User
   User _user = User();
@@ -107,12 +117,13 @@ class UserModel with ChangeNotifier {
 
     if (userID != null) {
       try {
-        return SageClientSingleton()
+        await SageClientSingleton()
             .instance
             .getUser(GetUserRequest(id: userID))
             .then((response) => _user = response.user);
+        _authStatus = AuthStatus.loggedIn;
       } catch (_) {
-        return delete();
+        await delete();
       }
     }
   }

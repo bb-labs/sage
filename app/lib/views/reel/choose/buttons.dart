@@ -33,7 +33,7 @@ class SageReelSelectionButtons extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () {
-                playerModel.playerController.dispose();
+                playerModel.controller?.dispose();
                 playerModel.recording = XFile('');
                 context.go('/reel/record');
               },
@@ -83,9 +83,12 @@ class SageReelSelectionButtons extends StatelessWidget {
                     .saveTo('${directory.path}/${userModel.id}.mp4');
 
                 // Cleanup the camera and player
-                await playerModel.playerController.dispose();
+                await playerModel.controller?.dispose();
 
                 overlayEntry.remove();
+                if (userModel.authStatus == AuthStatus.registering) {
+                  userModel.authStatus = AuthStatus.loggedIn;
+                }
 
                 // Navigate to the home screen
                 if (context.mounted) {

@@ -19,7 +19,7 @@ class SageCameraPreview extends StatelessWidget {
       child: Transform(
         alignment: Alignment.center,
         transform: Matrix4.diagonal3Values(1 / xScale, 1, 1),
-        child: CameraPreview(cameraModel.controller),
+        child: CameraPreview(cameraModel.controller!),
       ),
     );
   }

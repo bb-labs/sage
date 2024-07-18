@@ -57,14 +57,20 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/reel/:mode',
-      builder: (context, state) {
-        switch (state.pathParameters['mode']) {
-          case 'record':
-            return const SageRecordReel();
-          case 'choose':
-            return const SageChooseReel();
-        }
-        return Container();
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: const Duration(milliseconds: 50),
+          child: state.pathParameters['mode'] == 'record'
+              ? const SageRecordReel()
+              : const SageChooseReel(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: CurveTween(curve: Curves.linear).animate(animation),
+              child: child,
+            );
+          },
+        );
       },
     ),
     GoRoute(

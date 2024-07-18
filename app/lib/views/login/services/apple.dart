@@ -45,6 +45,7 @@ class SageAppleSignup extends StatelessWidget {
 
         userModel.user = response.user;
         await userModel.store();
+        userModel.authStatus = AuthStatus.registering;
 
         if (context.mounted) {
           context.go('/intro');

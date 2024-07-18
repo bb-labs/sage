@@ -13,11 +13,8 @@ class CameraModel with ChangeNotifier {
   }
 
   CameraController? _frontCameraController;
-  CameraController get frontCameraController {
-    if (_frontCameraController == null) {
-      throw Exception('frontCameraController is not initialized');
-    }
-    return _frontCameraController!;
+  CameraController? get frontCameraController {
+    return _frontCameraController;
   }
 
   CameraController? _backCameraController;
@@ -28,7 +25,7 @@ class CameraModel with ChangeNotifier {
     return _backCameraController!;
   }
 
-  CameraController get controller {
+  CameraController? get controller {
     if (usingFrontCamera) {
       return frontCameraController;
     } else {

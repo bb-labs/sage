@@ -4,12 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerModel with ChangeNotifier {
-  VideoPlayerController? _playerController;
-  VideoPlayerController get playerController {
-    if (_playerController == null) {
-      throw Exception('VideoPlayerController is not initialized');
-    }
-    return _playerController!;
+  VideoPlayerController? _controller;
+  VideoPlayerController? get controller {
+    return _controller;
   }
 
   XFile _recording = XFile('');
@@ -19,14 +16,14 @@ class PlayerModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future init() async {
-    _playerController = VideoPlayerController.file(File(_recording.path));
-    await _playerController!.initialize();
-    await _playerController!.setLooping(true);
-    await _playerController!.play();
+  init() async {
+    _controller = VideoPlayerController.file(File(_recording.path));
+    await _controller!.initialize();
+    await _controller!.setLooping(true);
+    await _controller!.play();
   }
 
   aspectRatio() {
-    return playerController.value.aspectRatio;
+    return controller?.value.aspectRatio;
   }
 }

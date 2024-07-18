@@ -1,4 +1,3 @@
-import 'package:app/models/camera.dart';
 import 'package:app/models/player.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,7 @@ class SageVideoPlayer extends StatelessWidget {
       child: Transform(
         alignment: Alignment.center,
         transform: Matrix4.diagonal3Values(1 / xScale, 1, 1),
-        child: VideoPlayer(playerModel.playerController),
+        child: VideoPlayer(playerModel.controller!),
       ),
     );
   }
