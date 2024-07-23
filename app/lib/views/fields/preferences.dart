@@ -1,7 +1,6 @@
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:app/proto/sage.pbgrpc.dart';
-import 'package:app/views/fields/fields.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,22 +12,16 @@ class SageWhatAreYourPreferences extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userModel = Provider.of<UserModel>(context);
-
-    return SageField(
-      validated:
-          userModel.gender.isNotEmpty && userModel.preferredGenders.isNotEmpty,
-      child: const Column(
-        children: [
-          Spacer(),
-          SageGenderSelect(mode: SageGenderSelectMode.identify),
-          SizedBox(height: 40),
-          SageGenderSelect(mode: SageGenderSelectMode.interested),
-          SizedBox(height: 40),
-          SageWhichAgeDoYouPrefer(),
-          Spacer(),
-        ],
-      ),
+    return const Column(
+      children: [
+        Spacer(),
+        SageGenderSelect(mode: SageGenderSelectMode.identify),
+        SizedBox(height: 40),
+        SageGenderSelect(mode: SageGenderSelectMode.interested),
+        SizedBox(height: 40),
+        SageWhichAgeDoYouPrefer(),
+        Spacer(),
+      ],
     );
   }
 }
@@ -99,9 +92,9 @@ class SageGenderButton extends StatelessWidget {
         }
       },
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        backgroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
             final newUserGenders = mode == SageGenderSelectMode.identify
                 ? userModel.gender
                 : userModel.preferredGenders;

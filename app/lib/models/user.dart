@@ -68,9 +68,9 @@ class UserModel with ChangeNotifier {
 
   // Preferences
   LatLng? get preferredLocation =>
-      _user.location.latitude != 0.0 && _user.location.longitude != 0.0
-          ? LatLng(_user.location.latitude, _user.location.longitude)
-          : null;
+      _user.location.latitude == 0.0 && _user.location.longitude == 0.0
+          ? null
+          : LatLng(_user.location.latitude, _user.location.longitude);
   set preferredLocation(LatLng? location) {
     _user.location = location != null
         ? Location(latitude: location.latitude, longitude: location.longitude)
@@ -84,6 +84,10 @@ class UserModel with ChangeNotifier {
     if (!_user.hasPreferences()) _user.preferences = Preferences();
     _user.preferences.proximity = proximity;
     notifyListeners();
+  }
+
+  String get locationString {
+    return "I'm looking for dates within ${_user.preferences.proximity} miles.";
   }
 
   double get preferredAgeMin =>
@@ -109,6 +113,10 @@ class UserModel with ChangeNotifier {
         ? _user.preferences.gender.remove(gender)
         : _user.preferences.gender.add(gender);
     notifyListeners();
+  }
+
+  String get preferencesString {
+    return "I identify as a ${gender.first.toString().toLowerCase()} interested in ${preferredGenders.join(', ').toLowerCase()} aged ${preferredAgeMin.toInt()} to ${preferredAgeMax.toInt()}.";
   }
 
   // Methods

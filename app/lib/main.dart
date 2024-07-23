@@ -8,11 +8,17 @@ import 'package:app/models/player.dart';
 import 'package:app/models/reel.dart';
 import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
+import 'package:app/views/fields/birthday.dart';
+import 'package:app/views/fields/location.dart';
+import 'package:app/views/fields/name.dart';
+import 'package:app/views/fields/preferences.dart';
 import 'package:app/views/home/home.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
 import 'package:app/views/reel/choose/choose.dart';
 import 'package:app/views/reel/record/record.dart';
+import 'package:app/views/settings/field.dart';
+import 'package:app/views/settings/settings.dart';
 import 'package:app/views/registration/registration.dart';
 
 import 'package:flutter/material.dart';
@@ -56,6 +62,35 @@ final _router = GoRouter(
       builder: (context, state) => const SageRegistration(),
     ),
     GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SageSettings(),
+    ),
+    GoRoute(
+      path: '/settings/:field',
+      builder: (context, state) {
+        switch (state.pathParameters['field']) {
+          case 'name':
+            return const SageSettingField(
+              child: SageWhatIsYourName(),
+            );
+          case 'birthday':
+            return const SageSettingField(
+              child: SageWhatIsYourBirthday(),
+            );
+          case 'preferences':
+            return const SageSettingField(
+              child: SageWhatAreYourPreferences(),
+            );
+          case 'location':
+            return const SageSettingField(
+              overflow: true,
+              child: SageWhereDoYouWantToDate(),
+            );
+        }
+        return const SageSettings();
+      },
+    ),
+    GoRoute(
       path: '/reel/:mode',
       pageBuilder: (context, state) {
         return CustomTransitionPage(
@@ -64,12 +99,10 @@ final _router = GoRouter(
           child: state.pathParameters['mode'] == 'record'
               ? const SageRecordReel()
               : const SageChooseReel(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: CurveTween(curve: Curves.linear).animate(animation),
-              child: child,
-            );
-          },
+          transitionsBuilder: (context, animation, _, child) => FadeTransition(
+            opacity: CurveTween(curve: Curves.linear).animate(animation),
+            child: child,
+          ),
         );
       },
     ),

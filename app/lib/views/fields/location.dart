@@ -1,6 +1,5 @@
 import 'package:app/models/location.dart';
 import 'package:app/models/user.dart';
-import 'package:app/views/fields/fields.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -23,66 +22,55 @@ class SageWhereDoYouWantToDate extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return SageField(
-            validated: true,
-            child: OverflowBox(
-              minHeight: 1500,
-              maxHeight: 1500,
-              child: FlutterMap(
-                options: MapOptions(
-                  interactionOptions: const InteractionOptions(
-                    flags: InteractiveFlag.drag | InteractiveFlag.pinchZoom,
+          return FlutterMap(
+            options: MapOptions(
+              interactionOptions: const InteractionOptions(
+                flags: InteractiveFlag.drag | InteractiveFlag.pinchZoom,
+              ),
+              initialCenter:
+                  userModel.preferredLocation ?? locationModel.position,
+              onPositionChanged: (camera, hasGesture) {
+                userModel.preferredLocation = camera.center;
+              },
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: LocationModel.tileTemplate,
+                retinaMode: true,
+              ),
+              MarkerLayer(markers: [
+                Marker(
+                  width: 80.0,
+                  height: 80.0,
+                  point: userModel.preferredLocation ?? locationModel.position,
+                  child: Icon(
+                    Icons.location_on,
+                    color: ThemeData().colorScheme.primary,
                   ),
-                  initialCenter:
-                      userModel.preferredLocation ?? locationModel.position,
-                  onPositionChanged: (camera, hasGesture) {
-                    userModel.preferredLocation = camera.center;
+                ),
+              ]),
+              CircleLayer(circles: [
+                CircleMarker(
+                  point: userModel.preferredLocation ?? locationModel.position,
+                  radius: userModel.preferredProximity * 1600,
+                  useRadiusInMeter: true,
+                  color:
+                      ThemeData().colorScheme.outlineVariant.withOpacity(0.5),
+                ),
+              ]),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: NumberPicker(
+                  haptics: true,
+                  value: userModel.preferredProximity,
+                  minValue: UserModel.minProximity,
+                  maxValue: UserModel.maxProximity,
+                  onChanged: (value) {
+                    userModel.preferredProximity = value;
                   },
                 ),
-                children: [
-                  TileLayer(
-                    urlTemplate: LocationModel.tileTemplate,
-                    retinaMode: true,
-                  ),
-                  MarkerLayer(markers: [
-                    Marker(
-                      width: 80.0,
-                      height: 80.0,
-                      point:
-                          userModel.preferredLocation ?? locationModel.position,
-                      child: Icon(
-                        Icons.location_on,
-                        color: ThemeData().colorScheme.primary,
-                      ),
-                    ),
-                  ]),
-                  CircleLayer(circles: [
-                    CircleMarker(
-                      point:
-                          userModel.preferredLocation ?? locationModel.position,
-                      radius: userModel.preferredProximity * 1600,
-                      useRadiusInMeter: true,
-                      color: ThemeData()
-                          .colorScheme
-                          .outlineVariant
-                          .withOpacity(0.5),
-                    ),
-                  ]),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: NumberPicker(
-                      haptics: true,
-                      value: userModel.preferredProximity,
-                      minValue: UserModel.minProximity,
-                      maxValue: UserModel.maxProximity,
-                      onChanged: (value) {
-                        userModel.preferredProximity = value;
-                      },
-                    ),
-                  ),
-                ],
               ),
-            ),
+            ],
           );
         });
   }

@@ -27,7 +27,7 @@ class SageConnections extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.settings_outlined),
           onPressed: () {
-            context.go('/settings');
+            context.push('/settings');
           },
         ),
         actions: [

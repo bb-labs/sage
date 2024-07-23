@@ -25,7 +25,7 @@ class SageNavigationButtons extends StatelessWidget {
     final pageController = registrationModel.pageController;
 
     final isFirstPage = pageIndex == 0;
-    final isLastPage = pageIndex == SageRegistration.fields.length - 1;
+    final isLastPage = pageIndex == SageRegistration.fieldCount - 1;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 50),
