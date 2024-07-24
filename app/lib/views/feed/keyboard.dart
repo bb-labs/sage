@@ -1,4 +1,4 @@
-import 'package:app/models/reel.dart';
+import 'package:app/models/navigation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,13 +8,13 @@ class SageKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var reelModel = Provider.of<ReelModel>(context);
+    var navigationModel = Provider.of<NavigationModel>(context);
 
     final bottomInset = MediaQuery.of(context).viewInsets.bottom -
         kBottomNavigationBarHeight * 1.75;
 
     return Visibility(
-      visible: reelModel.keyboardVisible,
+      visible: navigationModel.reelKeyboardVisible,
       child: Column(
         children: [
           const Spacer(),
@@ -23,7 +23,7 @@ class SageKeyboard extends StatelessWidget {
             maxLines: null,
             textInputAction: TextInputAction.send,
             onEditingComplete: () {
-              reelModel.keyboardVisible = false;
+              navigationModel.reelKeyboardVisible = false;
             },
             decoration: InputDecoration(
               filled: true,

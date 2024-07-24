@@ -11,16 +11,17 @@ class SageHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var navigationModel = Provider.of<NavigationModel>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: IndexedStack(
-        index: navigationModel.selectedIndex,
+        index: navigationModel.homeScreen.index,
         children: const [
           SageFeed(),
           SageConnections(),
         ],
       ),
-      bottomNavigationBar: const SageBottomNavigationBar(),
+      bottomNavigationBar: const SageHomeNavigationBar(),
     );
   }
 }

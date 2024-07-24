@@ -1,29 +1,26 @@
 import 'package:app/grpc/client.dart';
-import 'package:app/models/register.dart';
+import 'package:app/models/navigation.dart';
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
 import 'package:app/views/registration/registration.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class SageNavigationButtons extends StatelessWidget {
+class SageRegistrationValidationButtons extends StatelessWidget {
   static const curve = Curves.easeInOut;
   static const duration = Duration(milliseconds: 250);
 
-  final bool validated;
-  const SageNavigationButtons({super.key, required this.validated});
+  final bool validIf;
+  const SageRegistrationValidationButtons({super.key, required this.validIf});
 
   @override
   Widget build(BuildContext context) {
     var userModel = Provider.of<UserModel>(context);
-    var registrationModel = Provider.of<RegistrationModel>(context);
+    var navigationModel = Provider.of<NavigationModel>(context);
 
-    final pageIndex = registrationModel.pageIndex;
-    final pageController = registrationModel.pageController;
-
+    final pageIndex = navigationModel.registrationScreen.index;
     final isFirstPage = pageIndex == 0;
     final isLastPage = pageIndex == SageRegistration.fieldCount - 1;
 
@@ -43,8 +40,8 @@ class SageNavigationButtons extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () {
-                HapticFeedback.heavyImpact();
-                pageController.previousPage(duration: duration, curve: curve);
+                navigationModel.registrationController
+                    .jumpToPage(pageIndex - 1);
               },
               child: const Icon(
                 Icons.arrow_back_ios_new_sharp,
@@ -59,7 +56,7 @@ class SageNavigationButtons extends StatelessWidget {
               padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
               backgroundColor: WidgetStateProperty.resolveWith<Color>(
                 (Set<WidgetState> states) {
-                  if (validated) {
+                  if (validIf) {
                     return ThemeData().colorScheme.onPrimary;
                   }
                   return ThemeData().colorScheme.outlineVariant;
@@ -67,8 +64,7 @@ class SageNavigationButtons extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              HapticFeedback.heavyImpact();
-              if (!validated) return;
+              if (!validIf) return;
               if (isLastPage) {
                 context.go('/reel/record');
                 await SageClientSingleton()
@@ -76,7 +72,7 @@ class SageNavigationButtons extends StatelessWidget {
                     .updateUser(UpdateUserRequest(user: userModel.user));
                 return;
               }
-              pageController.nextPage(duration: duration, curve: curve);
+              navigationModel.registrationController.jumpToPage(pageIndex + 1);
             },
             child: Icon(
               isLastPage ? Icons.check : Icons.arrow_forward_ios_sharp,

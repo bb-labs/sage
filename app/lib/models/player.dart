@@ -23,7 +23,9 @@ class PlayerModel with ChangeNotifier {
     await _controller!.play();
   }
 
-  aspectRatio() {
-    return controller?.value.aspectRatio;
+  @override
+  dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 }

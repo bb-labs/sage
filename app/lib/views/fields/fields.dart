@@ -1,20 +1,21 @@
-import 'package:app/views/settings/navigation.dart';
 import 'package:flutter/material.dart';
 
-class SageSettingField extends StatelessWidget {
-  final Widget child;
+class SageFieldEditor extends StatelessWidget {
   final bool overflow;
-  const SageSettingField({
+  final Widget child;
+  final Widget validator;
+  const SageFieldEditor({
     super.key,
     required this.child,
     this.overflow = false,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: const SageSettingsNavigationButtons(),
+      bottomNavigationBar: validator,
       body: overflow
           ? OverflowBox(minHeight: 1500, maxHeight: 1500, child: child)
           : child,

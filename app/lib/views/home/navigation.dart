@@ -2,8 +2,8 @@ import 'package:app/models/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SageBottomNavigationBar extends StatelessWidget {
-  const SageBottomNavigationBar({super.key});
+class SageHomeNavigationBar extends StatelessWidget {
+  const SageHomeNavigationBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,10 @@ class SageBottomNavigationBar extends StatelessWidget {
       child: SizedBox(
         height: kBottomNavigationBarHeight * 1.75,
         child: BottomNavigationBar(
+          onTap: (index) {
+            navigationModel.homeScreen = HomeScreen.values[index];
+          },
+          currentIndex: navigationModel.homeScreen.index,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: const [
@@ -28,8 +32,6 @@ class SageBottomNavigationBar extends StatelessWidget {
               label: 'Matches',
             ),
           ],
-          currentIndex: navigationModel.selectedIndex,
-          onTap: (index) => navigationModel.selectedIndex = index,
         ),
       ),
     );

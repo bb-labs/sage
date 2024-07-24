@@ -1,4 +1,4 @@
-import 'package:app/models/match.dart';
+import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
 import 'package:app/views/connections/likes.dart';
@@ -15,8 +15,8 @@ class SageConnections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userModel = Provider.of<UserModel>(context, listen: false);
-    var matchModel = Provider.of<MatchModel>(context, listen: false);
     var playerModel = Provider.of<PlayerModel>(context, listen: false);
+    var navigationModel = Provider.of<NavigationModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,15 +37,16 @@ class SageConnections extends StatelessWidget {
               var directory = await getApplicationDocumentsDirectory();
               playerModel.recording =
                   XFile('${directory.path}/${userModel.id}.mp4');
+              navigationModel.reelScreen = ReelScreen.choose;
               if (context.mounted) {
-                context.go('/reel/choose');
+                context.go('/reel');
               }
             },
           ),
         ],
       ),
       body: FutureBuilder(
-          future: matchModel.init(userModel.user),
+          future: Future.wait([userModel.getMatches(), userModel.getLikes()]),
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return const Center(

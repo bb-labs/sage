@@ -1,9 +1,7 @@
 import 'package:app/models/camera.dart';
 import 'package:app/models/player.dart';
-import 'package:app/models/user.dart';
 import 'package:app/views/reel/record/preview.dart';
 import 'package:app/views/reel/record/button.dart';
-import 'package:app/views/reel/reel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +12,6 @@ class SageRecordReel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userModel = Provider.of<UserModel>(context, listen: false);
     var cameraModel = Provider.of<CameraModel>(context);
     var playerModel = Provider.of<PlayerModel>(context, listen: false);
 
@@ -47,8 +44,6 @@ class SageRecordReel extends StatelessWidget {
                     }
                   },
                 ),
-                if (userModel.authStatus == AuthStatus.loggedIn)
-                  const SageGoBackButton(),
               ],
             ),
           );

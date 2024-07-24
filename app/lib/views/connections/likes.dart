@@ -1,24 +1,22 @@
-import 'package:app/models/match.dart';
+import 'package:app/models/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
 
 class SageLikes extends StatelessWidget {
   const SageLikes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var matchModel = Provider.of<MatchModel>(context);
+    var userModel = Provider.of<UserModel>(context);
 
     return SizedBox(
       height: 120,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: matchModel.likes.length,
+        itemCount: userModel.likes.length,
         itemBuilder: (BuildContext context, int index) {
-          var user = matchModel.likes[index];
-          var controller = matchModel.likeControllers[index];
+          var user = userModel.likes[index];
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -27,7 +25,7 @@ class SageLikes extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(400),
                 clipBehavior: Clip.hardEdge,
-                child: VideoPlayer(controller!),
+                child: Text("${user.name}"),
               ),
             ),
           );

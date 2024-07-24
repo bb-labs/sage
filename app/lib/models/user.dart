@@ -15,7 +15,7 @@ class UserModel with ChangeNotifier {
   static int maxProximity = 75;
   static int minProximity = 1;
 
-  // IsRegistering
+  // Auth
   AuthStatus _authStatus = AuthStatus.registering;
   AuthStatus get authStatus => _authStatus;
   set authStatus(AuthStatus authStatus) {
@@ -66,7 +66,7 @@ class UserModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // Preferences
+  // Preferred Location
   LatLng? get preferredLocation =>
       _user.location.latitude == 0.0 && _user.location.longitude == 0.0
           ? null
@@ -90,6 +90,7 @@ class UserModel with ChangeNotifier {
     return "I'm looking for dates within ${_user.preferences.proximity} miles.";
   }
 
+  // Prefererred Age
   double get preferredAgeMin =>
       _user.preferences.hasAgeMin() ? _user.preferences.ageMin.toDouble() : 25;
   set preferredAgeMin(double age) {
@@ -106,6 +107,7 @@ class UserModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // Preferred Genders
   List<Gender> get preferredGenders => _user.preferences.gender;
   togglePrefferedGender(Gender gender) {
     if (!_user.hasPreferences()) _user.preferences = Preferences(gender: []);
@@ -119,7 +121,23 @@ class UserModel with ChangeNotifier {
     return "I identify as a ${gender.first.toString().toLowerCase()} interested in ${preferredGenders.join(', ').toLowerCase()} aged ${preferredAgeMin.toInt()} to ${preferredAgeMax.toInt()}.";
   }
 
-  // Methods
+  // Likes
+  List<User> _likes = [];
+  get likes => _likes;
+  set likes(value) {
+    _likes = value;
+    notifyListeners();
+  }
+
+  // Matches
+  List<User> _matches = [];
+  get matches => _matches;
+  set matches(value) {
+    _matches = value;
+    notifyListeners();
+  }
+
+  // Init Methods
   init() async {
     final userID = await lookup();
 
@@ -149,5 +167,30 @@ class UserModel with ChangeNotifier {
   delete() async {
     return SharedPreferences.getInstance()
         .then((prefs) => prefs.remove(userKey));
+  }
+
+  // Intent Methods
+  Future getMatches() async {
+    var matchResponse = await SageClientSingleton()
+        .instance
+        .getMatches(GetMatchesRequest(userId: user.id));
+    _matches = matchResponse.matches;
+  }
+
+  Future getLikes() async {
+    var likeResponse = await SageClientSingleton()
+        .instance
+        .getLikes(GetLikesRequest(userId: _user.id));
+
+    _likes = likeResponse.likes;
+  }
+
+  Future likeUser(User otherUser) async {
+    await SageClientSingleton().instance.likeUser(LikeUserRequest(
+          like: Like(
+            userId: _user.id,
+            otherUserId: otherUser.id,
+          ),
+        ));
   }
 }

@@ -40,7 +40,7 @@ class FeedModel with ChangeNotifier {
     var feedResponse = await SageClientSingleton()
         .instance
         .getFeed(GetFeedRequest(user: user));
-    feed = feedResponse.feed;
+    _feed = feedResponse.feed;
     var controllers = await Future.wait(
         List.generate(maxNumControllers, (_) => null)
             .mapIndexed((i, _) async => createController(i)));

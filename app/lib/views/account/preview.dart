@@ -1,10 +1,11 @@
+import 'package:app/models/navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-class SageFieldDisplay extends StatelessWidget {
+class SageFieldPreview extends StatelessWidget {
   final String label;
   final String value;
-  const SageFieldDisplay({
+  const SageFieldPreview({
     super.key,
     required this.label,
     required this.value,
@@ -12,9 +13,12 @@ class SageFieldDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var navigationModel = Provider.of<NavigationModel>(context);
+
     return InkWell(
       onTap: () {
-        context.go('/settings/${label.toLowerCase()}');
+        navigationModel.settingsScreen = SettingsScreen.values
+            .firstWhere((element) => element.name == label);
       },
       child: Container(
         alignment: Alignment.centerLeft,

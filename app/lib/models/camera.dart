@@ -1,14 +1,16 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 
+enum CameraDirection { front, back }
+
 class CameraModel with ChangeNotifier {
   List<CameraDescription> _cameras = [];
   List<CameraDescription> get cameras => _cameras;
 
-  bool _usingFrontCamera = true;
-  bool get usingFrontCamera => _usingFrontCamera;
-  set usingFrontCamera(bool value) {
-    _usingFrontCamera = value;
+  CameraDirection _cameraDirection = CameraDirection.front;
+  CameraDirection get cameraDirection => _cameraDirection;
+  set cameraDirection(CameraDirection value) {
+    _cameraDirection = value;
     notifyListeners();
   }
 
@@ -26,47 +28,59 @@ class CameraModel with ChangeNotifier {
   }
 
   CameraController? get controller {
-    if (usingFrontCamera) {
-      return frontCameraController;
-    } else {
-      return backCameraController;
+    switch (_cameraDirection) {
+      case CameraDirection.front:
+        return _frontCameraController;
+      case CameraDirection.back:
+        return _backCameraController;
     }
   }
 
   init() async {
     _cameras = await availableCameras();
-    final frontCamera = _cameras.firstWhere(
-        (camera) => camera.lensDirection == CameraLensDirection.front);
-    final backCamera = _cameras.firstWhere(
-        (camera) => camera.lensDirection == CameraLensDirection.back);
-    _frontCameraController =
-        CameraController(frontCamera, ResolutionPreset.max);
-    _backCameraController = CameraController(backCamera, ResolutionPreset.max);
+    _frontCameraController = CameraController(
+      _cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.front,
+      ),
+      ResolutionPreset.max,
+    );
+    _backCameraController = CameraController(
+      _cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.back,
+      ),
+      ResolutionPreset.max,
+    );
 
     await prepareToRecord();
   }
 
   toggleCamera() {
-    usingFrontCamera = !usingFrontCamera;
-  }
-
-  aspectRatio() {
-    if (usingFrontCamera) {
-      return _frontCameraController?.value.aspectRatio;
-    } else {
-      return _backCameraController?.value.aspectRatio;
+    switch (_cameraDirection) {
+      case CameraDirection.front:
+        _cameraDirection = CameraDirection.back;
+        break;
+      case CameraDirection.back:
+        _cameraDirection = CameraDirection.front;
+        break;
     }
   }
 
   prepareToRecord() async {
-    if (usingFrontCamera) {
-      await _frontCameraController?.initialize().then((_) {
-        _frontCameraController?.prepareForVideoRecording();
-      });
-    } else {
-      await _backCameraController?.initialize().then((_) {
-        _backCameraController?.prepareForVideoRecording();
-      });
+    await controller?.initialize().then((_) {
+      controller?.prepareForVideoRecording();
+    });
+  }
+
+  @override
+  void dispose() {
+    if (_frontCameraController != null) {
+      _frontCameraController?.dispose();
+      _frontCameraController = null;
     }
+    if (_backCameraController != null) {
+      _backCameraController?.dispose();
+      _backCameraController = null;
+    }
+    super.dispose();
   }
 }

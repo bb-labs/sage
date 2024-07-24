@@ -1,44 +1,50 @@
 import 'package:app/models/camera.dart';
+import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
-
+import 'package:app/views/reel/choose/choose.dart';
+import 'package:app/views/reel/record/record.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class SageGoBackButton extends StatelessWidget {
-  const SageGoBackButton({super.key});
+class SageReelPicker extends StatelessWidget {
+  const SageReelPicker({super.key});
 
   @override
   Widget build(BuildContext context) {
     var cameraModel = Provider.of<CameraModel>(context, listen: false);
     var playerModel = Provider.of<PlayerModel>(context, listen: false);
+    var navigationModel = Provider.of<NavigationModel>(context, listen: false);
 
-    return Column(
-      children: [
-        const Spacer(),
-        Container(
-          decoration: const BoxDecoration(),
-          padding: const EdgeInsets.all(40),
-          child: IconButton(
-            icon: const Icon(
-              Icons.close,
-              size: 45,
-              weight: 100,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (playerModel.controller != null) {
-                playerModel.controller?.dispose();
-              }
-              if (cameraModel.controller != null) {
-                cameraModel.controller?.dispose();
-              }
-              context.go('/home');
-            },
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            cameraModel.dispose();
+            playerModel.dispose();
+            context.go('/home');
+          },
+          icon: const Icon(
+            Icons.close,
+            size: 45,
+            weight: 100,
+            color: Colors.white,
           ),
         ),
-        const Spacer(flex: 9),
-      ],
+      ),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: navigationModel.reelController,
+        onPageChanged: (index) {
+          navigationModel.reelScreen = ReelScreen.values[index];
+        },
+        children: const [
+          SageChooseReel(),
+          SageRecordReel(),
+        ],
+      ),
     );
   }
 }

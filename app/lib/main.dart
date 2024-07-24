@@ -1,24 +1,14 @@
 import 'package:app/models/camera.dart';
 import 'package:app/models/feed.dart';
-import 'package:app/models/like.dart';
 import 'package:app/models/location.dart';
-import 'package:app/models/match.dart';
 import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
-import 'package:app/models/reel.dart';
-import 'package:app/models/register.dart';
 import 'package:app/models/user.dart';
-import 'package:app/views/fields/birthday.dart';
-import 'package:app/views/fields/location.dart';
-import 'package:app/views/fields/name.dart';
-import 'package:app/views/fields/preferences.dart';
 import 'package:app/views/home/home.dart';
 import 'package:app/views/login/login.dart';
 import 'package:app/views/intro/intro.dart';
-import 'package:app/views/reel/choose/choose.dart';
-import 'package:app/views/reel/record/record.dart';
-import 'package:app/views/settings/field.dart';
-import 'package:app/views/settings/settings.dart';
+import 'package:app/views/account/account.dart';
+import 'package:app/views/reel/reel.dart';
 import 'package:app/views/registration/registration.dart';
 
 import 'package:flutter/material.dart';
@@ -33,14 +23,10 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => UserModel()),
         ChangeNotifierProvider(create: (context) => FeedModel()),
-        ChangeNotifierProvider(create: (context) => ReelModel()),
-        ChangeNotifierProvider(create: (context) => LikeModel()),
-        ChangeNotifierProvider(create: (context) => MatchModel()),
         ChangeNotifierProvider(create: (context) => CameraModel()),
         ChangeNotifierProvider(create: (context) => PlayerModel()),
         ChangeNotifierProvider(create: (context) => LocationModel()),
         ChangeNotifierProvider(create: (context) => NavigationModel()),
-        ChangeNotifierProvider(create: (context) => RegistrationModel()),
       ],
       child: const SageApp(),
     ),
@@ -63,48 +49,11 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/settings',
-      builder: (context, state) => const SageSettings(),
+      builder: (context, state) => const SageAccountSettings(),
     ),
     GoRoute(
-      path: '/settings/:field',
-      builder: (context, state) {
-        switch (state.pathParameters['field']) {
-          case 'name':
-            return const SageSettingField(
-              child: SageWhatIsYourName(),
-            );
-          case 'birthday':
-            return const SageSettingField(
-              child: SageWhatIsYourBirthday(),
-            );
-          case 'preferences':
-            return const SageSettingField(
-              child: SageWhatAreYourPreferences(),
-            );
-          case 'location':
-            return const SageSettingField(
-              overflow: true,
-              child: SageWhereDoYouWantToDate(),
-            );
-        }
-        return const SageSettings();
-      },
-    ),
-    GoRoute(
-      path: '/reel/:mode',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          transitionDuration: const Duration(milliseconds: 50),
-          child: state.pathParameters['mode'] == 'record'
-              ? const SageRecordReel()
-              : const SageChooseReel(),
-          transitionsBuilder: (context, animation, _, child) => FadeTransition(
-            opacity: CurveTween(curve: Curves.linear).animate(animation),
-            child: child,
-          ),
-        );
-      },
+      path: '/reel',
+      builder: (context, state) => const SageReelPicker(),
     ),
     GoRoute(
       path: '/home',

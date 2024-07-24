@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class SageSettingsNavigationButtons extends StatelessWidget {
-  const SageSettingsNavigationButtons({super.key});
+class SageAccountValidationButtons extends StatelessWidget {
+  final bool validIf;
+  const SageAccountValidationButtons({super.key, required this.validIf});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,20 @@ class SageSettingsNavigationButtons extends StatelessWidget {
         children: [
           const Spacer(),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(20),
+            style: ButtonStyle(
+              shape: WidgetStateProperty.all(const CircleBorder()),
+              padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+                  if (validIf) {
+                    return ThemeData().colorScheme.onPrimary;
+                  }
+                  return ThemeData().colorScheme.outlineVariant;
+                },
+              ),
             ),
             onPressed: () async {
+              if (!validIf) return;
               await SageClientSingleton()
                   .instance
                   .updateUser(UpdateUserRequest(user: userModel.user));

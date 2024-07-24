@@ -1,14 +1,13 @@
-import 'package:app/models/match.dart';
+import 'package:app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
 
 class SageMatches extends StatelessWidget {
   const SageMatches({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var matchModel = Provider.of<MatchModel>(context);
+    var userModel = Provider.of<UserModel>(context);
 
     final size = MediaQuery.of(context).size;
     final deviceRatio = size.width / size.height;
@@ -19,16 +18,16 @@ class SageMatches extends StatelessWidget {
           crossAxisCount: 2,
           childAspectRatio: deviceRatio,
         ),
-        itemCount: matchModel.matches.length,
+        itemCount: userModel.matches.length,
         itemBuilder: (BuildContext context, int index) {
-          var controller = matchModel.matchControllers[index];
+          var user = userModel.matches[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: AspectRatio(
               aspectRatio: deviceRatio,
               child: SizedBox(
                 height: 200,
-                child: VideoPlayer(controller!),
+                child: Text("${user.name}"),
               ),
             ),
           );
