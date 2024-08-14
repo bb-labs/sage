@@ -66,7 +66,7 @@ class SageRegistrationValidationButtons extends StatelessWidget {
             onPressed: () async {
               if (!validIf) return;
               if (isLastPage) {
-                context.go('/reel/record');
+                context.go('/reel');
                 await SageClientSingleton()
                     .instance
                     .updateUser(UpdateUserRequest(user: userModel.user));

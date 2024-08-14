@@ -14,7 +14,7 @@ class SageReelPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     var cameraModel = Provider.of<CameraModel>(context, listen: false);
     var playerModel = Provider.of<PlayerModel>(context, listen: false);
-    var navigationModel = Provider.of<NavigationModel>(context, listen: false);
+    var navigationModel = Provider.of<NavigationModel>(context);
 
     return Scaffold(
       appBar: AppBar(

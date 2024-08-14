@@ -40,7 +40,7 @@ class NavigationModel with ChangeNotifier {
   PageController get registrationController => _registrationController;
 
   // Reel
-  ReelScreen _reelScreen = ReelScreen.choose;
+  ReelScreen _reelScreen = ReelScreen.record;
   ReelScreen get reelScreen => _reelScreen;
   set reelScreen(ReelScreen screen) {
     _reelScreen = screen;
@@ -54,6 +54,7 @@ class NavigationModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final PageController _reelController = PageController();
+  final PageController _reelController =
+      PageController(initialPage: ReelScreen.record.index);
   PageController get reelController => _reelController;
 }

@@ -37,6 +37,7 @@ class CameraModel with ChangeNotifier {
   }
 
   init() async {
+    print('CameraModel init');
     _cameras = await availableCameras();
     _frontCameraController = CameraController(
       _cameras.firstWhere(

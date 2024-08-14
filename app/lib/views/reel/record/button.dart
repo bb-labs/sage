@@ -1,17 +1,12 @@
+import 'package:app/models/camera.dart';
+import 'package:app/models/navigation.dart';
+import 'package:app/models/player.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SageRecordButton extends StatefulWidget {
-  const SageRecordButton({
-    super.key,
-    required this.onStartRecording,
-    required this.onStopRecording,
-    this.size = 145,
-  });
-
-  final VoidCallback? onStartRecording;
-  final VoidCallback? onStopRecording;
-  final double size;
+  const SageRecordButton({super.key});
 
   @override
   State<SageRecordButton> createState() => _RecordButtonState();
@@ -19,37 +14,50 @@ class SageRecordButton extends StatefulWidget {
 
 class _RecordButtonState extends State<SageRecordButton>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
+  late final AnimationController _animationController;
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this);
+    _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var cameraModel = Provider.of<CameraModel>(context);
+    var playerModel = Provider.of<PlayerModel>(context, listen: false);
+    var navigationModel = Provider.of<NavigationModel>(context);
+
     return Column(
       children: [
         const Spacer(flex: 10),
         Center(
           child: Listener(
             onPointerDown: (_) {
-              widget.onStartRecording?.call();
-              _controller.repeat();
+              cameraModel.controller?.startVideoRecording();
+              _animationController.repeat();
             },
-            onPointerUp: (_) {
-              widget.onStopRecording?.call();
-              _controller.reverse();
+            onPointerUp: (_) async {
+              _animationController.reverse();
+
+              if (cameraModel.controller?.value.isRecordingVideo == true) {
+                playerModel.recording =
+                    (await cameraModel.controller?.stopVideoRecording())!;
+
+                cameraModel.controller?.dispose();
+
+                navigationModel.reelController
+                    .jumpToPage(ReelScreen.choose.index);
+              }
             },
             child: Lottie.asset(
               "assets/record.json",
-              controller: _controller,
-              width: widget.size,
-              height: widget.size,
+              controller: _animationController,
+              width: 145,
+              height: 145,
               fit: BoxFit.contain,
               onLoaded: (composition) {
-                _controller.duration = composition.duration;
+                _animationController.duration = composition.duration;
               },
             ),
           ),
@@ -61,7 +69,7 @@ class _RecordButtonState extends State<SageRecordButton>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }

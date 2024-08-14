@@ -1,4 +1,5 @@
 import 'package:app/grpc/client.dart';
+import 'package:app/models/navigation.dart';
 import 'package:app/models/player.dart';
 import 'package:app/models/user.dart';
 import 'package:app/proto/sage.pb.dart';
@@ -18,6 +19,7 @@ class SageReelSelectionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     var playerModel = Provider.of<PlayerModel>(context);
     var userModel = Provider.of<UserModel>(context);
+    var navigationModel = Provider.of<NavigationModel>(context);
 
     return Column(
       children: [
@@ -35,7 +37,8 @@ class SageReelSelectionButtons extends StatelessWidget {
               onPressed: () {
                 playerModel.controller?.dispose();
                 playerModel.recording = XFile('');
-                context.go('/reel/record');
+                navigationModel.reelController
+                    .jumpToPage(ReelScreen.record.index);
               },
               child: const Icon(Icons.loop_outlined, color: Colors.black),
             ),
