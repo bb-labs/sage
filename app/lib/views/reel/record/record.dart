@@ -19,20 +19,21 @@ class SageRecordReel extends StatelessWidget {
     }
 
     return FutureBuilder(
-        future: cameraModel.init(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Container();
-          }
+      future: cameraModel.init(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Container();
+        }
 
-          return const Center(
-            child: Stack(
-              children: [
-                SageCameraPreview(),
-                SageRecordButton(),
-              ],
-            ),
-          );
-        });
+        return const Center(
+          child: Stack(
+            children: [
+              SageCameraPreview(),
+              SageRecordButton(),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
