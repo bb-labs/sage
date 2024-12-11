@@ -16,7 +16,6 @@ class SageConnections extends StatelessWidget {
   Widget build(BuildContext context) {
     var userModel = Provider.of<UserModel>(context, listen: false);
     var playerModel = Provider.of<PlayerModel>(context, listen: false);
-    var navigationModel = Provider.of<NavigationModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +36,6 @@ class SageConnections extends StatelessWidget {
               var directory = await getApplicationDocumentsDirectory();
               playerModel.recording =
                   XFile('${directory.path}/${userModel.id}.mp4');
-              navigationModel.reelScreen = ReelScreen.choose;
               if (context.mounted) {
                 context.go('/reel');
               }

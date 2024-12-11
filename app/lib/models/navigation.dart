@@ -55,6 +55,6 @@ class NavigationModel with ChangeNotifier {
   }
 
   final PageController _reelController =
-      PageController(initialPage: ReelScreen.record.index);
+      PageController(initialPage: ReelScreen.choose.index);
   PageController get reelController => _reelController;
 }

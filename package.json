@@ -1,0 +1,16 @@
+{
+  "name": "sage",
+  "version": "1.0.0",
+  "description": "a sick dating app",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-acm": "^3.675.0",
+    "@aws-sdk/client-route-53": "^3.683.0",
+    "@the-sage-group/awyes": "file:../awyes",
+    "@the-sage-group/cookbook": "file:../cookbook",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
