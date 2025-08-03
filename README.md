@@ -1,31 +1,9 @@
 # sage
 
-Please read da code to start da work
+<object data="https://github.com/bb-labs/sage/blob/main/aws/architecture.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/bb-labs/sage/blob/main/aws/architecture.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://yoursite.com/the.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
-# development
 
-```
-$ make up
-
-$ grpcurl -plaintext -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' -d '{ "user": { "id": "abc" } }' localhost:3000 Sage.CreateUser
-{
-  "user": {
-    "id": "abc"
-  }
-}
-
-$ psql -h localhost -p 5432 -U username sagedb
-Password for user username: password
-psql (16.2 (Homebrew))
-Type "help" for help.
-
-sagedb=# select * from users;
- id  | name | email | rating | gender | birthday | video_url | location | preferences
------+------+-------+--------+--------+----------+-----------+----------+-------------
- abc |      |       |        |        |          |           |          |
-(1 row)
-```
-
-# docs
-
-`aws.pdf`
